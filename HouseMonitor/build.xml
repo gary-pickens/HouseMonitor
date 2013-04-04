@@ -6,11 +6,13 @@
     <property name="host" value="beaglebone" />
 	<property name="author" value="Gary Pickens" />
 
-	<property name="user" value="gary" />
-    <property name="password" value="Gud4Sa" />
-
+	<import file="${user.home}/imported.xml" />
+<!-- The following two entries need to be added to import.xml with the correct user and password
+	<property name="user" value="" />
+    <property name="password" value="" />
+-->
 	<property name="dir" value="${dir}" />
-	<property name="HMHOME" value="/home/gary/bin/HouseMonitor" />
+	<property name="HMHOME" value="bin/HouseMonitor" />
     <property name="XbeeConfig" value="bin/XbeeConfig" />
 	
     <target name="egg" description="Create egg" depends='UnitTest'>
