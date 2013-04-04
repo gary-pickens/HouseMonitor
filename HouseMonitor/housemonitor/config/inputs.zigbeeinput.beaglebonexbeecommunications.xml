@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name='BEAGLEBONE'>
+    <!-- Beagle Bone configuration options -->
+    <xbee_beaglebone_port>/dev/ttyO1</xbee_beaglebone_port>
+    <xbee_beaglebone_rx_mux>uart1_rxd</xbee_beaglebone_rx_mux>
+    <xbee_beaglebone_tx_mux>uart1_txd</xbee_beaglebone_tx_mux>
+    <xbee_beaglebone_mux_mode>1</xbee_beaglebone_mux_mode>
+    <xbee_beaglebone_timeout>3</xbee_beaglebone_timeout>
+    <xbee_beaglebone_receive_enable>32</xbee_beaglebone_receive_enable>
+    <xbee_beaglebone_transmit_enable>0</xbee_beaglebone_transmit_enable>
+    <xbee_beaglebone_baudrate>9600</xbee_beaglebone_baudrate>
+</system>

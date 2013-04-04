@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <system name="WINDOWS">
+     <!-- Windows configuration options -->
+     <xbee_windows_port>COM4</xbee_windows_port>
+     <xbee_windows_baud>9600</xbee_windows_baud>
+ </system>

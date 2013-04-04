@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbee>
+    <system name="WINDOWS">
+		<!-- Windows configuration options -->
+		<XBEE_WINDOWS_PORT>COM4</XBEE_WINDOWS_PORT>
+        <BAUDRATE>9600</BAUDRATE>
+    </system>
+    <system name='BEAGLEBONE'>
+		<!-- Beagle Bone configuration options -->
+		<XBEE_BEAGLE_BONE_PORT>/dev/ttyO1</XBEE_BEAGLE_BONE_PORT>
+		<RX_MUX>spi0_sclk</RX_MUX>
+		<TX_MUX>spi0_d0</TX_MUX>
+		<MUX_MODE>1</MUX_MODE>
+		<TIMEOUT>3</TIMEOUT>
+		<RECEIVE_ENABLE>32</RECEIVE_ENABLE>
+        <BAUDRATE>9600</BAUDRATE>
+	</system>
+</xbee>

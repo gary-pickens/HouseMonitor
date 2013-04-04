@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+    <!-- TODO: figure out how to put directory seperators in this -->
+    <directory>HouseMonitor/log</directory>
+    <filename>HouseMonitor.log</filename>
+    <!-- options are Hourly Daily Weekly Monthly Yearly  -->
+    <rotate>Daily</rotate>
+    <!-- valid units are K (killobytes) and M (Megabytes)  -->
+    <maxsize>5000000</maxsize>
+</log>

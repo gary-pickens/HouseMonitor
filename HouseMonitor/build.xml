@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Home Monitor Program" default="clean">
+    <property name="version" value="3.0.3" />
+    <property name="project" value="HouseMonitor" />
+    <property name="remote_directory" value="${project}.${version}" />
+    <property name="host" value="beaglebone" />
+	<property name="author" value="Gary Pickens" />
+
+	<property name="user" value="gary" />
+    <property name="password" value="Gud4Sa" />
+
+	<property name="dir" value="${dir}" />
+	<property name="HMHOME" value="/home/gary/bin/HouseMonitor" />
+    <property name="XbeeConfig" value="bin/XbeeConfig" />
+	
+    <target name="egg" description="Create egg" depends='UnitTest'>
+        <exec executable="python" failonerror="true">
+            <arg line="setup.py sdist" />
+        </exec> 
+    </target>
+    <target name="egg-test" description="Test egg in ">
+        <delete dir='pip_test_env/build'/>
+        <exec executable="virtualenv">
+            <arg line="--no-site-packages pip_test_env" />
+        </exec> 
+        <exec executable="virtualenv">
+            <arg line="--no-site-packages pip_test_env" />
+        </exec> 
+        <exec executable="pip_test_env\Scripts\activate.bat"/>
+        <exec executable="pip_test_env\Scripts\pip.exe">
+                <arg line=" install dist\HouseMonitor-${version}.zip" />
+        </exec>
+    </target>
+    <target name="UnitTest" description="Run all UnitTests">
+        <exec executable="nosetests" failonerror="true" >
+            <arg value="--ignore-files=scheduler_Test.py"/>
+            <arg value="--ignore-files=uptime.*"/>
+            <arg value="--with-coverage"/>
+        	<arg value="--cover-package='housemonitor'"/>
+        	<arg value="--cover-html"/>
+            <arg value="--cover-branches"/>
+        </exec>
+    </target>
+    <target name="clean" description="remove intermediate files">
+        <delete>
+            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+                <include name="**/*.pyc" />
+                <include name="**/*.pyo" />
+                <include name="**/*.log" />
+                <include name=".coverage"/>
+                <include name="cover/*.html"/>
+                <include name="**/*pychache*"/>
+                <include name=".coverage"/>
+                <include name="cover"/>
+            </fileset>
+        </delete>
+    </target>
+    <target name="cleanbeaglebone" description="remove the files in ${remote_directory">
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="rm -rf src/${remote_directory}" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="sudo rm -rf ${HMHOME};mkdir ${HMHOME}" />
+    </target>
+    <target name="archivebeaglebone"
+        description="create archive of files on the beaglebone computer">
+        <tstamp />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="tar czf backup/${project}.${version}-${DSTAMP}${TSTAMP}.tar.gz src/${remote_directory}" />
+    </target>
+    <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
+        <scp todir="${user}:${password}@${host}:src" failonerror="true">
+            <fileset dir="dist">
+            </fileset>
+        </scp>
+        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
+           command="cd src/;rm -rf ${project}-${version}" />
+         <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
+            command="cd src/;unzip ${project}-${version}.zip" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="sudo PYTHONPATH=${HMHOME} easy_install --install-dir ${HMHOME} -Z src/${project}-${version}.zip" />
+    </target>
+    <target name="release" description="copy the files to the beaglebone computer">
+        <scp todir="${user}:${password}@${host}:bin/HouseMonitor.release" failonerror="true">
+            <fileset file=".">
+                <include name="**/*.py" />
+                <include name="**/*.conf" />
+                <include name="**/*.xml" />
+                <exclude name="UnitTest" />
+            </fileset>
+        </scp>
+    </target>
+    <target name="doc" description="build documentation">
+        <exec executable="cmd.exe" dir="docs" failonerror="true">
+            <arg line="/c make.bat html" />
+        </exec>
+    </target>
+    <target name="create-doc" description="build documentation">
+        <exec executable="sphinx-apidoc"> 
+			<arg value="-H ${project}"/>
+        	<arg value="-A ${author}"/>
+        	<arg value="-V ${version}"/>
+        	<arg value="-o"/>
+            <arg value="docs"/> 
+            <arg value="."/> 
+        </exec>
+    </target>
+    <target name="test" description="Run House Monitor in Test Mode">
+        <exec executable="python">
+            <arg value="HouseMonitor.py"/>
+            <arg value="--test"/>
+        </exec>
+    </target>
+    <target name="HouseMonitor" description="Run House Monitor">
+        <exec executable="python">
+            <arg value="HouseMonitor.py"/>
+        </exec>
+    </target>
+    <target name="Build Sunroom XBee" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>         
+            <arg value="--sunroom"/>
+        </exec>
+    </target>
+    <target name="Build Coordinator XBee" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="7.0"/>
+            <arg value="--AT"/>            
+            <arg value="--coordinator"/>
+        </exec>
+    </target>
+    <target name="Build Garage Door XBee" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>            
+            <arg value="--garage"/>
+        </exec>
+    </target>
+    <target name="Build Status Panel XBee" description="build the status panel xbee">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>            
+            <arg value="--status"/>
+        </exec>
+    </target>
+    <target name="ToAT" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--zigbee"/>            
+            <arg value="--ToAT"/>
+        </exec>
+    </target>
+    <target name="ToAPI" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>            
+            <arg value="--ToAPI"/>
+        </exec>
+    </target>
+    <target name="Disable Encryption" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>            
+            <arg value="--DisableEncrption"/>
+        </exec>
+    </target>
+    <target name="Enable Encryption" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>            
+            <arg value="--EnableEncrption"/>
+        </exec>
+    </target>
+    <target name="clone digger" description="Look for clones">
+        <exec executable="/Python27/Scripts/clonedigger.exe">
+        	<arg value="--ignore-dir=test"/>
+            <arg value="housemonitor"/>
+        </exec>
+    </target>
+</project>

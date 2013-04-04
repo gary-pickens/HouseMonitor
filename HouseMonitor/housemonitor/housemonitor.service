@@ -1,0 +1,12 @@
+[Unit]
+Description=House Monitoring and Control System
+After=syslog.target
+
+[Service]
+WorkingDirectory=/home/gary/bin/HouseMonitor.final/HouseMonitor
+ExecStart=/usr/bin/python HouseMonitor.py
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+

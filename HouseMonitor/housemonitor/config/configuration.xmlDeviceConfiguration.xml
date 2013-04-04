@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbeeInputs>
+    <xbee source_address="0x13a200409029bf">
+        <name>Garage Door XBee Monitor</name>
+        <network_address>0xf9f2</network_address>
+        <port portname="dio-0">
+            <description>Monitors whether the garage door is open or closed.</description>
+            <name>Garage Door Monitor</name>
+            <network_address>0xf9f2</network_address>
+            <units>boolean</units>
+            <steps type="list">
+            	<step>step.GarageDoorMonitor</step>
+                <step>step.onBooleanChange</step>
+                <step>step.CurrentValue</step>
+                <step>step.garage_door_state</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>1</cosm_channel>
+        </port>
+        <port portname="adc-1">
+            <name>Garage Temperature</name>
+            <description>The temperature above the garage door</description>
+            <units>F</units>
+            <steps type="list">
+                <step>step.ZigbeeAnalogNumberToVolts</step>
+                <step>step.TMP_36_Volts_to_Centigrade</step>
+                <step>step.Centigrade_to_Fahrenheit</step>
+                <step>step.Average</step>
+                <step>step.FormatValue</step>
+                <step>step.CurrentValue</step>
+                <step>step.oneInN</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>2</cosm_channel>
+        </port>
+    </xbee>
+    <xbee source_address="0x13a200408cccc3">
+        <name>Sunroom</name>
+        <network_address>0xf9f2</network_address>
+        <port portname="adc-0">
+            <name>Indoor Temperature</name>
+            <description>The temperature in the sunroom</description>
+            <units>F</units>
+            <steps type="list">
+                <step>step.ZigbeeAnalogNumberToVolts</step>
+                <step>step.TMP_36_Volts_to_Centigrade</step>
+                <step>step.Centigrade_to_Fahrenheit</step>
+                <step>step.Average</step>
+                <step>step.FormatValue</step>
+                <step>step.CurrentValue</step>
+                <step>step.oneInN</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>2</cosm_channel>
+        </port>
+        <port portname="adc-1">
+            <name>Outdoor Temperature</name>
+            <description>The temperature at 100 West Lisa Drive Austin TX</description>
+            <units>F</units>
+            <steps type="list">
+                <step>step.ZigbeeAnalogNumberToVolts</step>
+                <step>step.TMP_36_Volts_to_Centigrade</step>
+                <step>step.Centigrade_to_Fahrenheit</step>
+                <step>step.Average</step>
+                <step>step.FormatValue</step>
+                <step>step.CurrentValue</step>
+                <step>step.oneInN</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>3</cosm_channel>
+        </port>
+    </xbee>
+    <xbee source_address="0x13a20040902a02">
+        <name>Status Panel</name>
+        <network_address>0xe4e8</network_address>
+        <port portname="dio-0">
+            <name>House Monitor Status</name>
+            <description>House Monitor Status</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-1">
+            <name>Garage Door</name>
+            <description>Garage Door</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-2">
+            <name>Spare</name>
+            <description>Spare</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-3">
+            <name>Alarm</name>
+            <description>Garage Door Alarm</description>
+            <units></units>
+            <steps type="list">
+                <step>step.DisableAlarmButton</step>
+            </steps>
+        </port>
+        <port portname="dio-4">
+            <name>Spare</name>
+            <description></description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-5">
+            <name>Disable Garage Door Alarm</name>
+            <description>Disable garage door alarm</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-6">
+            <name>Spare</name>
+            <description>Spare</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-7">
+            <name>Spare</name>
+            <description>Spare</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+    </xbee>
+</xbeeInputs>
+

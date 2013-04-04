@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbeeInputs>
+    <xbee>
+        <name>Sun Room XBee Monitor</name>
+        <source_address>234561</source_address>
+        <network_address>2341</network_address>
+        <dio-0>
+            <device_name>dio-0</device_name>
+            <name>Garage Door</name>
+            <description>Monitors whether the garage door is
+            open or closed.
+            </description>
+            <type>digital</type>
+            <steps type="list">
+                <step>conversions.garage_door_state</step>
+            </steps>
+        </dio-0>
+        <adc-1>
+            <device_name>adc-1</device_name>
+            <name>Garage Temperature</name>
+            <description>The temperature above the garage
+            door</description>
+            <units>F</units>
+            <type>analog</type>
+            <steps type="list">
+                <step>
+                conversions.ZigbeeAnalogNumberToMillivolts
+                </step>
+                <step>conversions.TMP_36_Volts_to_Centigrade</step>
+                <step>conversions.Centigrade_to_Fahrenheit</step>
+            </steps>
+        </adc-1>
+    </xbee>
+</xbeeInputs>
+

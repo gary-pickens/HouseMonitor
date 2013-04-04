@@ -1,0 +1,143 @@
+'''
+Created on Oct 20, 2012
+
+@author: Gary
+'''
+from SimpleXMLRPCServer import SimpleXMLRPCServer
+import xmlrpclib
+import time
+import pprint
+import os
+from optparse import OptionParser
+from datetime import datetime
+import curses
+
+
+def curses_output(proxy):
+    stdscr = curses.initscr()
+    curses.noecho()
+    curses.cbreak()
+    stdscr.keypad(1)
+    curses.halfdelay(40)
+    value = {}
+    try:
+        while True:
+            value = proxy.get_current_values()
+            stdscr.addstr(0, 60, 'uptime')
+            stdscr.addstr(0, 70, value['HouseMonitor']['uptime']['current_value'])
+
+            line = 2
+            for device in sorted(value):
+                if not device.startswith('HouseMonitor'):
+                    fake_device = device
+                    for port in sorted(value[device]):
+                        if port == 'uptime':
+                            break
+                        fake_port = port
+                        for report in value[device][port]:
+                            if 'current_value' in value[device][port]:
+                                cv = value[device][port]['current_value']
+                            else:
+                                dt = '-'
+                            if 'at' in value[device][port]:
+                                at = value[device][port]['at']
+                            else:
+                                at = '-'
+                        stdscr.addstr(line, 0, fake_device)
+                        stdscr.addstr(line, 50, fake_port)
+                        stdscr.addstr(line, 60, str(cv).ljust(9))
+                        stdscr.addstr(line, 70, str(at))
+                        line = line + 1
+                        fake_port = ''
+                        fake_device = ''
+                    line = line + 1
+            stdscr.refresh()
+            try:
+                c = stdscr.getch()
+                stdscr.refresh()
+                if (c == ord('q')):
+                    curses.endwin()
+                    quit()
+            except curses.error:
+                pass
+    except Exception as ex:
+        curses.endwin()
+        quit()
+
+
+
+def raw_output(proxy):
+    while True:
+        try:
+            value = proxy.get_current_values()
+    #                pprint.pprint(value)
+            os.system(['clear', 'cls'][os.name == 'nt'])
+            for device in value:
+                fake_device = device
+                for port in value[device]:
+                    fake_port = port
+                    for report in value[device][port]:
+                        if 'current_value' in value[device][port]:
+                            cv = value[device][port]['current_value']
+                        else:
+                            dt = '-'
+                        if 'at' in value[device][port]:
+                            at = value[device][port]['at']
+                        else:
+                            at = '-'
+                    print('{:<50}{:<20}{:>15}   {:<30}'.format(fake_device, fake_port, cv, at))
+                    fake_port = ''
+                    fake_device = ''
+            time.sleep(options.delay_time)
+        except Exception as ex:
+            print(ex)
+            time.sleep(10)
+            return
+
+
+if __name__ == '__main__':
+
+    print("monitor current values")
+    print("by Gary Pickens")
+    print("Version 2.1")
+    print(datetime.now().isoformat())
+
+    display_mode = 'raw'
+
+    Options = OptionParser()
+    Options.add_option("-p", '--port',
+                       action="store",
+                       dest="port",
+                       default='9002')
+    Options.add_option("--host",
+                       action="store",
+                       dest="host",
+                       default='localhost',
+                       help="Enter the URL of the server")
+    Options.add_option('-t', '--time',
+                       action="store",
+                       dest="delay_time",
+                       default=2.0,
+                       type="float",
+                       help="Iime to pause between updates")
+    Options.add_option('-r', '--raw',
+                       action="store_false",
+                       dest="use_curses",
+                       default=False,
+                       help="Display raw data")
+    Options.add_option('-c', '--curses',
+                       action="store_true",
+                       dest="use_curses",
+                       default=True,
+                       help="Use Curses to display data")
+    (options, args) = Options.parse_args()
+
+    url = 'http://{}:{}'.format(options.host, options.port)
+    print(url)
+    while True:
+        proxy = xmlrpclib.ServerProxy(url)
+        if options.use_curses:
+            curses_output(proxy)
+        else:
+            raw_output(proxy)
+

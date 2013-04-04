@@ -1,0 +1,188 @@
+'''
+
+Created on Oct 30, 2012
+
+@author: Gary
+'''
+from optparse import OptionParser
+import serial
+import os
+
+# default values
+SERIAL_PORT_NAME = 'COM4'
+SERIAL_PORT_SPEED = 9600
+TIMEOUT = 10.0
+
+
+class configATXBee(object):
+    '''
+    Send the ND (Node Discovery) command to the XBee and
+    read the results.
+    '''
+    LINE_DESCRIPTIONS = ('MY',
+                         'SH',
+                         'SL',
+                         'NI',
+                         'Parent network address',
+                         'device type',
+                         'status',
+                         'profile',
+                         'manufacture id')
+    LINE_LENGTH = 40
+
+    def __init__(self, serial_port, port_speed, timeout):
+        '''
+        Open the serial port to communicate with the XBee.
+
+        :param serial_port: the name of the serial port (default: COM4)
+        :param port_speed: the speed of the port. (default: 9600)
+        :param timeout: the amount of time to wait to read data before giving up
+        '''
+        super(configATXBee, self).__init__()
+        self.serial = serial.Serial(serial_port, port_speed, timeout=timeout)
+
+    def close(self):
+        '''
+        close the serial port to communicate with the XBee.
+
+        '''
+        self.serial.close()
+
+    def readLine(self):
+        '''
+        Read line from the serial port
+
+        Read a line of data from a serial port.  If no text is received in timeout period raise an
+        IOError exception.
+
+        :returns: Text that contains the description for a node
+        :raises: IOError
+
+        '''
+        done = False
+        line = b''
+        while not done:
+            char = self.serial.read()
+            if (len(char) == 0):
+                done = True
+                raise IOError("Timeout reading xbee")
+            if (char == b'\r'):
+                done = True
+            else:
+                line += char
+        return repr(line)
+
+    def writeNDCommand(self):
+        '''
+        Write an ND(Node Detect) command to the serial port.
+
+        :returns: Text that contains the description for a node
+        :raises: IOError
+        '''
+        cmd = b'AT'
+        cmd += b'ND'
+        cmd += b'\r'
+        self.serial.write(bytearray(cmd))
+
+    def processLine(self, name):
+        '''
+        Read a line of text from the serial port and append it to name
+
+        :param name: the text that precedes the data that was returned.
+        :returns: the description and its comments
+        :raises: IOError
+        '''
+        line = self.readLine()
+        return '{} {}{}'.format(name, line, os.linesep)
+
+    def processLines(self):
+        '''
+        Read all the lines received for a node and return to the calling routine.
+
+        :returns: Text that contains the description for a node
+        :raises: IOError
+        '''
+        text = ''
+        for description in self.LINE_DESCRIPTIONS:
+            text += self.processLine(description)
+        self.readLine()  # read extra line at end of section
+        return text
+
+    def ProcessNDCommand(self):
+        '''
+        Send the ND(Node Detect) command and read the reports that are returned.
+
+        :returns: Text that contains the description for a node
+        :raises: none
+        '''
+        self.writeNDCommand()
+        done = False
+        cnt = 1
+        try:
+            while not done:
+
+                text = self.processLines()
+                print()
+                print('+' * self.LINE_LENGTH)
+                print('{} Node'.format(cnt))
+                print('-' * self.LINE_LENGTH)
+                print(text)
+                cnt += 1
+
+        except IOError:
+            pass
+
+    def main(self):
+        '''
+        The main routine for recieving ND data.
+
+        It will first send a '+++' to the xbee, then process the data that is returned.
+
+        :returns: Text that contains the description for a node
+        :raises: none
+        '''
+        self.serial.write(b'+++')
+        self.readLine()
+
+        self.ProcessNDCommand()
+        self.close()
+        print('done.')
+
+
+def main():
+
+    usage = "usage: %prog [options]"
+    parser = OptionParser(usage, version="%prog 2.1")
+
+    print("Display XBee Status")
+    print("by Gary Pickens (gary_pickens@yahoo.com")
+    print('Oct 30, 2012')
+    print()
+
+    parser.add_option("-p", '--port', action="store", dest="port", type='string', help='xbee serial port')
+    parser.add_option("-s", '--speed', action="store", dest="speed", type='int', help='baud rate for the xbee')
+    parser.add_option("-t", '--timeout', action="store", dest="timeout", type='float', help='read timeout')
+
+    (options, args) = parser.parse_args()
+
+    if options.port:
+        port = options.port
+    else:
+        port = SERIAL_PORT_NAME
+
+    if options.speed:
+        speed = options.speed
+    else:
+        speed = SERIAL_PORT_SPEED
+
+    if options.timeout:
+        timeout = options.timeout
+    else:
+        timeout = TIMEOUT
+
+    bee = configATXBee(serial_port=port, port_speed=speed, timeout=timeout)
+    bee.main()
+
+
+if __name__ == '__main__':
+    main()

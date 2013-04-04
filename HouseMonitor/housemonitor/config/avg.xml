@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<formats>
+    <item device="0x13a200409029bf" port="adc-1">30</item>
+    <item device="0x13a200408cccc3" port="adc-0">20</item>
+    <item device="0x13a200408cccc3" port="adc-1">20</item>
+</formats>

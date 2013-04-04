@@ -1,0 +1,243 @@
+#! /usr/bin/python
+'''
+Created on Oct 28, 2012
+
+@author: Gary
+'''
+from xbee import XBee, ZigBee
+import serial
+import random
+from struct import pack, unpack
+from optparse import OptionParser
+from encodings import utf_8
+
+decoder_string = {1: ">B", 2: ">H", 4: ">L", 8: ">Q"}
+
+status_commands = [
+    {'command':b'SH', 'print_response':'true', 'description':"Serial Number High", "type":"CRE"},
+    {'command':b'SL', 'print_response':'true', 'description':"Serial Number Low", "type":"CRE"},
+    {'command':b'ID', 'print_response':'true', 'description':"Extended PAN ID", "type":"CRE"},
+    {'command':b'MY', 'print_response':'true', 'description':"16-bit Network Address", "type":"CRE"},
+    {'command':b'DH', 'print_response':'true', 'description':"Destination High Address", "type":"CRE"},
+    {'command':b'DL', 'print_response':'true', 'description':"Destination Low Address", "type":"CRE"},
+    {'command':b'NC', 'print_response':'true', 'description':"Number of Remaining Children", "type":"CR"},
+    {'command':b'NI', 'print_response':'true', 'description':"Node Identifier", "type":"CRE"},
+    {'command':b'CH', 'print_response':'true', 'description':"Operating Channel", "type":"CRE"},
+#    {'command':b'DD', 'print_response':'true', 'description':"Device Type Identifier",     "type":"CRE"},
+    {'command':b'NO', 'print_response':'true', 'description':"Network Discovery Options", "type":"CRE"},
+    {'command':b'SC', 'print_response':'true', 'description':"Network Discovery Options", "type":"CRE"},
+
+    {'command':b'OI', 'print_response':'true', 'description':"Operating 16-bit PAN ID", "type":"CRE"},
+    {'command':b'NP', 'print_response':'true', 'description':"Maximum RF Payload Bytes", "type":"CRE"},
+    {'command':b'DB', 'print_response':'true', 'description':"Received Signal Strength", "type":"CRE"},
+    {'command':b'AI', 'print_response':'true', 'description':"Association Indication", "type":"CRE"},
+    {'command':b'CH', 'print_response':'true', 'description':"Operating Channel", "type":"CRE"},
+    {'command':b'BH', 'print_response':'true', 'description':"Broadcast Hops", "type":"CRE"},
+    {'command':b'SC', 'print_response':'true', 'description':"Scan Channels", "type":"CRE"},
+
+    {'command':b'EE', 'print_response':'true', 'description':"Encryption Enabled", "type":"CRE"},
+    {'command':b'EO', 'print_response':'true', 'description':"Encryption Options", "type":"CRE"},
+#    {'command':b'NK', 'print_response':'true', 'description':"Network Encryption Key",     "type":"CRE"},
+#    {'command':b'KY', 'print_response':'true', 'description':"Link Key",                   "type":"CRE"},
+
+
+    {'command':b'D0', 'print_response':'true', 'description':"AD0/DI00 Configuration", "type":"CRE"},
+    {'command':b'D1', 'print_response':'true', 'description':"AD1/DI01 Configuration", "type":"CRE"},
+    {'command':b'D2', 'print_response':'true', 'description':"AD2/DI02 Configuration", "type":"CRE"},
+    {'command':b'D3', 'print_response':'true', 'description':"AD3/DI03 Configuration", "type":"CRE"},
+    {'command':b'D4', 'print_response':'true', 'description':"AD4/DI04 Configuration", "type":"CRE"},
+    {'command':b'D5', 'print_response':'true', 'description':"AD5/DI05 Configuration", "type":"CRE"},
+    {'command':b'D6', 'print_response':'true', 'description':"AD6/DI06 Configuration", "type":"CRE"},
+    {'command':b'D7', 'print_response':'true', 'description':"AD7/DI07 Configuration", "type":"CRE"},
+    {'command':b'PR', 'print_response':'true', 'description':"Pull-up Resistor", "type":"CRE"},
+    {'command':b'IR', 'print_response':'true', 'description':"IO Sample Rate", "type":"CRE"},
+    {'command':b'%V', 'print_response':'true', 'description':"Voltage Supply Monitoring", "type":"CRE"},
+
+    {'command':b'BD', 'print_response':'true', 'description':"Baud Rate", "type":"CRE"},
+
+    {'command':b'VR', 'print_response':'true', 'description':"Firmware Version", "type":"CRE"},
+    {'command':b'HV', 'print_response':'true', 'description':"Hardware Version", "type":"CRE"},
+    {'command':b'AI', 'print_response':'true', 'description':"Association Indication", "type":"CRE"},
+
+    {'command':b'SM', 'print_response':'true', 'description':"Sleep Mode", "type":"CRE"},
+    {'command':b'SN', 'print_response':'true', 'description':"Number of sleep periods", "type":"CRE"},
+    {'command':b'SP', 'print_response':'true', 'description':"Sleep Period", "type":"CRE"},
+    {'command':b'ST', 'print_response':'true', 'description':"Time before sleep", "type":"E"},
+    {'command':b'SO', 'print_response':'true', 'description':"Sleep Options", "type":"E"},
+    {'command':b'WH', 'print_response':'true', 'description':"Wake Host", "type":"E"},
+    {'command':b'SI', 'print_response':'true', 'description':"Sleep Immediately", "type":"E"},
+    {'command':b'PO', 'print_response':'true', 'description':"Polling Rate", "type":"E"},
+
+#    {'command':b'ND', 'print_response':'true', 'description':"Node Discover", "type":"CRE"},
+
+]
+
+
+class displayBase(object):
+
+    xbee = None
+
+    SERIAL_PORT_NAME = 'COM4'
+    SERIAL_PORT_SPEED = 9600
+    xbee = None
+
+    def __init__(self):
+        self.serial = serial.Serial(self.SERIAL_PORT_NAME, self.SERIAL_PORT_SPEED, timeout=2.0)
+
+    def close(self):
+        self.serial.close()
+
+    def main(self):
+        for command in status_commands:
+            self.send_command(command)
+
+    def send_command(self, command):
+        if command['type'].find(xbee_type) > -1:
+            frame_id = bytes([random.randrange(0, 255)])
+            if ('parameter' in command):
+                self.xbee.send('at', frame_id=frame_id, command=command['command'], parameter=command['parameter'])
+            else:
+                self.xbee.send('at', frame_id=frame_id, command=command['command'])
+
+            try:
+                response = self.verify_status(frame_id)
+            except RuntimeError as er:
+    #            print(er)
+                pass
+            else:
+                status = unpack('>B', response['status'])[0]
+                cmd = response['command']
+                t = command['type']
+                packet_id = response['id']
+                frame_id = unpack('>B', response['frame_id'])[0]
+                if 'parameter' in response:
+                    l = len(response['parameter'])
+                    decoder = decoder_string[l]
+                    parameter = unpack(decoder, response['parameter'])[0]
+                    print('{0:>2} {1:<30} {2:<10}'.format(cmd, command['description'], parameter))
+
+    def verify_status(self, frame_id):
+        response = self.xbee.wait_read_frame()
+        if (not((response['id'] == 'at_response')
+                and (response['status'] == b'\x00')
+                and (response['frame_id'] == frame_id))):
+            raise RuntimeError("Invalid packet ", response)
+        return response
+
+
+class displayZigBee(displayBase):
+
+    def __init__(self):
+        super(displayZigBee, self).__init__()
+        self.xbee = ZigBee(self.serial)
+
+
+class displayXBee(displayBase):
+
+    def __init__(self):
+        super(displayXBee, self).__init__()
+        self.xbee = XBee(self.serial)
+
+
+class displayRaw(displayBase):
+
+    def __init__(self):
+        super(displayRaw, self).__init__()
+
+    def read_line(self):
+        done = False
+        line = b''
+        while not done:
+            char = self.serial.read()
+            if (char == b'\r'):
+                done = True
+            else:
+                line += char
+        return repr(line)
+
+    def process_command(self, command):
+        line = ''
+        if command['type'].find(xbee_type) > -1:
+            cmd = b'AT' + command['command'] + b'\r'
+            self.serial.write(bytearray(cmd))
+            if (command['command'] == b'ND'):
+                while True:
+                    ln = self.read_line()
+                    if len(ln) == 0:
+                        break
+                    line += ln
+            else:
+                line = self.read_line()
+        return line
+
+    def main(self):
+        self.serial.write(b'+++')
+        line = self.read_line()
+
+        for command in status_commands:
+            line = self.process_command(command)
+            if command['print_response']:
+                print("{0:<30}{1:<10}".format(command['description'], line))
+        self.close()
+
+
+Options = None
+
+if __name__ == '__main__':
+
+    print("Display XBee Status")
+    print("by Gary Pickens")
+    print('Oct 29, 2012')
+    print('')
+
+    Options = OptionParser()
+    Options.add_option("-r",
+                       action="store_true",
+                       dest="process_row_data",
+                       default=False)
+    Options.add_option("-x",
+                       action="store_true",
+                       dest="process_xbee_data",
+                       default=False,
+                       help="retrieve XBee configuration")
+    Options.add_option("-z",
+                       action="store_true",
+                       dest="process_zigbee_data",
+                       default=False,
+                       help="display ZibBee configuration data")
+
+    Options.add_option("-C",
+                       action="store_true",
+                       dest="controller",
+                       default=False,
+                       help="xbee is a controler")
+    Options.add_option("-R",
+                       action="store_true",
+                       dest="router",
+                       default=True,
+                       help="xbee is a router")
+    Options.add_option("-E",
+                       default=False,
+                       dest="end_point",
+                       help="xbee is an end point")
+    (options, args) = Options.parse_args()
+
+    if options.router:
+        xbee_type = 'R'
+    elif options.end_point:
+        xbee_type = 'E'
+    elif options.controller:
+        xbee_type = 'C'
+
+    if (options.process_row_data):
+        print("reading configuration using AT commands")
+        disp = displayRaw()
+        disp.main()
+    elif(options.process_xbee_data):
+        print("reading configuration using XBee API commands")
+        disp = displayXBee()
+        disp.main()
+    elif(options.process_zigbee_data):
+        print("reading configuration using ZigBee API commands")
+        disp = displayZigBee()
+        disp.main()

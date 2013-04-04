@@ -1,0 +1,471 @@
+#! /usr/bin/python
+'''
+Created on Jul 26, 2012
+
+@author: gary
+'''
+# Import and init an XBee device
+from optparse import OptionParser
+
+from xbee.zigbee import *
+import abc
+import datetime
+import json
+import logging
+import os
+import serial
+import time
+import httplib2
+
+logging.basicConfig(level=logging.WARNING, format="%(asctime)s: %(message)s")
+#logging.basicConfig(level=logging.DEBUG, format="%(asctime)s: %(message)s")
+
+Options = None
+#====================================================
+# Configuration for the beagle bone computer
+#====================================================
+XBEE_BEAGLE_BONE_PORT = '/dev/ttyO1'
+RX_MUX = 'spi0_sclk'
+TX_MUX = 'spi0_d0'
+MUX_MODE = 1
+BAUDRATE = 9600
+TIMEOUT = 3
+RECEIVE_ENABLE = 32
+#====================================================
+#  Configuration for the windows computer
+#====================================================
+XBEE_WINDOWS_PORT = 'COM4'
+#====================================================
+#  Configuration for COSM
+#====================================================
+APIKEY = "WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g"
+ID = 64451
+OWNER = "gary_pickens"
+URL = "https://api.cosm.com/v2/feeds/{}.json".format(ID)
+LATITUDE = 30.3351807498968
+LONGITUDE = -97.7104604244232
+TITLE = "Garage"
+CREATOR = "https://cosm.com/users/{}".format(OWNER)
+EMAIL = "gary_pickens@yahoo.com"
+
+
+class XBeeError(Exception):
+
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
+
+
+class XBee():
+    """
+    The base class for serial communications with the XBee radio
+    """
+    __metaclass__ = abc.ABCMeta
+
+    serial = None
+    connected = False
+    zigbee = None
+
+    def __init__(self):
+        self.connect()
+
+    @abc.abstractmethod
+    def setup(self):
+        """
+        setup - a virtual function
+        """
+        pass
+
+    def read(self):
+        """
+        read - function read a frame of data from the XBee
+        """
+        logging.debug("Waiting for packet")
+        packet = self.zigbee.wait_read_frame()
+        logging.debug("Packet received {}".format(packet))
+        return packet
+
+    def connect(self):
+        """
+        The main method for connecting with XBee radio
+        """
+        while not self.connected:
+            try:
+                logging.debug("Attempting connection to XBee")
+                self.serial = self.setup()
+                self.connected = True
+            except XBeeError as ex:
+                logging.exception(ex)
+                time.sleep(7)
+        self.zigbee = ZigBee(self.serial)
+        logging.debug("Successfully connected to XBee")
+
+    def close(self):
+        """
+        close - Close the connection to serial line
+        """
+        self.serial.close()
+
+
+class BeagleBoneXBee(XBee):
+    """
+    Connect to the XBee on the beagle bone
+    """
+    def __init__(self):
+        XBee.__init__(self)
+
+    def setup(self):
+        """
+        setup - sets up the serial line on the beaglebone board
+        """
+        port = None
+        path = '/sys/kernel/debug/omap_mux/'
+        filename = None
+
+        uart1_pin_mux = \
+        [
+             ('uart1_rxd', (0 | (1 << 5))),
+             ('uart1_txd', (0))
+        ]
+
+        try:
+            for (fname, mode) in uart1_pin_mux:
+                filename = os.path.join(path, fname)
+                with open(filename, 'wb') as f:
+                    f.write("%X" % mode)
+        # TODO Find exceptions
+        except Exception:
+            error = "Error while setting up {}".format(file)
+            raise XBeeError(error)
+
+        try:
+            port = serial.Serial(XBEE_BEAGLE_BONE_PORT, BAUDRATE,
+                                 timeout=TIMEOUT)
+        except Exception:
+            error = "Serial exception was thrown"
+            raise XBeeError(error)
+        return port
+
+
+class WindowsXBee(XBee):
+    """
+    Connect to the XBee connected to the windows PC
+    """
+    def __init__(self):
+        XBee.__init__(self)
+
+    def setup(self):
+        port = None
+        try:
+            port = serial.Serial(XBEE_WINDOWS_PORT, BAUDRATE)
+        except Exception as ex:
+            print ex
+        return port
+
+
+def getCurrentIsoTime():
+    current_time = datetime.datetime.now().isoformat()
+    return "{}Z".format(current_time)
+
+
+class COSM():
+    """
+    This class will send the garage door data to the COSM web site.
+    """
+
+    def __init__(self):
+        self.datastreams = []
+
+    def createItem(self, tags, current_value,
+                   max_value, min_value, event_time):
+        """
+        Create a data item, fill it with data, and append it to the list
+        datastream.
+
+        Args:
+            tags(list): a lists of tags
+            current_value: the current value for the item
+            max_value: the max value that the item
+            min_value; the min value that the item
+            event_time(str): time of event.  Default value is the current time.
+                    str must contain the isoformat.
+        """
+        item = {
+            "at": event_time,
+            "tags": tags[0],
+            "current_value": current_value,
+            "id": str(len(self.datastreams)),
+            "max_value": max_value,
+            "min_value": min_value
+        }
+        self.datastreams.append(item)
+
+    def createJSONReport(self, door, temp, current_time):
+        """
+        Create a JSON report for the garage door
+
+        Args:
+            door: the state of the door 1 = open, 0 = close
+            temp: the temperature in the garage
+            current_time: set to the current time
+        Returns:
+            a json object
+        Raises:
+            none
+        """
+        location = {
+            "exposure": "indoor",
+            "domain": "physical",
+            "disposition": "fixed",
+            "lat": LATITUDE,
+            "lon": LONGITUDE
+        }
+        obj = {
+            'title': "{}".format(TITLE),
+            'status': "frozen",
+            'creator': CREATOR,
+            "created": current_time,
+            "feed": URL,
+            "private": "false",
+            "email": EMAIL,
+            "id": ID,
+            "updated": current_time,
+            "auto_feed_url": URL,
+            "version": "1.0.0",
+            'datastreams': self.datastreams,
+            'location': location
+        }
+        return(json.dumps(obj))
+
+    def reportData(self, jSONObject):
+        """
+        reportData - Sends the json object to the COSM web site
+        Args:
+            jSONObject: the json object to send to COSM
+        Returns:
+            None
+        Raises:
+            None
+        """
+        headers = {'Content-Type': 'application/x-www-form-urlencoded',
+        'X-PachubeApiKey': 'WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g'}
+        try:
+            h = httplib2.Http()
+            httplib2.debuglevel = options.http2lib_debug_level
+            h.request(URL, "PUT", body=jSONObject, headers=headers)
+        except AttributeError as attr:
+            logging.error("exception from httplib2 {}".format(attr))
+
+
+class Process():
+    """
+    several conversion routines
+    """
+    def __init__(self):
+        pass
+
+    def tmp36VoltsToCentigrade(self, millivolts):
+        """
+        Convert from TMP36 volts to Centigrade
+        The formula can be found at:
+
+             http://learn.adafruit.com/tmp36-temperature-sensor
+
+        Args:
+            millivolts: the millivolts to convert to Centigrade
+        Returns:
+            temperature in centigrade
+        Raises:
+            None
+        """
+        centigrade = (millivolts * 1000 - 500) / 10
+        return centigrade
+
+    def zigbeeCountToMilliVoltage(self, count):
+        """
+        Convert from Zigbee count to Millivolts
+        The formula can be found at:
+
+             http://learn.adafruit.com/tmp36-temperature-sensor
+
+        Args:
+            count: the count to millivolts
+        Returns:
+            millivolts
+        Raises:
+            None
+        """
+        voltsPerCount = 1.2 / 1024
+        millivolt = count * voltsPerCount
+        return millivolt
+
+    def CentigradeToFahrenheit(self, centigrade):
+        """
+        Convert from Centigrade to Fahrenheit
+
+        Args:
+            centigrade: the temperature in centigrade
+        Returns:
+            the tempurature in Fahrenheit
+        Raises:
+            None
+        """
+        Fahrenheit = ((9.0 / 5.0) * centigrade) + 32
+        return Fahrenheit
+
+    movingAverageItems = []
+
+    def MovingAverage(self, value, max_item=10):
+        """
+        That the moving average of 5 of the last readings
+
+        Args:
+            value(float): the new value to add in
+            count(int): the number of items to average
+        Returns:
+            average(float) of the last count items
+        Raises:
+            None
+        """
+        self.movingAverageItems.append(value)
+        if (len(self.movingAverageItems) > max_item):
+            self.movingAverageItems.pop(0)
+        sum = 0
+        for v in self.movingAverageItems:
+            sum = sum + v
+        average = sum / len(self.movingAverageItems)
+        return average
+
+
+class Process:
+    """
+    Process the data received from XBee
+    """
+
+    options = None
+    door = 0
+    door_value = ''
+    average = 0.0
+    previous_time = datetime.datetime.now()
+
+    def __init__(self, options=None):
+        self.options = options
+
+    def process(self, response):
+        """
+        process - This rountine will process the data received from the XBee
+        """
+        logging.debug("options = {}".format(options))
+        if (('id' in response) and (response['id'] == 'rx_io_data_long_addr')):
+            cosm = COSM()
+            dt = datetime.datetime.now()
+            logging.debug("processing packet at {}".format(dt))
+            source_address = response['source_addr']
+            items = response['samples']
+            value = items[0]
+            if (value['dio-0']):
+                self.door = 0
+                self.door_value = "Closed"
+            else:
+                self.door = 1
+                self.door_value = "Opened"
+            cosm.createItem(["door"], self.door, 1, 0, getCurrentIsoTime())
+
+            if ('adc-1' in value):
+                count = value['adc-1']
+                conv = Process()
+                millivolts = conv.zigbeeCountToMilliVoltage(count)
+                centigrade = conv.tmp36VoltsToCentigrade(millivolts)
+                fahrenheit = conv.CentigradeToFahrenheit(centigrade)
+                self.average = conv.MovingAverage(fahrenheit)
+                cosm.createItem(["temperature"], "{:3.1f}".
+                                format(self.average),
+                                120, -10, getCurrentIsoTime())
+            JSONObject = cosm.createJSONReport(self.door, self.average,
+                                                getCurrentIsoTime())
+
+            if ((options) != None and
+                options.display_data):
+                elapsed_time = datetime.datetime.now() - self.previous_time
+                self.previous_time = datetime.datetime.now()
+                message = "{} [{:02.0f}]  {}({}) {:3.1f}F".format(
+                                dt.strftime("%H:%M:%S"),
+                                elapsed_time.seconds,
+                                self.door, self.door_value, self.average)
+                print(message)
+
+            JSONObject = cosm.createJSONReport(self.door, self.average,
+                                               getCurrentIsoTime())
+            if (options != None and
+                options.display_json):
+                print(JSONObject)
+
+            try:
+                cosm.reportData(JSONObject)
+                logging.debug("report sent to COSM")
+            except Exception as err:
+                logging.exception(
+                        "Error in reportData(): {}".format(err))
+
+if __name__ == '__main__':
+
+    print("Monitor Zigbee network")
+    print("by Gary Pickens")
+
+    Options = OptionParser()
+    Options.add_option("-d",
+                       action="store_false",
+                       dest="display_data",
+                       default=True)
+    Options.add_option("-r",
+                       action="store_true",
+                       dest="display_response",
+                       default=False,
+                       help="display the data that is received")
+    Options.add_option("-j",
+                       action="store_true",
+                       dest="display_json",
+                       default=False,
+                       help="display the json that is produced")
+    Options.add_option("--http",
+                       action="store_const",
+                       default=False,
+                       const="0",
+                       dest="http2lib_debug_level",
+                       help="Set the debug level for http2lib")
+    (options, args) = Options.parse_args()
+    process = Process(options)
+
+    dt = datetime.datetime.now()
+    previous_door = 2
+    previous_temp = 80
+    previous_time = datetime.datetime.now()
+    firstTime = True
+
+    if os.name == 'posix':
+        zigbee = BeagleBoneXBee()
+    elif os.name == 'nt':
+        zigbee = WindowsXBee()
+    else:
+        raise Exception("Error connecting to XBee")
+
+    process = Process()
+
+    while True:
+        response = None
+        try:
+            response = zigbee.read()
+            if (options.display_response):
+                print("response = {}".format(response))
+            process.process(response)
+        except KeyboardInterrupt:
+            break
+        except KeyError:
+            logging.exception('Received error')
+        except XBeeError as xerror:
+            logging.exception(xerror)
+        else:
+            pass
+    zigbee.close()

@@ -1,0 +1,369 @@
+#! /usr/bin/python
+
+from xbee import ZigBee, XBee
+import serial
+import random
+from struct import pack, unpack
+from optparse import OptionParser
+from datetime import datetime
+
+
+SERIAL_PORT_NAME = 'COM4'
+SERIAL_PORT_SPEED = 9600
+TIMEOUT = 5.0
+
+sensor = False
+
+
+class ZigBeeException(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
+
+decoder_string = {1: ">B", 2: ">H", 4: ">L", 8: ">Q"}
+
+
+class base():
+    # configurable items
+    PAN_ID = b'475069636B656E73'
+    ENCRYPTION_KEY = b'5971001804841010'
+    ZERO_ENCRYPTION_KEY = b'0000000000000000'
+
+    # end of configuration items
+    # ADx/DI0x Configuration
+    ADxDI0x_Disabled = b'0'
+    ADxDI0x_Commissioning = b'1'
+    ADxDI0x_AnalogInput = b'2'
+    ADxDI0x_DigitalInput = b'3'
+    ADxDI0x_DigitalOutputLow = b'4'
+    ADxDI0x_DigitalOutputHigh = b'5'
+
+    NoPullups = b'00'
+    NoBitChange = b'00'
+
+    LongestSampleRate = b'FFFF'  # the max -- 65567 in milliseconds
+    DisableSampleRate = b'0000'
+
+    NoBitChange = b'00'
+    BitChange = {'DIO0': b'01', 'DIO1': b'02', 'DIO2': b'04', 'DIO3': b'08',
+                 'DIO4': b'10', 'DIO5': b'20', 'DIO6': b'40', 'DIO7': b'80'}
+
+    EnablePullUp = {'DIO4': b'01',
+                    'DIO3': b'02', 'AD3': b'02',
+                    'DIO2': b'04', 'AD2': b'04',
+                    'DIO1': b'08', 'AD1': b'08',
+                    'DIO0': b'10', 'AD0': b'10',
+                    'DIO6': b'20', 'RST': b'20',
+                    'DIO8': b'40', 'DTR': b'40', 'Sleep Request': b'40',
+                    'DIN': b'80', 'Config': b'80',
+                    'DIO5': b'100', 'Associate': b'100',
+                    'DIO9': b'200', 'On': b'200', 'Sleep': b'200',
+                    'DIO12': b'400',
+                    'DIO10': b'800', 'PWM0': b'800', 'RSSI': b'800',
+                    'DIO11': b'1000', 'PWM1': b'1000',
+                    'DIO12': b'2000', 'CTS': b'2000'
+                    }
+
+    command = 'command'
+    parameter = 'parameter'
+
+
+class Coordinator(base):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'CORRIDINATOR'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.DisableSampleRate},  # IO Sample rate in milliseconds
+        {base.command:b'WR'},
+    ]
+
+
+class GarageDoor(object):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'GARAGE DOOR'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_DigitalInput},
+        {base.command:b'D1', base.parameter:base.ADxDI0x_AnalogInput},
+        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'PR', base.parameter:base.EnablePullUp['DIO0']},  # enable pull up resistor on D0
+        {base.command:b'IC', base.parameter:base.BitChange['DIO0']},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},  # IO Sample rate in milliseconds
+        {base.command:b'WR'},
+    ]
+
+
+class ToAPI(object):
+
+    commands = [
+        {base.command:b'AP', base.parameter:b'1'},
+        {base.command:b'WR'},
+    ]
+
+
+class ToAT(object):
+    commands = [
+        {base.command:b'AP', base.parameter:b'0'},
+        {base.command:b'WR'},
+    ]
+
+
+class EnableEncrption(object):
+    commands = [
+        {base.command:b'EE', base.parameter:'1'},  # Encryption Enable
+        {base.command:b'KY', base.parameter:base.ENCRYPTION_KEY},  # Key
+        {base.command:b'WR'},
+    ]
+
+
+class DisableEncrption(object):
+    commands = [
+        {base.command:b'EE', base.parameter:b'0'},  # Encryption Enable
+        {base.command:b'KY', base.parameter:base.ZERO_ENCRYPTION_KEY},  # Key
+        {base.command:b'WR'},
+    ]
+
+
+class sunroom(object):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'SUNROOM'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},  # the temp of the sunroom
+        {base.command:b'D1', base.parameter:base.ADxDI0x_AnalogInput},  # outdoor temp
+        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},  # IO Sample rate in milliseconds
+        {base.command:b'JV', base.parameter:b'1'},  # ensure that the router rejoins the coordinator on startup0
+        {base.command:b'WR'},  # write
+    ]
+
+
+class statusPanel(object):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'STATUS'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_DigitalOutputHigh},
+        {base.command:b'D1', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D2', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},  # IO Sample rate in milliseconds
+        {base.command:b'JV', base.parameter:b'1'},  # ensure that the router rejoins the coordinator on startup0
+        {base.command:b'WR'},  # write
+    ]
+
+
+class configBase(object):
+
+    xbee = None
+
+    def __init__(self, port, speed, timeout):
+        super(configBase, self).__init__()
+        self.serial = serial.Serial(port, speed, timeout=timeout)
+
+    def close(self):
+        self.serial.close()
+
+    def main(self, commands):
+        for command in commands:
+            self.send_command(command)
+
+    def send_command(self, command):
+        frame_id = bytes(random.randrange(0, 9))
+        if (base.parameter in command):
+            self.xbee.send('at', frame_id=frame_id, command=command[base.command], parameter=command[base.parameter])
+        else:
+            self.xbee.send('at', frame_id=frame_id, command=command[base.command])
+
+        try:
+            response = self.verify_status(frame_id)
+        except RuntimeError:
+            if (base.parameter in command):
+                print('FAILED: {} with {}'.format(command[base.command], command[base.parameter]))
+            else:
+                print('FAILED: {}'.format(command[base.command]))
+        else:
+            if base.parameter in command:
+                print('success: {} {}'.format(command[base.command], command[base.parameter]))
+            status = unpack('>B', response['status'])[0]
+            cmd = response[base.command]
+            packet_id = response['id']
+            frame_id = unpack('>B', response['frame_id'])[0]
+            if base.parameter in response:
+                l = len(response[base.parameter])
+                decoder = decoder_string[l]
+                parameter = unpack(decoder, response['parameter'])[0]
+                print('{0:>2}  {1:<10}'.format(cmd, parameter))
+
+    def verify_status(self, frame_id):
+        response = self.xbee.wait_read_frame()
+        if (not((response['id'] == 'at_response')
+                and (response['status'] == b'\x00')
+                and (response['frame_id'] == frame_id))):
+            print('Error: response {}  frame_id {}'.format(response, frame_id))
+            raise RuntimeError("Invalid packet ", response)
+        return response
+
+
+class configZigBee(configBase):
+
+    def __init__(self, port, speed, timeout):
+        super(configZigBee, self).__init__(port, speed, timeout)
+        self.xbee = ZigBee(self.serial)
+
+
+class configXBee(configBase):
+
+    def __init__(self, port, speed, timeout):
+        super(configXBee, self).__init__(port, speed, timeout)
+        self.xbee = XBee(self.serial)
+
+
+class configATXBee(configBase):
+
+    def __init__(self, port, speed, timeout):
+        super(configATXBee, self).__init__(port, speed, timeout=timeout)
+
+    def readLine(self):
+        done = False
+        line = b''
+        while not done:
+            char = self.serial.read()
+            if (char == b'\r'):
+                done = True
+            else:
+                line += char
+        return repr(line)
+
+    def process_command(self, command):
+        cmdLine = b'AT'
+        cmdLine += command[base.command]
+        if base.parameter in command:
+            cmdLine += command[base.parameter]
+        cmdLine += b'\r'
+        self.serial.write(bytearray(cmdLine))
+        line = self.readLine()
+        error = "'ERROR"
+        if (line.startswith(error)):
+            print('ERROR on {} with parameter {}'.format(command[base.command], command[base.parameter]))
+        print('{:<20} {:>6}'.format(cmdLine.split()[0], line.split()[0]))
+
+    def main(self, commands):
+        self.serial.write(b'+++')
+        self.readLine()
+
+        print('{:<20} {:>6}'.format('Command', 'Status'))
+        print('{} {}'.format('-' * 20, '-' * 6))
+        for command in commands:
+            self.process_command(command)
+        self.close()
+
+
+parser = OptionParser()
+
+if __name__ == '__main__':
+
+    print("Display XBee Status")
+    print("by Gary Pickens")
+    print('Oct 29, 2012')
+    print
+
+    parser.add_option("--coordinator", action="store_const", const="Coordinator", dest="node", help="Configure the attached XBee as the system coordinator")
+    parser.add_option("--garage", action="store_const", const="Garage door", dest="node", help="Configure the attached XBee as the garage door sensor")
+    parser.add_option("--weather", action="store_const", const="Weather", dest="node", help="Configure the attached XBee as the weather sensor")
+    parser.add_option("--sunroom", action="store_const", const="Sunroom", dest="node", help="Configure the attached XBee as the sunroom sensor")
+    parser.add_option("--status", action="store_const", const="Status", dest="node", help="Configure the attached XBee to display House status")
+
+    parser.add_option("--ToAPI", action="store_const", const="ToAPI", dest="node", help="Configure the attached XBee as the sunroom sensor")
+    parser.add_option("--ToAT", action="store_const", const="ToAT", dest="node", help="Configure the attached XBee as the sunroom sensor")
+    parser.add_option("--DisableEncrption", action="store_const", const="DisableEncrption", dest="node", help="Disable Encription")
+    parser.add_option("--EnableEncrption", action="store_const", const="EnableEncrption", dest="node", help="Enable Encription")
+
+    parser.add_option("-a", '--AT', action="store_const", dest="process", const='raw', help='send AT commands')
+    parser.add_option("-x", '--xbee', action="store_const", dest="process", const='xbee', help='send xbee API commands')
+    parser.add_option("-z", '--zigbee', action="store_const", dest="process", const='zigbee', help='send ZigBee API commands')
+
+    parser.add_option("-p", '--port', action="store", dest="port", type='string', help='xbee serial port')
+    parser.add_option("-s", '--speed', action="store", dest="speed", type='int', help='baud rate for the xbee')
+    parser.add_option("-t", '--timeout', action="store", dest="timeout", type='float', help='read timeout')
+
+    (options, args) = parser.parse_args()
+
+    if options.port:
+        port = options.port
+    else:
+        port = SERIAL_PORT_NAME
+
+    if options.speed:
+        speed = options.speed
+    else:
+        speed = SERIAL_PORT_SPEED
+
+    if options.timeout:
+        timeout = options.timeout
+    else:
+        timeout = TIMEOUT
+
+    (options, args) = parser.parse_args()
+
+    bee = None
+
+    if (options.node == 'Garage door'):
+        commands = GarageDoor.commands
+    elif (options.node == "Coordinator"):
+        commands = Coordinator.commands
+    elif (options.node == "Sunroom"):
+        commands = sunroom.commands
+    elif (options.node == "Status"):
+        commands = statusPanel.commands
+    elif (options.node == "ToAT"):
+        commands = ToAT.commands
+    elif (options.node == "ToAPI"):
+        commands = ToAPI.commands
+    elif (options.node == "DisableEncrption"):
+        commands = DisableEncrption.commands
+    elif (options.node == "EnableEncrption"):
+        commands = EnableEncrption.commands
+
+    print("Configurating {} at {}".format(options.node, datetime.now().strftime('%x %X')))
+    if options.process == "raw":
+        bee = configATXBee(port, speed, timeout)
+    elif options.process == 'xbee':
+        bee = configXBee(port, speed, timeout)
+    elif options.process == 'zigbee':
+        bee = configZigBee(port, speed, timeout)
+    else:
+        print("No method for processing set.")
+
+    if (bee != None):
+        bee.main(commands)

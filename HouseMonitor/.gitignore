@@ -1,0 +1,29 @@
+# gary 11/18/2012
+#
+# direcories to ignore
+.coverage/
+.project/
+.metadata/
+.settings/
+__pycache__/
+BeagleBone/
+nppBackup/
+Doc/
+rescue/
+
+# files to ignore
+*.py[cod]
+garage_door_monitor.log
+HouseMonitor*.log
+*.bak
+*.BAK
+*.html
+.pydevproject
+HouseMonitor.db
+/pip_test_env
+/dist
+/cover
+/docs/doctrees
+/.coverage
+/#nose.results#
+/nose.results
