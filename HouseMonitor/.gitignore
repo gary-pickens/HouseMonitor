@@ -5,24 +5,19 @@
 .project/
 .metadata/
 .settings/
-__pycache__/
-BeagleBone/
 nppBackup/
 docs/_build/doctrees
-rescue/
+pip_test_env/
+dist/
+cover/
+.coverage/
+#nose.results#/
+nose.results/
 
 # files to ignore
 *.py[cod]
-garage_door_monitor.log
 HouseMonitor*.log
 *.bak
 *.BAK
 .pydevproject
 HouseMonitor.db
-/pip_test_env
-/dist
-/cover
-/docs/doctrees
-/.coverage
-/#nose.results#
-/nose.results
