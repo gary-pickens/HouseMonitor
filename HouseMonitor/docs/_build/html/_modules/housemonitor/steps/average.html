@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.steps.average &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.steps.average</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2012-10-17</span>
+
+<span class="sd">@author: Gary</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">steps.abc_step</span> <span class="kn">import</span> <span class="n">abcStep</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span> <span class="nn">configuration.formatconfiguration</span> <span class="kn">import</span> <span class="n">FormatConfiguration</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pubsub.utils</span> <span class="kn">import</span> <span class="n">printTreeDocs</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+
+
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; This function will be called to instantiate this class. &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">Average</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="Average"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average">[docs]</a><span class="k">class</span> <span class="nc">Average</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class will take the average of the last N samples.</span>
+
+<span class="sd">    Where N is the DEFAULT_SAMPLES(10) or the sample size that is defined in the file &#39;avg.xml&#39;.</span>
+
+<span class="sd">    The format of avg.xml is as follows::</span>
+
+<span class="sd">        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="sd">        &lt;average&gt;</span>
+<span class="sd">            &lt;item device=&quot;0x13a200409029bf&quot; port=&quot;adc-1&quot;&gt;30&lt;/item&gt;</span>
+<span class="sd">        &lt;/average&gt;</span>
+
+<span class="sd">    The proceding file will cause samples from device *0x13a200409029bf* port *adc-1* to be average over</span>
+<span class="sd">    30 samples.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">DEFAULT_SAMPLES</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="sd">&#39;&#39;&#39; The default number of samples to average. &#39;&#39;&#39;</span>
+
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&#39;&#39;&#39; The repository cantaining the samples for each device. &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Instantuate the Average class and read the configuration File.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Average</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">FormatConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s">&#39;avg.xml&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Average.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">AverageStep</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Average.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">__name__</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Average.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Set the logger name. &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
+</div>
+<div class="viewcode-block" id="Average.save_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.save_samples">[docs]</a>    <span class="k">def</span> <span class="nf">save_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        save the samples in the data structure self.samples</span>
+
+<span class="sd">        :param device: The name of the device.</span>
+<span class="sd">        :type device: string</span>
+<span class="sd">        :param port: The name of the port.</span>
+<span class="sd">        :type port: string</span>
+<span class="sd">        :param samples: a deque containing the data that will saved to generate the average</span>
+<span class="sd">        :type samples: dequeue</span>
+<span class="sd">        :Raises: None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">samples</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">port</span><span class="p">:</span> <span class="n">samples</span><span class="p">}</span>
+</div>
+<div class="viewcode-block" id="Average.get_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.get_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">number_of_samples</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        get the samples from the samples dict.  If one has not been defined then create a deque for data samples.</span>
+
+<span class="sd">        :param device: The name of the device.</span>
+<span class="sd">        :type device: string</span>
+<span class="sd">        :param port: The name of the port.</span>
+<span class="sd">        :type port: string</span>
+<span class="sd">        :param number_of_samples: The number of samples for generating the averaage.</span>
+<span class="sd">        :type dequeue:</span>
+<span class="sd">        :param samples: - the deque for storing the data samples.  Its maxlen will be set to</span>
+<span class="sd">        the number of samples</span>
+<span class="sd">        :returns: degue for storing the data</span>
+<span class="sd">        :Raises: None</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]):</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([],</span> <span class="n">number_of_samples</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">samples</span>
+</div>
+<div class="viewcode-block" id="Average.get_number_of_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.get_number_of_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_of_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        get the number of samples for this port and device.</span>
+
+<span class="sd">        The number of samples is stored it the xml configuration file</span>
+
+<span class="sd">        :param device: The name of the device.</span>
+<span class="sd">        :type device: string</span>
+<span class="sd">        :param port: The name of the port.</span>
+<span class="sd">        :type port: string</span>
+<span class="sd">        :returns: The number of samples for this device and port.  If the file does not contain the</span>
+<span class="sd">        number the use the default.</span>
+<span class="sd">        :Raises: None</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">]):</span>
+            <span class="n">number_of_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">number_of_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SAMPLES</span>
+        <span class="k">return</span> <span class="n">number_of_samples</span>
+</div>
+<div class="viewcode-block" id="Average.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function will compute the average for each device and port.</span>
+
+<span class="sd">        :param value: The number to add to the list of numbers.</span>
+<span class="sd">        :type value: int or float</span>
+<span class="sd">        :param data: a dictionary containing more information about the</span>
+<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
+<span class="sd">                of values that will be in the data dictionary:</span>
+
+<span class="sd">               | 1. **date:** time received: time when value was received.</span>
+<span class="sd">               | 2. **units:** units of the number</span>
+<span class="sd">               | 3. **name:** name assigned to the value</span>
+<span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
+<span class="sd">        :returns: average, data, listeners</span>
+<span class="sd">        :rtype: float, dict, listeners</span>
+<span class="sd">        :Raises: ValueError, KeyError</span>
+
+<span class="sd">        :Example:</span>
+<span class="sd">        &gt;&gt;&gt; from steps.average import Average</span>
+<span class="sd">        &gt;&gt;&gt; avg = Average()</span>
+<span class="sd">        &gt;&gt;&gt; avg.step(0.0, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">        (0, {&#39;device&#39;: &#39;xyz&#39;, &#39;units&#39;: &#39;V&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; avg.step(1.0, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">        (0.5, {&#39;device&#39;: &#39;xyz&#39;, &#39;units&#39;: &#39;V&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="n">number_of_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number_of_samples</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">number_of_samples</span><span class="p">)</span>
+        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_samples</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;average = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">average</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

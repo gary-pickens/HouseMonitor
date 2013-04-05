@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.outputs.zigbee.test.zigbeeoutput_test &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.outputs.zigbee.test.zigbeeoutput_test</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Mar 8, 2013</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">outputs.zigbee.zigbeeoutput</span> <span class="kn">import</span> <span class="n">ZigBeeOutput</span>
+<span class="kn">from</span> <span class="nn">outputs.zigbee.zigbeecontrol</span> <span class="kn">import</span> <span class="n">ZigBeeControl</span>
+<span class="kn">from</span> <span class="nn">outputs.zigbee.zigbeeoutputstep</span> <span class="kn">import</span> <span class="n">ZigBeeOutputStep</span>
+<span class="kn">from</span> <span class="nn">outputs.zigbee.zigbeeoutputthread</span> <span class="kn">import</span> <span class="n">ZigBeeOutputThread</span>
+<span class="kn">from</span> <span class="nn">inputs.zigbeeinput.windowsxbeecommunications</span> <span class="kn">import</span> <span class="n">WindowsXbeeCommunications</span>
+<span class="kn">from</span> <span class="nn">inputs.zigbeeinput.beaglebonexbeecommunications</span> <span class="kn">import</span> <span class="n">BeagleboneXbeeCommunications</span>
+<span class="kn">from</span> <span class="nn">inputs.zigbeeinput.xbeecommunications</span> <span class="kn">import</span> <span class="n">XBeeCommunications</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">from</span> <span class="nn">xbee</span> <span class="kn">import</span> <span class="n">ZigBee</span>
+
+
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
+
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;UnitTest&#39;</span> <span class="p">)</span>
+
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">out</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">outputsZigBee</span> <span class="p">)</span>
+
+<span class="c">#    @patch(&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;, spec=WindowsXbeeCommunications)</span>
+<span class="c">#    def test_setLow(self, win):</span>
+<span class="c">#        destination_address = 0x13a20040902a02</span>
+<span class="c">#        port = &#39;DIO-1&#39;</span>
+<span class="c">#        ot = ZigBeeOutput()</span>
+<span class="c">#  #        ot.communication_module[&#39;nt&#39;] = MagicMock()</span>
+<span class="c">#        ot.startCorrectZigbee(os_name=&#39;nt&#39;)</span>
+<span class="c">#        ot.setLow(destination_address, port)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_0_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_0_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_0_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-0&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D0&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_1_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_1_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_1_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-1&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D1&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_2_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_2_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_2_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-2&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D2&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_3_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_3_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_3_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-3&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D3&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_4_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_4_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_4_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-4&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D4&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_5_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_5_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_5_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-5&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D5&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_6_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_6_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_6_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-6&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D6&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_7_Low"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_7_Low">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_7_Low</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-7&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">False</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x04</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">command</span><span class="o">=</span><span class="s">&#39;D7&#39;</span><span class="p">,</span>
+                                                    <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_0_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_0_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_0_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-0&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D0&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_1_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_1_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_1_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-1&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D1&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_2_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_2_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_2_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-2&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D2&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_3_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_3_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_3_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-3&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D3&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_4_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_4_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_4_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-4&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D4&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_5_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_5_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_5_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-5&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D5&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_6_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_6_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_6_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-6&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D6&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_set_DIO_7_High"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_set_DIO_7_High">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_DIO_7_High</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-7&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">command</span><span class="o">=</span><span class="s">&#39;D7&#39;</span><span class="p">,</span>
+                                                    <span class="n">parameter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x05</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">dest_addr_long</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">*</span><span class="se">\x02</span><span class="s">&#39;</span><span class="p">,</span>
+                                                    <span class="n">frame_id</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\xaa</span><span class="s">&#39;</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_no_device"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_no_device">[docs]</a>    <span class="k">def</span> <span class="nf">test_no_device</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-7&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaisesRegexp</span><span class="p">(</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="s">&#39;The device is missing from the data block:.*&#39;</span> <span class="p">):</span>
+            <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_no_port"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_no_port">[docs]</a>    <span class="k">def</span> <span class="nf">test_no_port</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaisesRegexp</span><span class="p">(</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="s">&quot;The port is missing from the data block: .*&quot;</span> <span class="p">):</span>
+            <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_invalid_device"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_invalid_device">[docs]</a>    <span class="k">def</span> <span class="nf">test_invalid_device</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;xxxxxxxxxx&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-7&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaisesRegexp</span><span class="p">(</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s">&quot;invalid literal for int.. with base 16:.*&quot;</span> <span class="p">):</span>
+            <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+
+    <span class="c">#  TODO work more on this</span></div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_invalid_port"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_invalid_port">[docs]</a>    <span class="k">def</span> <span class="nf">test_invalid_port</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-9&#39;</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaisesRegexp</span><span class="p">(</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="s">&quot;DIO-9&quot;</span> <span class="p">):</span>
+            <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+
+    <span class="c">#  TODO work more on this</span>
+<span class="c">#    @patch(&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;, spec=WindowsXbeeCommunications)</span>
+<span class="c">#    def test_invalid_value(self, win):</span>
+<span class="c">#        data = {}</span>
+<span class="c">#        data[Constants.DataPacket.device] = &#39;0x13a20040902a02&#39;</span>
+<span class="c">#        data[Constants.DataPacket.port] = &#39;DIO-7&#39;</span>
+<span class="c">#        ot = ZigBeeOutput()</span>
+<span class="c">#        ot.zigbee = MagicMock()</span>
+<span class="c">#        ot.zigbee.remote_at = MagicMock()</span>
+<span class="c">#        with self.assertRaisesRegexp(KeyError, &quot;&quot;):</span>
+<span class="c">#            ot.sendCommand(&#39;&#39;, data)</span>
+
+    <span class="c">#  TODO work more on this</span></div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">WindowsXbeeCommunications</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_pack_and_unpack"><a class="viewcode-back" href="../../../../../housemonitor.outputs.zigbee.test.html#housemonitor.outputs.zigbee.test.zigbeeoutput_test.Test.test_pack_and_unpack">[docs]</a>    <span class="k">def</span> <span class="nf">test_pack_and_unpack</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">win</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;DIO-7&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">remote_at</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">ot</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c">#  import sys;sys.argv = [&#39;&#39;, &#39;Test.testName&#39;]</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

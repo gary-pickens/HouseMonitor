@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.inputs.test.processinput_test &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.inputs.test.processinput_test</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Dec 18, 2012</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">inputs.processinput</span> <span class="kn">import</span> <span class="n">ProcessInput</span>
+<span class="kn">from</span> <span class="nn">inputs.processinput</span> <span class="kn">import</span> <span class="n">ProcessXBeeInput</span>
+<span class="kn">from</span> <span class="nn">inputs.processinput</span> <span class="kn">import</span> <span class="n">ProcessStatusRequests</span>
+<span class="kn">from</span> <span class="nn">inputs.dataenvelope</span> <span class="kn">import</span> <span class="n">DataEnvelope</span>
+<span class="kn">from</span> <span class="nn">inputs.inputqueue</span> <span class="kn">import</span> <span class="n">InputQueue</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">xmlDeviceConfiguration</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">InvalidDeviceError</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">InvalidPortError</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">InvalidConfigurationOptionError</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span>
+<span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
+
+
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;UnitTest&#39;</span><span class="p">)</span>
+
+    <span class="n">valid_devices_configuration</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;0x13a200408cccc3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;adc-0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature in the sunroom&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Indoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature at 100 West Lisa Drive Austin TX&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Outdoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Sunroom&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;network_address&#39;</span><span class="p">:</span> <span class="s">&#39;0xf9f2&#39;</span><span class="p">},</span>
+    <span class="s">&#39;0x13a200409029bf&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;2&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature above the garage door&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Garage Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.oneInN&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;outputs.COSM&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;dio-0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;Monitors whether the garage door is open or closed.&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Garage Door Monitor&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;network_address&#39;</span><span class="p">:</span> <span class="s">&#39;0xf9f2&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.garage_door_state&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.onBooleanChange&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;outputs.COSM&#39;</span><span class="p">]},</span>
+                         <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Garage Door XBee Monitor&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;network_address&#39;</span><span class="p">:</span> <span class="s">&#39;0xf9f2&#39;</span><span class="p">}}</span>
+
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="s">&quot;house_monitor_logging.conf&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="c"># ProcessXBeeInput</span>
+</div>
+<div class="viewcode-block" id="Test.test_ProcessXBeeInput_logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_ProcessXBeeInput_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_ProcessXBeeInput_logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="n">pxi</span> <span class="o">=</span> <span class="n">ProcessXBeeInput</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">pxi</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputsZigBee</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.Common.send&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_XBeeInput_process_invalid_device_error"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_XBeeInput_process_invalid_device_error">[docs]</a>    <span class="k">def</span> <span class="nf">test_XBeeInput_process_invalid_device_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">packet</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;source_addr_long&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">)</span><span class="se">\xbf</span><span class="s">&#39;</span><span class="p">,</span>
+                       <span class="s">&#39;source_addr&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\xf9\xf2</span><span class="s">&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;rx_io_data_long_addr&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;samples&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="mi">622</span><span class="p">}],</span>
+                       <span class="s">&#39;options&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x01</span><span class="s">&#39;</span><span class="p">}</span>
+
+        <span class="n">xd</span> <span class="o">=</span> <span class="n">xmlDeviceConfiguration</span><span class="p">()</span>
+        <span class="n">xd</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;0x13a200408cccc3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;adc-0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature in the sunroom&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Indoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature at 100 West Lisa Drive Austin TX&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Outdoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Sunroom&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;network_address&#39;</span><span class="p">:</span> <span class="s">&#39;0xf9f2&#39;</span><span class="p">}}</span>
+
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">ProcessXBeeInput</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="s">&quot;&#39;Invalid device (0x13a200409029bf)&#39;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">send</span><span class="o">.</span><span class="n">call_count</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.Common.send&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_XBeeInput_process_invalid_port_error"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_XBeeInput_process_invalid_port_error">[docs]</a>    <span class="k">def</span> <span class="nf">test_XBeeInput_process_invalid_port_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">packet</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;source_addr_long&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">)</span><span class="se">\xbf</span><span class="s">&#39;</span><span class="p">,</span>
+                       <span class="s">&#39;source_addr&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\xf9\xf2</span><span class="s">&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;rx_io_data_long_addr&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;samples&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;adc-3&#39;</span><span class="p">:</span> <span class="mi">622</span><span class="p">}],</span>
+                       <span class="s">&#39;options&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x01</span><span class="s">&#39;</span><span class="p">}</span>
+
+        <span class="n">xd</span> <span class="o">=</span> <span class="n">xmlDeviceConfiguration</span><span class="p">()</span>
+        <span class="n">xd</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;0x13a200409029bf&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;adc-0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature in the sunroom&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Indoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature at 100 West Lisa Drive Austin TX&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Outdoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Sunroom&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;network_address&#39;</span><span class="p">:</span> <span class="s">&#39;0xf9f2&#39;</span><span class="p">}}</span>
+
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">ProcessXBeeInput</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="s">&quot;&#39;Invalid port (adc-3)&#39;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">send</span><span class="o">.</span><span class="n">call_count</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.Common.send&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_XBeeInput_process_invalid_configuration_options_error"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_XBeeInput_process_invalid_configuration_options_error">[docs]</a>    <span class="k">def</span> <span class="nf">test_XBeeInput_process_invalid_configuration_options_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">packet</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;source_addr_long&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">)</span><span class="se">\xbf</span><span class="s">&#39;</span><span class="p">,</span>
+                       <span class="s">&#39;source_addr&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\xf9\xf2</span><span class="s">&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;rx_io_data_long_addr&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;samples&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;adc-0&#39;</span><span class="p">:</span> <span class="mi">622</span><span class="p">}],</span>
+                       <span class="s">&#39;options&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x01</span><span class="s">&#39;</span><span class="p">}</span>
+
+        <span class="n">xd</span> <span class="o">=</span> <span class="n">xmlDeviceConfiguration</span><span class="p">()</span>
+        <span class="n">xd</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;0x13a200409029bf&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;adc-0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature in the sunroom&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Indoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">]},</span>
+                         <span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;cosm_channel&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;The temperature at 100 West Lisa Drive Austin TX&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Outdoor Temperature&#39;</span><span class="p">,</span>
+                                   <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.Average&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span>
+                                             <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">],</span>
+                                   <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">},</span>
+                         <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Sunroom&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;network_address&#39;</span><span class="p">:</span> <span class="s">&#39;0xf9f2&#39;</span><span class="p">}}</span>
+
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">ProcessXBeeInput</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="s">&quot;&#39;Required configuration option not present (units) for device(0x13a200409029bf) port (adc-0)&#39;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">send</span><span class="o">.</span><span class="n">call_count</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.datetime&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.Common.send&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_XBeeInput_process_with_valid_data"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_XBeeInput_process_with_valid_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_XBeeInput_process_with_valid_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">send</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">test_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">packet</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;source_addr_long&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x00\x13\xa2\x00</span><span class="s">@</span><span class="se">\x90</span><span class="s">)</span><span class="se">\xbf</span><span class="s">&#39;</span><span class="p">,</span>
+                       <span class="s">&#39;source_addr&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\xf9\xf2</span><span class="s">&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;rx_io_data_long_addr&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;samples&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;adc-1&#39;</span><span class="p">:</span> <span class="mi">622</span><span class="p">}],</span>
+                       <span class="s">&#39;options&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="se">\x01</span><span class="s">&#39;</span><span class="p">}</span>
+
+        <span class="n">xd</span> <span class="o">=</span> <span class="n">xmlDeviceConfiguration</span><span class="p">()</span>
+        <span class="n">xd</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_devices_configuration</span>
+        <span class="n">xp</span> <span class="o">=</span> <span class="n">ProcessXBeeInput</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">utcnow</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">123</span>
+        <span class="n">xp</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="mi">622</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Garage Temperature&#39;</span><span class="p">,</span> <span class="s">&#39;units&#39;</span><span class="p">:</span> <span class="s">&#39;F&#39;</span><span class="p">,</span> <span class="s">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span> <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span> <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span> <span class="s">&#39;step.Average&#39;</span><span class="p">,</span> <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span> <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">,</span> <span class="s">&#39;step.oneInN&#39;</span><span class="p">,</span> <span class="s">&#39;outputs.COSM&#39;</span><span class="p">],</span> <span class="s">&#39;at&#39;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="s">&#39;0x13a200409029bf&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="s">&#39;adc-1&#39;</span><span class="p">},</span> <span class="p">[</span><span class="s">&#39;step.ZigbeeAnalogNumberToVolts&#39;</span><span class="p">,</span> <span class="s">&#39;step.TMP_36_Volts_to_Centigrade&#39;</span><span class="p">,</span> <span class="s">&#39;step.Centigrade_to_Fahrenheit&#39;</span><span class="p">,</span> <span class="s">&#39;step.Average&#39;</span><span class="p">,</span> <span class="s">&#39;step.FormatValue&#39;</span><span class="p">,</span> <span class="s">&#39;step.CurrentValue&#39;</span><span class="p">,</span> <span class="s">&#39;step.oneInN&#39;</span><span class="p">,</span> <span class="s">&#39;outputs.COSM&#39;</span><span class="p">])</span>
+
+<span class="c"># ProcessStatusRequests</span>
+</div>
+<div class="viewcode-block" id="Test.test_ProcessStatusRequests_logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_ProcessStatusRequests_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_ProcessStatusRequests_logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="n">psr</span> <span class="o">=</span> <span class="n">ProcessStatusRequests</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">psr</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.Common.send&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_ProcessStatusRequests_process"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_ProcessStatusRequests_process">[docs]</a>    <span class="k">def</span> <span class="nf">test_ProcessStatusRequests_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">listeners</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
+        <span class="n">psr</span> <span class="o">=</span> <span class="n">ProcessStatusRequests</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+        <span class="n">psr</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">listeners</span><span class="p">])</span>
+
+<span class="c"># ProcessInput</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.testProcessInput_topic_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.testProcessInput_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">testProcessInput_topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">pi</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ProcessInputs</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.testProcessInput_configuration_file_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.testProcessInput_configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">testProcessInput_configuration_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">pi</span><span class="o">.</span><span class="n">configuration_file_name</span><span class="p">,</span> <span class="s">&#39;inputs.processinput&#39;</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_ProcessInput_logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_ProcessInput_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_ProcessInput_logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="p">{}}}</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">pi</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span><span class="n">ProcessXBeeInput</span><span class="p">,</span> <span class="s">&#39;process&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span><span class="n">InputQueue</span><span class="p">,</span> <span class="s">&#39;receive&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_ProcessInput_work_xbee_input"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_ProcessInput_work_xbee_input">[docs]</a>    <span class="k">def</span> <span class="nf">test_ProcessInput_work_xbee_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">receive</span><span class="p">):</span>
+        <span class="n">envelope</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">&#39;xbee&#39;</span><span class="p">)</span>
+        <span class="n">que</span> <span class="o">=</span> <span class="n">InputQueue</span><span class="p">()</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="n">que</span><span class="p">)</span>
+        <span class="n">que</span><span class="o">.</span><span class="n">receive</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">envelope</span>
+        <span class="n">pi</span><span class="o">.</span><span class="n">work</span><span class="p">()</span>
+        <span class="n">que</span><span class="o">.</span><span class="n">receive</span><span class="o">.</span><span class="n">assert_called_oncy_with</span><span class="p">()</span>
+        <span class="n">pi</span><span class="o">.</span><span class="n">commands</span><span class="p">[</span><span class="n">envelope</span><span class="o">.</span><span class="n">type</span><span class="p">]</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span><span class="n">ProcessStatusRequests</span><span class="p">,</span> <span class="s">&#39;process&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span><span class="n">InputQueue</span><span class="p">,</span> <span class="s">&#39;receive&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_ProcessInput_work_status_request"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_ProcessInput_work_status_request">[docs]</a>    <span class="k">def</span> <span class="nf">test_ProcessInput_work_status_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">receive</span><span class="p">):</span>
+        <span class="n">envelope</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">Constants</span><span class="o">.</span><span class="n">EnvelopeTypes</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="n">que</span> <span class="o">=</span> <span class="n">InputQueue</span><span class="p">()</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="n">que</span><span class="p">)</span>
+        <span class="n">que</span><span class="o">.</span><span class="n">receive</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">envelope</span>
+        <span class="n">pi</span><span class="o">.</span><span class="n">work</span><span class="p">()</span>
+        <span class="n">que</span><span class="o">.</span><span class="n">receive</span><span class="o">.</span><span class="n">assert_called_oncy_with</span><span class="p">()</span>
+        <span class="n">pi</span><span class="o">.</span><span class="n">commands</span><span class="p">[</span><span class="n">envelope</span><span class="o">.</span><span class="n">type</span><span class="p">]</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.side_effect"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.side_effect">[docs]</a>    <span class="k">def</span> <span class="nf">side_effect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">forever</span> <span class="o">=</span> <span class="bp">False</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span><span class="n">InputQueue</span><span class="p">,</span> <span class="s">&#39;receive&#39;</span><span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span><span class="n">ProcessInput</span><span class="p">,</span> <span class="s">&#39;work&#39;</span><span class="p">)</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.processinput.xmlDeviceConfiguration.configure&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_input"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.processinput_test.Test.test_input">[docs]</a>    <span class="k">def</span> <span class="nf">test_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">work</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="n">que</span> <span class="o">=</span> <span class="n">InputQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="n">que</span><span class="p">)</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">side_effect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">work</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">()</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c"># import sys;sys.argv = [&#39;&#39;, &#39;Test.testName&#39;]</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>  <span class="c"># pragma: no cover</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -8,7 +8,7 @@
 __pycache__/
 BeagleBone/
 nppBackup/
-Doc/
+docs/_build/doctrees
 rescue/
 
 # files to ignore
@@ -17,7 +17,6 @@ garage_door_monitor.log
 HouseMonitor*.log
 *.bak
 *.BAK
-*.html
 .pydevproject
 HouseMonitor.db
 /pip_test_env

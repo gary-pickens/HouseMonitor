@@ -1,0 +1,151 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.inputs.test.dataenvelope_test &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.inputs.test.dataenvelope_test</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Dec 14, 2012</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">inputs.dataenvelope</span> <span class="kn">import</span> <span class="n">DataEnvelope</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span>
+
+
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.dataenvelope_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Test.test_storing_data"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.dataenvelope_test.Test.test_storing_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_storing_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">test</span><span class="o">.</span><span class="n">arrival_time</span><span class="o">.</span><span class="n">toString</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">test</span><span class="o">.</span><span class="n">arrival_time</span><span class="o">.</span><span class="n">toString</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s">&#39;xbee&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">packet</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">arrival_time</span><span class="o">.</span><span class="n">toString</span><span class="p">(),</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{})</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.dataenvelope.GetDateTime.toString&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_storing_data_using_patch"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.dataenvelope_test.Test.test_storing_data_using_patch">[docs]</a>    <span class="k">def</span> <span class="nf">test_storing_data_using_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="nb">str</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s">&#39;xbee&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">packet</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">arrival_time</span><span class="o">.</span><span class="n">toString</span><span class="p">(),</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{})</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.dataenvelope.GetDateTime.__str__&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_storing_data_using_patch_and___str__"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.dataenvelope_test.Test.test_storing_data_using_patch_and___str__">[docs]</a>    <span class="k">def</span> <span class="nf">test_storing_data_using_patch_and___str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s">&#39;xbee&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">packet</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">arrival_time</span><span class="o">.</span><span class="n">__str__</span><span class="p">(),</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{})</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.dataenvelope.GetDateTime.__str__&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test_storing_data_using_patch_and___str__1"><a class="viewcode-back" href="../../../../housemonitor.inputs.test.html#housemonitor.inputs.test.dataenvelope_test.Test.test_storing_data_using_patch_and___str__1">[docs]</a>    <span class="k">def</span> <span class="nf">test_storing_data_using_patch_and___str__1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">()</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s">&#39;xbee&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">packet</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">),</span> <span class="s">&#39;2012/10/03 01:02:03&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="c">#    def test_store_data(self):</span>
+<span class="c">#</span>
+<span class="c">#        self.assertEqual(test.arrival_time, datetime(2012, 10, 3, 01, 02, 03))</span>
+<span class="c">#        self.assertEqual(test.data, {&#39;device&#39;: &#39;abc&#39;, &#39;port&#39;: &#39;adc-1&#39;})</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c"># import sys;sys.argv = [&#39;&#39;, &#39;Test.test_storing_data&#39;]</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>  <span class="c"># pragma: no cover</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

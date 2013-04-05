@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Gary’s Notes &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="index.html" />
+    <link rel="next" title="Python UnitTest Cookbook" href="Python_UnitTest_Cookbook.html" />
+    <link rel="prev" title="distribute_setup Module" href="distribute_setup.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Python_UnitTest_Cookbook.html" title="Python UnitTest Cookbook"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="distribute_setup.html" title="distribute_setup Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gary-s-notes">
+<h1>Gary&#8217;s Notes<a class="headerlink" href="#gary-s-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="beaglebone-notes">
+<h2>Beaglebone Notes<a class="headerlink" href="#beaglebone-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="notes-on-installing-housemonitor-py-on-a-beaglebone-computer">
+<h3>Notes on installing HouseMonitor.py on a BeagleBone computer<a class="headerlink" href="#notes-on-installing-housemonitor-py-on-a-beaglebone-computer" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul>
+<li><p class="first">Create or stall HouseMonitor</p>
+</li>
+<li><p class="first">Create or install and correct the following file called housemonitor.service:</p>
+<div class="highlight-python"><pre>[Unit]
+Description=House Monitoring and Control System
+After=syslog.target
+
+[Service]
+WorkingDirectory=/home/gary/bin/HouseMonitor.final/HouseMonitor
+ExecStart=/usr/bin/python HouseMonitor.py
+Type=simple
+
+[Install]
+WantedBy=multi-user.target</pre>
+</div>
+</li>
+<li><p class="first">Execute the following command to install the service:</p>
+<div class="highlight-python"><pre>systemctl enable housemonitor.service</pre>
+</div>
+</li>
+<li><p class="first">To start HouseMonitor excute the following command:</p>
+<div class="highlight-python"><pre>systemctl start housemonitor.service</pre>
+</div>
+</li>
+<li><p class="first">To check the status execute the following command:</p>
+<div class="highlight-python"><pre>systemctl start housemonitor.service</pre>
+</div>
+</li>
+<li><p class="first">See for the <a class="reference external" href="http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=systemctl">sysemctl</a>. man page.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="building-a-new-system-for-housemonitor">
+<h3>Building a new system for HouseMonitor<a class="headerlink" href="#building-a-new-system-for-housemonitor" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Download image.</p>
+</li>
+<li><p class="first">Description for <a class="reference external" href="http://circuitco.com/support/index.php?title=BeagleBone#Creating_a_SD_Card">installing</a>. new image. Here is a summary of the web page for initializing your card using windows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Download the SD card image you want to use listed below. These are the images that ship with the boards.</li>
+<li>Decompress the verification image file using 7-zip.</li>
+<li>Insert the SD card writer/reader into the Windows machine.</li>
+<li>Insert 4GB SD card into the reader/writer.</li>
+<li>Run the HPFormatter tool and format the SD card for FAT or FAT32 in order to remove the second partition from the card.</li>
+<li>Close the HPFormatter tool when done.</li>
+<li>Start the Win32DiskImager.</li>
+<li>Select the decompressed image file and correct SD card location. <strong>MAKE SURE YOU SELECT THE CORRECT LOCATION OF THE SD CARD.</strong></li>
+<li>Click on &#8216;Write&#8217;.</li>
+<li>After the image writing is done, eject the SD card.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Insert the sd rom in the beaglebone computer.</p>
+</li>
+<li><p class="first">Power up the beagle bone computer.</p>
+</li>
+<li><p class="first">Connect to the beaglebone using TenTen on the serial port or with SSH.</p>
+</li>
+<li><p class="first">Log on as root with no password</p>
+</li>
+<li><p class="first">Create an account using:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">adduser</span> <span class="pre">gary</span></tt></li>
+</ul>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>Install sudo with the following commands</dt>
+<dd><ul class="first last">
+<li><p class="first"><tt class="docutils literal"><span class="pre">opkg</span> <span class="pre">install</span> <span class="pre">sudo</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">visudo</span></tt></p>
+</li>
+<li><dl class="first docutils">
+<dt>Added the following line:</dt>
+<dd><p class="first last">gary ALL = (ALL) ALL</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Log on as gary</p>
+</li>
+<li><p class="first">Update any packages using the following commands.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">opkg</span> <span class="pre">install</span> <span class="pre">python-setuptools</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">opkg</span> <span class="pre">install</span> <span class="pre">python-xmlrpc</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">opkg</span> <span class="pre">install</span> <span class="pre">python-compile</span></tt></li>
+</ul>
+</li>
+<li><p class="first">Install pip by using the following command:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">curl</span> <span class="pre">-k</span> <span class="pre">-O</span> <span class="pre">https://raw.github.com/pypa/pip/master/contrib/get-pip.py</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">get-pip.py</span></tt></li>
+</ul>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>Installing HouseMonitor</dt>
+<dd><ul class="first last">
+<li><p class="first">Download HouseMonitor-3.0.2.zip to the BeagleBone.</p>
+</li>
+<li><p class="first">Make a directory called HouseMonitor in <tt class="docutils literal"><span class="pre">~gary/bin</span></tt></p>
+</li>
+<li><dl class="first docutils">
+<dt>Run the following command as root:</dt>
+<dd><p class="first last"><tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">--install-dir</span> <span class="pre">/home/gary/bin/HouseMonitor</span> <span class="pre">-Z</span> <span class="pre">HouseMonitor-3.0.2.zip</span></tt></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="baud-rate-for-tera-term">
+<h3>Baud rate for Tera Term<a class="headerlink" href="#baud-rate-for-tera-term" title="Permalink to this headline">¶</a></h3>
+<p>115200</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Beaglebone Notes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Setting up the Xbee</p>
+<p># Plug xbee into the Xbee Explorer.
+# Connect the Xbee Explorer to the computer via USB cable.
+# Start X-CTU
+# On the modem Configuration tab select <strong>XB24-ZB</strong> in the <strong>Modem XBEE</strong> section
+# select <strong>ZIGBEE Router API</strong> under the <strong>Function Set</strong></p>
+</div>
+<div class="section" id="ant-notes">
+<h2>Ant Notes<a class="headerlink" href="#ant-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="arrg-scp-broke-again">
+<h3>Arrg scp broke again!<a class="headerlink" href="#arrg-scp-broke-again" title="Permalink to this headline">¶</a></h3>
+<p>I am hot on a project and it breaks.  Here is what I am trying to do:</p>
+<div class="highlight-python"><pre>&lt;sshexec host="${host}" username="${user}" password="${password}"
+    command="rm -fr ~/src/${remote_directory}" /&gt;
+&lt;sshexec host="${host}" username="${user}" password="${password}"
+    command="mkdir ~/src/${remote_directory}" /&gt;
+&lt;scp todir="${user}:${password}@${host}:src/${remote_directory}"&gt;
+    &lt;fileset file="."&gt;
+        &lt;include name="**/*.py" /&gt;
+        &lt;include name="**/*.conf" /&gt;
+        &lt;include name="**/*.xml" /&gt;
+        &lt;exclude name="UnitTest" /&gt;
+    &lt;/fileset&gt;
+&lt;/scp&gt;
+&lt;scp todir="${user}:${password}@${host}:src/${remote_directory}"&gt;
+    &lt;fileset file="."&gt;
+        &lt;include name="dist/HouseMonitor-${version}.zip" /&gt;
+    &lt;/fileset&gt;
+&lt;/scp&gt;
+&lt;sshexec host="${host}" username="${user}" password="${password}"
+    command="chmod  777 ~/src/${remote_directory}/HouseMonitor/HouseMonitor.py" /&gt;</pre>
+</div>
+<p>Here is the error message:</p>
+<div class="highlight-python"><pre>Buildfile: C:\Users\Gary\git\HouseMonitor\HouseMonitor\build.xml
+copybb:
+
+BUILD FAILED
+C:\Users\Gary\git\HouseMonitor\HouseMonitor\build.xml:64: Problem: failed to create task or type sshexec
+Cause: Could not load a dependent class com/jcraft/jsch/Logger
+       It is not enough to have Ant's optional JARs
+       you need the JAR files that the optional tasks depend upon.
+       Ant's optional task dependencies are listed in the manual.
+Action: Determine what extra JAR files are needed, and place them in one of:
+        -C:\Program Files\eclipse Juno\plugins\org.apache.ant_1.8.3.v20120321-1730\lib
+        -C:\Users\Gary\.ant\lib
+        -a directory added on the command line with the -lib argument
+
+Do not panic, this is a common problem.
+The commonest cause is a missing JAR.
+
+This is not a bug; it is a configuration problem</pre>
+</div>
+<p><strong>Fix</strong></p>
+<ol class="arabic">
+<li><p class="first">I tried installing jsch as recommended by <a class="reference external" href="http://stackoverflow.com/questions/11092216/ant-scp-failure">a stackoverflow</a>.</p>
+<blockquote>
+<div><blockquote>
+<div><p><strong>That did not fix the problem.</strong></p>
+</div></blockquote>
+</div></blockquote>
+</li>
+</ol>
+<p>2. I have a new clue.  It works from the command line, most be something about the eclipse ant.  I put
+jsch.jar in the eclipse directory::</p>
+<div class="highlight-python"><pre>\Program Files\eclipse Juno\plugins\org.apache.ant_1.8.3.v20120321-1730\lib
+
+That **did not fix** the problem also there was already a file called ant-jsch.jar there.</pre>
+</div>
+<ol class="arabic" start="3">
+<li><p class="first">Perhaps my local ant directory::</p>
+<div class="highlight-python"><pre>\Users\Gary\.ant\lib
+
+Windows will not let me create a directory called .ant</pre>
+</div>
+</li>
+<li><p class="first">Did more searching and I found this at <a class="reference external" href="http://www.eclipsezone.com/eclipse/forums/t99332.html">Eclipse Zone</a>.</p>
+<blockquote>
+<div></div></blockquote>
+</li>
+</ol>
+<p>so I went to Window&gt;Preferences&gt;Ant&gt;Runtime&gt;Classpath&gt;Select Global Entries and picked jsch.jar,</p>
+<p>** Problem Fixed **</p>
+</div>
+</div>
+<div class="section" id="python-notes">
+<h2>Python Notes<a class="headerlink" href="#python-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python-path-used-by-eclipse">
+<h3>python path used by Eclipse<a class="headerlink" href="#python-path-used-by-eclipse" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>C:\Program Files\eclipse Juno\plugins\org.python.pydev_2.7.1.2012100913\pysrc\pydev_sitecustomize;
+C:\Users\Gary\git\HouseMonitor\HouseMonitor\bin;
+C:\Users\Gary\git\HouseMonitor\HouseMonitor\housemonitor;
+C:\Python27\Lib\site-packages\APScheduler-2.0.3-py2.7.egg;
+C:\Users\Gary\Desktop\eclipse Indigo\plugins\org.python.pydev_2.5.0.2012040618\PySrc;
+C:\Python27\lib\site-packages\setuptools-0.6c11-py2.7.egg;
+C:\Python27\lib\site-packages\py-1.4.8-py2.7.egg;
+C:\Python27\lib\site-packages\pip-1.0-py2.7.egg;
+C:\Python27\lib\site-packages\demjson-1.6-py2.7.egg;
+C:\Python27\lib\site-packages\httplib2-0.7.4-py2.7.egg;
+C:\Python27;C:\OpenSSL-Win64\bin;
+C:\Python27\Scripts;
+C:\Python27\DLLs;
+C:\Python27\lib;
+C:\Python27\lib\plat-win;
+C:\Python27\lib\lib-tk;
+C:\Python27\lib\site-packages;
+C:\Python27\Lib\site-packages\pypubsub-3.1.2-py2.7.egg</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Of course this is all concatenated into one line.</p>
+</div>
+<div class="section" id="git-notes">
+<h4>GIT Notes<a class="headerlink" href="#git-notes" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="reference">
+<h3>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://git-scm.com/">Pro GIT</a>.</li>
+<li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/">git man pages</a>.</li>
+<li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/user-manual.html#git-concepts">git concepts</a>.</li>
+<li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/user-manual.html">git user manual</a>.</li>
+</ol>
+</div>
+<div class="section" id="restoring-files">
+<h3>Restoring Files<a class="headerlink" href="#restoring-files" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>I used the following command to restore the file named common.py on NT:</li>
+</ol>
+<div class="highlight-python"><pre>git checkout  8c853e3eb54ee5d5d357f052c8cfd0cbe3e0f07a^ -- HouseMonitor\housemonitor\lib\common.py</pre>
+</div>
+<ol class="arabic simple" start="2">
+<li>Here is a suggestion from stackoverflow.com .. _a link: <a class="reference external" href="http://stackoverflow.com/questions/953481/restore-a-deleted-file-in-a-git-repo">http://stackoverflow.com/questions/953481/restore-a-deleted-file-in-a-git-repo</a>:</li>
+</ol>
+<div class="highlight-python"><pre>git checkout $(git rev-list -n 1 HEAD -- "$file")^ -- "$file"</pre>
+</div>
+</div>
+<div class="section" id="info-about-files">
+<h3>Info about files<a class="headerlink" href="#info-about-files" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-rev-list.html">git rev-list</a>. Lists commit objects in reverse chronological order.:</p>
+<div class="highlight-python"><pre>git rev-list  HEAD -- HouseMonitor/housemonitor/steps/test/onBooleanChange_UnitTest.py</pre>
+</div>
+</li>
+</ol>
+<p>Will show the modifications to onBooleanChange_UnitTest.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c4ea95ef914992b603524eb9e58272211ce01928</span>
+<span class="n">bea2d25f73b1262050148d195d2131882fbe6bb3</span>
+</pre></div>
+</div>
+<ol class="arabic" start="2">
+<li><p class="first"><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-show.html">git show</a>. Show various types of objects.:</p>
+<div class="highlight-python"><pre>git show</pre>
+</div>
+</li>
+</ol>
+<p>Will show the actual modification the were made to the file.:</p>
+<div class="highlight-python"><pre>commit c4ea95ef914992b603524eb9e58272211ce01928
+Author: gary-pickens &lt;gary_pickens@yahoo.com&gt;
+Date:   Fri Dec 14 23:00:41 2012 -0600
+
+    Changed the names on a lot of files to all lower case, in an attempt to
+    get nosetests working.
+
+diff --git a/HouseMonitor/housemonitor/steps/test/onBooleanChange_UnitTest.py b/HouseMonitor/housemonitor/steps/test/onBooleanChange_UnitTest.py
+deleted file mode 100644
+index 003cc14..0000000
+--- a/HouseMonitor/housemonitor/steps/test/onBooleanChange_UnitTest.py
++++ /dev/null
+@@ -1,122 +0,0 @@
+-'''
+-Created on Nov 15, 2012
+-
+-@author: Gary
+-'''
+-import unittest</pre>
+</div>
+<p>...</p>
+<ol class="arabic" start="3">
+<li><p class="first"><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">git log</a>. Show commit logs.:</p>
+<div class="highlight-python"><pre>    git log -- HouseMonitor/housemonitor/steps/test/onBooleanChange_UnitTest.py
+
+Will show the log commits that were made for this file.::
+
+    commit c4ea95ef914992b603524eb9e58272211ce01928
+    Author: gary-pickens &lt;gary_pickens@yahoo.com&gt;
+    Date:   Fri Dec 14 23:00:41 2012 -0600
+
+        Changed the names on a lot of files to all lower case, in an attempt to
+        get nosetests working.
+
+    commit bea2d25f73b1262050148d195d2131882fbe6bb3
+    Author: gary-pickens &lt;gary_pickens@yahoo.com&gt;
+    Date:   Fri Nov 23 11:51:34 2012 -0600
+
+        More moving</pre>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="listing-files">
+<h3>Listing files<a class="headerlink" href="#listing-files" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Listing all files in repository:</p>
+<div class="highlight-python"><pre>git ls-files</pre>
+</div>
+</li>
+<li><p class="first">Listing all deleted files:</p>
+<div class="highlight-python"><pre>git ls-files -d</pre>
+</div>
+</li>
+<li><p class="first">Listing all modified files:</p>
+</li>
+</ol>
+<div class="highlight-python"><pre>git ls-files -m</pre>
+</div>
+</div>
+</div>
+<div class="section" id="sphinx-restructuredtext">
+<h2>Sphinx &amp; reStructuredText<a class="headerlink" href="#sphinx-restructuredtext" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="web-links">
+<h3>Web links<a class="headerlink" href="#web-links" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://sphinx-doc.org/">Spinx Python Documentation Generator</a>.</li>
+<li><a class="reference external" href="http://matplotlib.org/sampledoc/">Spinx Tutorial</a>.</li>
+<li><a class="reference external" href="http://sphinx-doc.org/rest.html">reStructuredText Primer</a>.</li>
+</ol>
+</div>
+<div class="section" id="inline-markup">
+<h3>Inline markup<a class="headerlink" href="#inline-markup" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><strong>one asterisk</strong>: <tt class="docutils literal"><span class="pre">*text*</span></tt> for emphasis (italics),</li>
+<li><strong>two asterisks</strong>: <tt class="docutils literal"><span class="pre">**text**</span></tt> for strong emphasis (boldface), and</li>
+<li><strong>backquotes</strong>: <tt class="docutils literal"><span class="pre">``text``</span></tt> for code samples.</li>
+</ol>
+</div>
+<div class="section" id="external-links">
+<h3>External Links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>a `Sphinx &lt;http://sphinx-doc.org/rest.html&gt;`_. link</pre>
+</div>
+<p>A <a class="reference external" href="http://sphinx-doc.org/rest.html">Sphinx</a>. link</p>
+<p>Or seperating the text and the link:</p>
+<div class="highlight-python"><pre>A `Sphinx`_. link
+
+.. _a link: http://sphinx-doc.org/rest.html</pre>
+</div>
+<p>A <a class="reference external" href="http://sphinx-doc.org/rest.html">Sphinx</a>. link</p>
+</div>
+<div class="section" id="definition-lists">
+<h3>Definition Lists<a class="headerlink" href="#definition-lists" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>Term
+    Term definition.
+
+Next Term
+    Next definition.</pre>
+</div>
+<dl class="docutils">
+<dt>Term</dt>
+<dd>Term definition.</dd>
+<dt>Next Term</dt>
+<dd>Next definition.</dd>
+</dl>
+</div>
+<div class="section" id="autonumbered-list">
+<h3>AutoNumbered list<a class="headerlink" href="#autonumbered-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#. hash tag</span>
+<span class="c">#. hash tag</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>hash tag</li>
+<li>hash tag</li>
+</ol>
+</div>
+<div class="section" id="numbered-list">
+<h3>Numbered list<a class="headerlink" href="#numbered-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>1. Numbered list
+2. Numbered list</pre>
+</div>
+<ol class="arabic simple">
+<li>Numbered list</li>
+<li>Numbered list</li>
+</ol>
+</div>
+<div class="section" id="bulleted-list">
+<h3>Bulleted list<a class="headerlink" href="#bulleted-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>* Bulleted list
+* Bulleted list</pre>
+</div>
+<ul class="simple">
+<li>Bulleted list</li>
+<li>Bulleted list</li>
+</ul>
+</div>
+<div class="section" id="nested-lists">
+<h3>Nested lists<a class="headerlink" href="#nested-lists" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>* this is
+* a list
+
+  * with a nested list
+  * and some subitems
+
+* and here the parent list continues</pre>
+</div>
+<ul class="simple">
+<li>this is</li>
+<li>a list</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>with a nested list</li>
+<li>and some subitems</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>and here the parent list continues</li>
+</ul>
+</div>
+<div class="section" id="line-blocks">
+<h3>Line blocks<a class="headerlink" href="#line-blocks" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>| These lines are
+| broken exactly like in
+| the source file.</pre>
+</div>
+<div class="line-block">
+<div class="line">These lines are</div>
+<div class="line">broken exactly like in</div>
+<div class="line">the source file.</div>
+</div>
+</div>
+<div class="section" id="sections">
+<h3>Sections<a class="headerlink" href="#sections" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre># with overline, for parts
+* with overline, for chapters
+=, for sections
+-, for subsections
+^, for subsubsections
+", for paragraphs</pre>
+</div>
+</div>
+<div class="section" id="defining-funcitons">
+<h3>Defining funcitons<a class="headerlink" href="#defining-funcitons" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>* ``param``: Description of a parameter.
+* ``type``: Type of a parameter.
+* ``raises``, ``raise``, ``except``, ``exception``: That (and when) a specific exception is raised.
+* ``var``, ``ivar``, ``cvar``: Description of a variable.
+* ``returns``, ``return``: Description of the return value.
+* ``rtype``: Return type.</pre>
+</div>
+<p>Example:</p>
+<div class="highlight-python"><pre>.. py:function:: format(etype, value)
+
+       :param value: the current value
+       :type value: int, float, str
+       :param data: the data that is pasted between steps
+       :type dict:
+       :returns: dict containing the above items
+       :raises: KeyError</pre>
+</div>
+</div>
+</div>
+<div class="section" id="creating-packaging">
+<h2>Creating Packaging<a class="headerlink" href="#creating-packaging" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Web links<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://guide.python-distribute.org/index.html">Welcome to The Hitchhiker’s Guide to Packaging</a>.</li>
+<li>` &lt; &gt;`_.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="doctest">
+<h2>DocTest<a class="headerlink" href="#doctest" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Web links<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://docs.python.org/2/library/doctest.html">DocTest Test interactive Python examples</a>.</li>
+</ol>
+</div>
+<div class="section" id="how-to-make-it-work">
+<h3>How to make it work<a class="headerlink" href="#how-to-make-it-work" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Add the following code at end of file::</li>
+</ol>
+<dl class="docutils">
+<dt>if __name__ == &#8220;__main__&#8221;:</dt>
+<dd>import doctest
+doctest.testmod()</dd>
+</dl>
+<ol class="arabic simple">
+<li>Type the following to run the code::</li>
+</ol>
+<p>python example.py</p>
+<p>where: examble.py is the name of the module to test.</p>
+<p>add <strong>-v</strong> for more output.  For example::</p>
+<p>python example.py -v</p>
+</div>
+</div>
+<div class="section" id="misc">
+<h2>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Look into Stevedore.  Here are a few URL&#8217;s:</dt>
+<dd><ol class="first last arabic simple">
+<li><a class="reference external" href="https://github.com/dreamhost/stevedore">SteveDore on GITHUB</a>.</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/stevedore">SteveDore on PyPi</a>.</li>
+<li><a class="reference external" href="http://blog.doughellmann.com/2012/08/stevedore-03.html">Doug HellMann&#8217;s Blog on Stevedore 3.0</a>.</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p class="first"><a class="reference external" href="http://houseofjeff.com/555-timer-oscillator-frequency-calculator/">Good web page for calculating LM555 values given frequency</a>.</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.555-timer-circuits.com/common-mistakes.html">Common Mistakes When Using a 555 Timer</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Gary&#8217;s Notes</a><ul>
+<li><a class="reference internal" href="#beaglebone-notes">Beaglebone Notes</a><ul>
+<li><a class="reference internal" href="#notes-on-installing-housemonitor-py-on-a-beaglebone-computer">Notes on installing HouseMonitor.py on a BeagleBone computer</a></li>
+<li><a class="reference internal" href="#building-a-new-system-for-housemonitor">Building a new system for HouseMonitor</a></li>
+<li><a class="reference internal" href="#baud-rate-for-tera-term">Baud rate for Tera Term</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Beaglebone Notes</a></li>
+<li><a class="reference internal" href="#ant-notes">Ant Notes</a><ul>
+<li><a class="reference internal" href="#arrg-scp-broke-again">Arrg scp broke again!</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-notes">Python Notes</a><ul>
+<li><a class="reference internal" href="#python-path-used-by-eclipse">python path used by Eclipse</a><ul>
+<li><a class="reference internal" href="#git-notes">GIT Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+<li><a class="reference internal" href="#restoring-files">Restoring Files</a></li>
+<li><a class="reference internal" href="#info-about-files">Info about files</a></li>
+<li><a class="reference internal" href="#listing-files">Listing files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sphinx-restructuredtext">Sphinx &amp; reStructuredText</a><ul>
+<li><a class="reference internal" href="#web-links">Web links</a></li>
+<li><a class="reference internal" href="#inline-markup">Inline markup</a></li>
+<li><a class="reference internal" href="#external-links">External Links</a></li>
+<li><a class="reference internal" href="#definition-lists">Definition Lists</a></li>
+<li><a class="reference internal" href="#autonumbered-list">AutoNumbered list</a></li>
+<li><a class="reference internal" href="#numbered-list">Numbered list</a></li>
+<li><a class="reference internal" href="#bulleted-list">Bulleted list</a></li>
+<li><a class="reference internal" href="#nested-lists">Nested lists</a></li>
+<li><a class="reference internal" href="#line-blocks">Line blocks</a></li>
+<li><a class="reference internal" href="#sections">Sections</a></li>
+<li><a class="reference internal" href="#defining-funcitons">Defining funcitons</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-packaging">Creating Packaging</a><ul>
+<li><a class="reference internal" href="#id3">Web links</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#doctest">DocTest</a><ul>
+<li><a class="reference internal" href="#id4">Web links</a></li>
+<li><a class="reference internal" href="#how-to-make-it-work">How to make it work</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#misc">Misc</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="distribute_setup.html"
+                        title="previous chapter">distribute_setup Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Python_UnitTest_Cookbook.html"
+                        title="next chapter">Python UnitTest Cookbook</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/notes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Python_UnitTest_Cookbook.html" title="Python UnitTest Cookbook"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="distribute_setup.html" title="distribute_setup Module"
+             >previous</a> |</li>
+        <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

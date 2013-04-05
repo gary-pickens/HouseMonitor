@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.inputs.processinput &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.inputs.processinput</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Oct 10, 2012</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">InvalidDeviceError</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">InvalidPortError</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">InvalidConfigurationOptionError</span>
+<span class="kn">from</span> <span class="nn">configuration.xmlDeviceConfiguration</span> <span class="kn">import</span> <span class="n">xmlDeviceConfiguration</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">from</span> <span class="nn">abc_input</span> <span class="kn">import</span> <span class="n">abcInput</span>
+<span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
+
+
+<div class="viewcode-block" id="abcProcessInput"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.abcProcessInput">[docs]</a><span class="k">class</span> <span class="nc">abcProcessInput</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">abcProcessInput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+    <span class="nd">@abc.abstractproperty</span>
+<div class="viewcode-block" id="abcProcessInput.process"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.abcProcessInput.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">envelope</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c"># pragma: no cover</span>
+
+</div></div>
+<div class="viewcode-block" id="ProcessXBeeInput"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessXBeeInput">[docs]</a><span class="k">class</span> <span class="nc">ProcessXBeeInput</span><span class="p">(</span><span class="n">abcProcessInput</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class will receive an XBee packet, strip the pertinate data out, and send it allong to be processed.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ProcessXBeeInput.logger_name"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessXBeeInput.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputsZigBee</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">devices</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProcessXBeeInput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="n">devices</span>
+
+<div class="viewcode-block" id="ProcessXBeeInput.process"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessXBeeInput.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">envelope</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Process a envelope received from the XBee.  This involves the following:</span>
+<span class="sd">        1.  get the addresses from the header</span>
+<span class="sd">        2.  get the data out of the packet</span>
+<span class="sd">        3.  get information about the source of the data</span>
+<span class="sd">        4.  send each packet using the pub/sub system</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">        :param envelope: a packet received from the XBee radio and decomposed by the ZigBee module</span>
+<span class="sd">        :type DataEnvelope:</span>
+<span class="sd">        Return: None</span>
+<span class="sd">        :Raises: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;processing data from zigbee {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">envelope</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">packet</span> <span class="o">=</span> <span class="n">envelope</span><span class="o">.</span><span class="n">packet</span>
+            <span class="k">if</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">XBee</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">==</span> <span class="n">Constants</span><span class="o">.</span><span class="n">XBee</span><span class="o">.</span><span class="n">api_responses</span><span class="o">.</span><span class="n">rx_io_data_long_addr</span><span class="p">:</span>
+                <span class="n">source_addr_long</span> <span class="o">=</span> <span class="s">&quot;{:#x}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s">&#39;!Q&#39;</span><span class="p">,</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">XBee</span><span class="o">.</span><span class="n">source_addr_long</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">source_addr</span> <span class="o">=</span> <span class="s">&quot;{:#x}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s">&#39;!H&#39;</span><span class="p">,</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">XBee</span><span class="o">.</span><span class="n">source_addr</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">Constants</span><span class="o">.</span><span class="n">XBee</span><span class="o">.</span><span class="n">samples</span> <span class="ow">in</span> <span class="n">packet</span><span class="p">:</span>
+                    <span class="n">samples</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">XBee</span><span class="o">.</span><span class="n">samples</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">package</span> <span class="o">=</span> <span class="p">{}</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">valid_device</span><span class="p">(</span><span class="n">source_addr_long</span><span class="p">)):</span>
+                                <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_addr_long</span>
+                                <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get_port_name</span><span class="p">(</span><span class="n">source_addr_long</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+                                <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
+                                <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+                                <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">units</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get_port_units</span><span class="p">(</span><span class="n">source_addr_long</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+                                <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">steps</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get_steps</span><span class="p">(</span><span class="n">source_addr_long</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+                                <span class="n">data</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">port</span><span class="p">]</span>
+
+                                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Common.send({}, {}, {}) called&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">steps</span><span class="p">]))</span>
+                                <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">package</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">steps</span><span class="p">])</span>
+                        <span class="k">except</span> <span class="n">InvalidDeviceError</span> <span class="k">as</span> <span class="n">ie</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ie</span><span class="p">))</span>
+                        <span class="k">except</span> <span class="n">InvalidPortError</span> <span class="k">as</span> <span class="n">ie</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ie</span><span class="p">))</span>
+                        <span class="k">except</span> <span class="n">InvalidConfigurationOptionError</span> <span class="k">as</span> <span class="n">ie</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ie</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;None processed ZigBee response {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">packet</span><span class="p">)))</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s">&quot;error extracting data from {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">envelope</span><span class="p">)))</span>
+
+</div></div>
+<div class="viewcode-block" id="ProcessStatusRequests"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessStatusRequests">[docs]</a><span class="k">class</span> <span class="nc">ProcessStatusRequests</span><span class="p">(</span><span class="n">abcProcessInput</span><span class="p">):</span>
+
+    <span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ProcessStatusRequests.logger_name"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessStatusRequests.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputs</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">devices</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProcessStatusRequests</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="n">devices</span>
+
+<div class="viewcode-block" id="ProcessStatusRequests.process"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessStatusRequests.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">envelope</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Process a packet received from the XBee.  This involves the following:</span>
+<span class="sd">        #.  get the addresses from the header</span>
+<span class="sd">        #.  get the data out of the packet</span>
+<span class="sd">        #.  get information about the source of the data</span>
+<span class="sd">        #.  send each packet using the pub/sub system</span>
+
+<span class="sd">        :param packet: a packet recived from the XBee radio and decomposed by the ZigBee module</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :Raises: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">envelope</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">listeners</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;calling Common.send from ProcessStatusRequests with {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">))</span>
+        <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="ProcessInput"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput">[docs]</a><span class="k">class</span> <span class="nc">ProcessInput</span><span class="p">(</span><span class="n">abcInput</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class will remove the data off the input queue, determine the the</span>
+<span class="sd">    the of data and pass the data to the correct routine to futher process the data</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_input_queue</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&#39;&#39;&#39; The queue will be used to receive data from input threads. &#39;&#39;&#39;</span>
+
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&#39;&#39;&#39; A dictionary used to direct incoming data. &#39;&#39;&#39;</span>
+
+    <span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&#39;&#39;&#39; A dictionary containing information about input devices. &#39;&#39;&#39;</span>
+
+    <span class="n">forever</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="sd">&#39;&#39;&#39; Controls the main loop in the input function. &#39;&#39;&#39;</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ProcessInput.topic_name"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ProcessInputs</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ProcessInput.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">__name__</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ProcessInput.logger_name"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputs</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_queue</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProcessInput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_queue</span> <span class="o">=</span> <span class="n">input_queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">devices</span> <span class="o">=</span> <span class="n">xmlDeviceConfiguration</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">commands</span> <span class="o">=</span> <span class="p">{</span><span class="n">Constants</span><span class="o">.</span><span class="n">EnvelopeTypes</span><span class="o">.</span><span class="n">xbee</span><span class="p">:</span> <span class="n">ProcessXBeeInput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="p">),</span>
+                         <span class="n">Constants</span><span class="o">.</span><span class="n">EnvelopeTypes</span><span class="o">.</span><span class="n">status</span><span class="p">:</span> <span class="n">ProcessStatusRequests</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="p">)}</span>
+
+<div class="viewcode-block" id="ProcessInput.work"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput.work">[docs]</a>    <span class="k">def</span> <span class="nf">work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Processing for the main loop.</span>
+
+<span class="sd">        #. Remove the data from the input_queue</span>
+<span class="sd">        #. Send the data to the object for processing.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">envelope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_queue</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;recieved type {} Envelope&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">envelope</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">[</span><span class="n">envelope</span><span class="o">.</span><span class="n">type</span><span class="p">]</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ProcessInput.input"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput.input">[docs]</a>    <span class="k">def</span> <span class="nf">input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The input routine will receive data from the xbee thead via the queue.</span>
+<span class="sd">        Do some preliminary processing and publish the data via the pub/sub</span>
+<span class="sd">        package.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">forever</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">work</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

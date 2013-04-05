@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>zigbee Package &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zigbee-package">
+<h1>zigbee Package<a class="headerlink" href="#zigbee-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-housemonitor.outputs.zigbee.zigbeecontrol">
+<span id="zigbeecontrol-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">zigbeecontrol</span></tt> Module<a class="headerlink" href="#module-housemonitor.outputs.zigbee.zigbeecontrol" title="Permalink to this headline">¶</a></h2>
+<p>Created on Nov 6, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl">
+<em class="property">class </em><tt class="descclassname">housemonitor.outputs.zigbee.zigbeecontrol.</tt><tt class="descname">ZigBeeControl</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeecontrol.html#ZigBeeControl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt></p>
+<p>ZigBeeControl starts the ZigBee processing to send data to ZigBee at the following
+URL:</p>
+<p><a class="reference external" href="https://cosm.com/">https://cosm.com/</a></p>
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.ZigBeeOutputThread">
+<tt class="descname">ZigBeeOutputThread</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.ZigBeeOutputThread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.cosm">
+<tt class="descname">cosm</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.cosm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeecontrol.html#ZigBeeControl.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level. This needs to be added to house_monitoring_logging.conf</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.queue">
+<tt class="descname">queue</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.queue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.startZigBee">
+<tt class="descname">startZigBee</tt><big>(</big><em>options</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeecontrol.html#ZigBeeControl.startZigBee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeecontrol.ZigBeeControl.startZigBee" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the ZigBee processing.</p>
+<p>This consists of three parts:</p>
+<p>#. Start the ZigBeeQueue which used Queue, a thread safe queue for communcating
+between threads.</p>
+<ol class="arabic simple">
+<li>Start the ZigBeeOutputThread which talks to the ZigBee server.  This is a slow process.</li>
+</ol>
+<p>#. Start the ZigBeeOutputProcessing object which takes massages sent to ZigBee on the
+main thread and sends them to the ZigBee thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.outputs.zigbee.zigbeeoutput">
+<span id="zigbeeoutput-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">zigbeeoutput</span></tt> Module<a class="headerlink" href="#module-housemonitor.outputs.zigbee.zigbeeoutput" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mar 6, 2013</p>
+<p>&#64;author: Gary</p>
+<dl class="exception">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.UnsupportedSystemError">
+<em class="property">exception </em><tt class="descclassname">housemonitor.outputs.zigbee.zigbeeoutput.</tt><tt class="descname">UnsupportedSystemError</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutput.html#UnsupportedSystemError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.UnsupportedSystemError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput">
+<em class="property">class </em><tt class="descclassname">housemonitor.outputs.zigbee.zigbeeoutput.</tt><tt class="descname">ZigBeeOutput</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutput.html#ZigBeeOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.communication_module">
+<tt class="descname">communication_module</tt><em class="property"> = {'nt': &lt;class 'inputs.zigbeeinput.windowsxbeecommunications.WindowsXbeeCommunications'&gt;, 'posix': &lt;class 'inputs.zigbeeinput.beaglebonexbeecommunications.BeagleboneXbeeCommunications'&gt;}</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.communication_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.deviceToCommand">
+<tt class="descname">deviceToCommand</tt><em class="property"> = {'DIO-2': 'D2', 'DIO-3': 'D3', 'DIO-0': 'D0', 'DIO-1': 'D1', 'DIO-6': 'D6', 'DIO-7': 'D7', 'DIO-4': 'D4', 'DIO-5': 'D5'}</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.deviceToCommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutput.html#ZigBeeOutput.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.previous_datetime">
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 5, 3, 14, 0, 445000)</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.selectHighOrLow">
+<tt class="descname">selectHighOrLow</tt><em class="property"> = {False: '\x04', True: '\x05'}</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.selectHighOrLow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.sendCommand">
+<tt class="descname">sendCommand</tt><big>(</big><em>value</em>, <em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutput.html#ZigBeeOutput.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.sendCommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.serial">
+<tt class="descname">serial</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.serial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.setPinHigh">
+<tt class="descname">setPinHigh</tt><em class="property"> = '\x05'</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.setPinHigh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.setPinLow">
+<tt class="descname">setPinLow</tt><em class="property"> = '\x04'</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.setPinLow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.startCorrectZigbee">
+<tt class="descname">startCorrectZigbee</tt><big>(</big><em>os_name='nt'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutput.html#ZigBeeOutput.startCorrectZigbee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.startCorrectZigbee" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.zigbee">
+<tt class="descname">zigbee</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.zigbee" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.outputs.zigbee.zigbeeoutputstep">
+<span id="zigbeeoutputstep-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">zigbeeoutputstep</span></tt> Module<a class="headerlink" href="#module-housemonitor.outputs.zigbee.zigbeeoutputstep" title="Permalink to this headline">¶</a></h2>
+<p>Created on 2012-11-06</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep">
+<em class="property">class </em><tt class="descclassname">housemonitor.outputs.zigbee.zigbeeoutputstep.</tt><tt class="descname">ZigBeeOutputStep</tt><big>(</big><em>queue</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputstep.html#ZigBeeOutputStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">steps.abc_step.abcStep</span></tt></p>
+<p>This object should be started with with the COSM thread and hang around forever.</p>
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputstep.html#ZigBeeOutputStep.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.queue">
+<tt class="descname">queue</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Queue for communicating between threads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputstep.html#ZigBeeOutputStep.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function receives data that will be sent to COSM and forwards it to the COSM output processing
+thread.</p>
+<p>This function will compare the value with the previous value and if they are different send the data to
+the next listener else don&#8217;t send the data along.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
+<li><strong>data</strong> &#8211; <p>a dictionary containing more information about the
+value. Data can be added to this as needed.  Here is a list
+of values that will be in the data dictionary:</p>
+<p>1 <strong>date:</strong> time received: time when value was received.
+2. <strong>units:</strong> units of the number
+3. &#8220;&#8221;name:** name assigned to the value</p>
+</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputstep.html#ZigBeeOutputStep.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.outputs.zigbee.zigbeeoutputthread">
+<span id="zigbeeoutputthread-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">zigbeeoutputthread</span></tt> Module<a class="headerlink" href="#module-housemonitor.outputs.zigbee.zigbeeoutputthread" title="Permalink to this headline">¶</a></h2>
+<p>Created on Oct 10, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread">
+<em class="property">class </em><tt class="descclassname">housemonitor.outputs.zigbee.zigbeeoutputthread.</tt><tt class="descname">ZigBeeOutputThread</tt><big>(</big><em>queue</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputthread.html#ZigBeeOutputThread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></p>
+<p>classdocs</p>
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.connectAndProcessZigBeeCommands">
+<tt class="descname">connectAndProcessZigBeeCommands</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputthread.html#ZigBeeOutputThread.connectAndProcessZigBeeCommands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.connectAndProcessZigBeeCommands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.connected">
+<tt class="descname">connected</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.connected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.done">
+<tt class="descname">done</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.done" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputthread.html#ZigBeeOutputThread.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.output_queue">
+<tt class="descname">output_queue</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.output_queue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.processCommandToZigBee">
+<tt class="descname">processCommandToZigBee</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputthread.html#ZigBeeOutputThread.processCommandToZigBee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.processCommandToZigBee" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputthread.html#ZigBeeOutputThread.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.talking">
+<tt class="descname">talking</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.talking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.zigbeeConnect">
+<tt class="descname">zigbeeConnect</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/zigbee/zigbeeoutputthread.html#ZigBeeOutputThread.zigbeeConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.zigbeeConnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.zigbee_output">
+<tt class="descname">zigbee_output</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.zigbee_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html">test Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeecontrol_test"><tt class="docutils literal"><span class="pre">zigbeecontrol_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeeoutput_test"><tt class="docutils literal"><span class="pre">zigbeeoutput_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeeoutputstep_test"><tt class="docutils literal"><span class="pre">zigbeeoutputstep_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeeoutputthread_test"><tt class="docutils literal"><span class="pre">zigbeeoutputthread_test</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">zigbee Package</a><ul>
+<li><a class="reference internal" href="#module-housemonitor.outputs.zigbee.zigbeecontrol"><tt class="docutils literal"><span class="pre">zigbeecontrol</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.outputs.zigbee.zigbeeoutput"><tt class="docutils literal"><span class="pre">zigbeeoutput</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.outputs.zigbee.zigbeeoutputstep"><tt class="docutils literal"><span class="pre">zigbeeoutputstep</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.outputs.zigbee.zigbeeoutputthread"><tt class="docutils literal"><span class="pre">zigbeeoutputthread</span></tt> Module</a></li>
+<li><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/housemonitor.outputs.zigbee.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
