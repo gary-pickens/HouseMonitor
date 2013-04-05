@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContextState>
 <org.eclipse.mylyn.context.ui.editors>
-<MonitoredWindowOpenEditors class="org.eclipse.ui.internal.WorkbenchWindow" isActive="true" isLaunching="true" number="0">
-<editor id="org.eclipse.ant.ui.internal.editor.AntEditor">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HouseMonitor/build.xml"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="511" selectionTopPixel="0"/>
-</editor>
-</MonitoredWindowOpenEditors>
+<MonitoredWindowOpenEditors class="org.eclipse.ui.internal.WorkbenchWindow" isActive="true" isLaunching="true" number="0"/>
 </org.eclipse.mylyn.context.ui.editors>
 </ContextState>
