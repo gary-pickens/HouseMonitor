@@ -5,11 +5,9 @@ Created on 2012-11-14
 
 '''
 from lib.constants import Constants
-from configuration.formatconfiguration import FormatConfiguration
 from abc_step import abcStep
 from lib.common import Common
 from lib.base import Base
-from datetime import datetime
 from datetime import timedelta
 from lib.getdatetime import GetDateTime
 from pubsub import pub
@@ -22,7 +20,8 @@ def instantuate_me( data ):
 
 class StatusPanel( Base ):
     '''
-    This panel is responsible for updating the status panel whose schematic is in the Fritzing directory.
+    This panel is responsible for updating the status panel whose schematic
+    is in the Fritzing directory.
     '''
 
     panel_address = '0x13a20040902a02'
@@ -62,9 +61,11 @@ class StatusPanel( Base ):
     ''' Contains the time that the garage door was opened '''
 
     enable_alarm_button_pressed = False
-    ''' Indicates that the disable alarm has been pressed.  Cleared by closing the door. '''
+    ''' Indicates that the disable alarm has been pressed.  
+    Cleared by closing the door. '''
 
-    ''' The time from when the garage door opens to the time the alarm starts sounding '''
+    ''' The time from when the garage door opens to the time the alarm 
+    starts sounding '''
     #  TODO: Increase this back after test
     garage_door_standoff_time = timedelta( minutes=1 )
 
@@ -252,7 +253,7 @@ class StatusPanel( Base ):
                    | 3. **name:** name assigned to the value
                    | 4. etc.
             :param listeners: a list of the subscribed routines to send the data to
-            :returns: value, data, listeners
+                :returns: value, data, listeners
             :rtype: Boolean, dict, listeners
             Raises:
                 None
