@@ -21,7 +21,7 @@ class UnsupportedSystemError( Exception ):
 
 class ZigBeeOutput( Base, object ):
     '''
-
+    ZigBeeOutput is responsible for formating a ZigBee message and sending it to a remote XBee.
     '''
     setPinHigh = b'\x05'
     setPinLow = b'\x04'
