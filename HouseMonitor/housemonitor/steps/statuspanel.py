@@ -20,8 +20,15 @@ def instantuate_me( data ):
 
 class StatusPanel( Base ):
     '''
-    This panel is responsible for updating the status panel whose schematic
-    is in the Fritzing directory.
+    The Status Panel is responsible for updating the kitchen status panel.  The status panel
+    consists for a:
+    
+    # Green flashing LED that indicates that the system is functioning.
+    # A red LED that glows when the garage door is open.
+    # A alarm that will sound X minutes after the garage door has opened.
+    # A disable button that will disable the alarm.
+    
+    A schematic is in the Fritzing directory.
     '''
 
     panel_address = '0x13a20040902a02'
@@ -84,7 +91,13 @@ class StatusPanel( Base ):
         return Constants.LogKeys.StatusPanel
 
     def changeGarageDoorWarningLight( self, value ):
-        ''' Turn on or off the LED that indicates that the garage door is open. '''
+        ''' Turn on or off the LED that indicates that the garage door is open. 
+        
+        :param value: determines if the light will be on or off.
+        :type value: Boolean
+        :returns: none
+        
+        '''
         steps = [Constants.TopicNames.ZigBeeOutput]
         data = {}
         data[Constants.DataPacket.device] = self.panel_address
@@ -94,7 +107,13 @@ class StatusPanel( Base ):
         Common.send( light, data, steps )
 
     def changeAlarm( self, value ):
-        ''' Turn on or off the alarm that indicates that the garage door is open. '''
+        ''' Turn on or off the alarm that indicates that the garage door is open.         
+
+        :param value: determines if the alarm will be on or off.
+        :type value: Boolean
+        :returns: none
+
+        '''
         steps = [Constants.TopicNames.ZigBeeOutput]
         data = {}
         data[Constants.DataPacket.device] = self.panel_address
@@ -103,6 +122,9 @@ class StatusPanel( Base ):
         Common.send( value, data, steps )
 
     class GarageDoorMonitor( abcStep ):
+        ''' GarageDoorMonitor is a class that receives the message about 
+        the garage door.
+        '''
 
         def __init__( self, status_panel ):
             '''
@@ -121,6 +143,11 @@ class StatusPanel( Base ):
             return Constants.TopicNames.StatusPanel_GarageDoorMonitor
 
         def setTimerToActivateAlarmAfterInterval( self ):
+            '''
+            This will start a timer when the garage door opens.  When the 
+            timer expire a message will be sent to StartAlarm.step() which will 
+            start the alarm. 
+            '''
             listeners = [Constants.TopicNames.StatusPanel_StartAlarm]
             args = self.status_panel.panel_address, self.status_panel.panel_status_led, listeners
             pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
@@ -170,6 +197,11 @@ class StatusPanel( Base ):
             return value, data, listeners
 
     class DisableAlarmButton( abcStep ):
+        '''
+        DisableAlarmButton will be waiting for the disable alarm button to
+        be pressed.  When it is pressed it will disable the alarm until
+        the garage door is closed.
+        '''
 
         def __init__( self, status_panel ):
             '''
@@ -218,7 +250,10 @@ class StatusPanel( Base ):
             return value, data, listeners
 
     class StartAlarm( abcStep ):
-
+        '''
+        StartAlarm will start the alarm.  It will sound until the garage door
+        is closed or the disable ararm button is pressed.
+        '''
         def __init__( self, status_panel ):
             '''
             '''
@@ -276,6 +311,8 @@ class StatusPanel( Base ):
 
         def __init__( self, status_panel ):
             '''
+            SystemCheck will toggle on and off the green status LED indicating that 
+            the system is running.
             '''
             super( StatusPanel.SystemCheck, self ).__init__()
             self.status_panel = status_panel
