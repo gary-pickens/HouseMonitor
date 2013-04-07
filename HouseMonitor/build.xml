@@ -91,21 +91,33 @@
             </fileset>
         </scp>
     </target>
-    <target name="doc" description="build documentation">
+	<!-- Documentation Section -->
+    <target name="doc" description="build documentation" depends="doc-create">
         <exec executable="cmd.exe" dir="docs" failonerror="true">
             <arg line="/c make.bat html" />
         </exec>
     </target>
-    <target name="create-doc" description="build documentation">
+    <target name="doc-create" description="build documentation" depends="doc-clean">
         <exec executable="sphinx-apidoc"> 
 			<arg value="-H ${project}"/>
         	<arg value="-A ${author}"/>
         	<arg value="-V ${version}"/>
         	<arg value="-o"/>
             <arg value="docs"/> 
-            <arg value="."/> 
+            <arg value="housemonitor"/> 
         </exec>
     </target>
+    <target name="doc-clean" description="remove intermediate files">
+        <delete>
+            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+                <include name="docs/HouseMonitor*.rst" />
+                <include name="docs/housemonitor*.rst" />
+                <include name="docs\_build" />
+            </fileset>
+        </delete>
+    	<delete dir="docs\_build"/>
+    </target>
+	
     <target name="test" description="Run House Monitor in Test Mode">
         <exec executable="python">
             <arg value="HouseMonitor.py"/>

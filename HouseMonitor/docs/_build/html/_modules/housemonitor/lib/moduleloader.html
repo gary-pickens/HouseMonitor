@@ -66,7 +66,7 @@
 <span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
 
 
-<div class="viewcode-block" id="ModuleLoader"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader">[docs]</a><span class="k">class</span> <span class="nc">ModuleLoader</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleLoader"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader">[docs]</a><span class="k">class</span> <span class="nc">ModuleLoader</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    classdocs</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -77,84 +77,84 @@
     <span class="c"># A list of instantiated classes that have been loaded</span>
     <span class="n">instances</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ModuleLoader</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">ModuleLoader</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ModuleLoader.logger_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleLoader.logger_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger level. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s">&#39;lib&#39;</span>
 </div>
-<div class="viewcode-block" id="ModuleLoader.file_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.file_name">[docs]</a>    <span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleLoader.file_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.file_name">[docs]</a>    <span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">return</span> <span class="n">__name__</span>
 </div>
-<div class="viewcode-block" id="ModuleLoader.load"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleLoader.load"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Walk though a directory and load all the *py and *pyc modules</span>
+<span class="sd">        Walk though a directory and load all the *py* and *pyc* modules</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># use a set to insure that no two files are loaded twice</span>
         <span class="n">names</span> <span class="o">=</span> <span class="n">Set</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">directories</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span> <span class="n">directory</span> <span class="p">):</span>
                 <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
                     <span class="c"># Get just the file name - no extension</span>
-                    <span class="n">name</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="n">name</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span> <span class="n">filename</span> <span class="p">)</span>
                     <span class="c"># and to names which will prevent doubles</span>
-                    <span class="n">names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                    <span class="n">names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
                 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
                     <span class="n">f</span> <span class="o">=</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">description</span> <span class="o">=</span> <span class="n">package</span> <span class="o">=</span> <span class="bp">None</span>
                     <span class="n">continue_processing</span> <span class="o">=</span> <span class="bp">True</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">f</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> \
-                                                            <span class="bp">self</span><span class="o">.</span><span class="n">directories</span><span class="p">)</span>
+                        <span class="n">f</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> \
+                                                            <span class="bp">self</span><span class="o">.</span><span class="n">directories</span> <span class="p">)</span>
                     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">er</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;error finding {}: error is {}&quot;</span>  \
-                                                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">er</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span> <span class="s">&quot;error finding {}: error is {}&quot;</span>  \
+                                                            <span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">er</span> <span class="p">)</span> <span class="p">)</span>
                         <span class="n">continue_processing</span> <span class="o">=</span> <span class="bp">False</span>
 
                     <span class="c"># Check if we failed.  If so then jump to the beginning</span>
                     <span class="c"># and start next file</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">continue_processing</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="ow">not</span> <span class="n">continue_processing</span> <span class="p">):</span>
                         <span class="k">continue</span>
 
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">package</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+                        <span class="n">package</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">description</span> <span class="p">)</span>
                     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;error importing {}: error is {}&quot;</span><span class="o">.</span>\
-                                                            <span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ex</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span> <span class="s">&quot;error importing {}: error is {}&quot;</span><span class="o">.</span>\
+                                                            <span class="n">format</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">ex</span> <span class="p">)</span> <span class="p">)</span>
                         <span class="n">continue_processing</span> <span class="o">=</span> <span class="bp">False</span>
                     <span class="k">finally</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">f</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">close_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">close_file</span><span class="p">(</span> <span class="n">f</span> <span class="p">)</span>
 
                     <span class="c"># Check if we failed.  If so then jump to the beginning</span>
                     <span class="c"># and start next file</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">continue_processing</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="ow">not</span> <span class="n">continue_processing</span> <span class="p">):</span>
                         <span class="k">continue</span>
 
                     <span class="k">try</span><span class="p">:</span>
 <span class="c">#                        pprint(inspect.getmembers(package))</span>
 <span class="c">#                        pprint(inspect.getsourcelines(package.instantuate_me))</span>
-                        <span class="n">instance</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="n">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="bp">None</span> <span class="o">!=</span> <span class="n">instance</span><span class="p">):</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Class {} instantiated&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                        <span class="n">instance</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="n">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="bp">None</span> <span class="o">!=</span> <span class="n">instance</span> <span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">instance</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&quot;Class {} instantiated&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">name</span> <span class="p">)</span> <span class="p">)</span>
                     <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>\
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span> \
                         <span class="s">&quot;The function </span><span class="se">\&quot;</span><span class="s">instantiate_me</span><span class="se">\&quot;</span><span class="s"> was not found in {}: {}&quot;</span>\
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">err</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">err</span> <span class="p">)</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="ModuleLoader.close_file"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.close_file">[docs]</a>    <span class="k">def</span> <span class="nf">close_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>  <span class="c"># pragma: no cover</span>
+<div class="viewcode-block" id="ModuleLoader.close_file"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.close_file">[docs]</a>    <span class="k">def</span> <span class="nf">close_file</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">f</span> <span class="p">):</span>    <span class="c"># pragma: no cover</span>
         <span class="c"># Module added for unit test</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c"># pragma: no cover</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>    <span class="c"># pragma: no cover</span>
 </div>
-<div class="viewcode-block" id="ModuleLoader.get_class_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.get_class_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">):</span>  <span class="c"># pragma: no cover</span>
+<div class="viewcode-block" id="ModuleLoader.get_class_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.moduleloader.ModuleLoader.get_class_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">package</span> <span class="p">):</span>    <span class="c"># pragma: no cover</span>
         <span class="c"># Module added for unit test</span>
-        <span class="k">return</span> <span class="n">package</span><span class="o">.</span><span class="n">instantiate_me</span><span class="p">()</span>  <span class="c"># pragma: no cover</span></div></div>
+        <span class="k">return</span> <span class="n">package</span><span class="o">.</span><span class="n">instantiate_me</span><span class="p">()</span>    <span class="c"># pragma: no cover</span></div></div>
 </pre></div>
 
           </div>

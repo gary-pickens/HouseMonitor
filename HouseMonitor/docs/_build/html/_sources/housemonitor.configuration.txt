@@ -1,10 +1,10 @@
 configuration Package
 =====================
 
-:mod:`configuration` Module
----------------------------
+:mod:`abc_configuration` Module
+-------------------------------
 
-.. automodule:: housemonitor.configuration.configuration
+.. automodule:: housemonitor.configuration.abc_configuration
     :members:
     :undoc-members:
     :show-inheritance:
@@ -40,4 +40,11 @@ configuration Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+    housemonitor.configuration.test
 

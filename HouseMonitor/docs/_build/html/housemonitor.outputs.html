@@ -72,22 +72,25 @@
 <tt class="descname">output</tt><big>(</big><em>value</em>, <em>data</em>, <em>listeners</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/ioutput.html#iOutput.output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.ioutput.iOutput.output" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine will be called to convert value from one unit to another
 such as Centigrade to Fahrenheit.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><p class="first">value: is the value to convert
-listeners: are the routines that this value will go through
-being processed
-data: a dictionary containing more information about the</p>
-<blockquote class="last">
-<div><p>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</p>
-<p>date_time_received: time when value was received.
-Units: units of the number
-Name: name assigned to the value
-etc.</p>
-</div></blockquote>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; Not used</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -98,8 +101,83 @@ etc.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="log-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">log</span></tt> Module<a class="headerlink" href="#log-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.outputs.log">
+<span id="log-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">log</span></tt> Module<a class="headerlink" href="#module-housemonitor.outputs.log" title="Permalink to this headline">¶</a></h2>
+<p>Created on Aug 5, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.outputs.log.Log">
+<em class="property">class </em><tt class="descclassname">housemonitor.outputs.log.</tt><tt class="descname">Log</tt><a class="reference internal" href="_modules/housemonitor/outputs/log.html#Log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.log.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">outputs.ioutput.iOutput</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">configuration.xmlconfiguration.XmlConfiguration</span></tt></p>
+<p>Log values to a file</p>
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.config_topic_name">
+<tt class="descname">config_topic_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/log.html#Log.config_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.log.Log.config_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.log.Log.configure">
+<tt class="descname">configure</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/log.html#Log.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.log.Log.configure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.directory">
+<tt class="descname">directory</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.log.Log.directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.elements_to_read">
+<tt class="descname">elements_to_read</tt><em class="property"> = ['filename', 'directory']</em><a class="headerlink" href="#housemonitor.outputs.log.Log.elements_to_read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.filename">
+<tt class="descname">filename</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.log.Log.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.log_file_name">
+<tt class="descname">log_file_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/log.html#Log.log_file_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.log.Log.log_file_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.maxsize">
+<tt class="descname">maxsize</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.log.Log.maxsize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.os">
+<tt class="descname">os</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.log.Log.os" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.outputs.log.Log.output">
+<tt class="descname">output</tt><big>(</big><em>value</em>, <em>data</em>, <em>listeners</em><big>)</big><a class="reference internal" href="_modules/housemonitor/outputs/log.html#Log.output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.log.Log.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine will output a log of data that it receives</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>value: the value for the data
+data: more information about the value
+listeners:  the various listeners for this object</dd>
+<dt>Return:</dt>
+<dd>the string that is printed</dd>
+<dt>Execptions:</dt>
+<dd>None</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.rotate">
+<tt class="descname">rotate</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.outputs.log.Log.rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.outputs.log.Log.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/outputs/log.html#Log.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.outputs.log.Log.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
@@ -107,15 +185,42 @@ etc.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="housemonitor.outputs.cosm.html">cosm Package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#module-housemonitor.outputs.cosm.control"><tt class="docutils literal"><span class="pre">control</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#outputprocessing-module"><tt class="docutils literal"><span class="pre">outputProcessing</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#module-housemonitor.outputs.cosm.outputStep"><tt class="docutils literal"><span class="pre">outputStep</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#module-housemonitor.outputs.cosm.outputthread"><tt class="docutils literal"><span class="pre">outputthread</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#module-housemonitor.outputs.cosm.queue"><tt class="docutils literal"><span class="pre">queue</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#module-housemonitor.outputs.cosm.send"><tt class="docutils literal"><span class="pre">send</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.cosm.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="housemonitor.outputs.cosm.test.html">test Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.cosm.test.html#module-housemonitor.outputs.cosm.test.control_test"><tt class="docutils literal"><span class="pre">control_test</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.cosm.test.html#module-housemonitor.outputs.cosm.test.outputstep_test"><tt class="docutils literal"><span class="pre">outputstep_test</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.cosm.test.html#module-housemonitor.outputs.cosm.test.queue_test"><tt class="docutils literal"><span class="pre">queue_test</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.cosm.test.html#module-housemonitor.outputs.cosm.test.send_test"><tt class="docutils literal"><span class="pre">send_test</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="housemonitor.outputs.xmlrpc.html">xmlrpc Package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.xmlrpc.html#module-housemonitor.outputs.xmlrpc.control"><tt class="docutils literal"><span class="pre">control</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.xmlrpc.html#module-housemonitor.outputs.xmlrpc.outputthread"><tt class="docutils literal"><span class="pre">outputthread</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="housemonitor.outputs.zigbee.html">zigbee Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.html#module-housemonitor.outputs.zigbee.zigbeecontrol"><tt class="docutils literal"><span class="pre">zigbeecontrol</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.html#module-housemonitor.outputs.zigbee.zigbeeoutput"><tt class="docutils literal"><span class="pre">zigbeeoutput</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.html#module-housemonitor.outputs.zigbee.zigbeeoutputstep"><tt class="docutils literal"><span class="pre">zigbeeoutputstep</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.html#module-housemonitor.outputs.zigbee.zigbeeoutputthread"><tt class="docutils literal"><span class="pre">zigbeeoutputthread</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.outputs.zigbee.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html">test Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeecontrol_test"><tt class="docutils literal"><span class="pre">zigbeecontrol_test</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeeoutput_test"><tt class="docutils literal"><span class="pre">zigbeeoutput_test</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeeoutputstep_test"><tt class="docutils literal"><span class="pre">zigbeeoutputstep_test</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="housemonitor.outputs.zigbee.test.html#module-housemonitor.outputs.zigbee.test.zigbeeoutputthread_test"><tt class="docutils literal"><span class="pre">zigbeeoutputthread_test</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -133,7 +238,7 @@ etc.</p>
   <ul>
 <li><a class="reference internal" href="#">outputs Package</a><ul>
 <li><a class="reference internal" href="#module-housemonitor.outputs.ioutput"><tt class="docutils literal"><span class="pre">ioutput</span></tt> Module</a></li>
-<li><a class="reference internal" href="#log-module"><tt class="docutils literal"><span class="pre">log</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.outputs.log"><tt class="docutils literal"><span class="pre">log</span></tt> Module</a></li>
 <li><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 </ul>
 </li>

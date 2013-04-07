@@ -12,7 +12,7 @@ from base import Base
 from constants import Constants
 
 
-class CurrentValues(Base):
+class CurrentValues( Base ):
     '''
     This module stores and returns the most resent data received from a device and port.  It is primarily used
     for communicating the current value between threads.
@@ -20,23 +20,23 @@ class CurrentValues(Base):
     _current_values = {}
     _current_values_lock = None
 
-    def __init__(self):
+    def __init__( self ):
         '''
         Initialize the lock for thread safe communications.
         '''
-        super(CurrentValues, self).__init__()
-        if (self._current_values_lock == None):
+        super( CurrentValues, self ).__init__()
+        if ( self._current_values_lock == None ):
             self._current_values_lock = Lock()
-        self.logger.debug("Current Value started")
+        self.logger.debug( "Current Value started" )
 
-    def buildDataBlock(self, value, data):
+    def buildDataBlock( self, value, data ):
         '''
         Build a data block that is used to store the current values.  The data that is stored
         in the data block is:
-            1.    arrival time
-            2.    Units
-            3.    name
-            4.    value
+        1.    arrival time
+        2.    Units
+        3.    name
+        4.    value
 
         The index for each item is: Constants.DataPacket.arrival_time, Constants.DataPacket.units
         Constants.DataPacket.name, and Constants.DataPacket.current_value.
@@ -47,6 +47,7 @@ class CurrentValues(Base):
         :type dict:
         :returns: dict containing the above items
         :raises: None
+        
         '''
         if value != None:
             current_data = {}
@@ -61,7 +62,7 @@ class CurrentValues(Base):
         else:
             raise ValueError()
 
-    def store(self, value, device, port, data):
+    def store( self, value, device, port, data ):
         '''
         Store the current data in the current value dictionary.
 
@@ -75,23 +76,23 @@ class CurrentValues(Base):
         :type data: dict
         :raises: None
         '''
-        self.logger.debug('store {} {} {}'.format(device, port, value))
+        self.logger.debug( 'store {} {} {}'.format( device, port, value ) )
         self._current_values_lock.acquire()
         try:
-            if (device in self._current_values):
-                if (port in self._current_values[device]):
-                    self._current_values[device][port] = self.buildDataBlock(value, data)
+            if ( device in self._current_values ):
+                if ( port in self._current_values[device] ):
+                    self._current_values[device][port] = self.buildDataBlock( value, data )
                 else:
-                    self._current_values[device][port] = self.buildDataBlock(value, data)
+                    self._current_values[device][port] = self.buildDataBlock( value, data )
             else:
-                self._current_values[device] = {port: self.buildDataBlock(value, data)}
+                self._current_values[device] = {port: self.buildDataBlock( value, data )}
         except ValueError as ve:
-            self.logger.exception("Value is set to None for {} {}".format(device, port))
+            self.logger.exception( "Value is set to None for {} {}".format( device, port ) )
         finally:
             self._current_values_lock.release()
 #        self.logger.debug('store current_values = {}'.format(pprint.pformat(self._current_values)))
 
-    def get(self):
+    def get( self ):
         '''
         Get all the current values.
 
@@ -99,15 +100,15 @@ class CurrentValues(Base):
 
         :return: the current_value data
         '''
-        self.logger.debug('get current value tree')
+        self.logger.debug( 'get current value tree' )
         self._current_values_lock.acquire()
         try:
-            data = copy.copy(self._current_values)
+            data = copy.copy( self._current_values )
         finally:
             self._current_values_lock.release()
         return data
 
-    def get_current_value(self, device, port):
+    def get_current_value( self, device, port ):
         '''
         Get the current value given the device and port.
 
@@ -122,10 +123,10 @@ class CurrentValues(Base):
             data = self._current_values[device][port]
         finally:
             self._current_values_lock.release()
-        self.logger.debug('get current value {} {}'.format(device, port))
+        self.logger.debug( 'get current value {} {}'.format( device, port ) )
         return data
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         ''' Set the logger level. '''
         return 'lib'

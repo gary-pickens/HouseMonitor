@@ -9,7 +9,7 @@ from lib.base import Base
 from lib.constants import Constants
 
 
-class COSMQueue(Base):
+class COSMQueue( Base ):
     '''
     A class for communicating between the main thread and the
     COSM thread.
@@ -20,20 +20,20 @@ class COSMQueue(Base):
     _queue = None
     ''' A Tread safe queue used to communicate data between threads. '''
 
-    def __init__(self):
+    def __init__( self ):
         '''
         Constructor
         '''
-        if (COSMQueue._queue == None):
-            COSMQueue._queue = Queue.Queue(self.QUEUE_SIZE)
-        super(COSMQueue, self).__init__()
+        if ( COSMQueue._queue == None ):
+            COSMQueue._queue = Queue.Queue( self.QUEUE_SIZE )
+        super( COSMQueue, self ).__init__()
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         """ Set the logger level. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.outputsCOSM
 
-    def transmit(self, packet):
+    def transmit( self, packet ):
         '''
         Add packet to input queue.
 
@@ -46,7 +46,6 @@ class COSMQueue(Base):
         :returns: none
         :exceptions: none
 
-        :Example:
         >>> from outputs.cosm.queue import COSMQueue
         >>> cosm = COSMQueue()
         >>> cosm.transmit({'a':  'b'})
@@ -56,10 +55,10 @@ class COSMQueue(Base):
         .. warning:: This my block if gueue is full.  The attribute QUEUE_SIZE contains the number of items that can be put on the queue.
 
         '''
-        COSMQueue._queue.put(packet)
-        self.logger.debug("put packet on cosmQueue: packet = {}".format(packet))
+        COSMQueue._queue.put( packet )
+        self.logger.debug( "put packet on cosmQueue: packet = {}".format( packet ) )
 
-    def receive(self):
+    def receive( self ):
         '''
         remove packet from input queue.
 
@@ -68,9 +67,9 @@ class COSMQueue(Base):
         :returns packet: The same packet the was transmitted by the transmit function.
         :rtype:  Same as the data that was sent by the transmit function
         :exceptions: None
+        
         .. warning:: Will block if no packets are availiable
 
-        :Example:
         >>> from outputs.cosm.queue import COSMQueue
         >>> cosm = COSMQueue()
         >>> cosm.transmit({'a':  'b'})
@@ -79,16 +78,15 @@ class COSMQueue(Base):
 
         '''
         packet = COSMQueue._queue.get()
-        self.logger.debug("get packet off cosm Queue: packet = {}".format(packet))
+        self.logger.debug( "get packet off cosm Queue: packet = {}".format( packet ) )
         return packet
 
-    def clear(self):
+    def clear( self ):
         '''
         Clear the queue
 
         This routine is mainly used for unit test
 
-        :Example:
         >>> from outputs.cosm.queue import COSMQueue
         >>> cosm = COSMQueue()
         >>> cosm.clean()
@@ -96,11 +94,11 @@ class COSMQueue(Base):
         .. warning::  All the data in the queue will be lost
         '''
         try:
-            while (self._queue.get(False)):
+            while ( self._queue.get( False ) ):
                 pass
         except Queue.Empty:
             return
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod()  # pragma: no cover
+    doctest.testmod()    # pragma: no cover

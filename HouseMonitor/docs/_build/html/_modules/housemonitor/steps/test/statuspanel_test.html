@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.steps.test.statuspanel_test &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.steps.test.statuspanel_test</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Mar 28, 2013</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">steps.statuspanel</span> <span class="kn">import</span> <span class="n">StatusPanel</span>
+<span class="kn">from</span> <span class="nn">steps.statuspanel</span> <span class="kn">import</span> <span class="n">instantuate_me</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">patch</span>
+<span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
+<span class="kn">from</span> <span class="nn">configuration.formatconfiguration</span> <span class="kn">import</span> <span class="n">FormatConfiguration</span>
+<span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">pub</span>
+
+
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
+
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Test.test_instantuate_me"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_instantuate_me">[docs]</a>    <span class="k">def</span> <span class="nf">test_instantuate_me</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span> <span class="n">N</span><span class="p">,</span> <span class="n">StatusPanel</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="p">,</span> <span class="n">StatusPanel</span><span class="o">.</span><span class="n">GarageDoorMonitor</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">start_alarm</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.test_topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_GarageDoorMonitor</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">start_alarm</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_StartAlarm</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">N</span><span class="o">.</span><span class="n">disable_alarm_button</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_DisableAlarmButton</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeGarageDoorWarningLight&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">GetDateTime</span><span class="p">,</span> <span class="s">&#39;datetime&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_first_time_with_garage_door_closed"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_closed">[docs]</a>    <span class="k">def</span> <span class="nf">test_first_time_with_garage_door_closed</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">light</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="p">)</span>
+<span class="c">#        self.assertEqual( sp.when_garage_door_opened, t )</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;sendMessage&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_setTimerToActivateAlarmAfterInterval"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_setTimerToActivateAlarmAfterInterval">[docs]</a>    <span class="k">def</span> <span class="nf">test_setTimerToActivateAlarmAfterInterval</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">sm</span> <span class="p">):</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_StartAlarm</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">panel_address</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">panel_status_led</span><span class="p">,</span> <span class="n">listeners</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_standoff_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">setTimerToActivateAlarmAfterInterval</span><span class="p">()</span>
+        <span class="n">sm</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddOneShotStep</span><span class="p">,</span>
+                                   <span class="n">name</span><span class="o">=</span><span class="s">&#39;garage door alarm&#39;</span><span class="p">,</span>
+                                   <span class="n">delta</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">1</span> <span class="p">),</span>
+                                   <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeGarageDoorWarningLight&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">GetDateTime</span><span class="p">,</span> <span class="s">&#39;datetime&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_first_time_with_garage_door_open"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_open">[docs]</a>    <span class="k">def</span> <span class="nf">test_first_time_with_garage_door_open</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">light</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">when_garage_door_opened</span><span class="p">,</span> <span class="n">t</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeGarageDoorWarningLight&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">GetDateTime</span><span class="p">,</span> <span class="s">&#39;datetime&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_first_time_with_garage_door_closed_then_open_the_garage_door"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_closed_then_open_the_garage_door">[docs]</a>    <span class="k">def</span> <span class="nf">test_first_time_with_garage_door_closed_then_open_the_garage_door</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">light</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="p">)</span>
+<span class="c">#        self.assertEqual( sp.when_garage_door_opened, t )</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">when_garage_door_opened</span><span class="p">,</span> <span class="n">t</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">t1</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">when_garage_door_opened</span><span class="p">,</span> <span class="n">t</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">when_garage_door_opened</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">60</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2012</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span>
+        <span class="n">dt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">t2</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door_monitor</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">when_garage_door_opened</span><span class="p">,</span> <span class="n">t</span> <span class="p">)</span>
+        <span class="n">light</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span> <span class="p">)</span>
+
+<span class="c">#################################################</span>
+<span class="c">#  Disable Alarm Button</span>
+<span class="c">#################################################</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeAlarm&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_start_alarm_with_door_open_and_not_disabled"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_open_and_not_disabled">[docs]</a>    <span class="k">def</span> <span class="nf">test_start_alarm_with_door_open_and_not_disabled</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">change</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">ENABLE_ALARM</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">start_alarm</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">alarm</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
+        <span class="n">change</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
+        <span class="n">change</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeAlarm&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_start_alarm_with_door_open_and_disabled"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_open_and_disabled">[docs]</a>    <span class="k">def</span> <span class="nf">test_start_alarm_with_door_open_and_disabled</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">change</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">alarm_disabled</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">DISABLE_ALARM</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">start_alarm</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">alarm</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeAlarm&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_start_alarm_with_door_closed_and_disabled"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_closed_and_disabled">[docs]</a>    <span class="k">def</span> <span class="nf">test_start_alarm_with_door_closed_and_disabled</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">change</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">alarm_disabled</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">DISABLE_ALARM</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">start_alarm</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">list</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">alarm</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+
+<span class="c">#################################################</span>
+<span class="c">#  change Garage Door Warning Light</span>
+<span class="c">#################################################</span></div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.Common.send&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_change_Garage_Door_light_to_open"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_change_Garage_Door_light_to_open">[docs]</a>    <span class="k">def</span> <span class="nf">test_change_Garage_Door_light_to_open</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">send</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">changeGarageDoorWarningLight</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="p">)</span>
+        <span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="ow">not</span> <span class="n">sp</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="p">,</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="s">&#39;0x13a20040902a02&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="s">&#39;DIO-1&#39;</span><span class="p">},</span> <span class="p">[</span><span class="s">&#39;step.ZigBeeOutput&#39;</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c">#################################################</span>
+<span class="c">#  change alarm</span>
+<span class="c">#################################################</span></div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.Common.send&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_change_alarm_to_on"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_change_alarm_to_on">[docs]</a>    <span class="k">def</span> <span class="nf">test_change_alarm_to_on</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">send</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
+        <span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">,</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="s">&#39;0x13a20040902a02&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="s">&#39;DIO-3&#39;</span><span class="p">},</span> <span class="p">[</span><span class="s">&#39;step.ZigBeeOutput&#39;</span> <span class="p">]</span> <span class="p">)</span>
+
+<span class="c">#################################################</span>
+<span class="c">#  change alarm</span>
+<span class="c">#################################################</span></div>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.statuspanel.StatusPanel.changeAlarm&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_press_disarm_alarm_button"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_press_disarm_alarm_button">[docs]</a>    <span class="k">def</span> <span class="nf">test_press_disarm_alarm_button</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">ca</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">disable_alarm_button</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="bp">True</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">DISABLE_ALARM</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">alarm</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+        <span class="n">ca</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+
+<span class="c">#################################################</span>
+<span class="c">#  System Check</span>
+<span class="c">#################################################</span>
+</div>
+<div class="viewcode-block" id="Test.test_SystemCheck"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.statuspanel_test.Test.test_SystemCheck">[docs]</a>    <span class="k">def</span> <span class="nf">test_SystemCheck</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">StatusPanel</span><span class="p">()</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">system_check</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">system_check</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_SystemCheck</span> <span class="p">)</span>
+        <span class="n">sp</span><span class="o">.</span><span class="n">system_check</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="n">value_returned</span><span class="p">,</span> <span class="n">data_returned</span><span class="p">,</span> <span class="n">listeners_returned</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">system_check</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span> <span class="n">value_returned</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_returned</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertListEqual</span><span class="p">(</span> <span class="n">listeners</span><span class="p">,</span> <span class="n">listeners_returned</span> <span class="p">)</span>
+
+        <span class="n">value_returned</span><span class="p">,</span> <span class="n">data_returned</span><span class="p">,</span> <span class="n">listeners_returned</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">system_check</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span> <span class="n">value_returned</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_returned</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertListEqual</span><span class="p">(</span> <span class="n">listeners</span><span class="p">,</span> <span class="n">listeners_returned</span> <span class="p">)</span>
+
+
+
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c">#  import sys;sys.argv = [&#39;&#39;, &#39;Test.testName&#39;]</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

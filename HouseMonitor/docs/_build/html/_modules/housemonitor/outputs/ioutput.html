@@ -59,41 +59,35 @@
 <span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
 
 
-<div class="viewcode-block" id="iOutput"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.ioutput.iOutput">[docs]</a><span class="k">class</span> <span class="nc">iOutput</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="iOutput"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.ioutput.iOutput">[docs]</a><span class="k">class</span> <span class="nc">iOutput</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This is an abstract class for outputting data.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">iOutput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">iOutput</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 <span class="c">#        pub.subscribe(self.output, self.topic_name)</span>
 
     <span class="nd">@abc.abstractproperty</span>
-<div class="viewcode-block" id="iOutput.topic_name"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.ioutput.iOutput.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="iOutput.topic_name"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.ioutput.iOutput.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">return</span> <span class="s">&#39;Should never see this&#39;</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="iOutput.output"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.ioutput.iOutput.output">[docs]</a>    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">):</span>
+<div class="viewcode-block" id="iOutput.output"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.ioutput.iOutput.output">[docs]</a>    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This routine will be called to convert value from one unit to another</span>
 <span class="sd">        such as Centigrade to Fahrenheit.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            value: is the value to convert</span>
-<span class="sd">            listeners: are the routines that this value will go through</span>
-<span class="sd">            being processed</span>
-<span class="sd">            data: a dictionary containing more information about the</span>
-<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
-<span class="sd">                of values that will be in the data dictionary:</span>
-
-<span class="sd">                date_time_received: time when value was received.</span>
-<span class="sd">                Units: units of the number</span>
-<span class="sd">                Name: name assigned to the value</span>
-<span class="sd">                etc.</span>
+<span class="sd">        :param value: Not used</span>
+<span class="sd">        :type value: Boolean</span>
+<span class="sd">        :param data: a dictionary containing more information about the value. </span>
+<span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
+<span class="sd">        :returns: value, data, listeners</span>
+<span class="sd">        :rtype: Boolean, dict, listeners</span>
 
 
 <span class="sd">        &quot;&quot;&quot;</span></div></div>

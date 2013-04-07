@@ -28,7 +28,7 @@
     <link rel="top" title="House Monitor &amp; Control  documentation" href="index.html" />
     <link rel="up" title="housemonitor Package" href="housemonitor.html" />
     <link rel="next" title="test Package" href="housemonitor.steps.test.html" />
-    <link rel="prev" title="xmlrpc Package" href="housemonitor.outputs.xmlrpc.html" /> 
+    <link rel="prev" title="test Package" href="housemonitor.outputs.zigbee.test.html" /> 
   </head>
   <body>
     <div class="related">
@@ -44,7 +44,7 @@
           <a href="housemonitor.steps.test.html" title="test Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="housemonitor.outputs.xmlrpc.html" title="xmlrpc Package"
+          <a href="housemonitor.outputs.zigbee.test.html" title="test Package"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
           <li><a href="housemonitor.html" accesskey="U">housemonitor Package</a> &raquo;</li> 
@@ -127,16 +127,16 @@ of values that will be in the data dictionary:</dd>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first">None</p>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">None</p>
 </td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
-<p>from steps.zigbee2volts import ZigbeeCountToVolts
-zig = ZigbeeCountToVolts()
-zig.getErrorCount(100, {&#8216;device&#8217;: &#8216;xyz&#8217;, &#8216;port&#8217;: &#8216;abc&#8217;}, [&#8216;a&#8217;, &#8216;b&#8217;])</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">steps.zigbee2volts</span> <span class="kn">import</span> <span class="n">ZigbeeCountToVolts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zig</span> <span class="o">=</span> <span class="n">ZigbeeCountToVolts</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zig</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="s">&#39;xyz&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="s">&#39;abc&#39;</span><span class="p">},</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -149,32 +149,13 @@ zig.getErrorCount(100, {&#8216;device&#8217;: &#8216;xyz&#8217;, &#8216;port&#82
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<em>int</em>) &#8211; Not used.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1 <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-<div class="line">4. etc.</div>
-</div>
-</li>
-<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the to.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">count, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int, dict, listeners</p>
 </td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first">None</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -243,15 +224,14 @@ of values that will be in the data dictionary:</dd>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">None</p>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="docutils">
-<dt>Raises:</dt>
-<dd>None</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
@@ -358,13 +338,11 @@ of values that will be in the data dictionary:</dd>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The number of samples for this device and port.  If the file does not contain the</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The number of samples for this device and port.  If the file does not contain the number the use the default.</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>number the use the default.
-:Raises: None</p>
 </dd></dl>
 
 <dl class="method">
@@ -375,22 +353,22 @@ of values that will be in the data dictionary:</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>device</strong> (<em>string</em>) &#8211; The name of the device.</li>
 <li><strong>port</strong> (<em>string</em>) &#8211; The name of the port.</li>
 <li><strong>number_of_samples</strong> &#8211; The number of samples for generating the averaage.</li>
 <li><strong>samples</strong> &#8211; <ul>
-<li>the deque for storing the data samples.  Its maxlen will be set to</li>
+<li>the deque for storing the data samples.  Its maxlen will be set to the number of samples</li>
 </ul>
 </li>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">degue for storing the data</p>
+</td>
+</tr>
 </tbody>
 </table>
-<p>the number of samples
-:returns: degue for storing the data
-:Raises: None</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -458,10 +436,8 @@ of values that will be in the data dictionary:</dd>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first">ValueError, KeyError</p>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
 </td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -534,10 +510,8 @@ of values that will be in the data dictionary:</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">value, dict, listeners</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first">None</p>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">None</p>
 </td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -803,6 +777,68 @@ of values that will be in the data dictionary:</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="module-housemonitor.steps.maxvalue">
+<span id="maxvalue-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">maxvalue</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.maxvalue" title="Permalink to this headline">¶</a></h2>
+<p>Created on Jan 17, 2013</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.maxvalue.MaxValue">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.maxvalue.</tt><tt class="descname">MaxValue</tt><a class="reference internal" href="_modules/housemonitor/steps/maxvalue.html#MaxValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.maxvalue.MaxValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.maxvalue.MaxValue.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/maxvalue.html#MaxValue.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.maxvalue.MaxValue.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.maxvalue.MaxValue.max_value">
+<tt class="descname">max_value</tt><em class="property"> = {}</em><a class="headerlink" href="#housemonitor.steps.maxvalue.MaxValue.max_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.maxvalue.MaxValue.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/maxvalue.html#MaxValue.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.maxvalue.MaxValue.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will record the max value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.maxvalue.MaxValue.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/maxvalue.html#MaxValue.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.maxvalue.MaxValue.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="housemonitor.steps.maxvalue.instantuate_me">
+<tt class="descclassname">housemonitor.steps.maxvalue.</tt><tt class="descname">instantuate_me</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/maxvalue.html#instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.maxvalue.instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be called to instantiate this class.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-housemonitor.steps.onbooleanchange">
 <span id="onbooleanchange-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">onbooleanchange</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.onbooleanchange" title="Permalink to this headline">¶</a></h2>
 <p>Created on Nov 15, 2012</p>
@@ -841,17 +877,7 @@ the next listener else don&#8217;t send the data along.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
@@ -949,10 +975,8 @@ of values that will be in the data dictionary:</dd>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">value, dict, listeners</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first">KeyError</p>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">KeyError</p>
 </td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -981,6 +1005,428 @@ of values that will be in the data dictionary:</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="module-housemonitor.steps.statuspanel">
+<span id="statuspanel-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">statuspanel</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.statuspanel" title="Permalink to this headline">¶</a></h2>
+<p>Created on 2012-11-14</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.statuspanel.</tt><tt class="descname">StatusPanel</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt></p>
+<p>The Status Panel is responsible for updating the kitchen status panel.  The status panel
+consists for a:</p>
+<p># Green flashing LED that indicates that the system is functioning.
+# A red LED that glows when the garage door is open.
+# A alarm that will sound X minutes after the garage door has opened.
+# A disable button that will disable the alarm.</p>
+<p>A schematic is in the Fritzing directory.</p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ALARM_OFF">
+<tt class="descname">ALARM_OFF</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ALARM_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ALARM_ON">
+<tt class="descname">ALARM_ON</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ALARM_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM">
+<tt class="descname">DISABLE_ALARM</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton">
+<em class="property">class </em><tt class="descname">DisableAlarmButton</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.DisableAlarmButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<p>DisableAlarmButton will be waiting for the disable alarm button to
+be pressed.  When it is pressed it will disable the alarm until
+the garage door is closed.</p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.DisableAlarmButton.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.DisableAlarmButton.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton.step" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Will detect if the garage door disable button has been pressed.  If it has it will:</dt>
+<dd><div class="first last line-block">
+<div class="line">1. set disable alarm to disabled</div>
+<div class="line">2. turn off the alarm</div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; The state of the garage door</li>
+<li><strong>data</strong> &#8211; <dl class="docutils">
+<dt>a dictionary containing more information about the</dt>
+<dd>value. Data can be added to this as needed.  Here is a list
+of values that will be in the data dictionary:</dd>
+</dl>
+<div class="line-block">
+<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
+<div class="line">2. <strong>units:</strong> units of the number</div>
+<div class="line">3. <strong>name:</strong> name assigned to the value</div>
+<div class="line">4. etc.</div>
+</div>
+</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.DisableAlarmButton.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ENABLE_ALARM">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">ENABLE_ALARM</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ENABLE_ALARM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GARAGE_DOOR_CLOSED">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">GARAGE_DOOR_CLOSED</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GARAGE_DOOR_CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GARAGE_DOOR_OPEN">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">GARAGE_DOOR_OPEN</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GARAGE_DOOR_OPEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor">
+<em class="property">class </em><tt class="descclassname">StatusPanel.</tt><tt class="descname">GarageDoorMonitor</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<p>GarageDoorMonitor is a class that receives the message about 
+the garage door.</p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval">
+<tt class="descname">setTimerToActivateAlarmAfterInterval</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will start a timer when the garage door opens.  When the 
+timer expire a message will be sent to StartAlarm.step() which will 
+start the alarm.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.step" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Will detect if the garage door has been opened.  If it has it will:</dt>
+<dd><div class="first last line-block">
+<div class="line">1. Set the time when the door was opened</div>
+<div class="line">2. disable the alarm</div>
+<div class="line">3. Turn off the alarm</div>
+</div>
+</dd>
+<dt>It will always do the following:</dt>
+<dd><div class="first last line-block">
+<div class="line">1. Set the garage door to the value that was passed in</div>
+<div class="line">2. Start a timer that will send a message in X minutes telling the system</div>
+<div class="line">to recheck the garage door and if it is still open start the alarm.</div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; The state of the garage door</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm">
+<em class="property">class </em><tt class="descclassname">StatusPanel.</tt><tt class="descname">StartAlarm</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<p>StartAlarm will start the alarm.  It will sound until the garage door
+is closed or the disable ararm button is pressed.</p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine will receive a message X minutes after the door has been opened.  If the garage door is 
+still open and the alarm has not been disabled, it will start the alarm:</p>
+<div class="line-block">
+<div class="line">1. set disable alarm to disabled</div>
+<div class="line">2. turn off the alarm</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; Not used</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SystemCheck">
+<em class="property">class </em><tt class="descclassname">StatusPanel.</tt><tt class="descname">SystemCheck</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SystemCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SystemCheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SystemCheck.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SystemCheck.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SystemCheck.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SystemCheck.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.step" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This routine will monitor the status of the HouseMonitor program and if everything appears ok</dt>
+<dd>will toggle the Status LED.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; Not used</li>
+<li><strong>data</strong> &#8211; <dl class="docutils">
+<dt>a dictionary containing more information about the</dt>
+<dd>value. Data can be added to this as needed.  Here is a list
+of values that will be in the data dictionary:</dd>
+</dl>
+<div class="line-block">
+<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
+<div class="line">2. <strong>units:</strong> units of the number</div>
+<div class="line">3. <strong>name:</strong> name assigned to the value</div>
+<div class="line">4. etc.</div>
+</div>
+</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SystemCheck.toggle">
+<tt class="descname">toggle</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.toggle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SystemCheck.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SystemCheck.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">alarm</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weather the alarm is sounding or not</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.changeAlarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">changeAlarm</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.changeAlarm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.changeAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn on or off the alarm that indicates that the garage door is open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>Boolean</em>) &#8211; determines if the alarm will be on or off.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">none</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">changeGarageDoorWarningLight</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.changeGarageDoorWarningLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn on or off the LED that indicates that the garage door is open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>Boolean</em>) &#8211; determines if the light will be on or off.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">none</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.disable_alarm_button">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">disable_alarm_button</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.disable_alarm_button" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.enable_alarm_button_pressed">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">enable_alarm_button_pressed</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.enable_alarm_button_pressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates that the disable alarm has been pressed.
+Cleared by closing the door.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door" title="Permalink to this definition">¶</a></dt>
+<dd><p>The state of the garage door.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_monitor">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_monitor</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_monitor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_standoff_time">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_standoff_time</tt><em class="property"> = datetime.timedelta(0, 60)</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_standoff_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_timer">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_timer</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the time that the garage door was opened</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.logger_name">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_address">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_address</tt><em class="property"> = '0x13a20040902a02'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_alarm</tt><em class="property"> = 'DIO-3'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_disable">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_disable</tt><em class="property"> = 'DIO-5'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_garage_door_led">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_garage_door_led</tt><em class="property"> = 'DIO-1'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_garage_door_led" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_spare_led">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_spare_led</tt><em class="property"> = 'DIO-2'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_spare_led" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_status_led">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_status_led</tt><em class="property"> = 'DIO-0'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_status_led" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.start_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">start_alarm</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.start_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.system_check">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">system_check</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.system_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.when_garage_door_opened">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">when_garage_door_opened</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.when_garage_door_opened" title="Permalink to this definition">¶</a></dt>
+<dd><p>The time when the garage door was opened</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="housemonitor.steps.statuspanel.instantuate_me">
+<tt class="descclassname">housemonitor.steps.statuspanel.</tt><tt class="descname">instantuate_me</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be called to instantiate this class.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-housemonitor.steps.tmp36volts2centigrade">
 <span id="tmp36volts2centigrade-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tmp36volts2centigrade</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.tmp36volts2centigrade" title="Permalink to this headline">¶</a></h2>
 <p>Created on Jul 30, 2012</p>
@@ -1001,26 +1447,14 @@ of values that will be in the data dictionary:</dd>
 <tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/tmp36volts2centigrade.html#ConvertTMP36VoltsToCentigrade.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.tmp36volts2centigrade.ConvertTMP36VoltsToCentigrade.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert from TMP36 volts to Centigrade
 The formula can be found at:</p>
-<blockquote>
-<div><a class="reference external" href="http://learn.adafruit.com/tmp36-temperature-sensor">http://learn.adafruit.com/tmp36-temperature-sensor</a></div></blockquote>
+<p><a class="reference external" href="http://learn.adafruit.com/tmp36-temperature-sensor">http://learn.adafruit.com/tmp36-temperature-sensor</a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<em>int, float</em>) &#8211; The number to convert from volts to centigrade.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-<div class="line">4. etc.</div>
-</div>
-</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
@@ -1030,18 +1464,6 @@ of values that will be in the data dictionary:</dd>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float, dict, listeners</p>
 </td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Raises:</dt>
-<dd>None</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -1065,6 +1487,65 @@ of values that will be in the data dictionary:</dd>
 <dt id="housemonitor.steps.tmp36volts2centigrade.instantuate_me">
 <tt class="descclassname">housemonitor.steps.tmp36volts2centigrade.</tt><tt class="descname">instantuate_me</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/tmp36volts2centigrade.html#instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.tmp36volts2centigrade.instantuate_me" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.uptime">
+<span id="uptime-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">uptime</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.uptime" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mar 6, 2013</p>
+<p>&#64;author: Gary</p>
+<dl class="function">
+<dt id="housemonitor.steps.uptime.instantuate_me">
+<tt class="descclassname">housemonitor.steps.uptime.</tt><tt class="descname">instantuate_me</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/uptime.html#instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.uptime.instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will be called to instantiate this class.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.uptime.uptime">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.uptime.</tt><tt class="descname">uptime</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/uptime.html#uptime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.uptime.uptime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">steps.abc_step.abcStep</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.uptime.uptime.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/uptime.html#uptime.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.uptime.uptime.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.uptime.uptime.start_time">
+<tt class="descname">start_time</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.uptime.uptime.start_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.uptime.uptime.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/uptime.html#uptime.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.uptime.uptime.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will ... .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; Not used</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.uptime.uptime.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/uptime.html#uptime.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.uptime.uptime.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-housemonitor.steps.zigbee2volts">
@@ -1109,40 +1590,17 @@ of values that will be in the data dictionary:</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>int</em>) &#8211; The number to convert to volts.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-<div class="line">4. etc.</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; Not used</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Volts, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
 </td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Raises:</dt>
-<dd>None</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -1178,13 +1636,20 @@ returns ZigbeeCountToVolts object
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="housemonitor.steps.test.html">test Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#garage-door-monitor-unittest-module"><tt class="docutils literal"><span class="pre">garage_door_monitor_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#lib-unittest-module"><tt class="docutils literal"><span class="pre">lib_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#moduleloader-unittest-module"><tt class="docutils literal"><span class="pre">moduleloader_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#onbooleanchange-unittest-module"><tt class="docutils literal"><span class="pre">onBooleanChange_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#oneinn-unittest-module"><tt class="docutils literal"><span class="pre">oneInN_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#scheduler-unittest-module"><tt class="docutils literal"><span class="pre">scheduler_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#tmp36volts2centigrade-unittest-module"><tt class="docutils literal"><span class="pre">tmp36volts2centigrade_UnitTest</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.abc_step_test"><tt class="docutils literal"><span class="pre">abc_step_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.average_test"><tt class="docutils literal"><span class="pre">average_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.centigrade2fahrenheit_test"><tt class="docutils literal"><span class="pre">centigrade2fahrenheit_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.currentvalues_test"><tt class="docutils literal"><span class="pre">currentvalues_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.doorstate_Test"><tt class="docutils literal"><span class="pre">doorstate_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.formatvalue_test"><tt class="docutils literal"><span class="pre">formatvalue_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.maxvalue"><tt class="docutils literal"><span class="pre">maxvalue</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.maxvalue_test"><tt class="docutils literal"><span class="pre">maxvalue_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.onBooleanChange_Test"><tt class="docutils literal"><span class="pre">onBooleanChange_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.oneInN_Test"><tt class="docutils literal"><span class="pre">oneInN_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.statuspanel_test"><tt class="docutils literal"><span class="pre">statuspanel_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.tmp36volts2centigrade_Test"><tt class="docutils literal"><span class="pre">tmp36volts2centigrade_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.uptime_test"><tt class="docutils literal"><span class="pre">uptime_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.steps.test.html#module-housemonitor.steps.test.zigbee2volts_test"><tt class="docutils literal"><span class="pre">zigbee2volts_test</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -1207,9 +1672,12 @@ returns ZigbeeCountToVolts object
 <li><a class="reference internal" href="#module-housemonitor.steps.currentvalues"><tt class="docutils literal"><span class="pre">currentvalues</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.steps.doorstate"><tt class="docutils literal"><span class="pre">doorstate</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.steps.formatvalue"><tt class="docutils literal"><span class="pre">formatvalue</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.maxvalue"><tt class="docutils literal"><span class="pre">maxvalue</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.steps.onbooleanchange"><tt class="docutils literal"><span class="pre">onbooleanchange</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.steps.oneInN"><tt class="docutils literal"><span class="pre">oneInN</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.statuspanel"><tt class="docutils literal"><span class="pre">statuspanel</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.steps.tmp36volts2centigrade"><tt class="docutils literal"><span class="pre">tmp36volts2centigrade</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.uptime"><tt class="docutils literal"><span class="pre">uptime</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.steps.zigbee2volts"><tt class="docutils literal"><span class="pre">zigbee2volts</span></tt> Module</a></li>
 <li><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 </ul>
@@ -1219,8 +1687,8 @@ returns ZigbeeCountToVolts object
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="housemonitor.outputs.xmlrpc.html"
-                        title="previous chapter">xmlrpc Package</a></p>
+  <p class="topless"><a href="housemonitor.outputs.zigbee.test.html"
+                        title="previous chapter">test Package</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="housemonitor.steps.test.html"
                         title="next chapter">test Package</a></p>
@@ -1259,7 +1727,7 @@ returns ZigbeeCountToVolts object
           <a href="housemonitor.steps.test.html" title="test Package"
              >next</a> |</li>
         <li class="right" >
-          <a href="housemonitor.outputs.xmlrpc.html" title="xmlrpc Package"
+          <a href="housemonitor.outputs.zigbee.test.html" title="test Package"
              >previous</a> |</li>
         <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
           <li><a href="housemonitor.html" >housemonitor Package</a> &raquo;</li> 

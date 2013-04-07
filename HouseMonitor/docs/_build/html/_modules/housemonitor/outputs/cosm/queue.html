@@ -60,7 +60,7 @@
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 
 
-<div class="viewcode-block" id="COSMQueue"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue">[docs]</a><span class="k">class</span> <span class="nc">COSMQueue</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMQueue"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue">[docs]</a><span class="k">class</span> <span class="nc">COSMQueue</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A class for communicating between the main thread and the</span>
 <span class="sd">    COSM thread.</span>
@@ -71,20 +71,20 @@
     <span class="n">_queue</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; A Tread safe queue used to communicate data between threads. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
-            <span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_SIZE</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">COSMQueue</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span> <span class="o">==</span> <span class="bp">None</span> <span class="p">):</span>
+            <span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_SIZE</span> <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">COSMQueue</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="COSMQueue.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMQueue.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger level. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">outputsCOSM</span>
 </div>
-<div class="viewcode-block" id="COSMQueue.transmit"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.transmit">[docs]</a>    <span class="k">def</span> <span class="nf">transmit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packet</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMQueue.transmit"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.transmit">[docs]</a>    <span class="k">def</span> <span class="nf">transmit</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">packet</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Add packet to input queue.</span>
 
@@ -97,7 +97,6 @@
 <span class="sd">        :returns: none</span>
 <span class="sd">        :exceptions: none</span>
 
-<span class="sd">        :Example:</span>
 <span class="sd">        &gt;&gt;&gt; from outputs.cosm.queue import COSMQueue</span>
 <span class="sd">        &gt;&gt;&gt; cosm = COSMQueue()</span>
 <span class="sd">        &gt;&gt;&gt; cosm.transmit({&#39;a&#39;:  &#39;b&#39;})</span>
@@ -107,10 +106,10 @@
 <span class="sd">        .. warning:: This my block if gueue is full.  The attribute QUEUE_SIZE contains the number of items that can be put on the queue.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">packet</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;put packet on cosmQueue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packet</span><span class="p">))</span>
+        <span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;put packet on cosmQueue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="COSMQueue.receive"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.receive">[docs]</a>    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMQueue.receive"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.receive">[docs]</a>    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        remove packet from input queue.</span>
 
@@ -119,9 +118,9 @@
 <span class="sd">        :returns packet: The same packet the was transmitted by the transmit function.</span>
 <span class="sd">        :rtype:  Same as the data that was sent by the transmit function</span>
 <span class="sd">        :exceptions: None</span>
+<span class="sd">        </span>
 <span class="sd">        .. warning:: Will block if no packets are availiable</span>
 
-<span class="sd">        :Example:</span>
 <span class="sd">        &gt;&gt;&gt; from outputs.cosm.queue import COSMQueue</span>
 <span class="sd">        &gt;&gt;&gt; cosm = COSMQueue()</span>
 <span class="sd">        &gt;&gt;&gt; cosm.transmit({&#39;a&#39;:  &#39;b&#39;})</span>
@@ -130,16 +129,15 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">packet</span> <span class="o">=</span> <span class="n">COSMQueue</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;get packet off cosm Queue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packet</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;get packet off cosm Queue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">packet</span>
 </div>
-<div class="viewcode-block" id="COSMQueue.clear"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMQueue.clear"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.queue.COSMQueue.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Clear the queue</span>
 
 <span class="sd">        This routine is mainly used for unit test</span>
 
-<span class="sd">        :Example:</span>
 <span class="sd">        &gt;&gt;&gt; from outputs.cosm.queue import COSMQueue</span>
 <span class="sd">        &gt;&gt;&gt; cosm = COSMQueue()</span>
 <span class="sd">        &gt;&gt;&gt; cosm.clean()</span>
@@ -147,14 +145,14 @@
 <span class="sd">        .. warning::  All the data in the queue will be lost</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">while</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">False</span><span class="p">)):</span>
+            <span class="k">while</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span> <span class="bp">False</span> <span class="p">)</span> <span class="p">):</span>
                 <span class="k">pass</span>
         <span class="k">except</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
             <span class="k">return</span>
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">doctest</span>
-    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>  <span class="c"># pragma: no cover</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>    <span class="c"># pragma: no cover</span>
 </pre></div>
 
           </div>

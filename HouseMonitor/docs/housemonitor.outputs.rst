@@ -24,4 +24,5 @@ Subpackages
 
     housemonitor.outputs.cosm
     housemonitor.outputs.xmlrpc
+    housemonitor.outputs.zigbee
 

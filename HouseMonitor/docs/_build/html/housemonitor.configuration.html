@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="House Monitor &amp; Control  documentation" href="index.html" />
     <link rel="up" title="housemonitor Package" href="housemonitor.html" />
-    <link rel="next" title="hm Package" href="housemonitor.hm.html" />
+    <link rel="next" title="test Package" href="housemonitor.configuration.test.html" />
     <link rel="prev" title="housemonitor Package" href="housemonitor.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="housemonitor.hm.html" title="hm Package"
+          <a href="housemonitor.configuration.test.html" title="test Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="housemonitor.html" title="housemonitor Package"
@@ -58,8 +58,38 @@
             
   <div class="section" id="configuration-package">
 <h1>configuration Package<a class="headerlink" href="#configuration-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="configuration-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">configuration</span></tt> Module<a class="headerlink" href="#configuration-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.configuration.abc_configuration">
+<span id="abc-configuration-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">abc_configuration</span></tt> Module<a class="headerlink" href="#module-housemonitor.configuration.abc_configuration" title="Permalink to this headline">¶</a></h2>
+<p>Created on Aug 5, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.configuration.abc_configuration.abcConfiguration">
+<em class="property">class </em><tt class="descclassname">housemonitor.configuration.abc_configuration.</tt><tt class="descname">abcConfiguration</tt><a class="reference internal" href="_modules/housemonitor/configuration/abc_configuration.html#abcConfiguration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.configuration.abc_configuration.abcConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This module will provide configuration aid</p>
+<dl class="attribute">
+<dt id="housemonitor.configuration.abc_configuration.abcConfiguration.configuration_file_name">
+<tt class="descname">configuration_file_name</tt><a class="reference internal" href="_modules/housemonitor/configuration/abc_configuration.html#abcConfiguration.configuration_file_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.configuration.abc_configuration.abcConfiguration.configuration_file_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.configuration.abc_configuration.abcConfiguration.configuration_topic_name">
+<tt class="descname">configuration_topic_name</tt><a class="reference internal" href="_modules/housemonitor/configuration/abc_configuration.html#abcConfiguration.configuration_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.configuration.abc_configuration.abcConfiguration.configuration_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.configuration.abc_configuration.abcConfiguration.configure">
+<tt class="descname">configure</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/configuration/abc_configuration.html#abcConfiguration.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.configuration.abc_configuration.abcConfiguration.configure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.configuration.abc_configuration.abcConfiguration.logger_name">
+<tt class="descname">logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/configuration/abc_configuration.html#abcConfiguration.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.configuration.abc_configuration.abcConfiguration.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level. This needs to be added to house_monitoring_logging.conf</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-housemonitor.configuration.cosmconfiguration">
 <span id="cosmconfiguration-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cosmconfiguration</span></tt> Module<a class="headerlink" href="#module-housemonitor.configuration.cosmconfiguration" title="Permalink to this headline">¶</a></h2>
@@ -448,7 +478,7 @@ found.</p>
 <dl class="class">
 <dt id="housemonitor.configuration.xmlconfiguration.XmlConfiguration">
 <em class="property">class </em><tt class="descclassname">housemonitor.configuration.xmlconfiguration.</tt><tt class="descname">XmlConfiguration</tt><a class="reference internal" href="_modules/housemonitor/configuration/xmlconfiguration.html#XmlConfiguration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.configuration.xmlconfiguration.XmlConfiguration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">housemonitor.configuration.abc_configuration.abcConfiguration</span></tt></p>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.configuration.abc_configuration.abcConfiguration" title="housemonitor.configuration.abc_configuration.abcConfiguration"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.configuration.abc_configuration.abcConfiguration</span></tt></a></p>
 <p>This class will read an XML configuration file in the config directory</p>
 <dl class="attribute">
 <dt id="housemonitor.configuration.xmlconfiguration.XmlConfiguration.DIRECTORIES">
@@ -531,6 +561,19 @@ ConfigurationFileNotFoundError</p>
 </dd></dl>
 
 </div>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="housemonitor.configuration.test.html">test Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.configuration.test.html#module-housemonitor.configuration.test.cosmconfiguration_test"><tt class="docutils literal"><span class="pre">cosmconfiguration_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.configuration.test.html#module-housemonitor.configuration.test.xmlDeviceConfiguration_test"><tt class="docutils literal"><span class="pre">xmlDeviceConfiguration_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.configuration.test.html#module-housemonitor.configuration.test.xmlconfiguration_test"><tt class="docutils literal"><span class="pre">xmlconfiguration_test</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -542,11 +585,14 @@ ConfigurationFileNotFoundError</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">configuration Package</a><ul>
-<li><a class="reference internal" href="#configuration-module"><tt class="docutils literal"><span class="pre">configuration</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.configuration.abc_configuration"><tt class="docutils literal"><span class="pre">abc_configuration</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.configuration.cosmconfiguration"><tt class="docutils literal"><span class="pre">cosmconfiguration</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.configuration.formatconfiguration"><tt class="docutils literal"><span class="pre">formatconfiguration</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.configuration.xmlDeviceConfiguration"><tt class="docutils literal"><span class="pre">xmlDeviceConfiguration</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.configuration.xmlconfiguration"><tt class="docutils literal"><span class="pre">xmlconfiguration</span></tt> Module</a></li>
+<li><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -555,8 +601,8 @@ ConfigurationFileNotFoundError</p>
   <p class="topless"><a href="housemonitor.html"
                         title="previous chapter">housemonitor Package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="housemonitor.hm.html"
-                        title="next chapter">hm Package</a></p>
+  <p class="topless"><a href="housemonitor.configuration.test.html"
+                        title="next chapter">test Package</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/housemonitor.configuration.txt"
@@ -589,7 +635,7 @@ ConfigurationFileNotFoundError</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="housemonitor.hm.html" title="hm Package"
+          <a href="housemonitor.configuration.test.html" title="test Package"
              >next</a> |</li>
         <li class="right" >
           <a href="housemonitor.html" title="housemonitor Package"

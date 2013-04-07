@@ -9,10 +9,10 @@ cosm Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`outputProcessing` Module
-------------------------------
+:mod:`outputStep` Module
+------------------------
 
-.. automodule:: housemonitor.outputs.cosm.outputProcessing
+.. automodule:: housemonitor.outputs.cosm.outputStep
     :members:
     :undoc-members:
     :show-inheritance:
@@ -40,4 +40,11 @@ cosm Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+    housemonitor.outputs.cosm.test
 

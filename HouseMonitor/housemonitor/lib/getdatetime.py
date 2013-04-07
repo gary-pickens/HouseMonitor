@@ -31,8 +31,6 @@ class GetDateTime( object ):
         :returns: time as formatted with time_format above
         :rtype: string in this format 1966:10:03 13:42:51
 
-        :Example:
-
         from lib.getdatetime import GetDateTime
         utc = GetDateTime()
         print(utc)
@@ -47,7 +45,6 @@ class GetDateTime( object ):
         :returns: time as formatted with time_format above
         :rtype: string in this format 1966:10:03 13:42:51
 
-        :Example:
 
         from lib.getdatetime import GetDateTime
         utc = GetDateTime()
@@ -62,8 +59,6 @@ class GetDateTime( object ):
 
         :returns: time as formatted with time_format above
         :rtype: string in this format YYYY-MM-DDTHH:MM:SS.mmmmmm
-
-        :Example:
 
         from lib.getdatetime import GetDateTime
         utc = GetDateTime()

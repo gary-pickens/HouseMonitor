@@ -61,12 +61,12 @@
 <span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
 
 
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; This function will be called to instantiate this class. &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">OneInN</span><span class="p">()</span>
 
 </div>
-<div class="viewcode-block" id="OneInN"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN">[docs]</a><span class="k">class</span> <span class="nc">OneInN</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="OneInN"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN">[docs]</a><span class="k">class</span> <span class="nc">OneInN</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This class will pass along one in N samples.  This could be used</span>
 <span class="sd">    to slow the rate that samples will be sent to some remote site.  ie. COSM</span>
@@ -88,29 +88,29 @@
     <span class="n">config</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; Configuration data. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Construct the object OneInN and read the configuration file.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">OneInN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">FormatConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s">&#39;oneInN.xml&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">OneInN</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">FormatConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span> <span class="s">&#39;oneInN.xml&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OneInN.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OneInN.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">OneInNStep</span>
 </div>
-<div class="viewcode-block" id="OneInN.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OneInN.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">__name__</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OneInN.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OneInN.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="OneInN.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="OneInN.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.oneInN.OneInN.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function will take one sample out of limit samples.</span>
 
@@ -128,8 +128,6 @@
 <span class="sd">        :rtype: value, dict, listeners</span>
 <span class="sd">        :Raises: KeyError</span>
 
-<span class="sd">        :Example:</span>
-
 <span class="sd">        &gt;&gt;&gt; from steps.oneInN import oneInN</span>
 <span class="sd">        &gt;&gt;&gt; oneInN = oneInN()</span>
 <span class="sd">        &gt;&gt;&gt; c2f.step(0, {&#39;device&#39;: &#39;test&#39;, &#39;port&#39;: &#39;test&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
@@ -138,15 +136,15 @@
 <span class="sd">        (212.0, {&#39;device&#39;: &#39;test&#39;, &#39;units&#39;: &#39;F&#39;, &#39;port&#39;: &#39;test&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">limit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">])</span>
+        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="n">limit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="p">)</span>
 
-        <span class="n">Common</span><span class="o">.</span><span class="n">generateDevicePortTree</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="o">%</span> <span class="n">limit</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">Common</span><span class="o">.</span><span class="n">generateDevicePortTree</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="o">%</span> <span class="n">limit</span> <span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">listeners</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;count is {}: don&#39;t send data&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;count is {}: don&#39;t send data&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;count is {}: send data&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;count is {}: send data&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div>
 </pre></div>

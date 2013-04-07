@@ -7,18 +7,18 @@ from pubsub import pub
 from lib.constants import Constants
 
 
-class Common(object):
+class Common( object ):
     '''
     Common routines used through out House Monitor
     '''
 
-    def __init__(self):
+    def __init__( self ):
         '''
         Constructor
         '''
 
     @staticmethod
-    def send(value, data, listeners):
+    def send( value, data, listeners ):
         """
         Send takes the first listener off of the list listeners and sends the
         data to the next routine using the pubsub package.
@@ -30,19 +30,19 @@ class Common(object):
 
         see special section that describe the listeners list
         """
-        if len(listeners):
+        if len( listeners ):
             # get the first item on the list
-            listener = listeners.pop(0)
+            listener = listeners.pop( 0 )
             # test to see if the first item in the list is a list
-            if ((type(listener) == type("")) and
-                (len(listener) > 0)):
-                pub.sendMessage(listener, value=value, data=data, listeners=listeners)
-            elif (type(listener) == type([])):
-                Common.send(value, data, listener)
-                Common.send(value, data, listeners)
+            if ( ( type( listener ) == type( "" ) ) and
+                ( len( listener ) > 0 ) ):
+                pub.sendMessage( listener, value=value, data=data, listeners=listeners )
+            elif ( type( listener ) == type( [] ) ):
+                Common.send( value, data, listener )
+                Common.send( value, data, listeners )
 
     @staticmethod
-    def getDeviceAndPort(data):
+    def getDeviceAndPort( data ):
         """
         Gets the device and port out of data dictionary
 
@@ -51,8 +51,6 @@ class Common(object):
         :returns: device and port
         :rtype: string, string
         :Raises: KeyError
-
-        :Example:
 
         >>> from steps.tmp36volts2centigrade import ConvertTMP36VoltsToCentigrade
         >>> zig = ConvertTMP36VoltsToCentigrade()
@@ -64,18 +62,18 @@ class Common(object):
         try:
             device = data[Constants.DataPacket.device]
         except KeyError as ke:
-            error = "The device is missing from the data block: {}".format(ke)
-            raise KeyError(error)
+            error = "The device is missing from the data block: {}".format( ke )
+            raise KeyError( error )
 
         try:
             port = data[Constants.DataPacket.port]
         except KeyError as ke:
-            error = "The port is missing from the data block: {}".format(ke)
-            raise KeyError(error)
+            error = "The port is missing from the data block: {}".format( ke )
+            raise KeyError( error )
         return device, port
 
     @staticmethod
-    def generateDevicePortTree(value, device, port, values):
+    def generateDevicePortTree( value, device, port, values ):
         """
         This function will create a values tree containing value.
 

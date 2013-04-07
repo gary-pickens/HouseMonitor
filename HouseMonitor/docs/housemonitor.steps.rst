@@ -49,6 +49,14 @@ steps Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`maxvalue` Module
+----------------------
+
+.. automodule:: housemonitor.steps.maxvalue
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`onbooleanchange` Module
 -----------------------------
 
@@ -65,10 +73,26 @@ steps Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`statuspanel` Module
+-------------------------
+
+.. automodule:: housemonitor.steps.statuspanel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`tmp36volts2centigrade` Module
 -----------------------------------
 
 .. automodule:: housemonitor.steps.tmp36volts2centigrade
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`uptime` Module
+--------------------
+
+.. automodule:: housemonitor.steps.uptime
     :members:
     :undoc-members:
     :show-inheritance:

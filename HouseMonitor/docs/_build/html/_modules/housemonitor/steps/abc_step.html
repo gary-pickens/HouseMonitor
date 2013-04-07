@@ -64,7 +64,7 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 
 
-<div class="viewcode-block" id="abcStep"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep">[docs]</a><span class="k">class</span> <span class="nc">abcStep</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="abcStep"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep">[docs]</a><span class="k">class</span> <span class="nc">abcStep</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This is a abstract class which is used by the step routines to convert one type of data to another.</span>
 
@@ -83,35 +83,26 @@
 
     <span class="n">whoami</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">abcStep</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">substep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">topic_name</span><span class="p">)</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getUseCount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_topic_name</span><span class="p">)</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_topic_name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">abcStep</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">substep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">topic_name</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">getUseCount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_topic_name</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">statistics_topic_name</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">whoami</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
 
-<div class="viewcode-block" id="abcStep.getUseCount"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.getUseCount">[docs]</a>    <span class="k">def</span> <span class="nf">getUseCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Report the number of times that step has been called.</span>
-
+<div class="viewcode-block" id="abcStep.getUseCount"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.getUseCount">[docs]</a>    <span class="k">def</span> <span class="nf">getUseCount</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Report the number of times that step has been called.</span>
+<span class="sd">        </span>
 <span class="sd">        :param value: Not used.</span>
 <span class="sd">        :type value: int</span>
-<span class="sd">        :param data: a dictionary containing more information about the</span>
-<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
-<span class="sd">                of values that will be in the data dictionary:</span>
+<span class="sd">        :param data: a dictionary containing more information about the value.</span>
+<span class="sd">        :param listeners: a list of the subscribed routines to send the to.</span>
+<span class="sd">        :returns: int, dict, listeners</span>
 
-<span class="sd">              |  1 **date:** time received: time when value was received.</span>
-<span class="sd">              |  2. **units:** units of the number</span>
-<span class="sd">              |  3. **name:** name assigned to the value</span>
-<span class="sd">              |  4. etc.</span>
-<span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
-<span class="sd">        :returns: count, data, listeners</span>
-<span class="sd">        :rtype: float, dict, listeners</span>
-<span class="sd">        :Raises: None</span>
-
-<span class="sd">        :Example:</span>
 <span class="sd">        &gt;&gt;&gt; from steps.zigbee2volts import ZigbeeCountToVolts</span>
 <span class="sd">        &gt;&gt;&gt; zig = ZigbeeCountToVolts()</span>
 <span class="sd">        &gt;&gt;&gt; zig.getUseCount(100, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
@@ -119,15 +110,16 @@
 <span class="sd">        &gt;&gt;&gt; zig.step(1, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
 <span class="sd">        &gt;&gt;&gt; zig.getUseCount(100, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
 <span class="sd">        (1, {&#39;device&#39;: &#39;xyz&#39;, &#39;units&#39;: &#39;V&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
+
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;getUseCount = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;getUseCount = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="p">)</span> <span class="p">)</span>
             <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;HouseMonitor.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">whoami</span>
             <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Count&#39;</span>
             <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_count_time</span>
-            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">listeners</span><span class="p">))</span>
+            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="n">listeners</span> <span class="p">)</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="abcStep.getErrorCount"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.getErrorCount">[docs]</a>    <span class="k">def</span> <span class="nf">getErrorCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">):</span>
+<div class="viewcode-block" id="abcStep.getErrorCount"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.getErrorCount">[docs]</a>    <span class="k">def</span> <span class="nf">getErrorCount</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Report the number of errors that has occurred in this step.</span>
 
 <span class="sd">        :param value: Not used.</span>
@@ -144,20 +136,19 @@
 <span class="sd">        :rtype: float, dict, listeners</span>
 <span class="sd">        :Raises: None</span>
 
-<span class="sd">        :Example:</span>
-<span class="sd">        from steps.zigbee2volts import ZigbeeCountToVolts</span>
-<span class="sd">        zig = ZigbeeCountToVolts()</span>
-<span class="sd">        zig.getErrorCount(100, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; from steps.zigbee2volts import ZigbeeCountToVolts</span>
+<span class="sd">        &gt;&gt;&gt; zig = ZigbeeCountToVolts()</span>
+<span class="sd">        &gt;&gt;&gt; zig.getErrorCount(100, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;getErrorCount = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;getErrorCount = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="p">)</span> <span class="p">)</span>
             <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;HouseMonitor.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">whoami</span>
             <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Error Count&#39;</span>
             <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error_time</span>
-            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">listeners</span><span class="p">))</span>
+            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="n">listeners</span> <span class="p">)</span> <span class="p">)</span>
 </div>
     <span class="nd">@abc.abstractproperty</span>
-<div class="viewcode-block" id="abcStep.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c"># pragma: no cover</span>
+<div class="viewcode-block" id="abcStep.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>    <span class="c"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot; The topic name that pubsub uses to send data to this step. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s">&#39;Should never see this&#39;</span>
 </div>
@@ -173,17 +164,17 @@
     <span class="n">last_error_time</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; Contains the time of the last error. &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="abcStep.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="abcStep.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger name. This needs to be added to house_monitoring_logging.conf &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s">&#39;steps&#39;</span>  <span class="c"># pragma: no cover</span>
+        <span class="k">return</span> <span class="s">&#39;steps&#39;</span>    <span class="c"># pragma: no cover</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="abcStep.statistics_topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.statistics_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">statistics_topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="abcStep.statistics_topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.statistics_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">statistics_topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the name that pubsub uses to get usage information about the module. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">Statistics</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="abcStep.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">):</span>
+<div class="viewcode-block" id="abcStep.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Abstract method for the procedure that does all user specific computations.</span>
 
@@ -201,12 +192,12 @@
 <span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
 <span class="sd">        :returns: new_value, new_data, new_listeners</span>
 <span class="sd">        :rtype: int, dict, listeners</span>
-<span class="sd">        Raises:</span>
-<span class="sd">            None</span>
+<span class="sd">        :raises: None</span>
+<span class="sd">        </span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span>  <span class="c"># pragma: no cover</span>
+        <span class="k">pass</span>    <span class="c"># pragma: no cover</span>
 </div>
-<div class="viewcode-block" id="abcStep.substep"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.substep">[docs]</a>    <span class="k">def</span> <span class="nf">substep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">):</span>
+<div class="viewcode-block" id="abcStep.substep"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.abcStep.substep">[docs]</a>    <span class="k">def</span> <span class="nf">substep</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        This function is wraps step function.  It counts usage, errors then sends the data to next function.</span>
 
@@ -229,18 +220,18 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Trap any exceptions from getting to pubsub</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
+            <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_count_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;value {} listeners {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">listeners</span><span class="p">))</span>
-            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;value {} listeners {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__name__</span><span class="p">,</span> <span class="n">ex</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span> <span class="s">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">__name__</span><span class="p">,</span> <span class="n">ex</span> <span class="p">)</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_error_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
 
 </div></div>
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>  <span class="c"># pragma: no cover</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.abc_step.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>    <span class="c"># pragma: no cover</span>
     <span class="k">return</span> <span class="bp">None</span></div>
 </pre></div>
 

@@ -10,54 +10,48 @@ from lib.constants import Constants
 from abc_step import abcStep
 
 
-def instantuate_me(data):
+def instantuate_me( data ):
     ''' This function will be called to instantiate this class. '''
     return MaxValue()
 
 
-class MaxValue(abcStep):
+class MaxValue( abcStep ):
     '''
 
     '''
 
     max_value = {}
 
-    def __init__(self):
+    def __init__( self ):
         '''
         '''
-        super(MaxValue, self).__init__()
+        super( MaxValue, self ).__init__()
 
     @property
-    def topic_name(self):
+    def topic_name( self ):
         ''' The topic name to which this routine subscribes.'''
         return Constants.TopicNames.MaxValue
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         ''' Set the logger level. '''
         return Constants.LogKeys.steps
 
-    def step(self, value, data={}, listeners=[]):
+    def step( self, value, data={}, listeners=[] ):
         """
         This function will record the max value.
 
-        Args:
         :param value: The number to add to the list of numbers.
         :type value: boolean, int or float
-        :param data: a dictionary containing more information about the
-                value. Data can be added to this as needed.  Here is a list
-                of values that will be in the data dictionary:
-
-               | 1. **date:** time received: time when value was received.
-               | 2. **units:** units of the number
-               | 3. **name:** name assigned to the value
+        :param data: a dictionary containing more information about the value. 
         :param listeners: a list of the subscribed routines to send the data to
         :returns: value, data, listeners
         :rtype: float, dict, listeners
-        :Raises: ValueError, KeyError
+        :raises: ValueError, KeyError
+        
         """
-        device, port = Common.getDeviceAndPort(data)
-        Common.generateDevicePortTree(value, device, port, self.max_value)
+        device, port = Common.getDeviceAndPort( data )
+        Common.generateDevicePortTree( value, device, port, self.max_value )
 
         if value > self.max_value[device][port]:
             self.max_value[device][port] = value

@@ -170,19 +170,10 @@ class StatusPanel( Base ):
                 
             :param value: The state of the garage door
             :type value: Boolean
-            :param data: a dictionary containing more information about the
-                    value. Data can be added to this as needed.  Here is a list
-                    of values that will be in the data dictionary:
-    
-                   | 1. **date:** time received: time when value was received.
-                   | 2. **units:** units of the number
-                   | 3. **name:** name assigned to the value
-                   | 4. etc.
+            :param data: a dictionary containing more information about the value.
             :param listeners: a list of the subscribed routines to send the data to
             :returns: value, data, listeners
             :rtype: Boolean, dict, listeners
-            Raises:
-                None
     
             """
             self.logger.debug( 'GarageDoorMonitor. {} {}'.format( self.status_panel.garage_door, value ) )
@@ -238,8 +229,6 @@ class StatusPanel( Base ):
             :param listeners: a list of the subscribed routines to send the data to
             :returns: value, data, listeners
             :rtype: Boolean, dict, listeners
-            Raises:
-                None
     
             """
             #  set when_garage_door_opened the first time the door is detected open
@@ -274,24 +263,16 @@ class StatusPanel( Base ):
             """
             This routine will receive a message X minutes after the door has been opened.  If the garage door is 
             still open and the alarm has not been disabled, it will start the alarm:
-                | 1. set disable alarm to disabled
-                | 2. turn off the alarm
+            
+            | 1. set disable alarm to disabled
+            | 2. turn off the alarm
                         
             :param value: Not used
             :type value: Boolean
-            :param data: a dictionary containing more information about the
-                    value. Data can be added to this as needed.  Here is a list
-                    of values that will be in the data dictionary:
-    
-                   | 1. **date:** time received: time when value was received.
-                   | 2. **units:** units of the number
-                   | 3. **name:** name assigned to the value
-                   | 4. etc.
+            :param data: a dictionary containing more information about the value. 
             :param listeners: a list of the subscribed routines to send the data to
-                :returns: value, data, listeners
+            :returns: value, data, listeners
             :rtype: Boolean, dict, listeners
-            Raises:
-                None
     
             """
             self.logger.debug( 'Start alarm called. {} {}'.format( self.status_panel.garage_door, self.status_panel.enable_alarm_button_pressed ) )
@@ -345,8 +326,6 @@ class StatusPanel( Base ):
             :param listeners: a list of the subscribed routines to send the data to
             :returns: value, data, listeners
             :rtype: Boolean, dict, listeners
-            Raises:
-                None
     
             """
             value = self.toggle = not self.toggle

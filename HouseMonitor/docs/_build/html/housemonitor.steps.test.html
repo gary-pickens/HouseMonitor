@@ -27,7 +27,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="House Monitor &amp; Control  documentation" href="index.html" />
     <link rel="up" title="steps Package" href="housemonitor.steps.html" />
-    <link rel="next" title="setup Module" href="setup.html" />
     <link rel="prev" title="steps Package" href="housemonitor.steps.html" /> 
   </head>
   <body>
@@ -40,9 +39,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="setup.html" title="setup Module"
-             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="housemonitor.steps.html" title="steps Package"
              accesskey="P">previous</a> |</li>
@@ -59,26 +55,771 @@
             
   <div class="section" id="test-package">
 <h1>test Package<a class="headerlink" href="#test-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="garage-door-monitor-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">garage_door_monitor_UnitTest</span></tt> Module<a class="headerlink" href="#garage-door-monitor-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.abc_step_test">
+<span id="abc-step-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">abc_step_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.abc_step_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Dec 17, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.abc_step_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.abc_step_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.abc_step_test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.test__logger_name">
+<tt class="descname">test__logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.test__logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.test__logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.test__topic_name">
+<tt class="descname">test__topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.test__topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.test__topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.test_getErrorCount">
+<tt class="descname">test_getErrorCount</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.test_getErrorCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.test_getErrorCount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.test_getErrorCount_when_error_count_is_zero">
+<tt class="descname">test_getErrorCount_when_error_count_is_zero</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.test_getErrorCount_when_error_count_is_zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.test_getErrorCount_when_error_count_is_zero" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.test_getUseCount">
+<tt class="descname">test_getUseCount</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.test_getUseCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.test_getUseCount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.Test.test_getUseCount_when_count_is_zero">
+<tt class="descname">test_getUseCount_when_count_is_zero</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#Test.test_getUseCount_when_count_is_zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.Test.test_getUseCount_when_count_is_zero" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.test.abc_step_test.testStep">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.abc_step_test.</tt><tt class="descname">testStep</tt><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#testStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.testStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">steps.abc_step.abcStep</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.abc_step_test.testStep.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#testStep.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.testStep.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.abc_step_test.testStep.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data</em>, <em>listeners</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#testStep.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.testStep.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.test.abc_step_test.testStep.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/test/abc_step_test.html#testStep.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.abc_step_test.testStep.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="lib-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">lib_UnitTest</span></tt> Module<a class="headerlink" href="#lib-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.average_test">
+<span id="average-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">average_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.average_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Nov 14, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.average_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.average_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.average_test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_using_abc_step">
+<tt class="descname">test_oneInN_using_abc_step</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_using_abc_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_using_abc_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_no_device">
+<tt class="descname">test_oneInN_with_no_device</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_no_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_no_device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_no_device_in_count_dict">
+<tt class="descname">test_oneInN_with_no_device_in_count_dict</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_no_device_in_count_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_no_device_in_count_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_no_port">
+<tt class="descname">test_oneInN_with_no_port</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_no_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_no_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_one_device_and_other_port_in_count_dict">
+<tt class="descname">test_oneInN_with_one_device_and_other_port_in_count_dict</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_one_device_and_other_port_in_count_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_one_device_and_other_port_in_count_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_one_device_and_port">
+<tt class="descname">test_oneInN_with_one_device_and_port</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_one_device_and_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_one_device_and_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_one_device_in_count_dict_that_is_not_the_same">
+<tt class="descname">test_oneInN_with_one_device_in_count_dict_that_is_not_the_same</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_one_device_in_count_dict_that_is_not_the_same"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_one_device_in_count_dict_that_is_not_the_same" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.average_test.Test.test_oneInN_with_two_device_and_port">
+<tt class="descname">test_oneInN_with_two_device_and_port</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/average_test.html#Test.test_oneInN_with_two_device_and_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.average_test.Test.test_oneInN_with_two_device_and_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="moduleloader-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">moduleloader_UnitTest</span></tt> Module<a class="headerlink" href="#moduleloader-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.centigrade2fahrenheit_test">
+<span id="centigrade2fahrenheit-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">centigrade2fahrenheit_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.centigrade2fahrenheit_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Dec 17, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.centigrade2fahrenheit_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_boiling_point">
+<tt class="descname">test_boiling_point</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test.test_boiling_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_boiling_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_freezing_point">
+<tt class="descname">test_freezing_point</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test.test_freezing_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_freezing_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/centigrade2fahrenheit_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.centigrade2fahrenheit_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="onbooleanchange-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">onBooleanChange_UnitTest</span></tt> Module<a class="headerlink" href="#onbooleanchange-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.currentvalues_test">
+<span id="currentvalues-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">currentvalues_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.currentvalues_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Dec 17, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.currentvalues_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.currentvalues_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.test_with_invalid_device_data">
+<tt class="descname">test_with_invalid_device_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.test_with_invalid_device_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.test_with_invalid_device_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.test_with_invalid_port_data">
+<tt class="descname">test_with_invalid_port_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.test_with_invalid_port_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.test_with_invalid_port_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.currentvalues_test.Test.test_with_real_data">
+<tt class="descname">test_with_real_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/currentvalues_test.html#Test.test_with_real_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.currentvalues_test.Test.test_with_real_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="oneinn-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">oneInN_UnitTest</span></tt> Module<a class="headerlink" href="#oneinn-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.doorstate_Test">
+<span id="doorstate-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">doorstate_Test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.doorstate_Test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Sep 4, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.doorstate_Test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.doorstate_Test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.testName">
+<tt class="descname">testName</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.testName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.testName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.test_DoorClosed">
+<tt class="descname">test_DoorClosed</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.test_DoorClosed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.test_DoorClosed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.test_DoorOpen">
+<tt class="descname">test_DoorOpen</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.test_DoorOpen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.test_DoorOpen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.test_DoorOther">
+<tt class="descname">test_DoorOther</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.test_DoorOther"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.test_DoorOther" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.doorstate_Test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/doorstate_Test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.doorstate_Test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="scheduler-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">scheduler_UnitTest</span></tt> Module<a class="headerlink" href="#scheduler-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.formatvalue_test">
+<span id="formatvalue-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">formatvalue_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.formatvalue_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Dec 18, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.formatvalue_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.formatvalue_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.test_configuration_file_name">
+<tt class="descname">test_configuration_file_name</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.test_configuration_file_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.test_configuration_file_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.test_step">
+<tt class="descname">test_step</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.test_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.test_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.test_step_with_value_error">
+<tt class="descname">test_step_with_value_error</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.test_step_with_value_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.test_step_with_value_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.formatvalue_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/formatvalue_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.formatvalue_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="tmp36volts2centigrade-unittest-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">tmp36volts2centigrade_UnitTest</span></tt> Module<a class="headerlink" href="#tmp36volts2centigrade-unittest-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-housemonitor.steps.test.maxvalue">
+<span id="maxvalue-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">maxvalue</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.maxvalue" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mar 2, 2013</p>
+<p>&#64;author: Gary</p>
+</div>
+<div class="section" id="module-housemonitor.steps.test.maxvalue_test">
+<span id="maxvalue-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">maxvalue_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.maxvalue_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mar 2, 2013</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.maxvalue_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.maxvalue_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.data">
+<tt class="descname">data</tt><em class="property"> = {}</em><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.device">
+<tt class="descname">device</tt><em class="property"> = 'device'</em><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.port">
+<tt class="descname">port</tt><em class="property"> = 'port'</em><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.steps">
+<tt class="descname">steps</tt><em class="property"> = []</em><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_initalize_dictionary_with_added_port_to_value_of_11">
+<tt class="descname">test_initalize_dictionary_with_added_port_to_value_of_11</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_initalize_dictionary_with_added_port_to_value_of_11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_initalize_dictionary_with_added_port_to_value_of_11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_initalize_dictionary_with_value_of_10">
+<tt class="descname">test_initalize_dictionary_with_value_of_10</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_initalize_dictionary_with_value_of_10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_initalize_dictionary_with_value_of_10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_leave_max_value_at_10">
+<tt class="descname">test_leave_max_value_at_10</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_leave_max_value_at_10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_leave_max_value_at_10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_set_max_value_to_20">
+<tt class="descname">test_set_max_value_to_20</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_set_max_value_to_20"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_set_max_value_to_20" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.maxvalue_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/maxvalue_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.maxvalue_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.test.onBooleanChange_Test">
+<span id="onbooleanchange-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">onBooleanChange_Test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.onBooleanChange_Test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Nov 15, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.onBooleanChange_Test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_continues_after_new_entry_is_made">
+<tt class="descname">test_onBooleanChange_continues_after_new_entry_is_made</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_onBooleanChange_continues_after_new_entry_is_made"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_continues_after_new_entry_is_made" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_if_no_device_in_data">
+<tt class="descname">test_onBooleanChange_if_no_device_in_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_onBooleanChange_if_no_device_in_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_if_no_device_in_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_if_no_port_in_data">
+<tt class="descname">test_onBooleanChange_if_no_port_in_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_onBooleanChange_if_no_port_in_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_if_no_port_in_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_with_one_device_and_port">
+<tt class="descname">test_onBooleanChange_with_one_device_and_port</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_onBooleanChange_with_one_device_and_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_with_one_device_and_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_with_one_device_and_two_ports">
+<tt class="descname">test_onBooleanChange_with_one_device_and_two_ports</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_onBooleanChange_with_one_device_and_two_ports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_with_one_device_and_two_ports" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_with_two_device_and_port">
+<tt class="descname">test_onBooleanChange_with_two_device_and_port</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/onBooleanChange_Test.html#Test.test_onBooleanChange_with_two_device_and_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.onBooleanChange_Test.Test.test_onBooleanChange_with_two_device_and_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.test.oneInN_Test">
+<span id="oneinn-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">oneInN_Test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.oneInN_Test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Nov 14, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.oneInN_Test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.oneInN_Test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_configuration_file_name">
+<tt class="descname">test_configuration_file_name</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_configuration_file_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_configuration_file_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_no_device_in_count_dict">
+<tt class="descname">test_oneInN_with_no_device_in_count_dict</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_oneInN_with_no_device_in_count_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_no_device_in_count_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_one_device_and_other_port_in_count_dict">
+<tt class="descname">test_oneInN_with_one_device_and_other_port_in_count_dict</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_oneInN_with_one_device_and_other_port_in_count_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_one_device_and_other_port_in_count_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_one_device_and_port">
+<tt class="descname">test_oneInN_with_one_device_and_port</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_oneInN_with_one_device_and_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_one_device_and_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_one_device_in_count_dict_that_is_not_the_same">
+<tt class="descname">test_oneInN_with_one_device_in_count_dict_that_is_not_the_same</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_oneInN_with_one_device_in_count_dict_that_is_not_the_same"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_one_device_in_count_dict_that_is_not_the_same" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_two_device_and_port">
+<tt class="descname">test_oneInN_with_two_device_and_port</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/oneInN_Test.html#Test.test_oneInN_with_two_device_and_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.oneInN_Test.Test.test_oneInN_with_two_device_and_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.test.statuspanel_test">
+<span id="statuspanel-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">statuspanel_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.statuspanel_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mar 28, 2013</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.statuspanel_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.statuspanel_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_SystemCheck">
+<tt class="descname">test_SystemCheck</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_SystemCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_SystemCheck" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_change_Garage_Door_light_to_open">
+<tt class="descname">test_change_Garage_Door_light_to_open</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_change_Garage_Door_light_to_open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_change_Garage_Door_light_to_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_change_alarm_to_on">
+<tt class="descname">test_change_alarm_to_on</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_change_alarm_to_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_change_alarm_to_on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_closed">
+<tt class="descname">test_first_time_with_garage_door_closed</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_first_time_with_garage_door_closed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_closed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_closed_then_open_the_garage_door">
+<tt class="descname">test_first_time_with_garage_door_closed_then_open_the_garage_door</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_first_time_with_garage_door_closed_then_open_the_garage_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_closed_then_open_the_garage_door" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_open">
+<tt class="descname">test_first_time_with_garage_door_open</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_first_time_with_garage_door_open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_first_time_with_garage_door_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_press_disarm_alarm_button">
+<tt class="descname">test_press_disarm_alarm_button</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_press_disarm_alarm_button"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_press_disarm_alarm_button" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_setTimerToActivateAlarmAfterInterval">
+<tt class="descname">test_setTimerToActivateAlarmAfterInterval</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_setTimerToActivateAlarmAfterInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_setTimerToActivateAlarmAfterInterval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_closed_and_disabled">
+<tt class="descname">test_start_alarm_with_door_closed_and_disabled</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_start_alarm_with_door_closed_and_disabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_closed_and_disabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_open_and_disabled">
+<tt class="descname">test_start_alarm_with_door_open_and_disabled</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_start_alarm_with_door_open_and_disabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_open_and_disabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_open_and_not_disabled">
+<tt class="descname">test_start_alarm_with_door_open_and_not_disabled</tt><big>(</big><em>*args</em>, <em>**keywargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_start_alarm_with_door_open_and_not_disabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_start_alarm_with_door_open_and_not_disabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.statuspanel_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/statuspanel_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.statuspanel_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.test.tmp36volts2centigrade_Test">
+<span id="tmp36volts2centigrade-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tmp36volts2centigrade_Test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.tmp36volts2centigrade_Test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Nov 16, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.tmp36volts2centigrade_Test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.tmp36volts2centigrade_Test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/tmp36volts2centigrade_Test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.tmp36volts2centigrade_Test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.tmp36volts2centigrade_Test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.tmp36volts2centigrade_Test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.tmp36volts2centigrade_Test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/tmp36volts2centigrade_Test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.tmp36volts2centigrade_Test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.tmp36volts2centigrade_Test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/tmp36volts2centigrade_Test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.tmp36volts2centigrade_Test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.tmp36volts2centigrade_Test.Test.test_at_0C">
+<tt class="descname">test_at_0C</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/tmp36volts2centigrade_Test.html#Test.test_at_0C"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.tmp36volts2centigrade_Test.Test.test_at_0C" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.tmp36volts2centigrade_Test.Test.test_at_50C">
+<tt class="descname">test_at_50C</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/tmp36volts2centigrade_Test.html#Test.test_at_50C"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.tmp36volts2centigrade_Test.Test.test_at_50C" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.test.uptime_test">
+<span id="uptime-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">uptime_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.uptime_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mar 6, 2013</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.uptime_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.uptime_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/uptime_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.uptime_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="housemonitor.steps.test.uptime_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/uptime_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.uptime_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.uptime_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/uptime_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.uptime_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.uptime_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/uptime_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.uptime_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.uptime_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/uptime_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.uptime_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.uptime_test.Test.test_uptime">
+<tt class="descname">test_uptime</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/uptime_test.html#Test.test_uptime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.uptime_test.Test.test_uptime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.steps.test.zigbee2volts_test">
+<span id="zigbee2volts-test-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">zigbee2volts_test</span></tt> Module<a class="headerlink" href="#module-housemonitor.steps.test.zigbee2volts_test" title="Permalink to this headline">¶</a></h2>
+<p>Created on Dec 18, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test">
+<em class="property">class </em><tt class="descclassname">housemonitor.steps.test.zigbee2volts_test.</tt><tt class="descname">Test</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.logger">
+<tt class="descname">logger</tt><em class="property"> = &lt;logging.Logger object at 0x0000000003E8AFD0&gt;</em><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.test_convert_count_of_0_to_volts">
+<tt class="descname">test_convert_count_of_0_to_volts</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.test_convert_count_of_0_to_volts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.test_convert_count_of_0_to_volts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.test_convert_count_of_100_to_volts">
+<tt class="descname">test_convert_count_of_100_to_volts</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.test_convert_count_of_100_to_volts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.test_convert_count_of_100_to_volts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.test_instantuate_me">
+<tt class="descname">test_instantuate_me</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.test_instantuate_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.test_instantuate_me" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.test_logger_name">
+<tt class="descname">test_logger_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.test_logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.test_logger_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.test.zigbee2volts_test.Test.test_topic_name">
+<tt class="descname">test_topic_name</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/test/zigbee2volts_test.html#Test.test_topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.test.zigbee2volts_test.Test.test_topic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -91,13 +832,20 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">test Package</a><ul>
-<li><a class="reference internal" href="#garage-door-monitor-unittest-module"><tt class="docutils literal"><span class="pre">garage_door_monitor_UnitTest</span></tt> Module</a></li>
-<li><a class="reference internal" href="#lib-unittest-module"><tt class="docutils literal"><span class="pre">lib_UnitTest</span></tt> Module</a></li>
-<li><a class="reference internal" href="#moduleloader-unittest-module"><tt class="docutils literal"><span class="pre">moduleloader_UnitTest</span></tt> Module</a></li>
-<li><a class="reference internal" href="#onbooleanchange-unittest-module"><tt class="docutils literal"><span class="pre">onBooleanChange_UnitTest</span></tt> Module</a></li>
-<li><a class="reference internal" href="#oneinn-unittest-module"><tt class="docutils literal"><span class="pre">oneInN_UnitTest</span></tt> Module</a></li>
-<li><a class="reference internal" href="#scheduler-unittest-module"><tt class="docutils literal"><span class="pre">scheduler_UnitTest</span></tt> Module</a></li>
-<li><a class="reference internal" href="#tmp36volts2centigrade-unittest-module"><tt class="docutils literal"><span class="pre">tmp36volts2centigrade_UnitTest</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.abc_step_test"><tt class="docutils literal"><span class="pre">abc_step_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.average_test"><tt class="docutils literal"><span class="pre">average_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.centigrade2fahrenheit_test"><tt class="docutils literal"><span class="pre">centigrade2fahrenheit_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.currentvalues_test"><tt class="docutils literal"><span class="pre">currentvalues_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.doorstate_Test"><tt class="docutils literal"><span class="pre">doorstate_Test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.formatvalue_test"><tt class="docutils literal"><span class="pre">formatvalue_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.maxvalue"><tt class="docutils literal"><span class="pre">maxvalue</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.maxvalue_test"><tt class="docutils literal"><span class="pre">maxvalue_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.onBooleanChange_Test"><tt class="docutils literal"><span class="pre">onBooleanChange_Test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.oneInN_Test"><tt class="docutils literal"><span class="pre">oneInN_Test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.statuspanel_test"><tt class="docutils literal"><span class="pre">statuspanel_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.tmp36volts2centigrade_Test"><tt class="docutils literal"><span class="pre">tmp36volts2centigrade_Test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.uptime_test"><tt class="docutils literal"><span class="pre">uptime_test</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.steps.test.zigbee2volts_test"><tt class="docutils literal"><span class="pre">zigbee2volts_test</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -105,9 +853,6 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="housemonitor.steps.html"
                         title="previous chapter">steps Package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="setup.html"
-                        title="next chapter">setup Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/housemonitor.steps.test.txt"
@@ -139,9 +884,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="setup.html" title="setup Module"
-             >next</a> |</li>
         <li class="right" >
           <a href="housemonitor.steps.html" title="steps Package"
              >previous</a> |</li>

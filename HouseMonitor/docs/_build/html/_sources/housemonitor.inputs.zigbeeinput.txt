@@ -41,3 +41,10 @@ zigbeeinput Package
     :undoc-members:
     :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+
+    housemonitor.inputs.zigbeeinput.test
+

@@ -8,7 +8,7 @@ from abc_step import abcStep
 from lib.constants import Constants
 
 
-class  ZigbeeCountToVolts(abcStep):
+class  ZigbeeCountToVolts( abcStep ):
     """
     Convert Zigbee count to Volts
     """
@@ -16,16 +16,16 @@ class  ZigbeeCountToVolts(abcStep):
     VOLTS_PER_COUNT = 1.2 / 1024
 
     @property
-    def topic_name(self):
+    def topic_name( self ):
         """ The topic name to which this routine subscribes."""
         return Constants.TopicNames.ZigbeeAnalogNumberToVoltsStep
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         """ Set the logger name. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.steps
 
-    def step(self, value, data={}, listeners=[]):
+    def step( self, value, data={}, listeners=[] ):
         """
         Convert the Zigbee analog count(value) to volts
 
@@ -36,23 +36,13 @@ class  ZigbeeCountToVolts(abcStep):
 
         .. seealso::  http://learn.adafruit.com/tmp36-temperature-sensor
 
-        :param value: The number to convert to volts.
-        :type value: int
-        :param data: a dictionary containing more information about the
-                value. Data can be added to this as needed.  Here is a list
-                of values that will be in the data dictionary:
-
-               | 1. **date:** time received: time when value was received.
-               | 2. **units:** units of the number
-               | 3. **name:** name assigned to the value
-               | 4. etc.
+        :param value: Not used
+        :type value: Boolean
+        :param data: a dictionary containing more information about the value. 
         :param listeners: a list of the subscribed routines to send the data to
-        :returns: Volts, data, listeners
-        :rtype: float, dict, listeners
-        Raises:
-            None
+        :returns: value, data, listeners
+        :rtype: Boolean, dict, listeners
 
-        :Example:
         >>> from steps.zigbee2volts import ZigbeeCountToVolts
         >>> zig = ZigbeeCountToVolts()
         >>> zig.step(700, {'device': 'xyz', 'port': 'abc'}, ['a', 'b'])
@@ -61,11 +51,11 @@ class  ZigbeeCountToVolts(abcStep):
         """
         volts = value * self.VOLTS_PER_COUNT
         data['units'] = 'V'
-        self.logger.debug("Volts = %4.1f%s", volts, data['units'])
+        self.logger.debug( "Volts = %4.1f%s", volts, data['units'] )
         return volts, data, listeners
 
 
-def instantuate_me(data):
+def instantuate_me( data ):
     '''
     This function is used to instantuate this modules class
 
@@ -79,5 +69,5 @@ def instantuate_me(data):
 
 
 if __name__ == "__main__":
-    import doctest  # pragma: no cover
-    doctest.testmod()  # pragma: no cover
+    import doctest    # pragma: no cover
+    doctest.testmod()    # pragma: no cover

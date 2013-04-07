@@ -64,12 +64,12 @@
 <span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
 
 
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; This function will be called to instantiate this class. &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">Average</span><span class="p">()</span>
 
 </div>
-<div class="viewcode-block" id="Average"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average">[docs]</a><span class="k">class</span> <span class="nc">Average</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="Average"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average">[docs]</a><span class="k">class</span> <span class="nc">Average</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This class will take the average of the last N samples.</span>
 
@@ -92,30 +92,30 @@
     <span class="n">samples</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="sd">&#39;&#39;&#39; The repository cantaining the samples for each device. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Instantuate the Average class and read the configuration File.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Average</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">FormatConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s">&#39;avg.xml&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">Average</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">FormatConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span> <span class="s">&#39;avg.xml&#39;</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Average.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Average.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">AverageStep</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Average.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Average.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">__name__</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Average.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Average.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the logger name. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="Average.save_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.save_samples">[docs]</a>    <span class="k">def</span> <span class="nf">save_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
+<div class="viewcode-block" id="Average.save_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.save_samples">[docs]</a>    <span class="k">def</span> <span class="nf">save_samples</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">samples</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        save the samples in the data structure self.samples</span>
 
@@ -128,12 +128,12 @@
 <span class="sd">        :Raises: None</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">samples</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">port</span><span class="p">:</span> <span class="n">samples</span><span class="p">}</span>
 </div>
-<div class="viewcode-block" id="Average.get_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.get_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">number_of_samples</span><span class="p">):</span>
+<div class="viewcode-block" id="Average.get_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.get_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_samples</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">number_of_samples</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        get the samples from the samples dict.  If one has not been defined then create a deque for data samples.</span>
 
@@ -143,19 +143,17 @@
 <span class="sd">        :type port: string</span>
 <span class="sd">        :param number_of_samples: The number of samples for generating the averaage.</span>
 <span class="sd">        :type dequeue:</span>
-<span class="sd">        :param samples: - the deque for storing the data samples.  Its maxlen will be set to</span>
-<span class="sd">        the number of samples</span>
+<span class="sd">        :param samples: - the deque for storing the data samples.  Its maxlen will be set to the number of samples</span>
 <span class="sd">        :returns: degue for storing the data</span>
-<span class="sd">        :Raises: None</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="p">):</span>
             <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">samples</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([],</span> <span class="n">number_of_samples</span><span class="p">)</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span> <span class="p">[],</span> <span class="n">number_of_samples</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">samples</span>
 </div>
-<div class="viewcode-block" id="Average.get_number_of_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.get_number_of_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_of_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+<div class="viewcode-block" id="Average.get_number_of_samples"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.get_number_of_samples">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_of_samples</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        get the number of samples for this port and device.</span>
 
@@ -165,18 +163,16 @@
 <span class="sd">        :type device: string</span>
 <span class="sd">        :param port: The name of the port.</span>
 <span class="sd">        :type port: string</span>
-<span class="sd">        :returns: The number of samples for this device and port.  If the file does not contain the</span>
-<span class="sd">        number the use the default.</span>
-<span class="sd">        :Raises: None</span>
+<span class="sd">        :returns: The number of samples for this device and port.  If the file does not contain the number the use the default.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">]):</span>
-            <span class="n">number_of_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="p">):</span>
+            <span class="n">number_of_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span> <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">number_of_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SAMPLES</span>
         <span class="k">return</span> <span class="n">number_of_samples</span>
 </div>
-<div class="viewcode-block" id="Average.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="Average.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.average.Average.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function will compute the average for each device and port.</span>
 
@@ -194,7 +190,6 @@
 <span class="sd">        :rtype: float, dict, listeners</span>
 <span class="sd">        :Raises: ValueError, KeyError</span>
 
-<span class="sd">        :Example:</span>
 <span class="sd">        &gt;&gt;&gt; from steps.average import Average</span>
 <span class="sd">        &gt;&gt;&gt; avg = Average()</span>
 <span class="sd">        &gt;&gt;&gt; avg.step(0.0, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
@@ -203,16 +198,16 @@
 <span class="sd">        (0.5, {&#39;device&#39;: &#39;xyz&#39;, &#39;units&#39;: &#39;V&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
 
-        <span class="n">number_of_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number_of_samples</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+        <span class="n">number_of_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number_of_samples</span><span class="p">(</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="p">)</span>
 
-        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">number_of_samples</span><span class="p">)</span>
-        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">number_of_samples</span> <span class="p">)</span>
+        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">value</span> <span class="p">)</span>
+        <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">samples</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span> <span class="n">samples</span> <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">save_samples</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;average = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_samples</span><span class="p">(</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">samples</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;average = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">average</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">average</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div>
 </pre></div>
 

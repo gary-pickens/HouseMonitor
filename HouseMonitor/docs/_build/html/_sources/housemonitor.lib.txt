@@ -9,6 +9,14 @@ lib Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`common` Module
+--------------------
+
+.. automodule:: housemonitor.lib.common
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`constants` Module
 -----------------------
 
@@ -29,6 +37,14 @@ lib Package
 -------------------------
 
 .. automodule:: housemonitor.lib.getdatetime
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`hmqueue` Module
+---------------------
+
+.. automodule:: housemonitor.lib.hmqueue
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.lib.hmqueue &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.lib.hmqueue</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 3/8/2013</span>
+
+<span class="sd">@author: Gary</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">Queue</span>
+<span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+
+
+<div class="viewcode-block" id="HMQueue"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue">[docs]</a><span class="k">class</span> <span class="nc">HMQueue</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">QUEUE_SIZE</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="sd">&#39;&#39;&#39; The size of the Queue. &#39;&#39;&#39;</span>
+
+    <span class="sd">&#39;&#39;&#39; Priority levels for the priority queue &#39;&#39;&#39;</span>
+    <span class="n">high_priority</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">three_quarters_priority</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">mid_priority</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">one_quarter_priority</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">low_priority</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="n">_queue</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&#39;&#39;&#39; A Tread safe queue used to communicate data between threads. &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">==</span> <span class="bp">None</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_SIZE</span> <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="HMQueue.logger_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Set the logger level. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">lib</span>
+</div>
+<div class="viewcode-block" id="HMQueue.transmit"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.transmit">[docs]</a>    <span class="k">def</span> <span class="nf">transmit</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">packet</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="n">mid_priority</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add packet to input queue.</span>
+
+<span class="sd">        This is the cosm queue that all outgoing messages will go though.  messages</span>
+<span class="sd">        are added on the processing side and then passed to the thread where the</span>
+<span class="sd">        data will be sent to COSM.</span>
+
+
+<span class="sd">        :param packet: a data packet with the data to be processed</span>
+<span class="sd">        :returns: none</span>
+<span class="sd">        :exceptions: none</span>
+
+<span class="sd">        &gt;&gt;&gt; from lib.queue import HMQueue</span>
+<span class="sd">        &gt;&gt;&gt; cosm = HMQueue()</span>
+<span class="sd">        &gt;&gt;&gt; cosm.transmit({&#39;a&#39;:  &#39;b&#39;})</span>
+<span class="sd">        &gt;&gt;&gt; cosm.receive()</span>
+<span class="sd">        {&#39;a&#39;: &#39;b&#39;}</span>
+
+<span class="sd">        .. warning:: This my block if gueue is full.  The attribute QUEUE_SIZE contains the number of items that can be put on the queue.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span> <span class="p">(</span> <span class="n">priority</span><span class="p">,</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;put packet on HMQueue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="HMQueue.receive"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.receive">[docs]</a>    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Remove packet from input queue.</span>
+
+<span class="sd">        This routine will remove a packet from the COSM queue where it will be sent to COSM.</span>
+
+<span class="sd">        :returns packet: The same packet the was transmitted by the transmit function.</span>
+<span class="sd">        :rtype:  Same as the data that was sent by the transmit function</span>
+<span class="sd">        :exceptions: None</span>
+
+<span class="sd">        .. warning:: Will block if no packets are available</span>
+
+<span class="sd">        &gt;&gt;&gt; from lib.queue import HMQueue</span>
+<span class="sd">        &gt;&gt;&gt; cosm = HMQueue()</span>
+<span class="sd">        &gt;&gt;&gt; cosm.transmit({&#39;a&#39;:  &#39;b&#39;})</span>
+<span class="sd">        &gt;&gt;&gt; cosm.receive()</span>
+<span class="sd">        {&#39;a&#39;: &#39;b&#39;}</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">priority</span><span class="p">,</span> <span class="n">packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;get packet off cosm Queue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">packet</span>
+</div>
+<div class="viewcode-block" id="HMQueue.clear"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Clear the queue</span>
+
+<span class="sd">        This routine is mainly used for unit test</span>
+
+<span class="sd">        &gt;&gt;&gt; from lib.queue import HMQueue</span>
+<span class="sd">        &gt;&gt;&gt; cosm = HMQueue()</span>
+<span class="sd">        &gt;&gt;&gt; cosm.clean()</span>
+
+<span class="sd">        .. warning::  All the data in the queue will be lost</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span> <span class="bp">False</span> <span class="p">)</span> <span class="p">):</span>
+                <span class="k">pass</span>
+        <span class="k">except</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+            <span class="k">return</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>    <span class="c"># pragma: no cover</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

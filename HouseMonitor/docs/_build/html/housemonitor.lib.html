@@ -28,7 +28,7 @@
     <link rel="top" title="House Monitor &amp; Control  documentation" href="index.html" />
     <link rel="up" title="housemonitor Package" href="housemonitor.html" />
     <link rel="next" title="test Package" href="housemonitor.lib.test.html" />
-    <link rel="prev" title="zigbeeinput Package" href="housemonitor.inputs.zigbeeinput.html" /> 
+    <link rel="prev" title="test Package" href="housemonitor.inputs.zigbeeinput.test.html" /> 
   </head>
   <body>
     <div class="related">
@@ -44,7 +44,7 @@
           <a href="housemonitor.lib.test.html" title="test Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="housemonitor.inputs.zigbeeinput.html" title="zigbeeinput Package"
+          <a href="housemonitor.inputs.zigbeeinput.test.html" title="test Package"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
           <li><a href="housemonitor.html" accesskey="U">housemonitor Package</a> &raquo;</li> 
@@ -76,6 +76,74 @@
 <dt id="housemonitor.lib.base.Base.logger_name">
 <tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/lib/base.html#Base.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.base.Base.logger_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.lib.common">
+<span id="common-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">common</span></tt> Module<a class="headerlink" href="#module-housemonitor.lib.common" title="Permalink to this headline">¶</a></h2>
+<p>Created on Aug 5, 2012</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.lib.common.Common">
+<em class="property">class </em><tt class="descclassname">housemonitor.lib.common.</tt><tt class="descname">Common</tt><a class="reference internal" href="_modules/housemonitor/lib/common.html#Common"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.common.Common" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Common routines used through out House Monitor</p>
+<dl class="staticmethod">
+<dt id="housemonitor.lib.common.Common.generateDevicePortTree">
+<em class="property">static </em><tt class="descname">generateDevicePortTree</tt><big>(</big><em>value</em>, <em>device</em>, <em>port</em>, <em>values</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/common.html#Common.generateDevicePortTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.common.Common.generateDevicePortTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will create a values tree containing value.</p>
+<p>Args:
+:param value: The number to add to the list of numbers.
+:type value: boolean, int or float
+:param device: the device.
+:type device: string
+:param device: the port.
+:type port: string
+:param values: a dictionary for storing the value value.
+:type port: dictionary
+:return: a boolean indicating if the entry is new</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="housemonitor.lib.common.Common.getDeviceAndPort">
+<em class="property">static </em><tt class="descname">getDeviceAndPort</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/common.html#Common.getDeviceAndPort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.common.Common.getDeviceAndPort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the device and port out of data dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>dict</em>) &#8211; The data that is passed into step.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">device and port</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string, string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body">KeyError</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">steps.tmp36volts2centigrade</span> <span class="kn">import</span> <span class="n">ConvertTMP36VoltsToCentigrade</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zig</span> <span class="o">=</span> <span class="n">ConvertTMP36VoltsToCentigrade</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zig</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">({</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="s">&#39;xyz&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="s">&#39;abc&#39;</span><span class="p">})</span>
+<span class="go">&#39;xyz&#39;, &#39;abc&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="housemonitor.lib.common.Common.send">
+<em class="property">static </em><tt class="descname">send</tt><big>(</big><em>value</em>, <em>data</em>, <em>listeners</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/common.html#Common.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.common.Common.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send takes the first listener off of the list listeners and sends the
+data to the next routine using the pubsub package.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>value: the value to send to the next routine
+data: additional data do pass along
+listeners: a list of subscribers that will get the data</dd>
+</dl>
+<p>see special section that describe the listeners list</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1001,15 +1069,11 @@ for communicating the current value between threads.</p>
 <dt id="housemonitor.lib.currentvalues.CurrentValues.buildDataBlock">
 <tt class="descname">buildDataBlock</tt><big>(</big><em>value</em>, <em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/currentvalues.html#CurrentValues.buildDataBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.currentvalues.CurrentValues.buildDataBlock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a data block that is used to store the current values.  The data that is stored
-in the data block is:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>arrival time</li>
-<li>Units</li>
-<li>name</li>
-<li>value</li>
-</ol>
-</div></blockquote>
+in the data block is:
+1.    arrival time
+2.    Units
+3.    name
+4.    value</p>
 <p>The index for each item is: Constants.DataPacket.arrival_time, Constants.DataPacket.units
 Constants.DataPacket.name, and Constants.DataPacket.current_value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1132,8 +1196,6 @@ routines may need to be added as they are needed</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">string in this format YYYY-MM-DDTHH:MM:SS.mmmmmm</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
 <p>from lib.getdatetime import GetDateTime
@@ -1158,13 +1220,137 @@ print(utc.isoformat())</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">string in this format 1966:10:03 13:42:51</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Example :</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
 <p>from lib.getdatetime import GetDateTime
 utc = GetDateTime()
 print(utc)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-housemonitor.lib.hmqueue">
+<span id="hmqueue-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">hmqueue</span></tt> Module<a class="headerlink" href="#module-housemonitor.lib.hmqueue" title="Permalink to this headline">¶</a></h2>
+<p>Created on 3/8/2013</p>
+<p>&#64;author: Gary</p>
+<dl class="class">
+<dt id="housemonitor.lib.hmqueue.HMQueue">
+<em class="property">class </em><tt class="descclassname">housemonitor.lib.hmqueue.</tt><tt class="descname">HMQueue</tt><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.QUEUE_SIZE">
+<tt class="descname">QUEUE_SIZE</tt><em class="property"> = 100</em><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.QUEUE_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the Queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.lib.hmqueue.HMQueue.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the queue</p>
+<p>This routine is mainly used for unit test</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lib.queue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">All the data in the queue will be lost</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.high_priority">
+<tt class="descname">high_priority</tt><em class="property"> = 0</em><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.high_priority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level. This needs to be added to house_monitoring_logging.conf</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.low_priority">
+<tt class="descname">low_priority</tt><em class="property"> = 8</em><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.low_priority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.mid_priority">
+<tt class="descname">mid_priority</tt><em class="property"> = 4</em><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.mid_priority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.one_quarter_priority">
+<tt class="descname">one_quarter_priority</tt><em class="property"> = 3</em><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.one_quarter_priority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.lib.hmqueue.HMQueue.receive">
+<tt class="descname">receive</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue.receive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.receive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove packet from input queue.</p>
+<p>This routine will remove a packet from the COSM queue where it will be sent to COSM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns packet:</th><td class="field-body">The same packet the was transmitted by the transmit function.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Same as the data that was sent by the transmit function</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Will block if no packets are available</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lib.queue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">transmit</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">:</span>  <span class="s">&#39;b&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+<span class="go">{&#39;a&#39;: &#39;b&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.hmqueue.HMQueue.three_quarters_priority">
+<tt class="descname">three_quarters_priority</tt><em class="property"> = 2</em><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.three_quarters_priority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.lib.hmqueue.HMQueue.transmit">
+<tt class="descname">transmit</tt><big>(</big><em>packet</em>, <em>priority=4</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue.transmit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue.transmit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add packet to input queue.</p>
+<p>This is the cosm queue that all outgoing messages will go though.  messages
+are added on the processing side and then passed to the thread where the
+data will be sent to COSM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>packet</strong> &#8211; a data packet with the data to be processed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">none</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions :</th><td class="field-body">none</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lib.queue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">transmit</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">:</span>  <span class="s">&#39;b&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+<span class="go">{&#39;a&#39;: &#39;b&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This my block if gueue is full.  The attribute QUEUE_SIZE contains the number of items that can be put on the queue.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -1331,7 +1517,7 @@ on timeDelta see:</p>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.previous_datetime">
-<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 5, 3, 13, 56, 592000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 7, 0, 2, 46, 566000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1455,7 +1641,7 @@ on timeDelta see:</p>
 <dl class="method">
 <dt id="housemonitor.lib.moduleloader.ModuleLoader.load">
 <tt class="descname">load</tt><big>(</big><em>data</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/moduleloader.html#ModuleLoader.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.moduleloader.ModuleLoader.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Walk though a directory and load all the <a href="#id1"><span class="problematic" id="id2">*</span></a>py and <a href="#id3"><span class="problematic" id="id4">*</span></a>pyc modules</p>
+<dd><p>Walk though a directory and load all the <em>py</em> and <em>pyc</em> modules</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1528,9 +1714,12 @@ routines may need to be added as they are needed</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="housemonitor.lib.test.html">test Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#lib-unittest-module"><tt class="docutils literal"><span class="pre">lib_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#moduleloader-unittest-module"><tt class="docutils literal"><span class="pre">moduleloader_UnitTest</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#scheduler-unittest-module"><tt class="docutils literal"><span class="pre">scheduler_UnitTest</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.common_Test"><tt class="docutils literal"><span class="pre">common_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.current_values_Test"><tt class="docutils literal"><span class="pre">current_values_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.getdatetime_test"><tt class="docutils literal"><span class="pre">getdatetime_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.hmqueue_test"><tt class="docutils literal"><span class="pre">hmqueue_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.moduleloader_Test"><tt class="docutils literal"><span class="pre">moduleloader_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.scheduler_Test"><tt class="docutils literal"><span class="pre">scheduler_Test</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -1548,9 +1737,11 @@ routines may need to be added as they are needed</p>
   <ul>
 <li><a class="reference internal" href="#">lib Package</a><ul>
 <li><a class="reference internal" href="#module-housemonitor.lib.base"><tt class="docutils literal"><span class="pre">base</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.lib.common"><tt class="docutils literal"><span class="pre">common</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.lib.constants"><tt class="docutils literal"><span class="pre">constants</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.lib.currentvalues"><tt class="docutils literal"><span class="pre">currentvalues</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.lib.getdatetime"><tt class="docutils literal"><span class="pre">getdatetime</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-housemonitor.lib.hmqueue"><tt class="docutils literal"><span class="pre">hmqueue</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.lib.hmscheduler"><tt class="docutils literal"><span class="pre">hmscheduler</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.lib.moduleloader"><tt class="docutils literal"><span class="pre">moduleloader</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-housemonitor.lib.oswalk"><tt class="docutils literal"><span class="pre">oswalk</span></tt> Module</a></li>
@@ -1563,8 +1754,8 @@ routines may need to be added as they are needed</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="housemonitor.inputs.zigbeeinput.html"
-                        title="previous chapter">zigbeeinput Package</a></p>
+  <p class="topless"><a href="housemonitor.inputs.zigbeeinput.test.html"
+                        title="previous chapter">test Package</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="housemonitor.lib.test.html"
                         title="next chapter">test Package</a></p>
@@ -1603,7 +1794,7 @@ routines may need to be added as they are needed</p>
           <a href="housemonitor.lib.test.html" title="test Package"
              >next</a> |</li>
         <li class="right" >
-          <a href="housemonitor.inputs.zigbeeinput.html" title="zigbeeinput Package"
+          <a href="housemonitor.inputs.zigbeeinput.test.html" title="test Package"
              >previous</a> |</li>
         <li><a href="index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
           <li><a href="housemonitor.html" >housemonitor Package</a> &raquo;</li> 

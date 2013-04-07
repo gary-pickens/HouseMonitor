@@ -59,7 +59,7 @@
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 
 
-<div class="viewcode-block" id="ZigbeeCountToVolts"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts">[docs]</a><span class="k">class</span>  <span class="nc">ZigbeeCountToVolts</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="ZigbeeCountToVolts"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts">[docs]</a><span class="k">class</span>  <span class="nc">ZigbeeCountToVolts</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert Zigbee count to Volts</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -67,16 +67,16 @@
     <span class="n">VOLTS_PER_COUNT</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="o">/</span> <span class="mi">1024</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ZigbeeCountToVolts.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ZigbeeCountToVolts.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The topic name to which this routine subscribes.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigbeeAnalogNumberToVoltsStep</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ZigbeeCountToVolts.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ZigbeeCountToVolts.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger name. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="ZigbeeCountToVolts.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="ZigbeeCountToVolts.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.ZigbeeCountToVolts.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the Zigbee analog count(value) to volts</span>
 
@@ -87,23 +87,13 @@
 
 <span class="sd">        .. seealso::  http://learn.adafruit.com/tmp36-temperature-sensor</span>
 
-<span class="sd">        :param value: The number to convert to volts.</span>
-<span class="sd">        :type value: int</span>
-<span class="sd">        :param data: a dictionary containing more information about the</span>
-<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
-<span class="sd">                of values that will be in the data dictionary:</span>
-
-<span class="sd">               | 1. **date:** time received: time when value was received.</span>
-<span class="sd">               | 2. **units:** units of the number</span>
-<span class="sd">               | 3. **name:** name assigned to the value</span>
-<span class="sd">               | 4. etc.</span>
+<span class="sd">        :param value: Not used</span>
+<span class="sd">        :type value: Boolean</span>
+<span class="sd">        :param data: a dictionary containing more information about the value. </span>
 <span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
-<span class="sd">        :returns: Volts, data, listeners</span>
-<span class="sd">        :rtype: float, dict, listeners</span>
-<span class="sd">        Raises:</span>
-<span class="sd">            None</span>
+<span class="sd">        :returns: value, data, listeners</span>
+<span class="sd">        :rtype: Boolean, dict, listeners</span>
 
-<span class="sd">        :Example:</span>
 <span class="sd">        &gt;&gt;&gt; from steps.zigbee2volts import ZigbeeCountToVolts</span>
 <span class="sd">        &gt;&gt;&gt; zig = ZigbeeCountToVolts()</span>
 <span class="sd">        &gt;&gt;&gt; zig.step(700, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
@@ -112,11 +102,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">volts</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">VOLTS_PER_COUNT</span>
         <span class="n">data</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;V&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Volts = </span><span class="si">%4.1f%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">volts</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;Volts = </span><span class="si">%4.1f%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">volts</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">volts</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span>
 
 </div></div>
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.zigbee2volts.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This function is used to instantuate this modules class</span>
 
@@ -130,8 +120,8 @@
 
 </div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>  <span class="c"># pragma: no cover</span>
-    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>  <span class="c"># pragma: no cover</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>    <span class="c"># pragma: no cover</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>    <span class="c"># pragma: no cover</span>
 </pre></div>
 
           </div>

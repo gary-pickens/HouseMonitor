@@ -59,25 +59,25 @@
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 
 
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
     <span class="k">return</span> <span class="n">ConvertCentigradeToFahrenheit</span><span class="p">()</span>
 
 </div>
-<div class="viewcode-block" id="ConvertCentigradeToFahrenheit"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit">[docs]</a><span class="k">class</span> <span class="nc">ConvertCentigradeToFahrenheit</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="ConvertCentigradeToFahrenheit"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit">[docs]</a><span class="k">class</span> <span class="nc">ConvertCentigradeToFahrenheit</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert from Centigrade to Fahrenheit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ConvertCentigradeToFahrenheit.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConvertCentigradeToFahrenheit.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The topic name to which this routine subscribes.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">CentigradeToFahrenheitStep</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ConvertCentigradeToFahrenheit.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConvertCentigradeToFahrenheit.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger level. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="ConvertCentigradeToFahrenheit.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="ConvertCentigradeToFahrenheit.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.centigrade2fahrenheit.ConvertCentigradeToFahrenheit.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert from Centigrade to Fahrenheit</span>
 
@@ -95,8 +95,6 @@
 <span class="sd">        :rtype: value, dict, listeners</span>
 <span class="sd">        :Raises: None</span>
 
-<span class="sd">        :Example:</span>
-
 <span class="sd">        &gt;&gt;&gt; from steps.centigrade2fahrenheit import ConvertCentigradeToFahrenheit</span>
 <span class="sd">        &gt;&gt;&gt; c2f = ConvertCentigradeToFahrenheit()</span>
 <span class="sd">        &gt;&gt;&gt; c2f.step(0, {&#39;device&#39;: &#39;xyz&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
@@ -105,9 +103,9 @@
 <span class="sd">        (212.0, {&#39;device&#39;: &#39;xyz&#39;, &#39;units&#39;: &#39;F&#39;, &#39;port&#39;: &#39;abc&#39;}, [&#39;a&#39;, &#39;b&#39;])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">Fahrenheit</span> <span class="o">=</span> <span class="p">((</span><span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span>
+        <span class="n">Fahrenheit</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">value</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">32</span>
         <span class="n">data</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;F&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Temperature = </span><span class="si">%3.1f%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">Fahrenheit</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;Temperature = </span><span class="si">%3.1f%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">Fahrenheit</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">Fahrenheit</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div>
 </pre></div>
 

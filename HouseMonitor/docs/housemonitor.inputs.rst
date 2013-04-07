@@ -1,18 +1,18 @@
 inputs Package
 ==============
 
-:mod:`dataenvelope` Module
---------------------------
+:mod:`abc_input` Module
+-----------------------
 
-.. automodule:: housemonitor.inputs.dataenvelope
+.. automodule:: housemonitor.inputs.abc_input
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`iinput` Module
---------------------
+:mod:`dataenvelope` Module
+--------------------------
 
-.. automodule:: housemonitor.inputs.iinput
+.. automodule:: housemonitor.inputs.dataenvelope
     :members:
     :undoc-members:
     :show-inheritance:
@@ -46,5 +46,6 @@ Subpackages
 
 .. toctree::
 
+    housemonitor.inputs.test
     housemonitor.inputs.zigbeeinput
 

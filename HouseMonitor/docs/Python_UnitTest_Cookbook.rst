@@ -1,3 +1,4 @@
+
 ########################
 Python UnitTest Cookbook
 ########################
@@ -264,8 +265,8 @@ After this all my unit tests stepped working.  This is how I got them working.
 Instantuating a class in method
 *******************************
 
-In patch I give the namespace then the name of the class to instuate.
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+*In patch I give the namespace then the name of the class to instuate.*
 
     @patch('inputs.zigbeeinput.xbeecommunications.ZigBee')
     def test_successful_connect(self, zigbee):
