@@ -70,8 +70,13 @@ class ZigBeeOutput( Base, object ):
             parameter = self.selectHighOrLow[value]
             current_datetime = datetime.utcnow()
             delta = current_datetime - self.previous_datetime
-            self.logger.info( '{} dest_addr = {:x} command = {} parameter {:x}'.format( str( delta ).split( '.' )[0], struct.unpack( '!Q', dest_addr_long )[0], command, struct.unpack( 'B', parameter )[0] ) )
-            self.zigbee.remote_at( dest_addr_long=dest_addr_long, frame_id=b'\xaa', command=command, parameter=parameter )
+            self.logger.info( '{} dest_addr = {:x} command = {} parameter {:x}'.
+                              format( str( delta ).split( '.' )[0],
+                                      struct.unpack( '!Q', dest_addr_long )[0], command,
+                                      struct.unpack( 'B', parameter )[0] ) )
+            self.zigbee.remote_at( dest_addr_long=dest_addr_long, frame_id=b'\xaa',
+                                   command=command,
+                                   parameter=parameter )
             self.previous_datetime = current_datetime
         except KeyError:
             self.logger.exception( 'KeyError exception: value = {} data = {}'.format( value, data ) )
