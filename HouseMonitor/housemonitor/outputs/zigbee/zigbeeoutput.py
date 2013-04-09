@@ -80,3 +80,4 @@ class ZigBeeOutput( Base, object ):
             self.previous_datetime = current_datetime
         except KeyError:
             self.logger.exception( 'KeyError exception: value = {} data = {}'.format( value, data ) )
+            raise

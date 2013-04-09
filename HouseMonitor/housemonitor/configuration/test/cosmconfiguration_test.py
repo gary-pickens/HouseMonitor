@@ -11,25 +11,35 @@ from configuration.xmlconfiguration import XmlConfiguration
 import xml.etree.ElementTree as ET
 
 
-class Test(unittest.TestCase):
-    logger = logging.getLogger('UnitTest')
+class Test( unittest.TestCase ):
+    logger = logging.getLogger( 'UnitTest' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "house_monitor_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    @patch('configuration.xmlconfiguration.XmlConfiguration.configure')
-    def test_read_configuration_data(self, configure):
+    @patch( 'configuration.xmlconfiguration.XmlConfiguration.configure' )
+    def test_read_configuration_data( self, configure ):
         cosm = CosmConfiguration()
-        root = ET.fromstring(xml)
-        config = cosm.process_configuration(root)
-        self.assertIn('0x13a200409029bf', config)
-        self.assertIn('adc-1', config['0x13a200409029bf'])
-        self.assertIn('0x13a200409029bf', config)
-        self.assertIn("dio-0", config['0x13a200409029bf'])
-        self.assertIn('tags', config['0x13a200409029bf']['adc-1'])
+        root = ET.fromstring( xml )
+        config = cosm.process_configuration( root )
+        self.assertIn( '0x13a200409029bf', config )
+        self.assertIn( 'adc-1', config['0x13a200409029bf'] )
+        self.assertIn( '0x13a200409029bf', config )
+        self.assertIn( "dio-0", config['0x13a200409029bf'] )
+        self.assertIn( 'tags', config['0x13a200409029bf']['adc-1'] )
+
+    @patch( 'configuration.xmlconfiguration.XmlConfiguration.configure' )
+    def test_getitem( self, configure ):
+        cosm = CosmConfiguration()
+        cosm.config = {'a': 'b'}
+        self.assertEqual( cosm['a'], 'b' )
+        cosm['c'] = 'd'
+        self.assertEqual( cosm['c'], 'd' )
+
+
 
 #    TODO work on this test
 #    @patch('configuration.xmlconfiguration.XmlConfiguration.configure')
@@ -42,7 +52,7 @@ class Test(unittest.TestCase):
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()  # pragma: no cover
+    unittest.main()    # pragma: no cover
 
 
 xml = \

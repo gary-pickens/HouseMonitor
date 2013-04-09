@@ -12,7 +12,7 @@ from send import COSMSend
 from lib.constants import Constants
 
 
-class COSMOutputThread(Base, threading.Thread):
+class COSMOutputThread( Base, threading.Thread ):
     '''
     This thread will remove the data off the cosm queue and send it to the COSM web site.
     '''
@@ -20,7 +20,7 @@ class COSMOutputThread(Base, threading.Thread):
     forever = True
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         """ Set the logger level. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.outputsCOSM
 
@@ -30,7 +30,7 @@ class COSMOutputThread(Base, threading.Thread):
     _cosm_send = None
     ''' Object that sends data to COSM. '''
 
-    def __init__(self, queue, options, send=None, name=None):
+    def __init__( self, queue, options, send=None, name=None ):
         '''
         Constructor
         args:
@@ -45,17 +45,18 @@ class COSMOutputThread(Base, threading.Thread):
 
         '''
         self._queue = queue
-        if (send == None):
-            self._cosm_send = COSMSend(options)
+        if ( send == None ):
+            self._cosm_send = COSMSend( options )
         else:
             self._cosm_send = send
-        super(COSMOutputThread, self).__init__()
+        super( COSMOutputThread, self ).__init__()
 
-        threading.Thread.__init__(self)
+        threading.Thread.__init__( self )
 
-    def run(self):
+
+    def process( self ):
         '''
-        The COSM thread does the following:
+        This function does the following:
 
         #. Wait on data from the queue.
         #. Remove data from previous send.
@@ -63,9 +64,16 @@ class COSMOutputThread(Base, threading.Thread):
         #. send data to COSM_send
 
         '''
+        packet = self._queue.receive()
+        self._cosm_send.empty_datastream_list()
+        data = packet[Constants.Cosm.packet.data]
+        data[Constants.Cosm.packet.current_value] = packet[Constants.Cosm.packet.current_value]
+        self._cosm_send.output( data )
+
+    def run( self ):
+        '''
+        The COSM thread will loop forever calling process.
+
+        '''
         while self.forever:
-            packet = self._queue.receive()
-            self._cosm_send.empty_datastream_list()
-            data = packet[Constants.Cosm.packet.data]
-            data[Constants.Cosm.packet.current_value] = packet[Constants.Cosm.packet.current_value]
-            self._cosm_send.output(data)
+            self.process()
