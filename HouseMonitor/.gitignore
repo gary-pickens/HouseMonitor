@@ -21,3 +21,5 @@ HouseMonitor*.log
 *.BAK
 .pydevproject
 HouseMonitor.db
+/.coverage
+/.metadata
