@@ -1,0 +1,23 @@
+# gary 11/18/2012
+#
+# direcories to ignore
+.coverage/
+.project/
+.metadata/
+.settings/
+nppBackup/
+docs/_build/doctrees
+pip_test_env/
+dist/
+cover/
+.coverage/
+#nose.results#/
+nose.results/
+
+# files to ignore
+*.py[cod]
+HouseMonitor*.log
+*.bak
+*.BAK
+.pydevproject
+HouseMonitor.db
