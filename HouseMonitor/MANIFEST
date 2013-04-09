@@ -6,10 +6,11 @@ bin\HouseMonitor
 bin\NodeDiscovery
 bin\XbeeConfig
 bin\displayXbeeStatus
-bin\monitorCurrentValues
+bin\mon
 housemonitor\HouseMonitor.py
 housemonitor\__init__.py
 housemonitor\house_monitor_logging.conf
+housemonitor\housemonitor.service
 housemonitor/configuration\__init__.py
 housemonitor/configuration\abc_configuration.py
 housemonitor/configuration\cosmconfiguration.py
@@ -70,6 +71,10 @@ housemonitor/steps\statuspanel.py
 housemonitor/steps\tmp36volts2centigrade.py
 housemonitor/steps\uptime.py
 housemonitor/steps\zigbee2volts.py
+housemonitor/utils\__init__.py
+housemonitor/utils\cursesmonitorcurrentvalues.py
+housemonitor/utils\monitorcurrentvalues.py
+housemonitor/utils\rawmonitorcurrentvalues.py
 housemonitor\config\FilterByName.xml
 housemonitor\config\HouseMonitor.outputs.log.xml
 housemonitor\config\avg.xml

@@ -169,6 +169,15 @@ Here is the error message:
     .. _a stackoverflow: http://stackoverflow.com/questions/11092216/ant-scp-failure
 
      **That did not fix the problem.**
+     
+** Arggg It's broke again **
+
+1. I installed the latest version of juno and the problems is back.  So I found my old version
+of com.jcraft.jsch_0.1.46.v201205102330.jar in the previous install and added that to my Global
+section of the Ant properties.  That seemed to fix the problem.
+   
+   
+   
 
 2. I have a new clue.  It works from the command line, most be something about the eclipse ant.  I put
 jsch.jar in the eclipse directory:::

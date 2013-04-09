@@ -1,0 +1,9 @@
+'''
+Created on Nov 23, 2012
+
+@author: Gary
+'''
+from housemonitor.utils.monitorcurrentvalues import MonitorCurrentValues
+
+if __name__ == '__main__':
+    MonitorCurrentValues().run()

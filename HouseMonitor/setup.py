@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup( 
     name='HouseMonitor',
-    version='3.0.3',
+    version='4.0.0',
     author='Gary Pickens',
     author_email='gary_pickens@yahoo.com',
     packages=['housemonitor',
@@ -15,11 +15,12 @@ setup(
               'housemonitor/outputs/xmlrpc',
               'housemonitor/outputs/zigbee',
               'housemonitor/steps',
+              'housemonitor/utils'
               ],
-              package_data={'housemonitor': ['config/*.xml', 'house_monitor_logging.conf', "config/cacerts.txt"]},
+              package_data={'housemonitor': ['config/*.xml', 'house_monitor_logging.conf', "config/cacerts.txt", 'housemonitor.service']},
     scripts=['bin/HouseMonitor',
              'bin/displayXbeeStatus',
-             'bin/monitorCurrentValues',
+             'bin/mon',
              'bin/NodeDiscovery',
              'bin/XbeeConfig'
              ],

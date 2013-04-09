@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Home Monitor Program" default="clean">
-    <property name="version" value="3.0.3" />
+    <property name="version" value="4.0.0" />
     <property name="project" value="HouseMonitor" />
     <property name="remote_directory" value="${project}.${version}" />
     <property name="host" value="beaglebone" />
@@ -80,6 +80,12 @@
             command="cd src/;unzip ${project}-${version}.zip" />
         <sshexec host="${host}" username="${user}" password="${password}"
             command="sudo PYTHONPATH=${HMHOME} easy_install --install-dir ${HMHOME} -Z src/${project}-${version}.zip" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="sudo PYTHONPATH=${HMHOME} cp src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/housemonitor.service" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="sudo PYTHONPATH=${HMHOME} systemctl --system daemon-reload" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="sudo PYTHONPATH=${HMHOME} systemctl restart housemonitor.service" />    	
     </target>
     <target name="release" description="copy the files to the beaglebone computer">
         <scp todir="${user}:${password}@${host}:bin/HouseMonitor.release" failonerror="true">
