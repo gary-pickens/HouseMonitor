@@ -20,7 +20,6 @@ housemonitor/configuration\xmlconfiguration.py
 housemonitor/inputs\__init__.py
 housemonitor/inputs\abc_input.py
 housemonitor/inputs\dataenvelope.py
-housemonitor/inputs\inputqueue.py
 housemonitor/inputs\processinput.py
 housemonitor/inputs\testinputthead.py
 housemonitor/inputs/zigbeeinput\__init__.py
@@ -47,7 +46,6 @@ housemonitor/outputs/cosm\__init__.py
 housemonitor/outputs/cosm\control.py
 housemonitor/outputs/cosm\outputStep.py
 housemonitor/outputs/cosm\outputthread.py
-housemonitor/outputs/cosm\queue.py
 housemonitor/outputs/cosm\send.py
 housemonitor/outputs/xmlrpc\__init__.py
 housemonitor/outputs/xmlrpc\control.py
