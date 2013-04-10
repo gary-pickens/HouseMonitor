@@ -6,7 +6,7 @@ Created on Oct 2, 2012
 '''
 import threading
 
-from outputs.cosm.queue import COSMQueue
+from lib.hmqueue import HMQueue
 from lib.base import Base
 from send import COSMSend
 from lib.constants import Constants
@@ -25,7 +25,7 @@ class COSMOutputThread( Base, threading.Thread ):
         return Constants.LogKeys.outputsCOSM
 
     _queue = None
-    ''' The COSMQueue object.  Used to receive data. '''
+    ''' The HMQueue object.  Used to receive data. '''
 
     _cosm_send = None
     ''' Object that sends data to COSM. '''
@@ -35,7 +35,7 @@ class COSMOutputThread( Base, threading.Thread ):
         Constructor
         args:
         :param queue: Queue for sending data between threads
-        :type COSMQueue:
+        :type HMQueue:
         :param options: options from the command line
         :type dict:
         :param send: optional argument used for test

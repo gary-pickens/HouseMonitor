@@ -6,7 +6,6 @@ Created on Mar 8, 2013
 import unittest
 from outputs.cosm.outputthread import COSMOutputThread
 from configuration.xmlconfiguration import XmlConfiguration
-from outputs.cosm.queue import COSMQueue
 from lib.hmqueue import HMQueue
 from outputs.cosm.send import COSMSend
 from lib.constants import Constants

@@ -8,7 +8,7 @@ from steps.abc_step import abcStep
 from lib.constants import Constants
 
 
-class COSMOutputStep(abcStep):
+class COSMOutputStep( abcStep ):
     '''
     This object should be started with with the COSM thread and hang around forever.
 
@@ -16,27 +16,27 @@ class COSMOutputStep(abcStep):
     queue = None
     ''' A Queue for communicating between threads. '''
 
-    def __init__(self, queue):
+    def __init__( self, queue ):
         '''
         Initialize COSMOutputStep.
 
         :param queue: an object which communicates between threads
-        :type queue: COSMQueue
+        :type queue: HMQueue
         '''
-        super(COSMOutputStep, self).__init__()
+        super( COSMOutputStep, self ).__init__()
         self.queue = queue
 
     @property
-    def topic_name(self):
+    def topic_name( self ):
         ''' The topic name to which this routine subscribes.'''
         return Constants.TopicNames.COSM
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         ''' Set the logger level. '''
         return Constants.LogKeys.steps
 
-    def step(self, value, data={}, listeners=[]):
+    def step( self, value, data={}, listeners=[] ):
         """
         This function receives data that will be sent to COSM and forwards it to the COSM output processing
         thread.
@@ -59,6 +59,6 @@ class COSMOutputStep(abcStep):
         :Raises: ValueError, KeyError
         """
         packet = {'data': data, 'current_value': value}
-        self.queue.transmit(packet)
-        self.logger.debug("COSM Step data transmitted to COSM thread = {}".format(packet))
+        self.queue.transmit( packet )
+        self.logger.debug( "COSM Step data transmitted to COSM thread = {}".format( packet ) )
         return value, data, listeners

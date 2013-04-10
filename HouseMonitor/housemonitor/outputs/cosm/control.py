@@ -4,7 +4,7 @@ Created on Nov 6, 2012
 @author: Gary
 '''
 from outputthread import COSMOutputThread
-from queue import COSMQueue
+from lib.hmqueue import HMQueue
 from send import COSMSend
 from lib.constants import Constants
 
@@ -13,7 +13,7 @@ from lib.base import Base
 from outputStep import COSMOutputStep
 
 
-class COSMControl(Base):
+class COSMControl( Base ):
     '''
     COSMControl starts the COSM processing to send data to COSM at the following
     URL:
@@ -25,18 +25,18 @@ class COSMControl(Base):
     cosmOutputThread = None
     cosm = None
 
-    def __init__(self):
+    def __init__( self ):
         '''
         Constructor
         '''
-        super(COSMControl, self).__init__()
+        super( COSMControl, self ).__init__()
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         """ Set the logger level. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.outputsCOSM
 
-    def startCOSM(self, options):
+    def startCOSM( self, options ):
         '''
         Start the COSM processing.
 
@@ -51,8 +51,8 @@ class COSMControl(Base):
         main thread and sends them to the COSM thread.
 
         '''
-        self.logger.debug('COSM starting up')
-        self.queue = COSMQueue()
-        self.cosmOutputThread = COSMOutputThread(self.queue, options, name='COSM')
+        self.logger.debug( 'COSM starting up' )
+        self.queue = HMQueue()
+        self.cosmOutputThread = COSMOutputThread( self.queue, options, name='COSM' )
         self.cosmOutputThread.start()
-        self.cosm = COSMOutputStep(self.queue)
+        self.cosm = COSMOutputStep( self.queue )
