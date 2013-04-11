@@ -70,7 +70,7 @@ class ZigBeeOutput( Base, object ):
             parameter = self.selectHighOrLow[value]
             current_datetime = datetime.utcnow()
             delta = current_datetime - self.previous_datetime
-            self.logger.info( '{} dest_addr = {:x} command = {} parameter {:x}'.
+            self.logger.debug( '{} dest_addr = {:x} command = {} parameter {:x}'.
                               format( str( delta ).split( '.' )[0],
                                       struct.unpack( '!Q', dest_addr_long )[0], command,
                                       struct.unpack( 'B', parameter )[0] ) )

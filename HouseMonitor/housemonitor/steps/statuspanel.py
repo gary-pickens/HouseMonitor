@@ -36,7 +36,7 @@ class StatusPanel( Base ):
     panel_garage_door_led = 'DIO-1'
     panel_spare_led = 'DIO-2'
     panel_alarm = 'DIO-3'
-    panel_disable = 'DIO-5'
+    panel_disable = 'DIO-4'
 
     #  Classes
     garage_door_monitor = None
@@ -53,6 +53,11 @@ class StatusPanel( Base ):
 
     ENABLE_ALARM = True
     DISABLE_ALARM = False
+
+    DISABLE_ALARM_BUTTON_PRESSED = False
+    DISABLE_ALARM_BUTTON_NOT_PRESSED = True
+
+    status_panel_update_rate = 2
 
     #  items that are tracked
     alarm = ALARM_OFF
@@ -84,6 +89,14 @@ class StatusPanel( Base ):
         self.start_alarm = self.StartAlarm( self )
         self.disable_alarm_button = self.DisableAlarmButton( self )
         self.system_check = self.SystemCheck( self )
+
+#         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
+#         args = self.panel_address, self.panel_status_led, listeners
+#         pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep,
+#                             name='status panel status',
+#                             seconds=self.status_panel_update_rate,
+#                             args=args )
+
 
     @property
     def logger_name( self ):
@@ -231,11 +244,12 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            #  set when_garage_door_opened the first time the door is detected open
-            self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
-            self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-            self.status_panel.alarm = self.status_panel.ALARM_OFF
-            self.logger.debug( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
+            self.logger.warn( 'Disable alarm. value = {}'.format( value ) )
+            if ( value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ):
+                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
+                self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                self.status_panel.alarm = self.status_panel.ALARM_OFF
+                self.logger.warn( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
             return value, data, listeners
 
     class StartAlarm( abcStep ):

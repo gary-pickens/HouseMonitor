@@ -171,12 +171,12 @@ class statusPanel( object ):
         {base.command:b'D1', base.parameter:base.ADxDI0x_DigitalOutputLow},    # Garage Door status
         {base.command:b'D2', base.parameter:base.ADxDI0x_DigitalOutputLow},    # Spare
         {base.command:b'D3', base.parameter:base.ADxDI0x_DigitalOutputLow},    # Alarm
-        {base.command:b'D4', base.parameter:base.ADxDI0x_DigitalOutputLow},
-        {base.command:b'D5', base.parameter:base.ADxDI0x_DigitalInput},    # Disable Button
+        {base.command:b'D4', base.parameter:base.ADxDI0x_DigitalInput},    # Disable Button
+#        {base.command:b'D5', base.parameter:base.ADxDI0x_DigitalOutputLow},
         {base.command:b'D6', base.parameter:base.ADxDI0x_DigitalOutputLow},
         {base.command:b'D7', base.parameter:base.ADxDI0x_DigitalOutputLow},
-        {base.command:b'PR', base.parameter:base.EnablePullUp['DIO5']},
-        {base.command:b'IC', base.parameter:base.BitChange['DIO5']},    # IO Change Detection
+        {base.command:b'PR', base.parameter:base.EnablePullUp['DIO4']},
+        {base.command:b'IC', base.parameter:base.BitChange['DIO4']},    # IO Change Detection
         {base.command:b'IR', base.parameter:base.LongestSampleRate},    # IO Sample rate in milliseconds
         {base.command:b'JV', base.parameter:b'1'},    # ensure that the router rejoins the coordinator on startup0
         {base.command:b'WR'},    # write

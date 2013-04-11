@@ -102,7 +102,7 @@
             <description>Garage Door Alarm</description>
             <units></units>
             <steps type="list">
-                <step>step.DisableAlarmButton</step>
+                <step>step.CurrentValue</step>
             </steps>
         </port>
         <port portname="dio-4">
@@ -110,7 +110,7 @@
             <description></description>
             <units></units>
             <steps type="list">
-                <step>step.CurrentValue</step>
+                <step>step.DisableAlarmButton</step>
             </steps>
         </port>
         <port portname="dio-5">
