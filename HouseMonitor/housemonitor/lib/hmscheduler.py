@@ -287,6 +287,6 @@ class HMScheduler( Base ):
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
         current_datetime = datetime.utcnow()
         delta = current_datetime - self.previous_datetime
-        self.logger.info( 'delta time {} DataEnvelope = {} listeners = {}'.format( delta, de, listeners ) )
+        self.logger.debug( 'delta time {} DataEnvelope = {} listeners = {}'.format( delta, de, listeners ) )
         self._input_queue.transmit( de, Constants.Queue.high_priority )
         self.previous_datetime = current_datetime
