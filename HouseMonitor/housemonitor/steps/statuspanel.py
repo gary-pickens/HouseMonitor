@@ -11,6 +11,9 @@ from lib.base import Base
 from datetime import timedelta
 from lib.getdatetime import GetDateTime
 from pubsub import pub
+import time
+import thread
+
 
 
 def instantuate_me( data ):
@@ -43,13 +46,14 @@ class StatusPanel( Base ):
     start_alarm = None
     disable_alarm_button = None
     system_check = None
+    silence_alarm = None
 
     #  Constants used to describe the state of various items
     GARAGE_DOOR_OPEN = False
     GARAGE_DOOR_CLOSED = True
 
-    ALARM_OFF = True
-    ALARM_ON = False
+    ALARM_OFF = False
+    ALARM_ON = True
 
     ENABLE_ALARM = True
     DISABLE_ALARM = False
@@ -80,6 +84,7 @@ class StatusPanel( Base ):
     starts sounding '''
     #  TODO: Increase this back after test
     garage_door_standoff_time = timedelta( minutes=1 )
+    garage_door_initial_beep_time = timedelta( seconds=2 )
 
     def __init__( self ):
         '''
@@ -89,6 +94,7 @@ class StatusPanel( Base ):
         self.start_alarm = self.StartAlarm( self )
         self.disable_alarm_button = self.DisableAlarmButton( self )
         self.system_check = self.SystemCheck( self )
+        self.silence_alarm = self.SilenceAlarm( self )
 
 #         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
 #         args = self.panel_address, self.panel_status_led, listeners
@@ -169,6 +175,20 @@ class StatusPanel( Base ):
                             args=args )
             self.logger.debug( 'Activate garage door timer' )
 
+        def turnOffAlarmAfterInterval( self ):
+            '''
+            This will start a timer when the garage door opens.  When the 
+            timer expire a message will be sent to StartAlarm.step() which will 
+            start the alarm. 
+            '''
+            listeners = [Constants.TopicNames.StatusPanel_SilenceAlarm]
+            args = self.status_panel.panel_address, self.status_panel.panel_alarm, listeners
+            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                            name='turn off garage door alarm',
+                            delta=self.status_panel.garage_door_initial_beep_time,
+                            args=args )
+            self.logger.debug( 'Turn off alarm after {}'.format( self.status_panel.garage_door_initial_beep_time ) )
+
         def step( self, value, data={}, listeners=[] ):
             """
             Will detect if the garage door has been opened.  If it has it will:
@@ -189,15 +209,73 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.debug( 'GarageDoorMonitor. {} {}'.format( self.status_panel.garage_door, value ) )
+            self.logger.debug( 'Garage door is  {}'.format( "closed" if value else "open" ) )
             if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_CLOSED and value == self.status_panel.GARAGE_DOOR_OPEN:
+
                 self.status_panel.when_garage_door_opened = GetDateTime().datetime()
                 self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
-                self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
+                self.turnOffAlarmAfterInterval()
                 self.setTimerToActivateAlarmAfterInterval()
+                self.logger.debug( 'GarageDoorMonitor. opening thread_id = {}'.format( thread.get_ident() ) )
+
+            if value == self.status_panel.GARAGE_DOOR_CLOSED:
+                self.status_panel.when_garage_door_opened = None
+                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
+#                self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                self.logger.debug( 'GarageDoorMonitor. closed thread_id = {}'.format( thread.get_ident() ) )
+
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
             self.logger.debug( 'After GarageDoorMonitor.step {} {}'.format( self.status_panel.when_garage_door_opened, self.status_panel.enable_alarm_button_pressed ) )
+            return value, data, listeners
+
+    class SilenceAlarm( abcStep ):
+        '''
+        DisableAlarmButton will be waiting for the disable alarm button to
+        be pressed.  When it is pressed it will disable the alarm until
+        the garage door is closed.
+        '''
+
+        def __init__( self, status_panel ):
+            '''
+            '''
+            super( StatusPanel.SilenceAlarm, self ).__init__()
+            self.status_panel = status_panel
+
+        @property
+        def logger_name( self ):
+            ''' Set the logger level. '''
+            return Constants.LogKeys.StatusPanel
+
+        @property
+        def topic_name( self ):
+            ''' The topic name to which this routine subscribes.'''
+            return Constants.TopicNames.StatusPanel_SilenceAlarm
+
+        def step( self, value, data={}, listeners=[] ):
+            """
+            Will detect if the garage door disable button has been pressed.  If it has it will:
+                | 1. set disable alarm to disabled
+                | 2. turn off the alarm
+                        
+            :param value: The state of the garage door
+            :type value: Boolean
+            :param data: a dictionary containing more information about the
+                    value. Data can be added to this as needed.  Here is a list
+                    of values that will be in the data dictionary:
+    
+                   | 1. **date:** time received: time when value was received.
+                   | 2. **units:** units of the number
+                   | 3. **name:** name assigned to the value
+                   | 4. etc.
+            :param listeners: a list of the subscribed routines to send the data to
+            :returns: value, data, listeners
+            :rtype: Boolean, dict, listeners
+    
+            """
+            self.logger.debug( 'Silence alarm. value = {} thread_id = {}'.format( value, thread.get_ident() ) )
+            self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
             return value, data, listeners
 
     class DisableAlarmButton( abcStep ):
@@ -244,12 +322,12 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.warn( 'Disable alarm. value = {}'.format( value ) )
+            self.logger.debug( 'Disable alarm. value = {}'.format( value ) )
             if ( value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ):
                 self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                 self.status_panel.alarm = self.status_panel.ALARM_OFF
-                self.logger.warn( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
+                self.logger.debug( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
             return value, data, listeners
 
     class StartAlarm( abcStep ):
