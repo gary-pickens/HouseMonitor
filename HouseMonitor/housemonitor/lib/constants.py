@@ -209,7 +209,7 @@ class Constants( object ):
         Step = "step"
 
         StatusPanel_GarageDoorMonitor = 'step.GarageDoorMonitor'
-        StatusPanel_StartAlarm = 'step.StartAlarm'
+        StatusPanel_ProcessDelayedAlarm = 'step.ProcessDelayedAlarm'
         StatusPanel_DisableAlarmButton = 'step.DisableAlarmButton'
         StatusPanel_SystemCheck = 'step.StatusPanel_SystemCheck'
         StatusPanel_SilenceAlarm = 'step.StatusPanel_SilenceAlarm'

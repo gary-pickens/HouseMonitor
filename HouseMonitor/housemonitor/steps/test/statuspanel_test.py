@@ -12,7 +12,7 @@ from lib.common import Common
 import logging.config
 from lib.constants import Constants
 import pprint
-from mock import Mock, patch
+from mock import Mock, patch, MagicMock
 from lib.getdatetime import GetDateTime
 from configuration.formatconfiguration import FormatConfiguration
 from pubsub import pub
@@ -38,13 +38,13 @@ class Test( unittest.TestCase ):
         N = instantuate_me( data )
         self.assertEqual( N.logger_name, Constants.LogKeys.StatusPanel )
         self.assertEqual( N.garage_door_monitor.logger_name, Constants.LogKeys.StatusPanel )
-        self.assertEqual( N.start_alarm.logger_name, Constants.LogKeys.StatusPanel )
+        self.assertEqual( N.process_delayed_alarm.logger_name, Constants.LogKeys.StatusPanel )
 
     def test_topic_name( self ):
         data = {}
         N = instantuate_me( data )
         self.assertEqual( N.garage_door_monitor.topic_name, Constants.TopicNames.StatusPanel_GarageDoorMonitor )
-        self.assertEqual( N.start_alarm.topic_name, Constants.TopicNames.StatusPanel_StartAlarm )
+        self.assertEqual( N.process_delayed_alarm.topic_name, Constants.TopicNames.StatusPanel_ProcessDelayedAlarm )
         self.assertEqual( N.disable_alarm_button.topic_name, Constants.TopicNames.StatusPanel_DisableAlarmButton )
 
     @patch( 'steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
@@ -114,41 +114,6 @@ class Test( unittest.TestCase ):
 #         self.assertIsNone( sp.when_garage_door_opened )
 #         light.assert_called_once_with( sp.GARAGE_DOOR_CLOSED )
 
-#################################################
-#  Disable Alarm Button
-#################################################
-
-    @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
-    def test_start_alarm_with_door_open_and_not_disabled( self, change ):
-        data = {}
-        list = ['a', 'b']
-        sp = StatusPanel()
-        sp.garage_door = sp.GARAGE_DOOR_OPEN
-        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
-        sp.start_alarm.step( sp.ALARM_ON, data, list )
-        self.assertEqual( sp.alarm, sp.ALARM_ON )
-        change.assert_called_once_with( sp.ALARM_ON )
-        change.reset_mock()
-
-    @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
-    def test_start_alarm_with_door_open_and_disabled( self, change ):
-        data = {}
-        list = ['a', 'b']
-        sp = StatusPanel()
-        sp.garage_door = sp.GARAGE_DOOR_OPEN
-        sp.alarm_disabled = sp.DISABLE_ALARM
-        sp.start_alarm.step( sp.ALARM_ON, data, list )
-        self.assertEqual( sp.alarm, sp.ALARM_OFF )
-
-    @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
-    def test_start_alarm_with_door_closed_and_disabled( self, change ):
-        data = {}
-        list = ['a', 'b']
-        sp = StatusPanel()
-        sp.garage_door = sp.GARAGE_DOOR_CLOSED
-        sp.alarm_disabled = sp.DISABLE_ALARM
-        sp.start_alarm.step( sp.ALARM_ON, data, list )
-        self.assertEqual( sp.alarm, sp.ALARM_OFF )
 
 #################################################
 #  change Garage Door Warning Light
@@ -185,6 +150,77 @@ class Test( unittest.TestCase ):
         self.assertEqual( sp.alarm, sp.ALARM_OFF )
 # TODO: Fix ME
 #        ca.assert_called_once_with( sp.ALARM_OFF )
+
+#################################################
+#  Process Delayed Alarm
+#################################################
+    @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
+    @patch( 'steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer' )
+    def test_process_delayed_alarm( self, at, ca ):
+        data = {}
+        listeners = []
+        sp = StatusPanel()
+
+        self.assertEqual( sp.process_delayed_alarm.topic_name, Constants.TopicNames.StatusPanel_ProcessDelayedAlarm )
+
+        sp.process_delayed_alarm.delayedAlarmState = sp.process_delayed_alarm.PreAlarm
+        sp.garage_door = sp.GARAGE_DOOR_OPEN
+        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+
+        sp.process_delayed_alarm.step( 1, data, listeners )
+
+        at.assert_called_once_with( 2 )
+        ca.assert_called_once_with( sp.ALARM_ON )
+        self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Short_Beep )
+        at.reset_mock()
+        ca.reset_mock()
+
+        # Test transition from Shout_Beep to Long_silence
+        sp.garage_door = sp.GARAGE_DOOR_OPEN
+        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+
+        sp.process_delayed_alarm.step( 1, data, listeners )
+
+        at.assert_called_once_with( sp.garage_door_long_silence )
+        ca.assert_called_once_with( sp.ALARM_OFF )
+        self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Long_Silence )
+        at.reset_mock()
+        ca.reset_mock()
+
+        # Test transition from Long_silence back to Short_Beep
+        sp.garage_door = sp.GARAGE_DOOR_OPEN
+        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+
+        sp.process_delayed_alarm.step( 1, data, listeners )
+
+        at.assert_called_once_with( sp.garage_door_short_alarm )
+        ca.assert_called_once_with( sp.ALARM_ON )
+        self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Short_Beep )
+        at.reset_mock()
+        ca.reset_mock()
+
+        # Test transition from Long_silence back to Disabled
+        sp.garage_door = sp.GARAGE_DOOR_CLOSED
+        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+
+        sp.process_delayed_alarm.step( 1, data, listeners )
+
+        self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Disabled )
+        at.reset_mock()
+        ca.reset_mock()
+
+    def test_process_delayed_alarm_activeTimer( self ):
+        sp = StatusPanel()
+        delay = 2
+        pub.sendMessage = Mock()
+        listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
+        args = sp.panel_address, sp.panel_alarm, listeners
+        sp.process_delayed_alarm.activateTimer( delay )
+
+        pub.sendMessage.assert_called_once_with( Constants.TopicNames.SchedulerAddOneShotStep,
+                            name='garage door delayed alarm',
+                            delta=timedelta( seconds=delay ),
+                            args=args )
 
 #################################################
 #  System Check

@@ -43,7 +43,7 @@ class StatusPanel( Base ):
 
     #  Classes
     garage_door_monitor = None
-    start_alarm = None
+    process_delayed_alarm = None
     disable_alarm_button = None
     system_check = None
     silence_alarm = None
@@ -83,15 +83,17 @@ class StatusPanel( Base ):
     ''' The time from when the garage door opens to the time the alarm 
     starts sounding '''
     #  TODO: Increase this back after test
-    garage_door_standoff_time = timedelta( minutes=1 )
+    garage_door_standoff_time = timedelta( minutes=15 )
     garage_door_initial_beep_time = timedelta( seconds=2 )
+    garage_door_long_silence = 8
+    garage_door_short_alarm = 2
 
     def __init__( self ):
         '''
         '''
         super( StatusPanel, self ).__init__()
         self.garage_door_monitor = self.GarageDoorMonitor( self )
-        self.start_alarm = self.StartAlarm( self )
+        self.process_delayed_alarm = self.ProcessDelayedAlarm( self )
         self.disable_alarm_button = self.DisableAlarmButton( self )
         self.system_check = self.SystemCheck( self )
         self.silence_alarm = self.SilenceAlarm( self )
@@ -164,13 +166,13 @@ class StatusPanel( Base ):
         def setTimerToActivateAlarmAfterInterval( self ):
             '''
             This will start a timer when the garage door opens.  When the 
-            timer expire a message will be sent to StartAlarm.step() which will 
+            timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
             start the alarm. 
             '''
-            listeners = [Constants.TopicNames.StatusPanel_StartAlarm]
-            args = self.status_panel.panel_address, self.status_panel.panel_status_led, listeners
+            listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
+            args = self.status_panel.panel_address, self.status_panel.panel_alarm, listeners
             pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                            name='garage door alarm',
+                            name='garage door delayed alarm',
                             delta=self.status_panel.garage_door_standoff_time,
                             args=args )
             self.logger.debug( 'Activate garage door timer' )
@@ -178,7 +180,7 @@ class StatusPanel( Base ):
         def turnOffAlarmAfterInterval( self ):
             '''
             This will start a timer when the garage door opens.  When the 
-            timer expire a message will be sent to StartAlarm.step() which will 
+            timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_SilenceAlarm]
@@ -217,24 +219,27 @@ class StatusPanel( Base ):
                 self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
                 self.turnOffAlarmAfterInterval()
                 self.setTimerToActivateAlarmAfterInterval()
-                self.logger.debug( 'GarageDoorMonitor. opening thread_id = {}'.format( thread.get_ident() ) )
+                self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.PreAlarm
 
             if value == self.status_panel.GARAGE_DOOR_CLOSED:
                 self.status_panel.when_garage_door_opened = None
                 self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
-#                self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                 self.logger.debug( 'GarageDoorMonitor. closed thread_id = {}'.format( thread.get_ident() ) )
 
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
-            self.logger.debug( 'After GarageDoorMonitor.step {} {}'.format( self.status_panel.when_garage_door_opened, self.status_panel.enable_alarm_button_pressed ) )
+            self.logger.debug( 'GarageDoorMonitor.step called. garage_door [{}] button_pressed [{}]'.
+                format( "closed" if self.status_panel.garage_door else 'open',
+                        "pressed" if self.status_panel.enable_alarm_button_pressed else "not pressed" ) )
+            self.logger.debug( 'GarageDoorMonitor. delayedAlarmState = {}'.format( self.status_panel.process_delayed_alarm.delayedAlarmState ) )
             return value, data, listeners
 
     class SilenceAlarm( abcStep ):
         '''
-        DisableAlarmButton will be waiting for the disable alarm button to
-        be pressed.  When it is pressed it will disable the alarm until
-        the garage door is closed.
+        When the garage door first opens a alarm will sound for about two seconds.  This class 
+        will turn the alarm off.  This class will be activated by calling sendMessage specifing the 
+        amount af time for the alarm to sound.  This is done in the turnOffAlarmAfterInterval 
+        call above.
         '''
 
         def __init__( self, status_panel ):
@@ -323,22 +328,23 @@ class StatusPanel( Base ):
     
             """
             self.logger.debug( 'Disable alarm. value = {}'.format( value ) )
-            if ( value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ):
-                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
-                self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-                self.status_panel.alarm = self.status_panel.ALARM_OFF
-                self.logger.debug( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
+            # TODO: fixme
+#             if ( value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ):
+#                 self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
+#                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+#                 self.status_panel.alarm = self.status_panel.ALARM_OFF
+#                 self.logger.warn( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
             return value, data, listeners
 
-    class StartAlarm( abcStep ):
+    class ProcessDelayedAlarm( abcStep ):
         '''
-        StartAlarm will start the alarm.  It will sound until the garage door
-        is closed or the disable ararm button is pressed.
+        If the door has been open for an extended period, ProcessDelayedAlarm will start the alarm.  It will sound until the garage door
+        is closed or the disable alarm button is pressed.
         '''
         def __init__( self, status_panel ):
             '''
             '''
-            super( StatusPanel.StartAlarm, self ).__init__()
+            super( StatusPanel.ProcessDelayedAlarm, self ).__init__()
             self.status_panel = status_panel
 
         @property
@@ -349,7 +355,28 @@ class StatusPanel( Base ):
         @property
         def topic_name( self ):
             ''' The topic name to which this routine subscribes.'''
-            return Constants.TopicNames.StatusPanel_StartAlarm
+            return Constants.TopicNames.StatusPanel_ProcessDelayedAlarm
+
+        ''' Delayed alarm states '''
+        Disabled = 0
+        PreAlarm = 1
+        Short_Beep = 2
+        Long_Silence = 3
+        delayedAlarmState = Disabled;
+
+        def activateTimer( self, seconds ):
+            '''
+            This will start a timer when the garage door opens.  When the 
+            timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
+            start the alarm. 
+            '''
+            listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
+            args = self.status_panel.panel_address, self.status_panel.panel_alarm, listeners
+            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                            name='garage door delayed alarm',
+                            delta=timedelta( seconds=seconds ),
+                            args=args )
+            self.logger.debug( 'Activate garage door timer' )
 
         def step( self, value, data={}, listeners=[] ):
             """
@@ -367,15 +394,45 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.debug( 'Start alarm called. {} {}'.format( self.status_panel.garage_door, self.status_panel.enable_alarm_button_pressed ) )
+            self.logger.debug( 'ProcessDelayedAlarm.step called. garage_door [{}] button_pressed [{}]'.
+                format( "closed" if self.status_panel.garage_door else 'open',
+                        "pressed" if self.status_panel.enable_alarm_button_pressed else "not pressed" ) )
             #  Test to see if the alarm needs to be activated:
             #  1. Is the garage door open
             #  2. Has the disable button been pressed
-            if ( self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN and
-                 self.status_panel.enable_alarm_button_pressed == self.status_panel.ENABLE_ALARM ):
-                self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
-                self.status_panel.alarm = self.status_panel.ALARM_ON
-                self.logger.debug( 'Start alarm. {}'.format( self.status_panel.alarm ) )
+            if ( self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN ):
+                # TODO: Fixme
+#                  and
+#                  self.status_panel.enable_alarm_button_pressed == self.status_panel.ENABLE_ALARM ):
+
+                self.logger.debug( 'delayedAlarmState = {}'.format( self.delayedAlarmState ) )
+
+                if ( self.delayedAlarmState == self.PreAlarm ):
+                    # Long wait for when the door opens until the alarm goes off
+                    self.delayedAlarmState = self.Short_Beep
+                    self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
+                    self.status_panel.alarm = self.status_panel.ALARM_ON
+                    self.activateTimer( self.status_panel.garage_door_short_alarm )
+                    self.logger.debug( 'transitioning to = {}'.format( self.delayedAlarmState ) )
+                elif ( self.delayedAlarmState == self.Short_Beep ):
+                    # Short 2 second blast
+                    self.delayedAlarmState = self.Long_Silence
+                    self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                    self.status_panel.alarm = self.status_panel.ALARM_OFF
+                    self.activateTimer( self.status_panel.garage_door_long_silence )
+                    self.logger.debug( 'transitioning to = {}'.format( self.delayedAlarmState ) )
+                elif ( self.delayedAlarmState == self.Long_Silence ):
+                    # Long pause between blasts
+                    self.delayedAlarmState = self.Short_Beep
+                    self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
+                    self.status_panel.alarm = self.status_panel.ALARM_ON
+                    self.activateTimer( self.status_panel.garage_door_short_alarm )
+                    self.logger.debug( 'transitioning to = {}'.format( self.delayedAlarmState ) )
+                else:
+                    self.logger.debug( 'invalid state = {}'.format( self.delayedAlarmState ) )
+            else:
+                self.delayedAlarmState = self.Disabled
+            self.logger.debug( 'ProcessDelayedAlarm. {}'.format( self.delayedAlarmState ) )
             return value, data, listeners
 
     class SystemCheck( abcStep ):
