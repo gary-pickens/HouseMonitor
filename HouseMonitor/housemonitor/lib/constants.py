@@ -212,6 +212,7 @@ class Constants( object ):
         StatusPanel_StartAlarm = 'step.StartAlarm'
         StatusPanel_DisableAlarmButton = 'step.DisableAlarmButton'
         StatusPanel_SystemCheck = 'step.StatusPanel_SystemCheck'
+        StatusPanel_SilenceAlarm = 'step.StatusPanel_SilenceAlarm'
 
         #  Configurations
         xmlDeviceConfiguration = 'configuration.xmlDeviceConfiguration'
