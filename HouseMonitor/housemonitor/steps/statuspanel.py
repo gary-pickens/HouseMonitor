@@ -28,16 +28,28 @@ class StatusPanel( Base ):
     
     # Green flashing LED that indicates that the system is functioning.
     # A red LED that glows when the garage door is open.
-    # A alarm that will sound X minutes after the garage door has opened.
+    # A second LED that glows when the disable alarm has been pressed and will extungish when 
+    the garage door has been closed.
+    # A alarm that will sound 15 minutes after the garage door has opened.
     # A disable button that will disable the alarm.
     
     A schematic is in the Fritzing directory.
+    
+    There are four classes that will be notified on certain events:
+    # *GarageDoorMonitor* which will be notified when the garage door has been opened or closed.
+    # *SilenceAlarm* will be notified 2 seconds after the garage door has been opened.
+    # *DisableAlarmButton* will be notified when the Disable Alarm Button has been pressed.
+    # *ProcessDelayedAlarm* Will be notified when to change the alarm setting.
+    # *SystemCheck* will monitor the health of the system and cause the greeen LED to flash if 
+    everything is okay.
+    
+    
     '''
 
     panel_address = '0x13a20040902a02'
     panel_status_led = 'DIO-0'
     panel_garage_door_led = 'DIO-1'
-    panel_spare_led = 'DIO-2'
+    panel_disable_button_led = 'DIO-2'
     panel_alarm = 'DIO-3'
     panel_disable = 'DIO-4'
 
@@ -48,25 +60,23 @@ class StatusPanel( Base ):
     system_check = None
     silence_alarm = None
 
-    #  Constants used to describe the state of various items
-    GARAGE_DOOR_OPEN = False
-    GARAGE_DOOR_CLOSED = True
-
-    ALARM_OFF = False
-    ALARM_ON = True
+    LED_ON = True
+    LED_OFF = False
 
     ENABLE_ALARM = True
     DISABLE_ALARM = False
 
-    DISABLE_ALARM_BUTTON_PRESSED = False
-    DISABLE_ALARM_BUTTON_NOT_PRESSED = True
-
+    # How fast the status light flashes
     status_panel_update_rate = 2
 
     #  items that are tracked
+    ALARM_OFF = False
+    ALARM_ON = True
     alarm = ALARM_OFF
     ''' Weather the alarm is sounding or not '''
 
+    GARAGE_DOOR_OPEN = False
+    GARAGE_DOOR_CLOSED = True
     garage_door = GARAGE_DOOR_CLOSED
     ''' The state of the garage door. '''
 
@@ -76,13 +86,14 @@ class StatusPanel( Base ):
     garage_door_timer = None
     ''' Contains the time that the garage door was opened '''
 
-    enable_alarm_button_pressed = False
+    DISABLE_ALARM_BUTTON_PRESSED = False
+    DISABLE_ALARM_BUTTON_NOT_PRESSED = True
+    enable_alarm_button_pressed = DISABLE_ALARM_BUTTON_NOT_PRESSED
     ''' Indicates that the disable alarm has been pressed.  
     Cleared by closing the door. '''
 
     ''' The time from when the garage door opens to the time the alarm 
     starts sounding '''
-    #  TODO: Increase this back after test
     garage_door_standoff_time = timedelta( minutes=15 )
     garage_door_initial_beep_time = timedelta( seconds=2 )
     garage_door_long_silence = 8
@@ -97,14 +108,7 @@ class StatusPanel( Base ):
         self.disable_alarm_button = self.DisableAlarmButton( self )
         self.system_check = self.SystemCheck( self )
         self.silence_alarm = self.SilenceAlarm( self )
-
-#         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-#         args = self.panel_address, self.panel_status_led, listeners
-#         pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep,
-#                             name='status panel status',
-#                             seconds=self.status_panel_update_rate,
-#                             args=args )
-
+        self.changeAlarm( self.ALARM_OFF )
 
     @property
     def logger_name( self ):
@@ -112,7 +116,7 @@ class StatusPanel( Base ):
         return Constants.LogKeys.StatusPanel
 
     def changeGarageDoorWarningLight( self, value ):
-        ''' Turn on or off the LED that indicates that the garage door is open. 
+        ''' Turn on or off the LED that indicates that the disable alarm has been pressed. 
         
         :param value: determines if the light will be on or off.
         :type value: Boolean
@@ -124,8 +128,21 @@ class StatusPanel( Base ):
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_garage_door_led
         light = not value
-        self.logger.debug( "changeGarageDoorWarningLight with {} {} {}".format( value, data, steps ) )
         Common.send( light, data, steps )
+
+    def changeDisableButtonWarningLight( self, value ):
+        ''' Turn on or off the LED that indicates that the garage door is open. 
+        
+        :param value: determines if the light will be on or off.
+        :type value: Boolean
+        :returns: none
+        
+        '''
+        steps = [Constants.TopicNames.ZigBeeOutput]
+        data = {}
+        data[Constants.DataPacket.device] = self.panel_address
+        data[Constants.DataPacket.port] = self.panel_disable_button_led
+        Common.send( value, data, steps )
 
     def changeAlarm( self, value ):
         ''' Turn on or off the alarm that indicates that the garage door is open.         
@@ -211,27 +228,29 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.debug( 'Garage door is  {}'.format( "closed" if value else "open" ) )
-            if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_CLOSED and value == self.status_panel.GARAGE_DOOR_OPEN:
 
+            if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN and \
+                    value == self.status_panel.GARAGE_DOOR_CLOSED:
+                self.logger.info( 'Garage door closing' )
+
+            if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_CLOSED and \
+                    value == self.status_panel.GARAGE_DOOR_OPEN:
                 self.status_panel.when_garage_door_opened = GetDateTime().datetime()
-                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
+                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
                 self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
                 self.turnOffAlarmAfterInterval()
                 self.setTimerToActivateAlarmAfterInterval()
+                self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
                 self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.PreAlarm
+                self.logger.info( 'Garage door opening' )
 
             if value == self.status_panel.GARAGE_DOOR_CLOSED:
                 self.status_panel.when_garage_door_opened = None
-                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
-                self.logger.debug( 'GarageDoorMonitor. closed thread_id = {}'.format( thread.get_ident() ) )
+                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
+                self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
 
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
-            self.logger.debug( 'GarageDoorMonitor.step called. garage_door [{}] button_pressed [{}]'.
-                format( "closed" if self.status_panel.garage_door else 'open',
-                        "pressed" if self.status_panel.enable_alarm_button_pressed else "not pressed" ) )
-            self.logger.debug( 'GarageDoorMonitor. delayedAlarmState = {}'.format( self.status_panel.process_delayed_alarm.delayedAlarmState ) )
             return value, data, listeners
 
     class SilenceAlarm( abcStep ):
@@ -279,7 +298,7 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.debug( 'Silence alarm. value = {} thread_id = {}'.format( value, thread.get_ident() ) )
+            self.logger.info( 'Silence alarm.' )
             self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
             return value, data, listeners
 
@@ -327,13 +346,12 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.debug( 'Disable alarm. value = {}'.format( value ) )
-            # TODO: fixme
-#             if ( value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ):
-#                 self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM
-#                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-#                 self.status_panel.alarm = self.status_panel.ALARM_OFF
-#                 self.logger.warn( 'Disable alarm. {} {}'.format( self.status_panel.enable_alarm_button_pressed, self.status_panel.alarm ) )
+            if ( value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ):
+                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_PRESSED
+                self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                self.status_panel.alarm = self.status_panel.ALARM_OFF
+                self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_ON )
+                self.logger.info( 'Disable button pressed.' )
             return value, data, listeners
 
     class ProcessDelayedAlarm( abcStep ):
@@ -394,45 +412,31 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.debug( 'ProcessDelayedAlarm.step called. garage_door [{}] button_pressed [{}]'.
-                format( "closed" if self.status_panel.garage_door else 'open',
-                        "pressed" if self.status_panel.enable_alarm_button_pressed else "not pressed" ) )
-            #  Test to see if the alarm needs to be activated:
-            #  1. Is the garage door open
-            #  2. Has the disable button been pressed
             if ( self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN ):
-                # TODO: Fixme
-#                  and
-#                  self.status_panel.enable_alarm_button_pressed == self.status_panel.ENABLE_ALARM ):
-
-                self.logger.debug( 'delayedAlarmState = {}'.format( self.delayedAlarmState ) )
-
-                if ( self.delayedAlarmState == self.PreAlarm ):
-                    # Long wait for when the door opens until the alarm goes off
-                    self.delayedAlarmState = self.Short_Beep
-                    self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
-                    self.status_panel.alarm = self.status_panel.ALARM_ON
-                    self.activateTimer( self.status_panel.garage_door_short_alarm )
-                    self.logger.debug( 'transitioning to = {}'.format( self.delayedAlarmState ) )
-                elif ( self.delayedAlarmState == self.Short_Beep ):
-                    # Short 2 second blast
-                    self.delayedAlarmState = self.Long_Silence
-                    self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-                    self.status_panel.alarm = self.status_panel.ALARM_OFF
-                    self.activateTimer( self.status_panel.garage_door_long_silence )
-                    self.logger.debug( 'transitioning to = {}'.format( self.delayedAlarmState ) )
-                elif ( self.delayedAlarmState == self.Long_Silence ):
-                    # Long pause between blasts
-                    self.delayedAlarmState = self.Short_Beep
-                    self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
-                    self.status_panel.alarm = self.status_panel.ALARM_ON
-                    self.activateTimer( self.status_panel.garage_door_short_alarm )
-                    self.logger.debug( 'transitioning to = {}'.format( self.delayedAlarmState ) )
+                if self.status_panel.enable_alarm_button_pressed == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED :
+                    self.delayedAlarmState = self.Disabled
+                    self.logger.debug( 'Disable alarm pressed. exit' )
                 else:
-                    self.logger.debug( 'invalid state = {}'.format( self.delayedAlarmState ) )
+                    if ( self.delayedAlarmState == self.PreAlarm ):
+                        self.logger.debug( 'Start Alarm' )
+                        self.delayedAlarmState = self.Short_Beep
+                        self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
+                        self.status_panel.alarm = self.status_panel.ALARM_ON
+                        self.activateTimer( self.status_panel.garage_door_short_alarm )
+                    elif ( self.delayedAlarmState == self.Short_Beep ):
+                        self.delayedAlarmState = self.Long_Silence
+                        self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                        self.status_panel.alarm = self.status_panel.ALARM_OFF
+                        self.activateTimer( self.status_panel.garage_door_long_silence )
+                    elif ( self.delayedAlarmState == self.Long_Silence ):
+                        self.delayedAlarmState = self.Short_Beep
+                        self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
+                        self.status_panel.alarm = self.status_panel.ALARM_ON
+                        self.activateTimer( self.status_panel.garage_door_short_alarm )
+                    else:
+                        self.logger.debug( 'invalid state = {}'.format( self.delayedAlarmState ) )
             else:
                 self.delayedAlarmState = self.Disabled
-            self.logger.debug( 'ProcessDelayedAlarm. {}'.format( self.delayedAlarmState ) )
             return value, data, listeners
 
     class SystemCheck( abcStep ):

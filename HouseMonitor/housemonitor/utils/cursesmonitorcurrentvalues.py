@@ -76,4 +76,5 @@ class CursesMonitorCurrentValues( object ):
                     pass
         except Exception as ex:
             curses.endwin()
+            print( "exception {}".format( ex ) )
             quit()
