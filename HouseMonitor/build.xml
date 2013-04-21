@@ -33,7 +33,7 @@
                 <arg line=" install dist\HouseMonitor-${version}.zip" />
         </exec>
     </target>
-    <target name="UnitTest" description="Run all UnitTests">
+    <target name="UnitTest" depends="clean" description="Run all UnitTests">
         <exec executable="nosetests" failonerror="true" >
             <arg value="--ignore-files=scheduler_Test.py"/>
             <arg value="--ignore-files=uptime.*"/>
