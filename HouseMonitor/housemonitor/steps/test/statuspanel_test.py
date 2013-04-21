@@ -146,7 +146,7 @@ class Test( unittest.TestCase ):
         sp = StatusPanel()
         ca.reset_mock()
         sp.disable_alarm_button.step( sp.DISABLE_ALARM_BUTTON_PRESSED, data, listeners )
-        self.assertEqual( sp.enable_alarm_button_pressed, sp.DISABLE_ALARM_BUTTON_PRESSED )
+        self.assertEqual( sp.disenable_alarm_button_pressed, sp.DISABLE_ALARM_BUTTON_PRESSED )
         self.assertEqual( sp.alarm, sp.ALARM_OFF )
         ca.assert_called_once_with( sp.ALARM_OFF )
 
@@ -165,7 +165,7 @@ class Test( unittest.TestCase ):
 
         sp.process_delayed_alarm.delayedAlarmState = sp.process_delayed_alarm.PreAlarm
         sp.garage_door = sp.GARAGE_DOOR_OPEN
-        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+        sp.disenable_alarm_button_pressed = sp.ENABLE_ALARM
         sp.long_scheduler_id = uu
 
         sp.process_delayed_alarm.step( 1, data, listeners )
@@ -178,7 +178,7 @@ class Test( unittest.TestCase ):
 
         # Test transition from Shout_Beep to Long_silence
         sp.garage_door = sp.GARAGE_DOOR_OPEN
-        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+        sp.disenable_alarm_button_pressed = sp.ENABLE_ALARM
 
         sp.process_delayed_alarm.step( 1, data, listeners )
 
@@ -190,7 +190,7 @@ class Test( unittest.TestCase ):
 
         # Test transition from Long_silence back to Short_Beep
         sp.garage_door = sp.GARAGE_DOOR_OPEN
-        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+        sp.disenable_alarm_button_pressed = sp.ENABLE_ALARM
 
         sp.process_delayed_alarm.step( 1, data, listeners )
 
@@ -202,7 +202,7 @@ class Test( unittest.TestCase ):
 
         # Test transition from Long_silence back to Disabled
         sp.garage_door = sp.GARAGE_DOOR_CLOSED
-        sp.enable_alarm_button_pressed = sp.ENABLE_ALARM
+        sp.disenable_alarm_button_pressed = sp.ENABLE_ALARM
 
         sp.process_delayed_alarm.step( 1, data, listeners )
 
@@ -236,7 +236,7 @@ class Test( unittest.TestCase ):
         ca.reset_mock()
         sp.garage_door = sp.GARAGE_DOOR_OPEN
         sp.long_scheduler_id = uu
-        sp.enable_alarm_button_pressed = sp.DISABLE_ALARM_BUTTON_PRESSED
+        sp.disenable_alarm_button_pressed = sp.DISABLE_ALARM_BUTTON_PRESSED
         sp.process_delayed_alarm.step( 1, data, listeners )
         self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Disabled )
         ca.assert_called_once_with( sp.ALARM_OFF )
@@ -251,7 +251,7 @@ class Test( unittest.TestCase ):
         sp.long_scheduler_id = uu
         ca.reset_mock()
         sp.garage_door = sp.GARAGE_DOOR_OPEN
-        sp.enable_alarm_button_pressed = sp.DISABLE_ALARM_BUTTON_NOT_PRESSED
+        sp.disenable_alarm_button_pressed = sp.DISABLE_ALARM_BUTTON_NOT_PRESSED
         sp.process_delayed_alarm.delayedAlarmState = invalid_state
 
         sp.process_delayed_alarm.step( 1, data, listeners )

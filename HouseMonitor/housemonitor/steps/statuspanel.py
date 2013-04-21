@@ -96,13 +96,15 @@ class StatusPanel( Base ):
 
     DISABLE_ALARM_BUTTON_PRESSED = False
     DISABLE_ALARM_BUTTON_NOT_PRESSED = True
-    enable_alarm_button_pressed = DISABLE_ALARM_BUTTON_NOT_PRESSED
+    disenable_alarm_button_pressed = DISABLE_ALARM_BUTTON_NOT_PRESSED
     ''' Indicates that the disable alarm has been pressed.  
     Cleared by closing the door. '''
 
     ''' The time from when the garage door opens to the time the alarm 
     starts sounding '''
     garage_door_standoff_time = timedelta( minutes=15 )
+    # The following line is for testing
+#    garage_door_standoff_time = timedelta( minutes=5 )
     garage_door_initial_beep_time = timedelta( seconds=2 )
     garage_door_long_silence = 8
     garage_door_short_alarm = 2
@@ -116,7 +118,7 @@ class StatusPanel( Base ):
         self.disable_alarm_button = self.DisableAlarmButton( self )
         self.system_check = self.SystemCheck( self )
         self.silence_alarm = self.SilenceAlarm( self )
-        # Insure that the alarm is off
+        # Turn the alarm off when starting.
         self.changeAlarm( self.ALARM_OFF )
 
     @property
@@ -202,6 +204,7 @@ class StatusPanel( Base ):
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.long_scheduler_id
+            # Delete all the previously scheduled slow alarm events
             pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
                             name=self.status_panel.scheduler_delayed_sound_alarm )
             pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
@@ -222,6 +225,7 @@ class StatusPanel( Base ):
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.short_scheduler_id
+            # Delete all the previously scheduled alarms.
             pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
                             name=self.status_panel.scheduler_turn_off_initial_alarm )
             pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
@@ -270,7 +274,7 @@ class StatusPanel( Base ):
                 self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
                 self.status_panel.when_garage_door_opened = GetDateTime().datetime()
-                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
+                self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
                 self.turnOffAlarmAfterInterval()
                 self.setTimerToActivateAlarmAfterInterval()
                 self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.PreAlarm
@@ -280,7 +284,9 @@ class StatusPanel( Base ):
             if value == self.status_panel.GARAGE_DOOR_CLOSED:
                 self.status_panel.when_garage_door_opened = None
                 self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.Disabled
-                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
+                self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
+                self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
+
 
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
@@ -381,8 +387,8 @@ class StatusPanel( Base ):
     
             """
             if value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED:
-                self.logger.info( 'Disable button pressed.' )
-                self.status_panel.enable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_PRESSED
+                self.logger.info( 'Disable button: {} DISABLE_ALARM_BUTTON_PRESSED = {}'.format( value, self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ) )
+                self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_PRESSED
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_ON )
             return value, data, listeners
@@ -454,31 +460,32 @@ class StatusPanel( Base ):
             # Test if the correct packet
             if data[Constants.DataPacket.scheduler_id] == self.status_panel.long_scheduler_id:
                 if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN:
-                    if self.status_panel.enable_alarm_button_pressed == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED :
+                    if self.status_panel.disenable_alarm_button_pressed == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED :
                         self.delayedAlarmState = self.Disabled
                         self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-                        self.logger.info( 'Disable alarm pressed. exit' )
+                        self.logger.debug( 'Disable alarm pressed. exit' )
                     else:
                         if ( self.delayedAlarmState == self.PreAlarm ):
-                            self.logger.info( 'short beep' )
                             self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
                             self.activateTimer( self.status_panel.garage_door_short_alarm )
                             self.delayedAlarmState = self.Short_Beep
+                            self.logger.debug( 'short beep' )
                         elif ( self.delayedAlarmState == self.Short_Beep ):
-                            self.logger.info( 'long silence' )
                             self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                             self.activateTimer( self.status_panel.garage_door_long_silence )
                             self.delayedAlarmState = self.Long_Silence
+                            self.logger.debug( 'long silence' )
                         elif ( self.delayedAlarmState == self.Long_Silence ):
                             self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
                             self.activateTimer( self.status_panel.garage_door_short_alarm )
                             self.delayedAlarmState = self.Short_Beep
+                            self.logger.debug( 'Short Beep' )
                         elif ( self.delayedAlarmState == self.Disabled ):
-                            self.logger.info( 'Disabled state' )
+                            self.logger.debug( 'Disabled state' )
                             self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                         else:
                             self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-                            self.logger.debug( 'invalid state = {}'.format( self.delayedAlarmState ) )
+                            self.logger.warn( 'invalid state = {}'.format( self.delayedAlarmState ) )
                 else:
                     self.delayedAlarmState = self.Disabled
                     self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
@@ -527,5 +534,6 @@ class StatusPanel( Base ):
     
             """
             value = self.toggle = not self.toggle
-            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
+            # disable the following line. It prints aboue every two seconds.
+#            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
             return value, data, listeners
