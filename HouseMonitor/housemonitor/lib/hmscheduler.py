@@ -4,21 +4,20 @@ Created on 2012-11-18
 @author: Gary
 
 '''
-from lib.constants import Constants
-from configuration.formatconfiguration import FormatConfiguration
-from apscheduler.scheduler import Scheduler
 from apscheduler.jobstores.shelve_store import ShelveJobStore
-from pubsub import pub
-import pprint
-
-from lib.base import Base
-from datetime import datetime
-from datetime import date
-from datetime import time
-from datetime import timedelta
+from apscheduler.scheduler import Scheduler
+from configuration.formatconfiguration import FormatConfiguration
+from datetime import date, datetime, time, timedelta
 from inputs.dataenvelope import DataEnvelope
+from lib.base import Base
+from lib.constants import Constants
 from lib.getdatetime import GetDateTime
+from collections import defaultdict
+from pubsub import pub
 import copy
+import pprint
+import uuid
+
 
 
 class HMScheduler( Base ):
@@ -38,7 +37,7 @@ class HMScheduler( Base ):
     scheduler = None
 
     ''' A dictionary of the current jobs that are running '''
-    jobs = {}
+    jobs = defaultdict( list )
 
     previous_datetime = datetime.utcnow()
 
@@ -133,9 +132,12 @@ class HMScheduler( Base ):
 
         '''
         self.logger.debug( 'interval ({}) add {} {} {} {} {} {} {}'.format( name, weeks, days, hours, hours, minutes, seconds, start_date ) )
-        self.jobs[name] = self.scheduler.add_interval_job( self.sendCommand, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds, start_date=start_date, args=args, kwargs=kwargs, name=name )
+        self.jobs[name].append( self.scheduler.add_interval_job( self.sendCommand, weeks=weeks,
+                        days=days, hours=hours, minutes=minutes, seconds=seconds,
+                        start_date=start_date, args=args, kwargs=kwargs, name=name ) )
 
-    def add_cron( self, name, year=None, month=None, day=None, week=None, day_of_week=None, hour=None, minute=None, second=None, start_date=None, args=None, kwargs=None ):
+    def add_cron( self, name, year=None, month=None, day=None, week=None, day_of_week=None,
+                  hour=None, minute=None, second=None, start_date=None, args=None, kwargs=None ):
         '''
         Schedule a cron command to call sendCommand.
 
@@ -162,8 +164,11 @@ class HMScheduler( Base ):
         :raises: None
 
         '''
-        self.logger.debug( 'set cron({}) at {}/{}/{} {}:{}:{} {} {} {}'.format( name, year, month, day, hour, minute, second, week, day_of_week, start_date ) )
-        self.jobs[name] = self.scheduler.add_cron_job( self.sendCommand, year=year, month=month, day=day, week=week, day_of_week=day_of_week, hour=hour, minute=minute, second=second, start_date=start_date, args=args, kwargs=kwargs )
+        self.logger.debug( 'set cron({}) at {}/{}/{} {}:{}:{} {} {} {}'.format( name, year, month,
+                                day, hour, minute, second, week, day_of_week, start_date ) )
+        self.jobs[name].append( self.scheduler.add_cron_job( self.sendCommand, year=year,
+                    month=month, day=day, week=week, day_of_week=day_of_week, hour=hour,
+                    minute=minute, second=second, start_date=start_date, args=args, kwargs=kwargs ) )
 
     def add_date( self, name, date, args=None, kwargs=None ):
         '''
@@ -184,7 +189,8 @@ class HMScheduler( Base ):
 
         '''
         self.logger.debug( 'add date({}) at {}'.format( name, date ) )
-        self.jobs[name] = self.scheduler.add_date_job( self.sendCommand, date=date, name=name, args=args, kwargs=kwargs )
+        self.jobs[name].append( self.scheduler.add_date_job( self.sendCommand, date=date,
+                                                            name=name, args=args, kwargs=kwargs ) )
 
     def add_one_shot( self, name, delta, args=None, kwargs=None ):
         '''
@@ -206,7 +212,8 @@ class HMScheduler( Base ):
         now = datetime.now()
         dt = now + delta
         self.logger.debug( 'one shot({}) at {}'.format( name, dt ) )
-        self.jobs[name] = self.scheduler.add_date_job( self.sendCommand, date=dt, name=name, args=args, kwargs=kwargs )
+        self.jobs[name].append( self.scheduler.add_date_job( self.sendCommand, date=dt,
+                                                            name=name, args=args, kwargs=kwargs ) )
 
     def deleteJob( self, name ):
         '''
@@ -216,9 +223,15 @@ class HMScheduler( Base ):
         :type weeks: str
 
         '''
+        item = None
         if name in self.jobs:
-            self.scheduler.unschedule_job( self.jobs[name] )
-            self.logger.debug( '{} removed from scheduler'.format( name ) )
+            for number, item in enumerate( self.jobs[name] ):
+                try:
+                    self.scheduler.unschedule_job( item )
+                except KeyError as ke:
+                    self.logger.info( 'scheduler event not found! Perhaps it has expired.' )
+                self.logger.info( '{} "{}" removed from scheduler'.format( number, name ) )
+            self.jobs[name] = []
 
     def shutdown( self, wait=True ):
         '''
@@ -244,7 +257,7 @@ class HMScheduler( Base ):
         '''
         self.scheduler.print_jobs()
 
-    def sendCommand( self, device, port, listeners=[] ):
+    def sendCommand( self, device, port, listeners=[], scheduler_id=uuid.uuid4() ):
         """
         send command will send the cammand to the HouseMonitor system
 
@@ -259,11 +272,13 @@ class HMScheduler( Base ):
         data = {}
         data[Constants.DataPacket.device] = device
         data[Constants.DataPacket.port] = port
+        data[Constants.DataPacket.scheduler_id] = scheduler_id
         data[Constants.DataPacket.arrival_time] = datetime.utcnow()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = 'scheduled status check'
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        self.logger.debug( 'DataEnvelope = {} listeners = {}'.format( de, listeners ) )
+        self.logger.debug( 'DataEnvelope = {} listeners = {} scheduler_id'.format( de, listeners,
+                                                        data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )
 
     def statusHeartBeat( self, device, port, listeners=[] ):

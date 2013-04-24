@@ -152,7 +152,7 @@ class Test( unittest.TestCase ):
         sched = None
 
     # FIXME why is this failing?
-    @unittest.skip( "Not sure why this is failing" )
+    # @unittest.skip( "Not sure why this is failing" )
     def test_delete_job( self ):
         que = Mock()
         sched = HMScheduler( que )
@@ -171,6 +171,9 @@ class Test( unittest.TestCase ):
         listeners = ['two']
         args = device, port, listeners
         sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.add_one_shot( name='test_two', delta=td, args=args )
 
         listeners = ['three']
         args = device, port, listeners
@@ -180,9 +183,18 @@ class Test( unittest.TestCase ):
 
         sched.deleteJob( 'test_two' )
         sched.print_jobs()
+        td = timedelta( seconds=5.0 )
+        listeners = ['two']
+        args = device, port, listeners
+        sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.add_one_shot( name='test_two', delta=td, args=args )
+        sched.deleteJob( 'test_two' )
+        sched.print_jobs()
         time.sleep( 10 )
 
-        sched.sendCommand.assert_has_calls( [( device, port, ['one'] ), ( device, port, ['three'] )], any_order=False )
+        self.assertListEqual( sched.jobs['test_two'], [] )
         sched.shutdown( wait=True )
         sched = None
 

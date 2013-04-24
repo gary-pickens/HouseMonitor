@@ -60,6 +60,7 @@ class Constants( object ):
         max_value = 'max_value'
         min_value = 'min_value'
         listeners = 'listeners'
+        scheduler_id = 'scheduler_id'
 
     class EnvelopeTypes( object ):
         '''
