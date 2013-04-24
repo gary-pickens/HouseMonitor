@@ -25,7 +25,7 @@ class ComputerMonitor( Base, threading.Thread ):
     previous_time = {}
     previous_count = {}
     start_count = {}
-    time_between_reads = 30.0
+    time_between_reads = 300.0
 
     files = {'serial': {'file':'/proc/tty/driver/OMAP-SERIAL',
                         'device': 'OMAP-SERIAL',
