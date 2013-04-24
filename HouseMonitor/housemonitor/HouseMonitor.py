@@ -3,28 +3,26 @@ Created on Sep 10, 2012
 
 @author: gary
 '''
-from optparse import OptionParser
-import logging.config
 from datetime import datetime
-from pubsub import pub
-
-
-from lib.base import Base
-from lib.moduleloader import ModuleLoader
-from lib.hmqueue import HMQueue
-from inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
-from lib.hmscheduler import HMScheduler
-# from inputs.zigbeeinput.xbeeinput import XbeeInput
-from outputs.cosm.control import COSMControl
-from outputs.zigbee.zigbeecontrol import ZigBeeControl
-from inputs.testinputthead import TestInputThread
+from inputs.computermonitor.computermonitor import ComputerMonitor
 from inputs.processinput import ProcessInput, abcProcessInput, ProcessXBeeInput
-from pprint import pprint
-from lib.pubsubaid import PubSubAid
-from outputs.xmlrpc.control import XMLRPCControl
-from lib.currentvalues import CurrentValues
-from lib.hmscheduler import HMScheduler
+from inputs.testinputthead import TestInputThread
+from inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
+from lib.base import Base
 from lib.constants import Constants
+from lib.currentvalues import CurrentValues
+from lib.hmqueue import HMQueue
+from lib.hmscheduler import HMScheduler, HMScheduler
+from lib.moduleloader import ModuleLoader
+from lib.pubsubaid import PubSubAid
+from optparse import OptionParser
+from outputs.cosm.control import COSMControl
+from outputs.xmlrpc.control import XMLRPCControl
+from outputs.zigbee.zigbeecontrol import ZigBeeControl
+from pprint import pprint
+from pubsub import pub
+import logging.config
+import sys
 
 
 class HouseMonitor():
@@ -123,6 +121,11 @@ class HouseMonitor():
         self.logger.info( 'Starting scheduler' )
         self.sched = HMScheduler( self.input_queue )
         self.sched.start()
+
+        if ( sys.platform[:5] == 'linux' ):
+            self.logger.info( 'Starting ComputerMonitor' )
+            self.computer_monitor = ComputerMonitor( self.input_queue )
+            self.computer_monitor.start()
 
     def startOutputs( self, global_data ):
 

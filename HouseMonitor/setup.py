@@ -2,13 +2,14 @@ from distutils.core import setup
 
 setup( 
     name='HouseMonitor',
-    version='4.0.0',
+    version='4.0.1',
     author='Gary Pickens',
     author_email='gary_pickens@yahoo.com',
     packages=['housemonitor',
               'housemonitor/configuration',
               'housemonitor/inputs',
               'housemonitor/inputs/zigbeeinput',
+              'housemonitor/inputs/computermonitor',
               'housemonitor/lib',
               'housemonitor/outputs',
               'housemonitor/outputs/cosm',

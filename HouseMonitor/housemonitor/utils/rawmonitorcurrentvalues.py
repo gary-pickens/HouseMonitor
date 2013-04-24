@@ -30,7 +30,7 @@ class RawMonitorCurrentValues( object ):
         while True:
             try:
                 value = self.proxy.get_current_values()
-        #                pprint.pprint(value)
+#                pprint.pprint( value )
                 os.system( ['clear', 'cls'][os.name == 'nt'] )
                 for device in value:
                     fake_device = device

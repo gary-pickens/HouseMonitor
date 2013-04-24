@@ -121,13 +121,15 @@ class ProcessStatusRequests( abcProcessInput ):
         :return: None
         :Raises: None
         '''
-        try:
-            data = envelope.data
-            listeners = data[Constants.DataPacket.listeners]
-            self.logger.debug( 'calling Common.send from ProcessStatusRequests with {} thread_id {}'.format( data, listeners, thread.get_ident() ) )
-            Common.send( 1, data, listeners )
-        except Exception:
-            self.logger.exception( 'Error sending to {}'.format( listeners ) )
+        data = envelope.data
+        if Constants.DataPacket.current_value in data:
+            value = data[Constants.DataPacket.current_value]
+        else:
+            value = 1
+        listeners = data[Constants.DataPacket.listeners]
+        self.logger.debug( 'ProcessStatusRequests sending  value = {} data = {} listeners = {}'.
+                           format( value, data, listeners ) )
+        Common.send( value, data, listeners )
 
 class ProcessInput( abcInput ):
     '''
