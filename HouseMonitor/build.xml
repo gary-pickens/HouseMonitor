@@ -6,7 +6,6 @@
     <property name="host" value="beaglebone" />
 	<property name="author" value="Gary Pickens" />
 	<property name="current.dir" value="${basedir}" />
-    <echo message="-w ${basedir}/housemonitor"/>
 
 	<import file="${user.home}/imported.xml" />
 <!-- The following two entries need to be added to import.xml with the correct user and password
