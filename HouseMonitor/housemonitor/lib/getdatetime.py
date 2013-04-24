@@ -15,14 +15,22 @@ class GetDateTime( object ):
     dt = None
 
     #  TODO work on documentation for function
-    def __init__( self, date_time_value=None ):
+    def __init__( self, date_time_value=None, year=None, month=None, day=None, hour=None, minute=None, second=None ):
         '''
         Constructor
         '''
-        if date_time_value == None:
+        if ( date_time_value == None and
+             year != None and month != None and day != None and
+             hour != None and minute != None and second != None ):
+            try:
+                self.dt = datetime( year, month, day, hour, minute, second )
+            except Exception as ex:
+                print ex
+        elif date_time_value == None:
             self.dt = datetime.utcnow()
         else:
             self.dt = date_time_value
+
 
     def __str__( self ):
         '''
@@ -69,3 +77,8 @@ class GetDateTime( object ):
 
     def datetime( self ):
         return self.dt
+
+    def __repr__( self ):
+        return self.dt.strftime( '\'%Y/%m/%d %H:%M:%S\'' )
+#    'GetDateTime(year={}, month={}, day={}, hour={}, minute={}, second={})'. \
+#            format( self.dt.year, self.dt.month, self.dt.day, self.dt.hour, self.dt.minute, self.dt.second )

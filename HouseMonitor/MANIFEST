@@ -22,6 +22,8 @@ housemonitor/inputs\abc_input.py
 housemonitor/inputs\dataenvelope.py
 housemonitor/inputs\processinput.py
 housemonitor/inputs\testinputthead.py
+housemonitor/inputs/computermonitor\__init__.py
+housemonitor/inputs/computermonitor\computermonitor.py
 housemonitor/inputs/zigbeeinput\__init__.py
 housemonitor/inputs/zigbeeinput\beaglebonexbeecommunications.py
 housemonitor/inputs/zigbeeinput\main.py

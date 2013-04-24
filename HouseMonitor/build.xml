@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Home Monitor Program" default="clean">
-    <property name="version" value="4.0.0" />
+    <property name="version" value="4.0.1" />
     <property name="project" value="HouseMonitor" />
     <property name="remote_directory" value="${project}.${version}" />
     <property name="host" value="beaglebone" />
 	<property name="author" value="Gary Pickens" />
+	<property name="current.dir" value="${basedir}" />
+    <echo message="-w ${basedir}/housemonitor"/>
 
 	<import file="${user.home}/imported.xml" />
 <!-- The following two entries need to be added to import.xml with the correct user and password
@@ -81,7 +83,9 @@
         <sshexec host="${host}" username="${user}" password="${password}"
             command="sudo PYTHONPATH=${HMHOME} easy_install --install-dir ${HMHOME} -Z src/${project}-${version}.zip" />
         <sshexec host="${host}" username="${user}" password="${password}"
-            command="sudo PYTHONPATH=${HMHOME} cp src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/housemonitor.service" />
+            command="sudo PYTHONPATH=${HMHOME} cp src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="sudo PYTHONPATH=${HMHOME} cp src/HouseMonitor-${version}/housemonitor/config/cacerts.txt bin/HouseMonitor/httplib2-0.8-py2.7.egg/httplib2" />
         <sshexec host="${host}" username="${user}" password="${password}"
             command="sudo PYTHONPATH=${HMHOME} systemctl --system daemon-reload" />
         <sshexec host="${host}" username="${user}" password="${password}"

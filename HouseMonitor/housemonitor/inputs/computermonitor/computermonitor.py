@@ -3,29 +3,33 @@ Created on Apr 11, 2013
 
 @author: Gary
 '''
-import threading
+from datetime import timedelta
+from inputs.dataenvelope import DataEnvelope
+from lib.base import Base
+from lib.constants import Constants
+from lib.getdatetime import GetDateTime
+import copy
 import os
 import re
-
-from inputs.dataenvelope import DataEnvelope
-from lib.constants import Constants
-from lib.base import Base
-from lib.getdatetime import GetDateTime
-from datetime import timedelta
+import threading
+import time
 
 
-class MonitorComputer( Base, threading.Thread ):
+
+class ComputerMonitor( Base, threading.Thread ):
     '''
     classdocs
     '''
     input_queue = None
-    MAX_LINE_LENGTH = 120
     forever = True
-    previous_time = GetDateTime()
-    previous_tx = 0
-    previous_rcv = 0
+    previous_time = {}
+    previous_count = {}
+    start_count = {}
+    time_between_reads = 30.0
 
     files = {'serial': {'file':'/proc/tty/driver/OMAP-SERIAL',
+                        'device': 'OMAP-SERIAL',
+                        'port': 'OMAP UART1',
                          'regexp': re.compile( '''^.*OMAP\sUART1.*     # Select correct device
                                                   tx:(?P<tx>\d*)\s*   # Get number of char xmited
                                                   rx:(?P<rx>\d*)      # the number of chars received
@@ -42,10 +46,12 @@ class MonitorComputer( Base, threading.Thread ):
             queue is the InputQueue
 
         '''
-        super( MonitorComputer, self ).__init__()
-        threading.Thread.__init__( self )
-        self.input_queue = queue
-
+        try:
+            super( ComputerMonitor, self ).__init__()
+            threading.Thread.__init__( self )
+            self.input_queue = queue
+        except Exception as ex:
+            self.logger.exception( ex )
 
     def extractData( self, file_contents ):
         m = self.files['serial']['regexp'].search( file_contents )
@@ -55,42 +61,62 @@ class MonitorComputer( Base, threading.Thread ):
         else:
             return m.groupdict()
 
-
     def readFile( self, filename ):
-        with open( filename, 'r' ) as f:
-            results = line = f.readline( self.MAX_LINE_LENGTH )
-            while line:
-                line = f.readline( self.MAX_LINE_LENGTH )
-                results += line
-            dt = GetDateTime()
-        return results, dt
+        ''' Read the number of bytes transmitted and received. '''
+
+        try:
+            with open( filename, 'r' ) as f:
+                results = f.read()
+                dt = GetDateTime()
+                return results, dt
+        except Exception as ex:
+            self.logger.exception( ex )
+            raise
+
+    def send( self, dt, key, value ):
+        data = {}
+        listeners = [Constants.TopicNames.CurrentValueStep]
+        packet = None
+        data[Constants.DataPacket.device] = 'OMAP UART1'
+        data[Constants.DataPacket.port] = key
+        data[Constants.DataPacket.arrival_time] = dt
+        data[Constants.DataPacket.current_value] = value
+        data[Constants.DataPacket.listeners] = copy.copy( listeners )
+        env = DataEnvelope( type=Constants.EnvelopeTypes.status, packet=packet, data=data, arrival_time=dt )
+        self.logger.debug( 'read data {}'.format( env ) )
+        self.input_queue.transmit( packet=env, priority=Constants.Queue.low_priority )
+
+    def process_data( self, file_contents, dt ):
+        for key, value in file_contents.iteritems():
+            value = int( value )
+            if key not in self.start_count:
+                self.start_count[key] = value
+                self.previous_count[key] = value
+                self.previous_time[key] = dt
+            else:
+                # Send the number of bytes send since program stated
+                count = value - self.start_count[key]
+                self.send( dt, key, count )
+
+                # Send the number of bytes per second
+                delta = dt.datetime() - self.previous_time[key].datetime()
+                rate = int( ( count - self.previous_count[key] ) / delta.total_seconds() )
+                what = key + " rate"
+                if ( rate > 0 ):
+                    self.send( dt, what, rate )
+
+                self.previous_count[key] = count
+                self.previous_time[key] = dt
+
 
     def run( self ):
         while True:
-            for key in self.files:
-                file_contents, datetime = self.readFile( self.files[key]['filename'] )
-                data = self.extractData( key, file_contents )
-                for key, value in data.iteritems():
-                    packet = {}
-                    packet[Constants.DataPacket.device] = 'OMAP UART1'
-                    packet[Constants.DataPacket.port] = key
-                    packet[Constants.DataPacket.arrival_time] = datetime
-                    packet[Constants.DataPacket.current_value] = value
-                    env = DataEnvelope( type='Computer', packet=packet )
-                    self.logger.debug( 'read data {}'.format( packet ) )
-                    self.input_queue.transmit( env, Constants.Queue.low_priority )
-
-                    delta = datetime - self.previous_time
-                    rate = int( value ) / delta.seconds()
-
-                    packet[Constants.DataPacket.device] = 'OMAP UART1'
-                    packet[Constants.DataPacket.port] = key + " rate"
-                    packet[Constants.DataPacket.arrival_time] = datetime
-                    packet[Constants.DataPacket.current_value] = rate
-                    env = DataEnvelope( type='Computer', packet=packet )
-                    self.logger.debug( 'read data {}'.format( packet ) )
-                    self.input_queue.transmit( env, Constants.Queue.low_priority )
-
-            self.previous_time = datetime
+            try:
+                extracted_data, extraction_time = self.readFile( self.files['serial']['file'] )
+                data = self.extractData( extracted_data )
+                self.process_data( data, extraction_time )
+            except Exception as ex:
+                self.logger.exception( ex )
             if ( self.forever == False ):
                 break
+            time.sleep( self.time_between_reads )

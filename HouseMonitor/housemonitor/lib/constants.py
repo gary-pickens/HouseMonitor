@@ -235,7 +235,7 @@ class Constants( object ):
         outputsZigBee = 'outputsZigBee'
         PubSubAid = 'PubSubAid'
         StatusPanel = 'StatusPanel'
-        ComputerMonitor = 'ComputerNomitor'
+        ComputerMonitor = 'ComputerMonitor'
         UnitTest = 'UnitTest'
 
     class Queue( object ):

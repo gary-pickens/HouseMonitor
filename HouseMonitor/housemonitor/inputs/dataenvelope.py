@@ -6,7 +6,7 @@ Created on Oct 10, 2012
 from lib.getdatetime import GetDateTime
 
 
-class DataEnvelope(object):
+class DataEnvelope( object ):
 
     '''
     This object will be used to pass data through queues between threads.
@@ -21,7 +21,7 @@ class DataEnvelope(object):
     data = {}
     ''' Additional data such as it source. '''
 
-    def __init__(self, type='xbee', packet={}, arrival_time=GetDateTime(), data={}):
+    def __init__( self, type='xbee', packet={}, arrival_time=GetDateTime(), data={} ):
         ''' Store the data in the envelope.
 
         :param type: the type of data that this packet contain.
@@ -38,3 +38,7 @@ class DataEnvelope(object):
         self.packet = packet
         self.arrival_time = arrival_time
         self.data = data
+
+    def __repr__( self ):
+        return "DataEnvelope(type = '{}', packet = {}, arrival_time = '{}', data = {})".format( 
+                            self.type, self.packet, self.arrival_time, self.data )
