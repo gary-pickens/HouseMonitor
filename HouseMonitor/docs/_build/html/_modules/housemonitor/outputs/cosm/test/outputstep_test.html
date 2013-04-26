@@ -55,37 +55,36 @@
 <span class="sd">@author: Gary</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">from</span> <span class="nn">outputs.cosm.queue</span> <span class="kn">import</span> <span class="n">COSMQueue</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 <span class="kn">from</span> <span class="nn">outputs.cosm.outputStep</span> <span class="kn">import</span> <span class="n">COSMOutputStep</span>
 <span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
 <span class="kn">import</span> <span class="nn">logging.config</span>
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 <span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span>
-<span class="kn">import</span> <span class="nn">Queue</span>
 
 
-<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
 
-    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;UnitTest&#39;</span><span class="p">)</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;UnitTest&#39;</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="s">&quot;house_monitor_logging.conf&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">pass</span>
 </div>
-    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;outputs.cosm.control.COSMQueue&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">COSMQueue</span><span class="p">)</span>
-<div class="viewcode-block" id="Test.test_step"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test.test_step">[docs]</a>    <span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">):</span>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;outputs.cosm.control.HMQueue&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">HMQueue</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_step"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputstep_test.Test.test_step">[docs]</a>    <span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span> <span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="mi">5252</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="s">&#39;device&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="s">&#39;port&#39;</span><span class="p">}</span>
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
-        <span class="n">cs</span> <span class="o">=</span> <span class="n">COSMOutputStep</span><span class="p">(</span><span class="n">que</span><span class="p">)</span>
-        <span class="n">new_value</span><span class="p">,</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">new_listeners</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
-        <span class="n">que</span><span class="o">.</span><span class="n">transmit</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">({</span><span class="s">&#39;current_value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_listeners</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
+        <span class="n">cs</span> <span class="o">=</span> <span class="n">COSMOutputStep</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">new_value</span><span class="p">,</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">new_listeners</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">step</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="n">que</span><span class="o">.</span><span class="n">transmit</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="p">{</span><span class="s">&#39;current_value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">new_value</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">new_data</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">new_listeners</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
 
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>

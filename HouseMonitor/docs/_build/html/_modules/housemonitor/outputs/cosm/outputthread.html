@@ -57,13 +57,13 @@
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 
-<span class="kn">from</span> <span class="nn">outputs.cosm.queue</span> <span class="kn">import</span> <span class="n">COSMQueue</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 <span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">send</span> <span class="kn">import</span> <span class="n">COSMSend</span>
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 
 
-<div class="viewcode-block" id="COSMOutputThread"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread">[docs]</a><span class="k">class</span> <span class="nc">COSMOutputThread</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMOutputThread"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread">[docs]</a><span class="k">class</span> <span class="nc">COSMOutputThread</span><span class="p">(</span> <span class="n">Base</span><span class="p">,</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This thread will remove the data off the cosm queue and send it to the COSM web site.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -71,22 +71,22 @@
     <span class="n">forever</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="COSMOutputThread.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMOutputThread.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger level. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">outputsCOSM</span>
 </div>
     <span class="n">_queue</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="sd">&#39;&#39;&#39; The COSMQueue object.  Used to receive data. &#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39; The HMQueue object.  Used to receive data. &#39;&#39;&#39;</span>
 
     <span class="n">_cosm_send</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; Object that sends data to COSM. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">send</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">send</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        args:</span>
 <span class="sd">        :param queue: Queue for sending data between threads</span>
-<span class="sd">        :type COSMQueue:</span>
+<span class="sd">        :type HMQueue:</span>
 <span class="sd">        :param options: options from the command line</span>
 <span class="sd">        :type dict:</span>
 <span class="sd">        :param send: optional argument used for test</span>
@@ -96,17 +96,18 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">queue</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">send</span> <span class="o">==</span> <span class="bp">None</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span> <span class="o">=</span> <span class="n">COSMSend</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">send</span> <span class="o">==</span> <span class="bp">None</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span> <span class="o">=</span> <span class="n">COSMSend</span><span class="p">(</span> <span class="n">options</span> <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span> <span class="o">=</span> <span class="n">send</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">COSMOutputThread</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">COSMOutputThread</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
-        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="COSMOutputThread.run"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="COSMOutputThread.process"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        The COSM thread does the following:</span>
+<span class="sd">        This function does the following:</span>
 
 <span class="sd">        #. Wait on data from the queue.</span>
 <span class="sd">        #. Remove data from previous send.</span>
@@ -114,12 +115,19 @@
 <span class="sd">        #. send data to COSM_send</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span><span class="o">.</span><span class="n">empty_datastream_list</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Cosm</span><span class="o">.</span><span class="n">packet</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Cosm</span><span class="o">.</span><span class="n">packet</span><span class="o">.</span><span class="n">current_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Cosm</span><span class="o">.</span><span class="n">packet</span><span class="o">.</span><span class="n">current_value</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span><span class="o">.</span><span class="n">output</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="COSMOutputThread.run"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.outputthread.COSMOutputThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The COSM thread will loop forever calling process.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">forever</span><span class="p">:</span>
-            <span class="n">packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span><span class="o">.</span><span class="n">empty_datastream_list</span><span class="p">()</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Cosm</span><span class="o">.</span><span class="n">packet</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
-            <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Cosm</span><span class="o">.</span><span class="n">packet</span><span class="o">.</span><span class="n">current_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Cosm</span><span class="o">.</span><span class="n">packet</span><span class="o">.</span><span class="n">current_value</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cosm_send</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>

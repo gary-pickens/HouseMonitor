@@ -268,6 +268,8 @@ Instantuating a class in method
 
 *In patch I give the namespace then the name of the class to instuate.*
 
+::
+
     @patch('inputs.zigbeeinput.xbeecommunications.ZigBee')
     def test_successful_connect(self, zigbee):
         rv = 55
@@ -310,3 +312,13 @@ The second time it returns a valid value.
         xbee.setup.assert_any_call()
         zigbee.assert_called_once_with(rv)
 
+*********************
+Testing open and read
+*********************
+
+Here is some reading:
+
+   * `Mocking an open and read in with statement <http://stackoverflow.com/questions/1289894/how-do-i-mock-an-open-used-in-a-with-statement-using-the-mock-framework-in-pyth>`_.
+      
+   * `Mocking open in context manager <http://java.dzone.com/articles/mocking-open-context-manager>`_.
+    

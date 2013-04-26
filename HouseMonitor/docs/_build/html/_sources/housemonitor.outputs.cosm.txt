@@ -25,14 +25,6 @@ cosm Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`queue` Module
--------------------
-
-.. automodule:: housemonitor.outputs.cosm.queue
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`send` Module
 ------------------
 

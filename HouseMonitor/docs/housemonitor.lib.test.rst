@@ -33,18 +33,18 @@ test Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`moduleloader_Test` Module
--------------------------------
+:mod:`hmscheduler_Test` Module
+------------------------------
 
-.. automodule:: housemonitor.lib.test.moduleloader_Test
+.. automodule:: housemonitor.lib.test.hmscheduler_Test
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`scheduler_Test` Module
-----------------------------
+:mod:`moduleloader_Test` Module
+-------------------------------
 
-.. automodule:: housemonitor.lib.test.scheduler_Test
+.. automodule:: housemonitor.lib.test.moduleloader_Test
     :members:
     :undoc-members:
     :show-inheritance:

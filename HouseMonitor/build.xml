@@ -121,7 +121,7 @@
             </fileset>
         </scp>
         <scp todir="${user}:${password}@${host}:/www/pages/cover" failonerror="true">
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\htmlcov">
+            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\cover">
             </fileset>
         </scp>
     </target>
@@ -148,7 +148,7 @@
         	<arg value="-V ${version}"/>
         	<arg value="-o"/>
             <arg value="docs"/> 
-            <arg value="housemonitor"/> 
+            <arg value="${basedir}/housemonitor"/> 
         </exec>
     </target>
     <target name="doc-clean" description="remove intermediate files">

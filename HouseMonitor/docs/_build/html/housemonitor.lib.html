@@ -399,6 +399,11 @@ that accompanies the data through the system.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.DataPacket.scheduler_id">
+<tt class="descname">scheduler_id</tt><em class="property"> = 'scheduler_id'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.DataPacket.scheduler_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="housemonitor.lib.constants.Constants.DataPacket.steps">
 <tt class="descname">steps</tt><em class="property"> = 'steps'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.DataPacket.steps" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -462,6 +467,11 @@ that accompanies the data through the system.</p>
 <dt id="housemonitor.lib.constants.Constants.LogKeys">
 <em class="property">class </em><tt class="descclassname">Constants.</tt><tt class="descname">LogKeys</tt><a class="reference internal" href="_modules/housemonitor/lib/constants.html#Constants.LogKeys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.constants.Constants.LogKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.LogKeys.ComputerMonitor">
+<tt class="descname">ComputerMonitor</tt><em class="property"> = 'ComputerMonitor'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.LogKeys.ComputerMonitor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="housemonitor.lib.constants.Constants.LogKeys.HouseMonitor">
 <tt class="descname">HouseMonitor</tt><em class="property"> = 'HouseMonitor'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.LogKeys.HouseMonitor" title="Permalink to this definition">¶</a></dt>
@@ -665,8 +675,13 @@ that accompanies the data through the system.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="housemonitor.lib.constants.Constants.TopicNames.StatusPanel_StartAlarm">
-<tt class="descname">StatusPanel_StartAlarm</tt><em class="property"> = 'step.StartAlarm'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.StatusPanel_StartAlarm" title="Permalink to this definition">¶</a></dt>
+<dt id="housemonitor.lib.constants.Constants.TopicNames.StatusPanel_ProcessDelayedAlarm">
+<tt class="descname">StatusPanel_ProcessDelayedAlarm</tt><em class="property"> = 'step.ProcessDelayedAlarm'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.StatusPanel_ProcessDelayedAlarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.TopicNames.StatusPanel_SilenceAlarm">
+<tt class="descname">StatusPanel_SilenceAlarm</tt><em class="property"> = 'step.StatusPanel_SilenceAlarm'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.StatusPanel_SilenceAlarm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1170,7 +1185,7 @@ Constants.DataPacket.name, and Constants.DataPacket.current_value.</p>
 <p>&#64;author: Gary</p>
 <dl class="class">
 <dt id="housemonitor.lib.getdatetime.GetDateTime">
-<em class="property">class </em><tt class="descclassname">housemonitor.lib.getdatetime.</tt><tt class="descname">GetDateTime</tt><big>(</big><em>date_time_value=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/getdatetime.html#GetDateTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.getdatetime.GetDateTime" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">housemonitor.lib.getdatetime.</tt><tt class="descname">GetDateTime</tt><big>(</big><em>date_time_value=None</em>, <em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>hour=None</em>, <em>minute=None</em>, <em>second=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/getdatetime.html#GetDateTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.getdatetime.GetDateTime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>A GetDateTime object so that unit tests mock will work on it.  Other
 routines may need to be added as they are needed</p>
@@ -1506,7 +1521,7 @@ on timeDelta see:</p>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.jobs">
-<tt class="descname">jobs</tt><em class="property"> = {}</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.jobs" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">jobs</tt><em class="property"> = defaultdict(&lt;type 'list'&gt;, {})</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.jobs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1517,7 +1532,7 @@ on timeDelta see:</p>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.previous_datetime">
-<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 7, 0, 2, 46, 566000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 26, 15, 58, 42, 433000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1540,7 +1555,7 @@ on timeDelta see:</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.sendCommand">
-<tt class="descname">sendCommand</tt><big>(</big><em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sendCommand</tt><big>(</big><em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id=UUID('71eb1e11-c085-4731-aadd-cee4c95c5457')</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>send command will send the cammand to the HouseMonitor system</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1718,8 +1733,8 @@ routines may need to be added as they are needed</p>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.current_values_Test"><tt class="docutils literal"><span class="pre">current_values_Test</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.getdatetime_test"><tt class="docutils literal"><span class="pre">getdatetime_test</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.hmqueue_test"><tt class="docutils literal"><span class="pre">hmqueue_test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.hmscheduler_Test"><tt class="docutils literal"><span class="pre">hmscheduler_Test</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.moduleloader_Test"><tt class="docutils literal"><span class="pre">moduleloader_Test</span></tt> Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.scheduler_Test"><tt class="docutils literal"><span class="pre">scheduler_Test</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>

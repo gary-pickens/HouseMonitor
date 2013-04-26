@@ -60,7 +60,7 @@
 <span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 
 
-<div class="viewcode-block" id="ZigBeeOutputStep"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep">[docs]</a><span class="k">class</span> <span class="nc">ZigBeeOutputStep</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="ZigBeeOutputStep"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep">[docs]</a><span class="k">class</span> <span class="nc">ZigBeeOutputStep</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This object should be started with with the COSM thread and hang around forever.</span>
 
@@ -68,28 +68,28 @@
     <span class="n">queue</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; A Queue for communicating between threads. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Initialize COSMOutputStep.</span>
 
 <span class="sd">        :param queue: an object which communicates between threads</span>
 <span class="sd">        :type queue: COSMQueue</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ZigBeeOutputStep</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">ZigBeeOutputStep</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;ZigBeeOutputStep started&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;ZigBeeOutputStep started&quot;</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ZigBeeOutputStep.topic_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ZigBeeOutputStep.topic_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ZigBeeOutputStep.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ZigBeeOutputStep.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">outputsZigBee</span>
 </div>
-<div class="viewcode-block" id="ZigBeeOutputStep.step"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="ZigBeeOutputStep.step"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputstep.ZigBeeOutputStep.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function receives data that will be sent to COSM and forwards it to the COSM output processing</span>
 <span class="sd">        thread.</span>
@@ -97,23 +97,18 @@
 <span class="sd">        This function will compare the value with the previous value and if they are different send the data to</span>
 <span class="sd">        the next listener else don&#39;t send the data along.</span>
 
-<span class="sd">        :param value: The number to add to the list of numbers.</span>
-<span class="sd">        :type value: boolean, int or float</span>
-<span class="sd">        :param data: a dictionary containing more information about the</span>
-<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
-<span class="sd">                of values that will be in the data dictionary:</span>
-
-<span class="sd">                1 **date:** time received: time when value was received.</span>
-<span class="sd">                2. **units:** units of the number</span>
-<span class="sd">                3. &quot;&quot;name:** name assigned to the value</span>
+<span class="sd">        :param value: The input value to be processesed</span>
+<span class="sd">        :type value: int, float, string, etc</span>
+<span class="sd">        :param data: a dictionary containing more information about the value.</span>
 <span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
-<span class="sd">        :returns: value, data, listeners</span>
-<span class="sd">        :rtype: float, dict, listeners</span>
-<span class="sd">        :Raises: ValueError, KeyError</span>
+<span class="sd">        :returns: new_value, new_data, new_listeners</span>
+<span class="sd">        :rtype: int, dict, listeners</span>
+<span class="sd">        :raises: ValueError, KeyError</span>
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">packet</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">transmit</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">three_quarters_priority</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;ZigBee Step data transmitted to ZigBee thread = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packet</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">transmit</span><span class="p">(</span> <span class="n">packet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">three_quarters_priority</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;ZigBee Step data transmitted to ZigBee thread = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div>
 </pre></div>
 

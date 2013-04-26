@@ -141,7 +141,7 @@ main thread and sends them to the ZigBee thread.</p>
 
 <dl class="attribute">
 <dt id="housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.previous_datetime">
-<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 7, 0, 2, 51, 126000)</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 26, 15, 58, 46, 993000)</em><a class="headerlink" href="#housemonitor.outputs.zigbee.zigbeeoutput.ZigBeeOutput.previous_datetime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -215,22 +215,16 @@ the next listener else don&#8217;t send the data along.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
-<li><strong>data</strong> &#8211; <p>a dictionary containing more information about the
-value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</p>
-<p>1 <strong>date:</strong> time received: time when value was received.
-2. <strong>units:</strong> units of the number
-3. &#8220;&#8221;name:** name assigned to the value</p>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>

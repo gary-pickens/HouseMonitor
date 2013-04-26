@@ -20,4 +20,5 @@ Subpackages
     housemonitor.lib
     housemonitor.outputs
     housemonitor.steps
+    housemonitor.utils
 

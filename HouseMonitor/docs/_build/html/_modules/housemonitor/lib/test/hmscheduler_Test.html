@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.lib.test.hmscheduler_Test &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.lib.test.hmscheduler_Test</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Nov 19, 2012</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
+<span class="kn">from</span> <span class="nn">lib.hmscheduler</span> <span class="kn">import</span> <span class="n">HMScheduler</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span> <span class="nn">inputs.dataenvelope</span> <span class="kn">import</span> <span class="n">DataEnvelope</span>
+<span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">pub</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">MagicMock</span>
+
+
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;UnitTest&#39;</span> <span class="p">)</span>
+
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="c">#     def test_start_real_scheduler( self ):</span>
+<span class="c">#         self.logger.error( &#39;test_start_real_scheduler&#39; )</span>
+<span class="c">#         update_time = 0.50</span>
+<span class="c">#         que = Mock( spec=HMQueue )</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.send_status_update = update_time</span>
+<span class="c">#         sched.start()</span>
+<span class="c"># #         time.sleep( update_time * 1.6 )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_add_interval( self ):</span>
+<span class="c">#         que = Mock( spec=HMQueue )</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = &#39;device&#39;, listeners</span>
+<span class="c">#         sched.add_interval( &#39;add interval test&#39;, seconds=0.5, args=args )</span>
+<span class="c"># #         time.sleep( 3 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( &#39;device&#39;, listeners )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c">#         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_add_cron( self ):</span>
+<span class="c">#         que = Mock( spec=HMQueue )</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = &#39;device&#39;, listeners</span>
+<span class="c">#         sched.add_cron( &#39;add_cron&#39;, second=&#39;0-59&#39;, args=args )</span>
+<span class="c"># #         time.sleep( 2 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( &#39;device&#39;, listeners )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c">#         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_add_date( self ):</span>
+<span class="c">#         que = Mock( spec=HMQueue )</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = &#39;device&#39;, listeners</span>
+<span class="c">#         now_plus_two_second = datetime.now() + timedelta( seconds=2 )</span>
+<span class="c">#         sched.add_date( &#39;add_date&#39;, now_plus_two_second, args=args )</span>
+<span class="c"># #         time.sleep( 3 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( &#39;device&#39;, listeners )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_pubsub_to_add_date_works( self ):</span>
+<span class="c">#         que = Mock()</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = &#39;device&#39;, listeners</span>
+<span class="c">#         now_plus_two_seconds = datetime.now() + timedelta( seconds=2 )</span>
+<span class="c">#         pub.sendMessage( Constants.TopicNames.SchedulerAddDateStep, name=&#39;test_pubsub_to_add_date_works&#39;, date=now_plus_two_seconds, args=args )</span>
+<span class="c"># #         time.sleep( 4 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( &#39;device&#39;, listeners )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_pubsub_to_add_cron_works( self ):</span>
+<span class="c">#         que = Mock()</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = &#39;device&#39;, listeners</span>
+<span class="c">#         pub.sendMessage( Constants.TopicNames.SchedulerAddCronStep, name=&#39;test_pubsub_to_add_cron_works&#39;, second=&#39;0-59&#39;, args=args )</span>
+<span class="c"># #         time.sleep( 4 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( &#39;device&#39;, listeners )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_pubsub_to_interval_works( self ):</span>
+<span class="c">#         que = Mock()</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         device = &#39;status&#39;</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = device, listeners</span>
+<span class="c">#         pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep, name=&#39;test_pubsub_to_interval_works&#39;, seconds=0.5, args=args )</span>
+<span class="c"># #         time.sleep( 4 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( device, [&#39;step.statistics&#39;, &#39;steps.current_values&#39;] )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_pubsub_to_one_shot_works( self ):</span>
+<span class="c">#         que = Mock()</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         device = &#39;oneshot&#39;</span>
+<span class="c">#         port = &#39;port&#39;</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = device, port, listeners</span>
+<span class="c">#         td = timedelta( seconds=2.0 )</span>
+<span class="c">#         pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep, name=&#39;test_pubsub_to_one_shot_works&#39;, delta=td, args=args )</span>
+<span class="c"># #         time.sleep( 4 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( device, port, [&#39;step.statistics&#39;, &#39;steps.current_values&#39;] )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     def test_one_shot_works( self ):</span>
+<span class="c">#         que = Mock()</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = Mock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#         device = &#39;oneshot&#39;</span>
+<span class="c">#         port = &#39;port&#39;</span>
+<span class="c">#         listeners = [&#39;step.statistics&#39;, &#39;steps.current_values&#39;]</span>
+<span class="c">#         args = device, port, listeners</span>
+<span class="c">#         td = timedelta( seconds=1.0 )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_one_shot_works&#39;, delta=td, args=args )</span>
+<span class="c"># #         time.sleep( 2 )</span>
+<span class="c"># #         sched.sendCommand.assert_called_with( device, &#39;port&#39;, [&#39;step.statistics&#39;, &#39;steps.current_values&#39;] )</span>
+<span class="c"># #         sched.shutdown( wait=True )</span>
+<span class="c"># #         sched = None</span>
+<span class="c">#</span>
+<span class="c">#     # FIXME why is this failing?</span>
+<span class="c">#     @unittest.skip( &quot;Not sure why this is failing&quot; )</span>
+<span class="c">#     def test_delete_job( self ):</span>
+<span class="c">#         que = Mock()</span>
+<span class="c">#         sched = HMScheduler( que )</span>
+<span class="c">#         sched.sendCommand = MagicMock()</span>
+<span class="c">#         sched.start()</span>
+<span class="c">#</span>
+<span class="c">#         device = &#39;oneshot&#39;</span>
+<span class="c">#         port = &#39;port&#39;</span>
+<span class="c">#</span>
+<span class="c">#         listeners = [&#39;one&#39;]</span>
+<span class="c">#         args = device, port, listeners</span>
+<span class="c">#         td = timedelta( seconds=4.0 )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_one&#39;, delta=td, args=args )</span>
+<span class="c">#</span>
+<span class="c">#         td = timedelta( seconds=5.0 )</span>
+<span class="c">#         listeners = [&#39;two&#39;]</span>
+<span class="c">#         args = device, port, listeners</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#</span>
+<span class="c">#         listeners = [&#39;three&#39;]</span>
+<span class="c">#         args = device, port, listeners</span>
+<span class="c">#         td = timedelta( seconds=6.0 )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_three&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.print_jobs()</span>
+<span class="c">#</span>
+<span class="c">#         sched.deleteJob( &#39;test_two&#39; )</span>
+<span class="c">#         sched.print_jobs()</span>
+<span class="c">#         td = timedelta( seconds=5.0 )</span>
+<span class="c">#         listeners = [&#39;two&#39;]</span>
+<span class="c">#         args = device, port, listeners</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.add_one_shot( name=&#39;test_two&#39;, delta=td, args=args )</span>
+<span class="c">#         sched.deleteJob( &#39;test_two&#39; )</span>
+<span class="c">#         sched.print_jobs()</span>
+<span class="c">#         time.sleep( 10 )</span>
+<span class="c">#</span>
+<span class="c">#         self.assertListEqual( sched.jobs[&#39;test_two&#39;], [] )</span>
+<span class="c">#         sched.shutdown( wait=True )</span>
+<span class="c">#         sched = None</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c"># import sys;sys.argv = [&#39;&#39;, &#39;Test.testName&#39;]</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

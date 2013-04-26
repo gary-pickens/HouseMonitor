@@ -60,7 +60,7 @@
 <span class="kn">import</span> <span class="nn">xmlrpclib</span>
 
 
-<div class="viewcode-block" id="InputThread"><a class="viewcode-back" href="../../../housemonitor.hm.html#housemonitor.hm.inputthead.InputThread">[docs]</a><span class="k">class</span> <span class="nc">InputThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+<div class="viewcode-block" id="InputThread"><a class="viewcode-back" href="../../../housemonitor.hm.html#housemonitor.hm.inputthead.InputThread">[docs]</a><span class="k">class</span> <span class="nc">InputThread</span><span class="p">(</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Send fake messages though the system and see how it performs.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -69,26 +69,25 @@
     <span class="n">proxy</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">_sleep_time</span> <span class="o">=</span> <span class="mi">10</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_values</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">current_values</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        args:</span>
-<span class="sd">            queue is the InputQueue</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://{}:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">ServerProxy</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://{}:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span> <span class="n">url</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">ServerProxy</span><span class="p">(</span> <span class="n">url</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span> <span class="o">=</span> <span class="n">current_values</span>
 
-<div class="viewcode-block" id="InputThread.run"><a class="viewcode-back" href="../../../housemonitor.hm.html#housemonitor.hm.inputthead.InputThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InputThread.run"><a class="viewcode-back" href="../../../housemonitor.hm.html#housemonitor.hm.inputthead.InputThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_current_values</span><span class="p">()</span>
-            <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_values</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sleep_time</span><span class="p">)</span></div></div>
+            <span class="k">print</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span> <span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sleep_time</span> <span class="p">)</span></div></div>
 </pre></div>
 
           </div>

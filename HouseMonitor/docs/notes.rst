@@ -138,8 +138,7 @@ remove it and install lightthp
    
          reboot
 
-   * Once it comes up I do the following commands and it seems to be operating the was I 
-   want::
+   * Once it comes up I do the following commands and it seems to be operating the was I want::
    
         cd /etc/systemd/system/multi-user.target.wants/
         systemctl status lighttpd.service
@@ -306,6 +305,7 @@ python path used by Eclipse
 
     Of course this is all concatenated into one line.
 
+*********
 GIT Notes
 *********
 
@@ -596,18 +596,18 @@ Web links
 
 #. `DocTest Test interactive Python examples <http://docs.python.org/2/library/doctest.html>`_.
 
-How to make it work
-===================
+How to make DocTest work
+========================
 
-#. Add the following code at end of file:::
+#. Add the following code at end of file::
 
-   if __name__ == "__main__":
-       import doctest
-       doctest.testmod()
+      if __name__ == "__main__":
+          import doctest
+          doctest.testmod()
 
 #. Type the following to run the code:::
 
-   python example.py
+      python example.py
 
 where: examble.py is the name of the module to test.
 

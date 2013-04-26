@@ -57,7 +57,7 @@
 <span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
 
 
-<div class="viewcode-block" id="DataEnvelope"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.dataenvelope.DataEnvelope">[docs]</a><span class="k">class</span> <span class="nc">DataEnvelope</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DataEnvelope"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.dataenvelope.DataEnvelope">[docs]</a><span class="k">class</span> <span class="nc">DataEnvelope</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This object will be used to pass data through queues between threads.</span>
@@ -72,7 +72,7 @@
     <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="sd">&#39;&#39;&#39; Additional data such as it source. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;xbee&#39;</span><span class="p">,</span> <span class="n">packet</span><span class="o">=</span><span class="p">{},</span> <span class="n">arrival_time</span><span class="o">=</span><span class="n">GetDateTime</span><span class="p">(),</span> <span class="n">data</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;xbee&#39;</span><span class="p">,</span> <span class="n">packet</span><span class="o">=</span><span class="p">{},</span> <span class="n">arrival_time</span><span class="o">=</span><span class="n">GetDateTime</span><span class="p">(),</span> <span class="n">data</span><span class="o">=</span><span class="p">{}</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Store the data in the envelope.</span>
 
 <span class="sd">        :param type: the type of data that this packet contain.</span>
@@ -88,7 +88,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">packet</span> <span class="o">=</span> <span class="n">packet</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arrival_time</span> <span class="o">=</span> <span class="n">arrival_time</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;DataEnvelope(type = &#39;{}&#39;, packet = {}, arrival_time = &#39;{}&#39;, data = {})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> 
+                            <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="p">)</span></div>
 </pre></div>
 
           </div>

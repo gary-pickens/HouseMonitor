@@ -204,19 +204,7 @@ of values that will be in the data dictionary:</dd>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-<div class="line">4. <strong>device</strong> name of the device the data is from.</div>
-<div class="line">5. <strong>port</strong> name of the port the data is from.</div>
-</div>
-</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
@@ -414,29 +402,19 @@ of values that will be in the data dictionary:</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>int or float</em>) &#8211; The number to add to the list of numbers.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">average, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">None</p>
 </td>
 </tr>
 </tbody>
@@ -490,24 +468,16 @@ of values that will be in the data dictionary:</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
-<li><strong>data</strong> &#8211; <p>a dictionary containing more information about the
-value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</p>
-<div class="line-block">
-<div class="line">1.  <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">value, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">None</p>
@@ -570,29 +540,21 @@ data in a thread safe structure.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The number to add to the list of numbers.</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the
+value.        :param value: The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">value, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">None</p>
 </td>
 </tr>
 </tbody>
@@ -650,26 +612,16 @@ closed</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The value received from the xbee which indicates whether the door is open or closed.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
@@ -733,26 +685,16 @@ of values that will be in the data dictionary:</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>boolean, string, int or float</em>) &#8211; The value to format.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">float, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">ValueError, KeyError</p>
@@ -953,26 +895,16 @@ to slow the rate that samples will be sent to some remote site.  ie. COSM</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> (<em>boolean, int or float</em>) &#8211; The number to add to the list of numbers.</li>
-<li><strong>data</strong> &#8211; <dl class="docutils">
-<dt>a dictionary containing more information about the</dt>
-<dd>value. Data can be added to this as needed.  Here is a list
-of values that will be in the data dictionary:</dd>
-</dl>
-<div class="line-block">
-<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
-<div class="line">2. <strong>units:</strong> units of the number</div>
-<div class="line">3. <strong>name:</strong> name assigned to the value</div>
-</div>
-</li>
+<li><strong>value</strong> (<em>int, float, string, etc</em>) &#8211; The input value to be processesed</li>
+<li><strong>data</strong> &#8211; a dictionary containing more information about the value.</li>
 <li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new_value, new_data, new_listeners</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">value, dict, listeners</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int, dict, listeners</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last">KeyError</p>
@@ -1017,22 +949,41 @@ of values that will be in the data dictionary:</dd>
 consists for a:</p>
 <p># Green flashing LED that indicates that the system is functioning.
 # A red LED that glows when the garage door is open.
-# A alarm that will sound X minutes after the garage door has opened.
+# A second LED that glows when the disable alarm has been pressed and will extungish when 
+the garage door has been closed.
+# A alarm that will sound 15 minutes after the garage door has opened.
 # A disable button that will disable the alarm.</p>
 <p>A schematic is in the Fritzing directory.</p>
+<p>There are four classes that will be notified on certain events:
+# <em>GarageDoorMonitor</em> which will be notified when the garage door has been opened or closed.
+# <em>SilenceAlarm</em> will be notified 2 seconds after the garage door has been opened.
+# <em>DisableAlarmButton</em> will be notified when the Disable Alarm Button has been pressed.
+# <em>ProcessDelayedAlarm</em> Will be notified when to change the alarm setting.
+# <em>SystemCheck</em> will monitor the health of the system and cause the greeen LED to flash if 
+everything is okay.</p>
 <dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.ALARM_OFF">
-<tt class="descname">ALARM_OFF</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ALARM_OFF" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">ALARM_OFF</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ALARM_OFF" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.ALARM_ON">
-<tt class="descname">ALARM_ON</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ALARM_ON" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">ALARM_ON</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ALARM_ON" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM">
 <tt class="descname">DISABLE_ALARM</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM_BUTTON_NOT_PRESSED">
+<tt class="descname">DISABLE_ALARM_BUTTON_NOT_PRESSED</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM_BUTTON_NOT_PRESSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM_BUTTON_PRESSED">
+<tt class="descname">DISABLE_ALARM_BUTTON_PRESSED</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.DISABLE_ALARM_BUTTON_PRESSED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
@@ -1130,7 +1081,7 @@ the garage door.</p>
 <dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval">
 <tt class="descname">setTimerToActivateAlarmAfterInterval</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval" title="Permalink to this definition">¶</a></dt>
 <dd><p>This will start a timer when the garage door opens.  When the 
-timer expire a message will be sent to StartAlarm.step() which will 
+timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
 start the alarm.</p>
 </dd></dl>
 
@@ -1180,23 +1131,74 @@ start the alarm.</p>
 <dd><p>The topic name to which this routine subscribes.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.turnOffAlarmAfterInterval">
+<tt class="descname">turnOffAlarmAfterInterval</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.GarageDoorMonitor.turnOffAlarmAfterInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.turnOffAlarmAfterInterval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will start a timer when the garage door opens.  When the 
+timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
+start the alarm.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm">
-<em class="property">class </em><tt class="descclassname">StatusPanel.</tt><tt class="descname">StartAlarm</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
-<p>StartAlarm will start the alarm.  It will sound until the garage door
-is closed or the disable ararm button is pressed.</p>
+</dd></dl>
+
 <dl class="attribute">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm.logger_name">
-<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.logger_name" title="Permalink to this definition">¶</a></dt>
+<dt id="housemonitor.steps.statuspanel.StatusPanel.LED_OFF">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">LED_OFF</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.LED_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.LED_ON">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">LED_ON</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.LED_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm">
+<em class="property">class </em><tt class="descclassname">StatusPanel.</tt><tt class="descname">ProcessDelayedAlarm</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.ProcessDelayedAlarm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<p>If the door has been open for an extended period, ProcessDelayedAlarm will start the alarm.  It will sound until the garage door
+is closed or the disable alarm button is pressed.</p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.Disabled">
+<tt class="descname">Disabled</tt><em class="property"> = 0</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.Disabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.Long_Silence">
+<tt class="descname">Long_Silence</tt><em class="property"> = 3</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.Long_Silence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.PreAlarm">
+<tt class="descname">PreAlarm</tt><em class="property"> = 1</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.PreAlarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.Short_Beep">
+<tt class="descname">Short_Beep</tt><em class="property"> = 2</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.Short_Beep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer">
+<tt class="descname">activateTimer</tt><big>(</big><em>seconds</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.ProcessDelayedAlarm.activateTimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will start a timer when the garage door opens.  When the 
+timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
+start the alarm.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.delayedAlarmState">
+<tt class="descname">delayedAlarmState</tt><em class="property"> = 0</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.delayedAlarmState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.ProcessDelayedAlarm.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.logger_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the logger level.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm.step">
-<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.step" title="Permalink to this definition">¶</a></dt>
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.ProcessDelayedAlarm.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine will receive a message X minutes after the door has been opened.  If the garage door is 
 still open and the alarm has not been disabled, it will start the alarm:</p>
 <div class="line-block">
@@ -1225,8 +1227,73 @@ still open and the alarm has not been disabled, it will start the alarm:</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.StartAlarm.topic_name">
-<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.StartAlarm.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.topic_name" title="Permalink to this definition">¶</a></dt>
+<dt id="housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.ProcessDelayedAlarm.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.topic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The topic name to which this routine subscribes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm">
+<em class="property">class </em><tt class="descclassname">StatusPanel.</tt><tt class="descname">SilenceAlarm</tt><big>(</big><em>status_panel</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SilenceAlarm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#housemonitor.steps.abc_step.abcStep" title="housemonitor.steps.abc_step.abcStep"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.steps.abc_step.abcStep</span></tt></a></p>
+<p>When the garage door first opens a alarm will sound for about two seconds.  This class 
+will turn the alarm off.  This class will be activated by calling sendMessage specifing the 
+amount af time for the alarm to sound.  This is done in the turnOffAlarmAfterInterval 
+call above.</p>
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.logger_name">
+<tt class="descname">logger_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SilenceAlarm.logger_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logger level.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.step">
+<tt class="descname">step</tt><big>(</big><em>value</em>, <em>data={}</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SilenceAlarm.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.step" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Will detect if the garage door disable button has been pressed.  If it has it will:</dt>
+<dd><div class="first last line-block">
+<div class="line">1. set disable alarm to disabled</div>
+<div class="line">2. turn off the alarm</div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>Boolean</em>) &#8211; The state of the garage door</li>
+<li><strong>data</strong> &#8211; <dl class="docutils">
+<dt>a dictionary containing more information about the</dt>
+<dd>value. Data can be added to this as needed.  Here is a list
+of values that will be in the data dictionary:</dd>
+</dl>
+<div class="line-block">
+<div class="line">1. <strong>date:</strong> time received: time when value was received.</div>
+<div class="line">2. <strong>units:</strong> units of the number</div>
+<div class="line">3. <strong>name:</strong> name assigned to the value</div>
+<div class="line">4. etc.</div>
+</div>
+</li>
+<li><strong>listeners</strong> &#8211; a list of the subscribed routines to send the data to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value, data, listeners</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean, dict, listeners</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.topic_name">
+<tt class="descname">topic_name</tt><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.SilenceAlarm.topic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.topic_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The topic name to which this routine subscribes.</p>
 </dd></dl>
 
@@ -1296,7 +1363,7 @@ of values that will be in the data dictionary:</dd>
 
 <dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.alarm">
-<tt class="descclassname">StatusPanel.</tt><tt class="descname">alarm</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.alarm" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">alarm</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.alarm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Weather the alarm is sounding or not</p>
 </dd></dl>
 
@@ -1317,9 +1384,25 @@ of values that will be in the data dictionary:</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.changeDisableButtonWarningLight">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">changeDisableButtonWarningLight</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.changeDisableButtonWarningLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.changeDisableButtonWarningLight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn on or off the LED that indicates that the garage door is open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>Boolean</em>) &#8211; determines if the light will be on or off.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">none</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight">
 <tt class="descclassname">StatusPanel.</tt><tt class="descname">changeGarageDoorWarningLight</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="_modules/housemonitor/steps/statuspanel.html#StatusPanel.changeGarageDoorWarningLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Turn on or off the LED that indicates that the garage door is open.</p>
+<dd><p>Turn on or off the LED that indicates that the disable alarm has been pressed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1338,8 +1421,8 @@ of values that will be in the data dictionary:</dd>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.enable_alarm_button_pressed">
-<tt class="descclassname">StatusPanel.</tt><tt class="descname">enable_alarm_button_pressed</tt><em class="property"> = False</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.enable_alarm_button_pressed" title="Permalink to this definition">¶</a></dt>
+<dt id="housemonitor.steps.statuspanel.StatusPanel.disenable_alarm_button_pressed">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">disenable_alarm_button_pressed</tt><em class="property"> = True</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.disenable_alarm_button_pressed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates that the disable alarm has been pressed.
 Cleared by closing the door.</p>
 </dd></dl>
@@ -1351,13 +1434,28 @@ Cleared by closing the door.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_initial_beep_time">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_initial_beep_time</tt><em class="property"> = datetime.timedelta(0, 2)</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_initial_beep_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_long_silence">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_long_silence</tt><em class="property"> = 8</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_long_silence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_monitor">
 <tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_monitor</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_monitor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_short_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_short_alarm</tt><em class="property"> = 2</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_short_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.garage_door_standoff_time">
-<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_standoff_time</tt><em class="property"> = datetime.timedelta(0, 60)</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_standoff_time" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">garage_door_standoff_time</tt><em class="property"> = datetime.timedelta(0, 900)</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.garage_door_standoff_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1373,6 +1471,11 @@ Cleared by closing the door.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.long_scheduler_id">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">long_scheduler_id</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.long_scheduler_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.panel_address">
 <tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_address</tt><em class="property"> = '0x13a20040902a02'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_address" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1384,7 +1487,12 @@ Cleared by closing the door.</p>
 
 <dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.panel_disable">
-<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_disable</tt><em class="property"> = 'DIO-5'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_disable" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_disable</tt><em class="property"> = 'DIO-4'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_disable_button_led">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_disable_button_led</tt><em class="property"> = 'DIO-2'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_disable_button_led" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1393,18 +1501,38 @@ Cleared by closing the door.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.panel_spare_led">
-<tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_spare_led</tt><em class="property"> = 'DIO-2'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_spare_led" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="housemonitor.steps.statuspanel.StatusPanel.panel_status_led">
 <tt class="descclassname">StatusPanel.</tt><tt class="descname">panel_status_led</tt><em class="property"> = 'DIO-0'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.panel_status_led" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="housemonitor.steps.statuspanel.StatusPanel.start_alarm">
-<tt class="descclassname">StatusPanel.</tt><tt class="descname">start_alarm</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.start_alarm" title="Permalink to this definition">¶</a></dt>
+<dt id="housemonitor.steps.statuspanel.StatusPanel.process_delayed_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">process_delayed_alarm</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.process_delayed_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.scheduler_delayed_sound_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">scheduler_delayed_sound_alarm</tt><em class="property"> = 'garage door start delayed alarm'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.scheduler_delayed_sound_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.scheduler_turn_off_initial_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">scheduler_turn_off_initial_alarm</tt><em class="property"> = 'garage door turn off initial alarm'</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.scheduler_turn_off_initial_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.short_scheduler_id">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">short_scheduler_id</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.short_scheduler_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.silence_alarm">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">silence_alarm</tt><em class="property"> = None</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.silence_alarm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.steps.statuspanel.StatusPanel.status_panel_update_rate">
+<tt class="descclassname">StatusPanel.</tt><tt class="descname">status_panel_update_rate</tt><em class="property"> = 2</em><a class="headerlink" href="#housemonitor.steps.statuspanel.StatusPanel.status_panel_update_rate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

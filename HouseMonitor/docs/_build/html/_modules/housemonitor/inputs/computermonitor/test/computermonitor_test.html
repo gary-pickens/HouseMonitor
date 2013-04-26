@@ -1,0 +1,226 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>housemonitor.inputs.computermonitor.test.computermonitor_test &mdash; House Monitor &amp; Control  documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="top" title="House Monitor &amp; Control  documentation" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for housemonitor.inputs.computermonitor.test.computermonitor_test</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on Apr 12, 2013</span>
+
+<span class="sd">@author: Gary</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">inputs</span> <span class="kn">import</span> <span class="n">dataenvelope</span>
+<span class="kn">from</span> <span class="nn">inputs.computermonitor.computermonitor</span> <span class="kn">import</span> <span class="n">ComputerMonitor</span>
+<span class="kn">from</span> <span class="nn">inputs.dataenvelope</span> <span class="kn">import</span> <span class="n">DataEnvelope</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
+
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;UnitTest&#39;</span> <span class="p">)</span>
+
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="c">#     def test_thread( self ):</span>
+<span class="c">#         queue = MagicMock()</span>
+<span class="c">#         cmp = ComputerMonitor( queue )</span>
+<span class="c">#         cmp.forever = False</span>
+<span class="c">#         cmp.start()</span>
+</div>
+<div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="nb">cmp</span> <span class="o">=</span> <span class="n">ComputerMonitor</span><span class="p">(</span> <span class="n">queue</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="nb">cmp</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">ComputerMonitor</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.test_extractData"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test.test_extractData">[docs]</a>    <span class="k">def</span> <span class="nf">test_extractData</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="nb">cmp</span> <span class="o">=</span> <span class="n">ComputerMonitor</span><span class="p">(</span> <span class="n">queue</span> <span class="p">)</span>
+
+        <span class="n">counts</span> <span class="o">=</span> <span class="nb">cmp</span><span class="o">.</span><span class="n">extractData</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span> <span class="n">counts</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">counts</span><span class="p">[</span><span class="s">&#39;tx&#39;</span><span class="p">],</span> <span class="s">&#39;1188940&#39;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">counts</span><span class="p">[</span><span class="s">&#39;rx&#39;</span><span class="p">],</span> <span class="s">&#39;1427150&#39;</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Test.test_send"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test.test_send">[docs]</a>    <span class="k">def</span> <span class="nf">test_send</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">GetDateTime</span><span class="p">(</span> <span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">5</span> <span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s">&#39;tx&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="mi">12345</span>
+
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">CurrentValueStep</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="s">&#39;OMAP UART1&#39;</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">:</span> <span class="n">dt</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">current_value</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">listeners</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="n">listeners</span> <span class="p">)}</span>
+
+        <span class="n">env</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">(</span> <span class="nb">type</span><span class="o">=</span><span class="n">Constants</span><span class="o">.</span><span class="n">EnvelopeTypes</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">arrival_time</span><span class="o">=</span><span class="n">dt</span> <span class="p">)</span>
+
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">ComputerMonitor</span><span class="p">(</span> <span class="n">queue</span> <span class="p">)</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">dt</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="Test.test_process_data"><a class="viewcode-back" href="../../../../../housemonitor.inputs.computermonitor.test.html#housemonitor.inputs.computermonitor.test.computermonitor_test.Test.test_process_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_process_data</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">GetDateTime</span><span class="p">(</span> <span class="n">year</span><span class="o">=</span><span class="mi">2013</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">5</span> <span class="p">)</span>
+        <span class="n">packet</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="s">&#39;OMAP UART1&#39;</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="s">&#39;1188940&#39;</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">current_value</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">:</span> <span class="n">GetDateTime</span><span class="p">(</span> <span class="n">dt</span> <span class="p">)}</span>
+        <span class="n">envelope</span> <span class="o">=</span> <span class="n">DataEnvelope</span><span class="p">(</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;Computer&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">arrival_time</span><span class="o">=</span><span class="n">dt</span> <span class="p">)</span>
+
+        <span class="n">file_contents</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;tx&#39;</span><span class="p">:</span> <span class="s">&#39;1188940&#39;</span><span class="p">,</span> <span class="s">&#39;rx&#39;</span><span class="p">:</span> <span class="s">&#39;1427150&#39;</span><span class="p">}</span>
+
+        <span class="nb">cmp</span> <span class="o">=</span> <span class="n">ComputerMonitor</span><span class="p">(</span> <span class="n">queue</span> <span class="p">)</span>
+        <span class="nb">cmp</span><span class="o">.</span><span class="n">process_data</span><span class="p">(</span> <span class="n">file_contents</span><span class="p">,</span> <span class="n">dt</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="nb">cmp</span><span class="o">.</span><span class="n">start_count</span><span class="p">[</span><span class="s">&#39;tx&#39;</span><span class="p">],</span> <span class="mi">1188940</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="nb">cmp</span><span class="o">.</span><span class="n">start_count</span><span class="p">[</span><span class="s">&#39;rx&#39;</span><span class="p">],</span> <span class="mi">1427150</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="nb">cmp</span><span class="o">.</span><span class="n">previous_count</span><span class="p">[</span><span class="s">&#39;tx&#39;</span><span class="p">],</span> <span class="mi">1188940</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="nb">cmp</span><span class="o">.</span><span class="n">previous_count</span><span class="p">[</span><span class="s">&#39;rx&#39;</span><span class="p">],</span> <span class="mi">1427150</span> <span class="p">)</span>
+
+        <span class="n">queue</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">GetDateTime</span><span class="p">(</span> <span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span> <span class="p">)</span> <span class="p">)</span>
+
+
+<span class="c">#         file_contents = {&#39;tx&#39;: &#39;1188960&#39;, &#39;rx&#39;: &#39;1427170&#39;}</span>
+<span class="c">#         cmp.process_data( file_contents, dt )</span>
+<span class="c">#         self.assertEqual( queue.transmit.call_count, 4 )</span>
+<span class="c">#         calls = queue.transmit.call_args_list</span>
+<span class="c"># #        print calls</span>
+<span class="c">#         self.assertEqual( cmp.start_count[&#39;tx&#39;], 1188940 )</span>
+<span class="c">#         self.assertEqual( cmp.start_count[&#39;rx&#39;], 1427150 )</span>
+<span class="c">#         self.assertEqual( cmp.previous_count[&#39;tx&#39;], 20 )</span>
+<span class="c">#         self.assertEqual( cmp.previous_count[&#39;rx&#39;], 20 )</span>
+<span class="c">#</span>
+<span class="c">#         # I&#39;m not sure that this works. I&#39;ve spent hours trying to get it to work.</span>
+<span class="c">#         self.assertNotIn( call( priority=10, packet=DataEnvelope( type=&#39;status&#39;, packet=None, arrival_time=&#39;2013/01/02 03:04:10&#39;, data={&#39;device&#39;: &#39;OMAP UART1&#39;, &#39;current_value&#39;: 20, &#39;port&#39;: &#39;rx&#39;, &#39;at&#39;: &#39;2013/01/02 03:04:10&#39;} ) ), calls )</span>
+<span class="c">#         self.assertNotIn( call( priority=10, packet=DataEnvelope( type=&#39;status&#39;, packet=None, arrival_time=&#39;2013/01/02 03:04:10&#39;, data={&#39;device&#39;: &#39;OMAP UART1&#39;, &#39;current_value&#39;: 4.0, &#39;port&#39;: &#39;rx rate&#39;, &#39;at&#39;: &#39;2013/01/02 03:04:10&#39;} ) ), calls )</span>
+<span class="c">#         self.assertNotIn( call( priority=10, packet=DataEnvelope( type=&#39;status&#39;, packet=None, arrival_time=&#39;2013/01/02 03:04:10&#39;, data={&#39;device&#39;: &#39;OMAP UART1&#39;, &#39;current_value&#39;: 20, &#39;port&#39;: &#39;tx&#39;, &#39;at&#39;: &#39;2013/01/02 03:04:10&#39;} ) ), calls )</span>
+<span class="c">#         self.assertNotIn( call( priority=10, packet=DataEnvelope( type=&#39;status&#39;, packet=None, arrival_time=&#39;2013/01/02 03:04:10&#39;, data={&#39;device&#39;: &#39;OMAP UART1&#39;, &#39;current_value&#39;: 4.0, &#39;port&#39;: &#39;tx rate&#39;, &#39;at&#39;: &#39;2013/01/02 03:04:10&#39;} ) ), calls )</span>
+
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c"># import sys;sys.argv = [&#39;&#39;, &#39;Test.test_logger_name&#39;]</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">serinfo:1.0 driver revision:</span>
+<span class="s">0: uart:OMAP UART0 mmio:0x44E09000 irq:72 tx:85 rx:0 CTS|DSR</span>
+<span class="s">1: uart:OMAP UART1 mmio:0x48022000 irq:73 tx:1188940 rx:1427150 RTS|CTS|DTR|DSR|CD|RI</span>
+<span class="s">2: uart:OMAP UART2 mmio:0x48024000 irq:74 tx:0 rx:0 CTS|DSR</span>
+<span class="s">3: uart:OMAP UART3 mmio:0x481A6000 irq:44 tx:0 rx:0 CTS|DSR</span>
+<span class="s">4: uart:OMAP UART4 mmio:0x481A8000 irq:45 tx:0 rx:0 CTS|DSR</span>
+<span class="s">5: uart:OMAP UART5 mmio:0x481AA000 irq:46 tx:0 rx:0 CTS|DSR</span>
+<span class="s">&#39;&#39;&#39;</span>
+<span class="n">data1</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">serinfo:1.0 driver revision:</span>
+<span class="s">0: uart:OMAP UART0 mmio:0x44E09000 irq:72 tx:85 rx:0 CTS|DSR</span>
+<span class="s">1: uart:OMAP UART1 mmio:0x48022000 irq:73 tx:1188940 rx:1427150 RTS|CTS|DTR|DSR|CD|RI</span>
+<span class="s">2: uart:OMAP UART2 mmio:0x48024000 irq:74 tx:0 rx:0 CTS|DSR</span>
+<span class="s">3: uart:OMAP UART3 mmio:0x481A6000 irq:44 tx:0 rx:0 CTS|DSR</span>
+<span class="s">4: uart:OMAP UART4 mmio:0x481A8000 irq:45 tx:0 rx:0 CTS|DSR</span>
+<span class="s">5: uart:OMAP UART5 mmio:0x481AA000 irq:46 tx:0 rx:0 CTS|DSR</span>
+<span class="s">&#39;&#39;&#39;</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">House Monitor &amp; Control  documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Gary Pickens.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

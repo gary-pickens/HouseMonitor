@@ -17,14 +17,6 @@ inputs Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`inputqueue` Module
-------------------------
-
-.. automodule:: housemonitor.inputs.inputqueue
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`processinput` Module
 --------------------------
 
@@ -46,6 +38,7 @@ Subpackages
 
 .. toctree::
 
+    housemonitor.inputs.computermonitor
     housemonitor.inputs.test
     housemonitor.inputs.zigbeeinput
 

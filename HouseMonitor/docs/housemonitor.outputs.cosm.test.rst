@@ -17,10 +17,10 @@ test Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`queue_test` Module
-------------------------
+:mod:`outputthread_test` Module
+-------------------------------
 
-.. automodule:: housemonitor.outputs.cosm.test.queue_test
+.. automodule:: housemonitor.outputs.cosm.test.outputthread_test
     :members:
     :undoc-members:
     :show-inheritance:

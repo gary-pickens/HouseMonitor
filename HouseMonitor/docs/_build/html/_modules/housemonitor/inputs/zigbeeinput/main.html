@@ -57,7 +57,7 @@
 
 <span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">inputs.zigbeeinput.xbeeinputthread</span> <span class="kn">import</span> <span class="n">XBeeInputThread</span>
-<span class="kn">from</span> <span class="nn">inputs.inputqueue</span> <span class="kn">import</span> <span class="n">InputQueue</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 
 
@@ -65,19 +65,19 @@
     <span class="k">return</span> <span class="n">Main</span><span class="p">()</span>
 
 </div>
-<div class="viewcode-block" id="Main"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.main.Main">[docs]</a><span class="k">class</span> <span class="nc">Main</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="Main"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.main.Main">[docs]</a><span class="k">class</span> <span class="nc">Main</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Main.logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.main.Main.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Main.logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.main.Main.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputsZigBee</span>
 </div>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Main</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Start Input Queue&#39;</span><span class="p">)</span>
-        <span class="n">input_queue</span> <span class="o">=</span> <span class="n">InputQueue</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;instantuate XBeeInputThread&#39;</span><span class="p">)</span>
-        <span class="n">xbee_thread</span> <span class="o">=</span> <span class="n">XBeeInputThread</span><span class="p">(</span><span class="n">input_queue</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Start Thread&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">Main</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Start Input Queue&#39;</span> <span class="p">)</span>
+        <span class="n">input_queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;instantuate XBeeInputThread&#39;</span> <span class="p">)</span>
+        <span class="n">xbee_thread</span> <span class="o">=</span> <span class="n">XBeeInputThread</span><span class="p">(</span> <span class="n">input_queue</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Start Thread&#39;</span> <span class="p">)</span>
         <span class="n">xbee_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 </pre></div>
 

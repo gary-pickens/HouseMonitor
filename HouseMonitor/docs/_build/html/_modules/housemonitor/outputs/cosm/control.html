@@ -55,7 +55,7 @@
 <span class="sd">@author: Gary</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">from</span> <span class="nn">outputthread</span> <span class="kn">import</span> <span class="n">COSMOutputThread</span>
-<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">COSMQueue</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 <span class="kn">from</span> <span class="nn">send</span> <span class="kn">import</span> <span class="n">COSMSend</span>
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 
@@ -64,7 +64,7 @@
 <span class="kn">from</span> <span class="nn">outputStep</span> <span class="kn">import</span> <span class="n">COSMOutputStep</span>
 
 
-<div class="viewcode-block" id="COSMControl"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.control.COSMControl">[docs]</a><span class="k">class</span> <span class="nc">COSMControl</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMControl"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.control.COSMControl">[docs]</a><span class="k">class</span> <span class="nc">COSMControl</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    COSMControl starts the COSM processing to send data to COSM at the following</span>
 <span class="sd">    URL:</span>
@@ -76,18 +76,18 @@
     <span class="n">cosmOutputThread</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">cosm</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">COSMControl</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">COSMControl</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="COSMControl.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.control.COSMControl.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMControl.logger_name"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.control.COSMControl.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger level. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">outputsCOSM</span>
 </div>
-<div class="viewcode-block" id="COSMControl.startCOSM"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.control.COSMControl.startCOSM">[docs]</a>    <span class="k">def</span> <span class="nf">startCOSM</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="COSMControl.startCOSM"><a class="viewcode-back" href="../../../../housemonitor.outputs.cosm.html#housemonitor.outputs.cosm.control.COSMControl.startCOSM">[docs]</a>    <span class="k">def</span> <span class="nf">startCOSM</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">options</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Start the COSM processing.</span>
 
@@ -102,11 +102,11 @@
 <span class="sd">        main thread and sends them to the COSM thread.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;COSM starting up&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">COSMQueue</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosmOutputThread</span> <span class="o">=</span> <span class="n">COSMOutputThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;COSM&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;COSM starting up&#39;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosmOutputThread</span> <span class="o">=</span> <span class="n">COSMOutputThread</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;COSM&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cosmOutputThread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosm</span> <span class="o">=</span> <span class="n">COSMOutputStep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosm</span> <span class="o">=</span> <span class="n">COSMOutputStep</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="p">)</span></div></div>
 </pre></div>
 
           </div>

@@ -56,7 +56,6 @@
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">from</span> <span class="nn">outputs.cosm.control</span> <span class="kn">import</span> <span class="n">COSMControl</span>
-<span class="kn">from</span> <span class="nn">outputs.cosm.queue</span> <span class="kn">import</span> <span class="n">COSMQueue</span>
 <span class="kn">from</span> <span class="nn">outputs.cosm.outputthread</span> <span class="kn">import</span> <span class="n">COSMOutputThread</span>
 <span class="kn">from</span> <span class="nn">outputs.cosm.outputStep</span> <span class="kn">import</span> <span class="n">COSMOutputStep</span>
 <span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span>
@@ -64,31 +63,31 @@
 <span class="kn">import</span> <span class="nn">logging.config</span>
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
-<span class="kn">import</span> <span class="nn">Queue</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 
 
-<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
 
-    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;UnitTest&#39;</span><span class="p">)</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;UnitTest&#39;</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="s">&quot;house_monitor_logging.conf&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="Test.test_startCOSM"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test.test_startCOSM">[docs]</a>    <span class="k">def</span> <span class="nf">test_startCOSM</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.test_startCOSM"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.control_test.Test.test_startCOSM">[docs]</a>    <span class="k">def</span> <span class="nf">test_startCOSM</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
 
         <span class="n">cont</span> <span class="o">=</span> <span class="n">COSMControl</span><span class="p">()</span>
-        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s">&#39;outputs.cosm.control.COSMQueue&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">COSMQueue</span><span class="p">)</span> <span class="k">as</span> <span class="n">que</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s">&#39;outputs.cosm.control.COSMOutputThread&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">COSMOutputThread</span><span class="p">)</span> <span class="k">as</span> <span class="n">thread</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s">&#39;outputs.cosm.control.COSMOutputStep&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">COSMOutputStep</span><span class="p">)</span> <span class="k">as</span> <span class="n">op</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span> <span class="s">&#39;outputs.cosm.control.HMQueue&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">HMQueue</span> <span class="p">)</span> <span class="k">as</span> <span class="n">que</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">patch</span><span class="p">(</span> <span class="s">&#39;outputs.cosm.control.COSMOutputThread&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">COSMOutputThread</span> <span class="p">)</span> <span class="k">as</span> <span class="n">thread</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">patch</span><span class="p">(</span> <span class="s">&#39;outputs.cosm.control.COSMOutputStep&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="n">COSMOutputStep</span> <span class="p">)</span> <span class="k">as</span> <span class="n">op</span><span class="p">:</span>
                     <span class="n">options</span> <span class="o">=</span> <span class="bp">None</span>
                     <span class="n">que</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">1</span>
-                    <span class="n">cont</span><span class="o">.</span><span class="n">startCOSM</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+                    <span class="n">cont</span><span class="o">.</span><span class="n">startCOSM</span><span class="p">(</span> <span class="n">options</span> <span class="p">)</span>
                     <span class="n">que</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">()</span>
-                    <span class="n">thread</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;COSM&#39;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">called</span><span class="p">)</span>
+                    <span class="n">thread</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;COSM&#39;</span> <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span> <span class="n">op</span><span class="o">.</span><span class="n">called</span> <span class="p">)</span>
 
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>

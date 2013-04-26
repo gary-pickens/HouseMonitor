@@ -54,28 +54,26 @@
 
 <span class="sd">@author: gary</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
-<span class="kn">import</span> <span class="nn">logging.config</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">pub</span>
-
-
-<span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
-<span class="kn">from</span> <span class="nn">lib.moduleloader</span> <span class="kn">import</span> <span class="n">ModuleLoader</span>
-<span class="kn">from</span> <span class="nn">inputs.inputqueue</span> <span class="kn">import</span> <span class="n">InputQueue</span>
-<span class="kn">from</span> <span class="nn">inputs.zigbeeinput.xbeeinputthread</span> <span class="kn">import</span> <span class="n">XBeeInputThread</span>
-<span class="kn">from</span> <span class="nn">lib.hmscheduler</span> <span class="kn">import</span> <span class="n">HMScheduler</span>
-<span class="c"># from inputs.zigbeeinput.xbeeinput import XbeeInput</span>
-<span class="kn">from</span> <span class="nn">outputs.cosm.control</span> <span class="kn">import</span> <span class="n">COSMControl</span>
-<span class="kn">from</span> <span class="nn">outputs.zigbee.zigbeecontrol</span> <span class="kn">import</span> <span class="n">ZigBeeControl</span>
-<span class="kn">from</span> <span class="nn">inputs.testinputthead</span> <span class="kn">import</span> <span class="n">TestInputThread</span>
+<span class="kn">from</span> <span class="nn">inputs.computermonitor.computermonitor</span> <span class="kn">import</span> <span class="n">ComputerMonitor</span>
 <span class="kn">from</span> <span class="nn">inputs.processinput</span> <span class="kn">import</span> <span class="n">ProcessInput</span><span class="p">,</span> <span class="n">abcProcessInput</span><span class="p">,</span> <span class="n">ProcessXBeeInput</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">lib.pubsubaid</span> <span class="kn">import</span> <span class="n">PubSubAid</span>
-<span class="kn">from</span> <span class="nn">outputs.xmlrpc.control</span> <span class="kn">import</span> <span class="n">XMLRPCControl</span>
-<span class="kn">from</span> <span class="nn">lib.currentvalues</span> <span class="kn">import</span> <span class="n">CurrentValues</span>
-<span class="kn">from</span> <span class="nn">lib.hmscheduler</span> <span class="kn">import</span> <span class="n">HMScheduler</span>
+<span class="kn">from</span> <span class="nn">inputs.testinputthead</span> <span class="kn">import</span> <span class="n">TestInputThread</span>
+<span class="kn">from</span> <span class="nn">inputs.zigbeeinput.xbeeinputthread</span> <span class="kn">import</span> <span class="n">XBeeInputThread</span>
+<span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span> <span class="nn">lib.currentvalues</span> <span class="kn">import</span> <span class="n">CurrentValues</span>
+<span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
+<span class="kn">from</span> <span class="nn">lib.hmscheduler</span> <span class="kn">import</span> <span class="n">HMScheduler</span><span class="p">,</span> <span class="n">HMScheduler</span>
+<span class="kn">from</span> <span class="nn">lib.moduleloader</span> <span class="kn">import</span> <span class="n">ModuleLoader</span>
+<span class="kn">from</span> <span class="nn">lib.pubsubaid</span> <span class="kn">import</span> <span class="n">PubSubAid</span>
+<span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
+<span class="kn">from</span> <span class="nn">outputs.cosm.control</span> <span class="kn">import</span> <span class="n">COSMControl</span>
+<span class="kn">from</span> <span class="nn">outputs.xmlrpc.control</span> <span class="kn">import</span> <span class="n">XMLRPCControl</span>
+<span class="kn">from</span> <span class="nn">outputs.zigbee.zigbeecontrol</span> <span class="kn">import</span> <span class="n">ZigBeeControl</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">pub</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 
 <div class="viewcode-block" id="HouseMonitor"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor">[docs]</a><span class="k">class</span> <span class="nc">HouseMonitor</span><span class="p">():</span>
@@ -109,89 +107,94 @@
     <span class="n">zigbee</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">pubAid</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
 
-        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="s">&quot;house_monitor_logging.conf&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;HouseMonitor&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;HouseMonitor&#39;</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">print_start_message</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_options</span><span class="p">()</span>
 
-<div class="viewcode-block" id="HouseMonitor.print_start_message"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.print_start_message">[docs]</a>    <span class="k">def</span> <span class="nf">print_start_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Monitor House&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;by Gary Pickens&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Version 3.0.2&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">())</span>
+<div class="viewcode-block" id="HouseMonitor.print_start_message"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.print_start_message">[docs]</a>    <span class="k">def</span> <span class="nf">print_start_message</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&quot;Monitor House&quot;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&quot;by Gary Pickens&quot;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&quot;Version 3.0.2&quot;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="HouseMonitor.parse_options"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.parse_options">[docs]</a>    <span class="k">def</span> <span class="nf">parse_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HouseMonitor.parse_options"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.parse_options">[docs]</a>    <span class="k">def</span> <span class="nf">parse_options</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="n">Options</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">()</span>
-        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-d&quot;</span><span class="p">,</span>
+        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span> <span class="s">&quot;-d&quot;</span><span class="p">,</span>
                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_false&quot;</span><span class="p">,</span>
                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;display_data&quot;</span><span class="p">,</span>
-                           <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-r&quot;</span><span class="p">,</span>
+                           <span class="n">default</span><span class="o">=</span><span class="bp">True</span> <span class="p">)</span>
+        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span> <span class="s">&quot;-r&quot;</span><span class="p">,</span>
                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span>
                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;display_response&quot;</span><span class="p">,</span>
                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;display the data that is received&quot;</span><span class="p">)</span>
-        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-j&quot;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;display the data that is received&quot;</span> <span class="p">)</span>
+        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span> <span class="s">&quot;-j&quot;</span><span class="p">,</span>
                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span>
                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;display_json&quot;</span><span class="p">,</span>
                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;display the json that is produced&quot;</span><span class="p">)</span>
-        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;--http&quot;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;display the json that is produced&quot;</span> <span class="p">)</span>
+        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span> <span class="s">&quot;--http&quot;</span><span class="p">,</span>
                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_const&quot;</span><span class="p">,</span>
                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                            <span class="n">const</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;http2lib_debug_level&quot;</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;Set the debug level for http2lib&quot;</span><span class="p">)</span>
-        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;--test&quot;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;Set the debug level for http2lib&quot;</span> <span class="p">)</span>
+        <span class="n">Options</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span> <span class="s">&quot;--test&quot;</span><span class="p">,</span>
                            <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_true&quot;</span><span class="p">,</span>
                            <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                            <span class="n">dest</span><span class="o">=</span><span class="s">&quot;in_test_mode&quot;</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;Run in test mode. (Don&#39;t start XBee thread, start test thread. Don&#39;t send reports to COSM)&quot;</span><span class="p">)</span>
-        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">Options</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&quot;Run in test mode. (Don&#39;t start XBee thread, start test thread. Don&#39;t send reports to COSM)&quot;</span> <span class="p">)</span>
+        <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="p">)</span> <span class="o">=</span> <span class="n">Options</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 </div>
-<div class="viewcode-block" id="HouseMonitor.startInputs"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.startInputs">[docs]</a>    <span class="k">def</span> <span class="nf">startInputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HouseMonitor.startInputs"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.startInputs">[docs]</a>    <span class="k">def</span> <span class="nf">startInputs</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Start Home Monitor Input routines &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Start the Input Queue&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="o">=</span> <span class="n">InputQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Start the Input Queue&#39;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="p">)</span>
 
         <span class="c"># Start thread for inputing data</span>
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">in_test_mode</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Starting xbee input&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">xbee_thread</span> <span class="o">=</span> <span class="n">XBeeInputThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">in_test_mode</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Starting xbee input&#39;</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xbee_thread</span> <span class="o">=</span> <span class="n">XBeeInputThread</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xbee_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
         <span class="c"># The following will test various inputs</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">in_test_mode</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Starting test thread&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">test_input</span> <span class="o">=</span> <span class="n">TestInputThread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">in_test_mode</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Starting test thread&#39;</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_input</span> <span class="o">=</span> <span class="n">TestInputThread</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">test_input</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Starting scheduler&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Starting scheduler&#39;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="HouseMonitor.startOutputs"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.startOutputs">[docs]</a>    <span class="k">def</span> <span class="nf">startOutputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_data</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Start output communications to COSM&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;linux&#39;</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Starting ComputerMonitor&#39;</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">computer_monitor</span> <span class="o">=</span> <span class="n">ComputerMonitor</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">computer_monitor</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="HouseMonitor.startOutputs"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.startOutputs">[docs]</a>    <span class="k">def</span> <span class="nf">startOutputs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">global_data</span> <span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Start output communications to COSM&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cosm</span> <span class="o">=</span> <span class="n">COSMControl</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosm</span><span class="o">.</span><span class="n">startCOSM</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosm</span><span class="o">.</span><span class="n">startCOSM</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Start the XML RPC server&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xmlrpc</span> <span class="o">=</span> <span class="n">XMLRPCControl</span><span class="p">(</span><span class="n">global_data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xmlrpc</span><span class="o">.</span><span class="n">startXMLRPC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Start the XML RPC server&#39;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xmlrpc</span> <span class="o">=</span> <span class="n">XMLRPCControl</span><span class="p">(</span> <span class="n">global_data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xmlrpc</span><span class="o">.</span><span class="n">startXMLRPC</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Start output communications with ZigBee&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Start output communications with ZigBee&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">ZigBeeControl</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">startZigBee</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">startZigBee</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="HouseMonitor.run"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HouseMonitor.run"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Setting up global_data for communications between different part of the system&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Setting up global_data for communications between different part of the system&#39;</span> <span class="p">)</span>
         <span class="n">global_data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">global_data</span><span class="p">[</span><span class="s">&#39;current values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CurrentValues</span><span class="p">()</span>
         <span class="n">global_data</span><span class="p">[</span><span class="s">&#39;options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span>
@@ -199,9 +202,9 @@
         <span class="n">global_data</span><span class="p">[</span><span class="s">&#39;start time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">module_loader</span> <span class="o">=</span> <span class="n">ModuleLoader</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">module_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">global_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span> <span class="n">global_data</span> <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">startOutputs</span><span class="p">(</span><span class="n">global_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">startOutputs</span><span class="p">(</span> <span class="n">global_data</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">startInputs</span><span class="p">()</span>
 
@@ -210,7 +213,7 @@
         <span class="c"># Endless loop will never return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Exiting&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&quot;Exiting&quot;</span> <span class="p">)</span>
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">HouseMonitor</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>

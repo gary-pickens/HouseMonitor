@@ -17,14 +17,6 @@ test Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`inputqueue_test` Module
------------------------------
-
-.. automodule:: housemonitor.inputs.test.inputqueue_test
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`processinput_test` Module
 -------------------------------
 

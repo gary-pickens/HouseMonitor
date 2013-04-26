@@ -66,14 +66,22 @@
     <span class="n">dt</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="c">#  TODO work on documentation for function</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">date_time_value</span><span class="o">=</span><span class="bp">None</span> <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">date_time_value</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="bp">None</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">date_time_value</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">date_time_value</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">and</span>
+             <span class="n">year</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">day</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span>
+             <span class="n">hour</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">minute</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">second</span> <span class="o">!=</span> <span class="bp">None</span> <span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">print</span> <span class="n">ex</span>
+        <span class="k">elif</span> <span class="n">date_time_value</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">date_time_value</span>
+
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -119,7 +127,12 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="GetDateTime.datetime"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.getdatetime.GetDateTime.datetime">[docs]</a>    <span class="k">def</span> <span class="nf">datetime</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+</div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span> <span class="s">&#39;</span><span class="se">\&#39;</span><span class="s">%Y/%m/</span><span class="si">%d</span><span class="s"> %H:%M:%S</span><span class="se">\&#39;</span><span class="s">&#39;</span> <span class="p">)</span>
+<span class="c">#    &#39;GetDateTime(year={}, month={}, day={}, hour={}, minute={}, second={})&#39;. \</span>
+<span class="c">#            format( self.dt.year, self.dt.month, self.dt.day, self.dt.hour, self.dt.minute, self.dt.second )</span></div>
 </pre></div>
 
           </div>

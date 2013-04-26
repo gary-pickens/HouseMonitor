@@ -62,39 +62,39 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 
-<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
 
-<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">pass</span>
+
+<span class="c">#     def test_uptime( self ):</span>
+<span class="c">#         data = {}</span>
+<span class="c">#         value = None</span>
+<span class="c">#         listeners = []</span>
+<span class="c">#         data[Constants.GlobalIndexs.start_time] = datetime.utcnow()</span>
+<span class="c">#         uptime = instantuate_me( data )</span>
+<span class="c"># #         time.sleep(2.2)</span>
+<span class="c"># #         v, d, l = uptime.step(value, data, listeners)</span>
+<span class="c"># #         self.assertEqual(v, &quot;0:00:02&quot;)</span>
 </div>
-<div class="viewcode-block" id="Test.test_uptime"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.test_uptime">[docs]</a>    <span class="k">def</span> <span class="nf">test_uptime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">GlobalIndexs</span><span class="o">.</span><span class="n">start_time</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
-        <span class="n">uptime</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2.2</span><span class="p">)</span>
-        <span class="n">v</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">uptime</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s">&quot;0:00:02&quot;</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="Test.test_topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.test_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.test_topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.test_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">Constants</span><span class="o">.</span><span class="n">GlobalIndexs</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()}</span>
-        <span class="n">uptime</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">uptime</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">UpTime</span><span class="p">)</span>
+        <span class="n">uptime</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">uptime</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">UpTime</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.uptime_test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">Constants</span><span class="o">.</span><span class="n">GlobalIndexs</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()}</span>
-        <span class="n">uptime</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">uptime</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
+        <span class="n">uptime</span> <span class="o">=</span> <span class="n">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">uptime</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span> <span class="p">)</span>
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="c"># import sys;sys.argv = [&#39;&#39;, &#39;Test.testName&#39;]</span>

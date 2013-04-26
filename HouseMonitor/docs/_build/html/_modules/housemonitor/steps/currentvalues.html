@@ -64,12 +64,12 @@
 <span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
 
 
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; This function will be called to instantiate this class. &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">CurrentValues</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CurrentValues</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="CurrentValues"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues">[docs]</a><span class="k">class</span> <span class="nc">CurrentValues</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="CurrentValues"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues">[docs]</a><span class="k">class</span> <span class="nc">CurrentValues</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Store the current values using the lib.currentvalues object.  This stores the</span>
 <span class="sd">    data in a thread safe structure.</span>
@@ -79,46 +79,44 @@
     <span class="n">current_values</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; A reference to lib.currentvalues object. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CurrentValues</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">CurrentValues</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="s">&#39;current values&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;current values&#39;</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="CurrentValues.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CurrentValues.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">CurrentValueStep</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="CurrentValues.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CurrentValues.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="CurrentValues.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="CurrentValues.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.currentvalues.CurrentValues.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store the current value.</span>
 
 <span class="sd">        :param value: The number to add to the list of numbers.</span>
 <span class="sd">        :type value: boolean, int or float</span>
 <span class="sd">        :param data: a dictionary containing more information about the</span>
-<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
-<span class="sd">                of values that will be in the data dictionary:</span>
-
-<span class="sd">               | 1. **date:** time received: time when value was received.</span>
-<span class="sd">               | 2. **units:** units of the number</span>
-<span class="sd">               | 3. **name:** name assigned to the value</span>
+<span class="sd">                value.        :param value: The input value to be processesed</span>
+<span class="sd">        :type value: int, float, string, etc</span>
+<span class="sd">        :param data: a dictionary containing more information about the value.</span>
 <span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
-<span class="sd">        :returns: value, data, listeners</span>
-<span class="sd">        :rtype: value, dict, listeners</span>
-<span class="sd">        :Raises: ValueError, KeyError</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="sd">        :returns: new_value, new_data, new_listeners</span>
+<span class="sd">        :rtype: int, dict, listeners</span>
+<span class="sd">        :raises: None</span>
 
-        <span class="n">current_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span><span class="o">.</span><span class="n">buildDataBlock</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">current_data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;currentvalue table {} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+
+        <span class="n">current_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span><span class="o">.</span><span class="n">buildDataBlock</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_values</span><span class="o">.</span><span class="n">store</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">current_data</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;currentvalue table {} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">)</span>
 <span class="c">#        pprint.pprint(self.current_values.get())</span>
         <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div>
 </pre></div>

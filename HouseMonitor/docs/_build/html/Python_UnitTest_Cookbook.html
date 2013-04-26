@@ -304,19 +304,18 @@ declaration:     &#64;staticmethod</p>
 <div class="section" id="instantuating-a-class-in-method">
 <h2>Instantuating a class in method<a class="headerlink" href="#instantuating-a-class-in-method" title="Permalink to this headline">¶</a></h2>
 <p><em>In patch I give the namespace then the name of the class to instuate.</em></p>
-<blockquote>
-<div><p>&#64;patch(&#8216;inputs.zigbeeinput.xbeecommunications.ZigBee&#8217;)
-def test_successful_connect(self, zigbee):</p>
-<blockquote>
-<div><p>rv = 55
-xbee = myClass()
-xbee.setup = MagicMock()
-xbee.setup.return_value = rv</p>
-<p>xbee.connect()
-xbee.setup.assert_called_once_with()
-zigbee.assert_called_once_with(rv)</p>
-</div></blockquote>
-</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;inputs.zigbeeinput.xbeecommunications.ZigBee&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_successful_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zigbee</span><span class="p">):</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="mi">55</span>
+    <span class="n">xbee</span> <span class="o">=</span> <span class="n">myClass</span><span class="p">()</span>
+    <span class="n">xbee</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">xbee</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">rv</span>
+
+    <span class="n">xbee</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="n">xbee</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">()</span>
+    <span class="n">zigbee</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="having-a-class-give-an-exception-then-on-the-next-loop-succeed">
 <h2>Having a class give an exception then on the next loop succeed<a class="headerlink" href="#having-a-class-give-an-exception-then-on-the-next-loop-succeed" title="Permalink to this headline">¶</a></h2>
@@ -345,6 +344,16 @@ The second time it returns a valid value.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="testing-open-and-read">
+<h2>Testing open and read<a class="headerlink" href="#testing-open-and-read" title="Permalink to this headline">¶</a></h2>
+<p>Here is some reading:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://stackoverflow.com/questions/1289894/how-do-i-mock-an-open-used-in-a-with-statement-using-the-mock-framework-in-pyth">Mocking an open and read in with statement</a>.</li>
+<li><a class="reference external" href="http://java.dzone.com/articles/mocking-open-context-manager">Mocking open in context manager</a>.</li>
+</ul>
+</div></blockquote>
+</div>
 </div>
 
 
@@ -367,6 +376,7 @@ The second time it returns a valid value.</p>
 <li><a class="reference internal" href="#how-to-patch-out-common-send">How to patch out Common.send</a></li>
 <li><a class="reference internal" href="#instantuating-a-class-in-method">Instantuating a class in method</a></li>
 <li><a class="reference internal" href="#having-a-class-give-an-exception-then-on-the-next-loop-succeed">Having a class give an exception then on the next loop succeed</a></li>
+<li><a class="reference internal" href="#testing-open-and-read">Testing open and read</a></li>
 </ul>
 </li>
 </ul>

@@ -9,6 +9,14 @@ test Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`formatconfiguration_test` Module
+--------------------------------------
+
+.. automodule:: housemonitor.configuration.test.formatconfiguration_test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`xmlDeviceConfiguration_test` Module
 -----------------------------------------
 

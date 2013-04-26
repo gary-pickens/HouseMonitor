@@ -63,7 +63,7 @@
 <span class="kn">import</span> <span class="nn">pprint</span>
 
 
-<div class="viewcode-block" id="FormatValue"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue">[docs]</a><span class="k">class</span> <span class="nc">FormatValue</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="FormatValue"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue">[docs]</a><span class="k">class</span> <span class="nc">FormatValue</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Format values as specified in the format configuration file.</span>
 
@@ -84,21 +84,21 @@
 
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Construct FormatValue object and read the configuration file formatvalue.xml</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">FormatValue</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">FormatValue</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="n">format</span> <span class="o">=</span> <span class="n">FormatConfiguration</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">format</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s">&#39;formatvalue.xml&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">format</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span> <span class="s">&#39;formatvalue.xml&#39;</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="FormatValue.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FormatValue.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">FormatValueStep</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="FormatValue.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FormatValue.configuration_file_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.configuration_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_file_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">__name__</span>
 </div>
@@ -106,42 +106,36 @@
 <span class="sd">    file</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="FormatValue.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FormatValue.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="FormatValue.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="FormatValue.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.FormatValue.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function will format value as specified in the format stored in formatvalue.xml.</span>
 
-<span class="sd">        :param value: The value to format.</span>
-<span class="sd">        :type value: boolean, string, int or float</span>
-<span class="sd">        :param data: a dictionary containing more information about the</span>
-<span class="sd">                value. Data can be added to this as needed.  Here is a list</span>
-<span class="sd">                of values that will be in the data dictionary:</span>
-
-<span class="sd">               | 1. **date:** time received: time when value was received.</span>
-<span class="sd">               | 2. **units:** units of the number</span>
-<span class="sd">               | 3. **name:** name assigned to the value</span>
+<span class="sd">        :param value: The input value to be processesed</span>
+<span class="sd">        :type value: int, float, string, etc</span>
+<span class="sd">        :param data: a dictionary containing more information about the value.</span>
 <span class="sd">        :param listeners: a list of the subscribed routines to send the data to</span>
-<span class="sd">        :returns: value, data, listeners</span>
-<span class="sd">        :rtype: float, dict, listeners</span>
-<span class="sd">        :Raises: ValueError, KeyError</span>
+<span class="sd">        :returns: new_value, new_data, new_listeners</span>
+<span class="sd">        :rtype: int, dict, listeners</span>
+<span class="sd">        :raises: ValueError, KeyError</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">device</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">getDeviceAndPort</span><span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
         <span class="n">format_specification</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="n">port</span><span class="p">]</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">new_value</span> <span class="o">=</span> <span class="n">format_specification</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;FormatValue received {} sent out {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">))</span>
+            <span class="n">new_value</span> <span class="o">=</span> <span class="n">format_specification</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;FormatValue received {} sent out {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">new_value</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
             <span class="n">error</span> <span class="o">=</span> <span class="s">&quot;The format is incompatable with the input data type {}: device {} port {} file {}: error message {}&quot;</span><span class="o">.</span>\
-                    <span class="n">format</span><span class="p">(</span><span class="n">format_specification</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration_file_name</span><span class="p">,</span> <span class="n">ve</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+                    <span class="n">format</span><span class="p">(</span> <span class="n">format_specification</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration_file_name</span><span class="p">,</span> <span class="n">ve</span> <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span> <span class="n">error</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">new_value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span>
 
 </div></div>
-<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.formatvalue.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; This function will be called to instantiate this class. &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">FormatValue</span><span class="p">()</span></div>
 </pre></div>

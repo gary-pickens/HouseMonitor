@@ -55,13 +55,17 @@
 <span class="sd">@author: Gary</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">from</span> <span class="nn">abc_step</span> <span class="kn">import</span> <span class="n">abcStep</span>
-<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
-<span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">lib.base</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">from</span> <span class="nn">lib.getdatetime</span> <span class="kn">import</span> <span class="n">GetDateTime</span>
 <span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">pub</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
 
 
 <div class="viewcode-block" id="instantuate_me"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.instantuate_me">[docs]</a><span class="k">def</span> <span class="nf">instantuate_me</span><span class="p">(</span> <span class="n">data</span> <span class="p">):</span>
@@ -76,39 +80,62 @@
 <span class="sd">    </span>
 <span class="sd">    # Green flashing LED that indicates that the system is functioning.</span>
 <span class="sd">    # A red LED that glows when the garage door is open.</span>
-<span class="sd">    # A alarm that will sound X minutes after the garage door has opened.</span>
+<span class="sd">    # A second LED that glows when the disable alarm has been pressed and will extungish when </span>
+<span class="sd">    the garage door has been closed.</span>
+<span class="sd">    # A alarm that will sound 15 minutes after the garage door has opened.</span>
 <span class="sd">    # A disable button that will disable the alarm.</span>
 <span class="sd">    </span>
 <span class="sd">    A schematic is in the Fritzing directory.</span>
+<span class="sd">    </span>
+<span class="sd">    There are four classes that will be notified on certain events:</span>
+<span class="sd">    # *GarageDoorMonitor* which will be notified when the garage door has been opened or closed.</span>
+<span class="sd">    # *SilenceAlarm* will be notified 2 seconds after the garage door has been opened.</span>
+<span class="sd">    # *DisableAlarmButton* will be notified when the Disable Alarm Button has been pressed.</span>
+<span class="sd">    # *ProcessDelayedAlarm* Will be notified when to change the alarm setting.</span>
+<span class="sd">    # *SystemCheck* will monitor the health of the system and cause the greeen LED to flash if </span>
+<span class="sd">    everything is okay.</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">panel_address</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
     <span class="n">panel_status_led</span> <span class="o">=</span> <span class="s">&#39;DIO-0&#39;</span>
     <span class="n">panel_garage_door_led</span> <span class="o">=</span> <span class="s">&#39;DIO-1&#39;</span>
-    <span class="n">panel_spare_led</span> <span class="o">=</span> <span class="s">&#39;DIO-2&#39;</span>
+    <span class="n">panel_disable_button_led</span> <span class="o">=</span> <span class="s">&#39;DIO-2&#39;</span>
     <span class="n">panel_alarm</span> <span class="o">=</span> <span class="s">&#39;DIO-3&#39;</span>
-    <span class="n">panel_disable</span> <span class="o">=</span> <span class="s">&#39;DIO-5&#39;</span>
+    <span class="n">panel_disable</span> <span class="o">=</span> <span class="s">&#39;DIO-4&#39;</span>
+
+    <span class="n">scheduler_delayed_sound_alarm</span> <span class="o">=</span> <span class="s">&#39;garage door start delayed alarm&#39;</span>
+    <span class="n">scheduler_turn_off_initial_alarm</span> <span class="o">=</span> <span class="s">&#39;garage door turn off initial alarm&#39;</span>
 
     <span class="c">#  Classes</span>
     <span class="n">garage_door_monitor</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">start_alarm</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">process_delayed_alarm</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">disable_alarm_button</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">system_check</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">silence_alarm</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="c">#  Constants used to describe the state of various items</span>
-    <span class="n">GARAGE_DOOR_OPEN</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="n">GARAGE_DOOR_CLOSED</span> <span class="o">=</span> <span class="bp">True</span>
-
-    <span class="n">ALARM_OFF</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">ALARM_ON</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">LED_ON</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">LED_OFF</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="n">ENABLE_ALARM</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="n">DISABLE_ALARM</span> <span class="o">=</span> <span class="bp">False</span>
 
+    <span class="c"># How fast the status light flashes</span>
+    <span class="n">status_panel_update_rate</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="c"># The most recent scheduler request</span>
+    <span class="n">long_scheduler_id</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">short_scheduler_id</span> <span class="o">=</span> <span class="bp">None</span>
+
     <span class="c">#  items that are tracked</span>
+    <span class="n">ALARM_OFF</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">ALARM_ON</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="n">alarm</span> <span class="o">=</span> <span class="n">ALARM_OFF</span>
     <span class="sd">&#39;&#39;&#39; Weather the alarm is sounding or not &#39;&#39;&#39;</span>
 
+    <span class="n">GARAGE_DOOR_OPEN</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">GARAGE_DOOR_CLOSED</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="n">garage_door</span> <span class="o">=</span> <span class="n">GARAGE_DOOR_CLOSED</span>
     <span class="sd">&#39;&#39;&#39; The state of the garage door. &#39;&#39;&#39;</span>
 
@@ -118,23 +145,32 @@
     <span class="n">garage_door_timer</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; Contains the time that the garage door was opened &#39;&#39;&#39;</span>
 
-    <span class="n">enable_alarm_button_pressed</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">DISABLE_ALARM_BUTTON_PRESSED</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">DISABLE_ALARM_BUTTON_NOT_PRESSED</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">disenable_alarm_button_pressed</span> <span class="o">=</span> <span class="n">DISABLE_ALARM_BUTTON_NOT_PRESSED</span>
     <span class="sd">&#39;&#39;&#39; Indicates that the disable alarm has been pressed.  </span>
 <span class="sd">    Cleared by closing the door. &#39;&#39;&#39;</span>
 
     <span class="sd">&#39;&#39;&#39; The time from when the garage door opens to the time the alarm </span>
 <span class="sd">    starts sounding &#39;&#39;&#39;</span>
-    <span class="c">#  TODO: Increase this back after test</span>
-    <span class="n">garage_door_standoff_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+    <span class="n">garage_door_standoff_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">15</span> <span class="p">)</span>
+    <span class="c"># The following line is for testing</span>
+<span class="c">#    garage_door_standoff_time = timedelta( minutes=5 )</span>
+    <span class="n">garage_door_initial_beep_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">2</span> <span class="p">)</span>
+    <span class="n">garage_door_long_silence</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">garage_door_short_alarm</span> <span class="o">=</span> <span class="mi">2</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="nb">super</span><span class="p">(</span> <span class="n">StatusPanel</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">garage_door_monitor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GarageDoorMonitor</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">start_alarm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">StartAlarm</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_delayed_alarm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ProcessDelayedAlarm</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disable_alarm_button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DisableAlarmButton</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">system_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SystemCheck</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">silence_alarm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SilenceAlarm</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
+        <span class="c"># Turn the alarm off when starting.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="StatusPanel.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
@@ -142,7 +178,7 @@
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span>
 </div>
 <div class="viewcode-block" id="StatusPanel.changeGarageDoorWarningLight"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight">[docs]</a>    <span class="k">def</span> <span class="nf">changeGarageDoorWarningLight</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; Turn on or off the LED that indicates that the garage door is open. </span>
+        <span class="sd">&#39;&#39;&#39; Turn on or off the LED that indicates that the disable alarm has been pressed. </span>
 <span class="sd">        </span>
 <span class="sd">        :param value: determines if the light will be on or off.</span>
 <span class="sd">        :type value: Boolean</span>
@@ -154,8 +190,21 @@
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel_address</span>
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel_garage_door_led</span>
         <span class="n">light</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;changeGarageDoorWarningLight with {} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">steps</span> <span class="p">)</span> <span class="p">)</span>
         <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">light</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">steps</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="StatusPanel.changeDisableButtonWarningLight"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.changeDisableButtonWarningLight">[docs]</a>    <span class="k">def</span> <span class="nf">changeDisableButtonWarningLight</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Turn on or off the LED that indicates that the garage door is open. </span>
+<span class="sd">        </span>
+<span class="sd">        :param value: determines if the light will be on or off.</span>
+<span class="sd">        :type value: Boolean</span>
+<span class="sd">        :returns: none</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel_address</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel_disable_button_led</span>
+        <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">steps</span> <span class="p">)</span>
 </div>
 <div class="viewcode-block" id="StatusPanel.changeAlarm"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.changeAlarm">[docs]</a>    <span class="k">def</span> <span class="nf">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Turn on or off the alarm that indicates that the garage door is open.         </span>
@@ -165,11 +214,12 @@
 <span class="sd">        :returns: none</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alarm</span> <span class="o">=</span> <span class="n">value</span>
         <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel_address</span>
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel_alarm</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;changeAlarm with {} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">steps</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span> <span class="s">&quot;changeAlarm with {} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">steps</span> <span class="p">)</span> <span class="p">)</span>
         <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">steps</span> <span class="p">)</span>
 </div>
 <div class="viewcode-block" id="StatusPanel.GarageDoorMonitor"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor">[docs]</a>    <span class="k">class</span> <span class="nc">GarageDoorMonitor</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
@@ -196,16 +246,44 @@
 <div class="viewcode-block" id="StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.setTimerToActivateAlarmAfterInterval">[docs]</a>        <span class="k">def</span> <span class="nf">setTimerToActivateAlarmAfterInterval</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
             <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            This will start a timer when the garage door opens.  When the </span>
-<span class="sd">            timer expire a message will be sent to StartAlarm.step() which will </span>
+<span class="sd">            timer expire a message will be sent to ProcessDelayedAlarm.step() which will </span>
 <span class="sd">            start the alarm. </span>
 <span class="sd">            &#39;&#39;&#39;</span>
-            <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_StartAlarm</span><span class="p">]</span>
-            <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_status_led</span><span class="p">,</span> <span class="n">listeners</span>
+            <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_ProcessDelayedAlarm</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">long_scheduler_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_address</span><span class="p">,</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_alarm</span><span class="p">,</span> \
+                    <span class="n">listeners</span><span class="p">,</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">long_scheduler_id</span>
+            <span class="c"># Delete all the previously scheduled slow alarm events</span>
+            <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_delayed_sound_alarm</span> <span class="p">)</span>
             <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddOneShotStep</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="s">&#39;garage door alarm&#39;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_delayed_sound_alarm</span><span class="p">,</span>
                             <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_standoff_time</span><span class="p">,</span>
                             <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Activate garage door timer&#39;</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="StatusPanel.GarageDoorMonitor.turnOffAlarmAfterInterval"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.turnOffAlarmAfterInterval">[docs]</a>        <span class="k">def</span> <span class="nf">turnOffAlarmAfterInterval</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            This will start a timer when the garage door opens.  When the </span>
+<span class="sd">            timer expire a message will be sent to ProcessDelayedAlarm.step() which will </span>
+<span class="sd">            start the alarm. </span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_SilenceAlarm</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">short_scheduler_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_address</span><span class="p">,</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_alarm</span><span class="p">,</span> \
+                    <span class="n">listeners</span><span class="p">,</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">short_scheduler_id</span>
+            <span class="c"># Delete all the previously scheduled alarms.</span>
+            <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_turn_off_initial_alarm</span> <span class="p">)</span>
+            <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddOneShotStep</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_turn_off_initial_alarm</span><span class="p">,</span>
+                            <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_initial_beep_time</span><span class="p">,</span>
+                            <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Turn off alarm after {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_initial_beep_time</span> <span class="p">)</span> <span class="p">)</span>
 </div>
 <div class="viewcode-block" id="StatusPanel.GarageDoorMonitor.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.GarageDoorMonitor.step">[docs]</a>        <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -227,15 +305,92 @@
 <span class="sd">            :rtype: Boolean, dict, listeners</span>
 <span class="sd">    </span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;GarageDoorMonitor. {} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">when_garage_door_opened</span> <span class="o">=</span> <span class="n">GetDateTime</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM</span>
+
+            <span class="c"># Garage Door transitioning from Open to Closed</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="ow">and</span> \
+                    <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeDisableButtonWarningLight</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">LED_OFF</span> <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">process_delayed_alarm</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">process_delayed_alarm</span><span class="o">.</span><span class="n">Disabled</span>
+                <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_turn_off_initial_alarm</span> <span class="p">)</span>
+                <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_delayed_sound_alarm</span> <span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Garage door closing&#39;</span> <span class="p">)</span>
+
+            <span class="c"># Garage Door transitioning from Closed to Open</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span> <span class="ow">and</span> \
+                    <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeDisableButtonWarningLight</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">LED_OFF</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">when_garage_door_opened</span> <span class="o">=</span> <span class="n">GetDateTime</span><span class="p">()</span><span class="o">.</span><span class="n">datetime</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">disenable_alarm_button_pressed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM_BUTTON_NOT_PRESSED</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">turnOffAlarmAfterInterval</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">setTimerToActivateAlarmAfterInterval</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">process_delayed_alarm</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">process_delayed_alarm</span><span class="o">.</span><span class="n">PreAlarm</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Garage door opening&#39;</span> <span class="p">)</span>
+
+            <span class="c"># Garage Door is Closed</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_CLOSED</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">when_garage_door_opened</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">process_delayed_alarm</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">process_delayed_alarm</span><span class="o">.</span><span class="n">Disabled</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">disenable_alarm_button_pressed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM_BUTTON_NOT_PRESSED</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeDisableButtonWarningLight</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">LED_OFF</span> <span class="p">)</span>
+
+
             <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">=</span> <span class="n">value</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeGarageDoorWarningLight</span><span class="p">(</span> <span class="n">value</span> <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;After GarageDoorMonitor.step {} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">when_garage_door_opened</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span>
+</div></div>
+<div class="viewcode-block" id="StatusPanel.SilenceAlarm"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm">[docs]</a>    <span class="k">class</span> <span class="nc">SilenceAlarm</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        When the garage door first opens a alarm will sound for about two seconds.  This class </span>
+<span class="sd">        will turn the alarm off.  This class will be activated by calling sendMessage specifing the </span>
+<span class="sd">        amount af time for the alarm to sound.  This is done in the turnOffAlarmAfterInterval </span>
+<span class="sd">        call above.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">status_panel</span> <span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="nb">super</span><span class="p">(</span> <span class="n">StatusPanel</span><span class="o">.</span><span class="n">SilenceAlarm</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span> <span class="o">=</span> <span class="n">status_panel</span>
+
+        <span class="nd">@property</span>
+<div class="viewcode-block" id="StatusPanel.SilenceAlarm.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.logger_name">[docs]</a>        <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
+            <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span>
+</div>
+        <span class="nd">@property</span>
+<div class="viewcode-block" id="StatusPanel.SilenceAlarm.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.topic_name">[docs]</a>        <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
+            <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_SilenceAlarm</span>
+</div>
+<div class="viewcode-block" id="StatusPanel.SilenceAlarm.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SilenceAlarm.step">[docs]</a>        <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Will detect if the garage door disable button has been pressed.  If it has it will:</span>
+<span class="sd">                | 1. set disable alarm to disabled</span>
+<span class="sd">                | 2. turn off the alarm</span>
+<span class="sd">                        </span>
+<span class="sd">            :param value: The state of the garage door</span>
+<span class="sd">            :type value: Boolean</span>
+<span class="sd">            :param data: a dictionary containing more information about the</span>
+<span class="sd">                    value. Data can be added to this as needed.  Here is a list</span>
+<span class="sd">                    of values that will be in the data dictionary:</span>
+<span class="sd">    </span>
+<span class="sd">                   | 1. **date:** time received: time when value was received.</span>
+<span class="sd">                   | 2. **units:** units of the number</span>
+<span class="sd">                   | 3. **name:** name assigned to the value</span>
+<span class="sd">                   | 4. etc.</span>
+<span class="sd">            :param listeners: a list of the subscribed routines to send the data to</span>
+<span class="sd">            :returns: value, data, listeners</span>
+<span class="sd">            :rtype: Boolean, dict, listeners</span>
+<span class="sd">    </span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Silence alarm.&#39;</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">scheduler_id</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">short_scheduler_id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
             <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span>
 </div></div>
 <div class="viewcode-block" id="StatusPanel.DisableAlarmButton"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.DisableAlarmButton">[docs]</a>    <span class="k">class</span> <span class="nc">DisableAlarmButton</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
@@ -282,35 +437,62 @@
 <span class="sd">            :rtype: Boolean, dict, listeners</span>
 <span class="sd">    </span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="c">#  set when_garage_door_opened the first time the door is detected open</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">alarm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Disable alarm. {} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">alarm</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM_BUTTON_PRESSED</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Disable button: {} DISABLE_ALARM_BUTTON_PRESSED = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM_BUTTON_PRESSED</span> <span class="p">)</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">disenable_alarm_button_pressed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM_BUTTON_PRESSED</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeDisableButtonWarningLight</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">LED_ON</span> <span class="p">)</span>
             <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span>
 </div></div>
-<div class="viewcode-block" id="StatusPanel.StartAlarm"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.StartAlarm">[docs]</a>    <span class="k">class</span> <span class="nc">StartAlarm</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
+<div class="viewcode-block" id="StatusPanel.ProcessDelayedAlarm"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm">[docs]</a>    <span class="k">class</span> <span class="nc">ProcessDelayedAlarm</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        StartAlarm will start the alarm.  It will sound until the garage door</span>
-<span class="sd">        is closed or the disable ararm button is pressed.</span>
+<span class="sd">        If the door has been open for an extended period, ProcessDelayedAlarm will start the alarm.  It will sound until the garage door</span>
+<span class="sd">        is closed or the disable alarm button is pressed.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">status_panel</span> <span class="p">):</span>
             <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            &#39;&#39;&#39;</span>
-            <span class="nb">super</span><span class="p">(</span> <span class="n">StatusPanel</span><span class="o">.</span><span class="n">StartAlarm</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+            <span class="nb">super</span><span class="p">(</span> <span class="n">StatusPanel</span><span class="o">.</span><span class="n">ProcessDelayedAlarm</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span> <span class="o">=</span> <span class="n">status_panel</span>
 
         <span class="nd">@property</span>
-<div class="viewcode-block" id="StatusPanel.StartAlarm.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.logger_name">[docs]</a>        <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+<div class="viewcode-block" id="StatusPanel.ProcessDelayedAlarm.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.logger_name">[docs]</a>        <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
             <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
             <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">StatusPanel</span>
 </div>
         <span class="nd">@property</span>
-<div class="viewcode-block" id="StatusPanel.StartAlarm.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.topic_name">[docs]</a>        <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+<div class="viewcode-block" id="StatusPanel.ProcessDelayedAlarm.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.topic_name">[docs]</a>        <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
             <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
-            <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_StartAlarm</span>
+            <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_ProcessDelayedAlarm</span>
 </div>
-<div class="viewcode-block" id="StatusPanel.StartAlarm.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.StartAlarm.step">[docs]</a>        <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Delayed alarm states &#39;&#39;&#39;</span>
+        <span class="n">Disabled</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">PreAlarm</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">Short_Beep</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">Long_Silence</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="n">Disabled</span><span class="p">;</span>
+
+<div class="viewcode-block" id="StatusPanel.ProcessDelayedAlarm.activateTimer"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer">[docs]</a>        <span class="k">def</span> <span class="nf">activateTimer</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">seconds</span> <span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            This will start a timer when the garage door opens.  When the </span>
+<span class="sd">            timer expire a message will be sent to ProcessDelayedAlarm.step() which will </span>
+<span class="sd">            start the alarm. </span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_ProcessDelayedAlarm</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">long_scheduler_id</span> <span class="o">==</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_address</span><span class="p">,</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_alarm</span><span class="p">,</span> \
+                    <span class="n">listeners</span><span class="p">,</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">long_scheduler_id</span>
+            <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_turn_off_initial_alarm</span> <span class="p">)</span>
+            <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddOneShotStep</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_turn_off_initial_alarm</span><span class="p">,</span>
+                            <span class="n">delta</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span> <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span> <span class="p">),</span>
+                            <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Activate garage door timer&#39;</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="StatusPanel.ProcessDelayedAlarm.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.step">[docs]</a>        <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            This routine will receive a message X minutes after the door has been opened.  If the garage door is </span>
 <span class="sd">            still open and the alarm has not been disabled, it will start the alarm:</span>
@@ -326,15 +508,38 @@
 <span class="sd">            :rtype: Boolean, dict, listeners</span>
 <span class="sd">    </span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Start alarm called. {} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span> <span class="p">)</span> <span class="p">)</span>
-            <span class="c">#  Test to see if the alarm needs to be activated:</span>
-            <span class="c">#  1. Is the garage door open</span>
-            <span class="c">#  2. Has the disable button been pressed</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span> <span class="ow">and</span>
-                 <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">enable_alarm_button_pressed</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ENABLE_ALARM</span> <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">alarm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_ON</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Start alarm. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">alarm</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="c"># Test if the correct packet</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">scheduler_id</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">long_scheduler_id</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">GARAGE_DOOR_OPEN</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">disenable_alarm_button_pressed</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">DISABLE_ALARM_BUTTON_PRESSED</span> <span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Disabled</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Disable alarm pressed. exit&#39;</span> <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">PreAlarm</span> <span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">activateTimer</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_short_alarm</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Short_Beep</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;short beep&#39;</span> <span class="p">)</span>
+                        <span class="k">elif</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Short_Beep</span> <span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">activateTimer</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_long_silence</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Long_Silence</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;long silence&#39;</span> <span class="p">)</span>
+                        <span class="k">elif</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Long_Silence</span> <span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_ON</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">activateTimer</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_short_alarm</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Short_Beep</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Short Beep&#39;</span> <span class="p">)</span>
+                        <span class="k">elif</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Disabled</span> <span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Disabled state&#39;</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span> <span class="s">&#39;invalid state = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="p">)</span> <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">delayedAlarmState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Disabled</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">changeAlarm</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">ALARM_OFF</span> <span class="p">)</span>
             <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span>
 </div></div>
 <div class="viewcode-block" id="StatusPanel.SystemCheck"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SystemCheck">[docs]</a>    <span class="k">class</span> <span class="nc">SystemCheck</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
@@ -380,7 +585,8 @@
 <span class="sd">    </span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;System Check called. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="c"># disable the following line. It prints aboue every two seconds.</span>
+<span class="c">#            self.logger.info( &#39;System Check called. {}&#39;.format( self.toggle ) )</span>
             <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div></div>
 </pre></div>
 
