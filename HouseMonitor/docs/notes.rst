@@ -3,6 +3,20 @@
 Gary's Notes
 ############
 
+=================
+Related web pages
+=================
+
+#. `House Monitor <http://beaglebone/index.html>`_.
+
+#. `Modules <http://beaglebone/_modules>`_.
+
+#. `Coverage Results <http://beaglebone/cover>`_.
+
+#. `COSM <https://cosm.com/users/gary_pickens>`_.
+
+#. `HouseMonitor <http://beaglebone/HouseMonitor/index.html>`_.
+
 ****************
 Beaglebone Notes
 ****************
@@ -89,7 +103,54 @@ Building a new system for HouseMonitor
     * Make a directory called HouseMonitor in ``~gary/bin``
     * Run the following command as root:
         ``easy_install --install-dir /home/gary/bin/HouseMonitor -Z HouseMonitor-3.0.2.zip``
+        
+#. After tring the web server cloud9 for some time I decided it was not for me so I decided to
+remove it and install lightthp
 
+   * remove cloud9 with the following command::
+
+         opkg remove --force-removal-of-dependent-packages cloud9
+
+   * It gave some warnings that not all had been removed so I tried::
+      
+         opkg remove  bonescript
+
+   * Finally I installed lighttpd with the following command:: 
+         
+         opkg install lightpd
+
+   * I then went to multi-user.target.wants found the following files::
+
+         cloud9.service
+         bone101.service
+         lighttpd.service
+         
+   * So I disabled and enabled the ones I want with the following command::
+   
+         systemctl disable cloud9.service
+         systemctl disable bone101.service
+
+   * Chect the status of lighttpd.service the the following command::
+
+         systemctl status lighttpd.service
+         
+   *  Then I reboot::
+   
+         reboot
+
+   * Once it comes up I do the following commands and it seems to be operating the was I 
+   want::
+   
+        cd /etc/systemd/system/multi-user.target.wants/
+        systemctl status lighttpd.service
+        systemctl status cloud9.service
+        systemctl status bone101.service
+        netstat -r
+
+   * Now the question is, can I remove cloud9.service and bone101.service files from the system?
+     It appears to be working just fine.  I uploaded numerous html files to /www/pages and subdirectories 
+     and I can brows to them with no problem.  **Perhaps I should leave well enough alone.**   
+   
 Baud rate for Tera Term
 =======================
 
@@ -111,6 +172,18 @@ Setting up the Xbee
 *********
 Ant Notes
 *********
+Reading base directory
+======================
+
+To read the base directory use:
+:::::::::::::::::::::::::::::::
+   <property name="base" value="${basedir}" />
+
+I tried and tried the following:
+
+::
+   <property name="base" value="directory::get-current-directory()" />
+    
 
 Arrg scp broke again!
 =====================
@@ -528,19 +601,19 @@ How to make it work
 
 #. Add the following code at end of file:::
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+   if __name__ == "__main__":
+       import doctest
+       doctest.testmod()
 
 #. Type the following to run the code:::
 
-python example.py
+   python example.py
 
 where: examble.py is the name of the module to test.
 
 add **-v** for more output.  For example:::
 
-python example.py -v
+   python example.py -v
 
 ****
 Misc
@@ -553,3 +626,5 @@ Misc
 #. `Good web page for calculating LM555 values given frequency <http://houseofjeff.com/555-timer-oscillator-frequency-calculator/>`_.
 
 #. `Common Mistakes When Using a 555 Timer <http://www.555-timer-circuits.com/common-mistakes.html>`_.
+
+

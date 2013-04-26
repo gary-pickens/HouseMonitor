@@ -74,15 +74,14 @@ class ComputerMonitor( Base, threading.Thread ):
             raise
 
     def send( self, dt, key, value ):
-        data = {}
         listeners = [Constants.TopicNames.CurrentValueStep]
-        packet = None
-        data[Constants.DataPacket.device] = 'OMAP UART1'
-        data[Constants.DataPacket.port] = key
-        data[Constants.DataPacket.arrival_time] = dt
-        data[Constants.DataPacket.current_value] = value
-        data[Constants.DataPacket.listeners] = copy.copy( listeners )
-        env = DataEnvelope( type=Constants.EnvelopeTypes.status, packet=packet, data=data, arrival_time=dt )
+        data = {Constants.DataPacket.device: 'OMAP UART1',
+                Constants.DataPacket.port: key,
+                Constants.DataPacket.arrival_time: dt,
+                Constants.DataPacket.current_value: value,
+                Constants.DataPacket.listeners: copy.copy( listeners )}
+
+        env = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data, arrival_time=dt )
         self.logger.debug( 'read data {}'.format( env ) )
         self.input_queue.transmit( packet=env, priority=Constants.Queue.low_priority )
 

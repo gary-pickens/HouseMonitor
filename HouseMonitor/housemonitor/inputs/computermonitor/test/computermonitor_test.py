@@ -14,6 +14,7 @@ from datetime import datetime
 import logging.config
 import pprint
 import unittest
+import copy
 
 
 class Test( unittest.TestCase ):
@@ -46,6 +47,25 @@ class Test( unittest.TestCase ):
         self.assertIsNotNone( counts )
         self.assertEqual( counts['tx'], '1188940' )
         self.assertEqual( counts['rx'], '1427150' )
+
+    def test_send( self ):
+        queue = MagicMock()
+        dt = GetDateTime( year=2000, month=1, day=2, hour=3, minute=4, second=5 )
+        key = 'tx'
+        value = 12345
+
+        listeners = [Constants.TopicNames.CurrentValueStep]
+        data = {Constants.DataPacket.device: 'OMAP UART1',
+                Constants.DataPacket.port: key,
+                Constants.DataPacket.arrival_time: dt,
+                Constants.DataPacket.current_value: value,
+                Constants.DataPacket.listeners: copy.copy( listeners )}
+
+        env = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data, arrival_time=dt )
+
+        cm = ComputerMonitor( queue )
+        cm.send( dt, key, value )
+
 
     def test_process_data( self ):
         queue = MagicMock()
