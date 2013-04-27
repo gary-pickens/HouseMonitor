@@ -54,19 +54,19 @@
 
 <span class="sd">@author: Gary</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">from</span> <span class="nn">apscheduler.scheduler</span> <span class="kn">import</span> <span class="n">Scheduler</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">Mock</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">inputs.dataenvelope</span> <span class="kn">import</span> <span class="n">DataEnvelope</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">from</span> <span class="nn">lib.hmqueue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
 <span class="kn">from</span> <span class="nn">lib.hmscheduler</span> <span class="kn">import</span> <span class="n">HMScheduler</span>
-<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
-<span class="kn">from</span> <span class="nn">inputs.dataenvelope</span> <span class="kn">import</span> <span class="n">DataEnvelope</span>
+<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">pub</span>
-<span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">MagicMock</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
 
 
 <div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
@@ -77,17 +77,190 @@
 </div>
 <div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">pass</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_init"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_init">[docs]</a>    <span class="k">def</span> <span class="nf">test_init</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">_input_queue</span><span class="p">,</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sub</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">add_interval</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddIntervalStep</span> <span class="p">)</span>
+        <span class="n">sub</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">add_cron</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddCronStep</span> <span class="p">)</span>
+        <span class="n">sub</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">add_date</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddDateStep</span> <span class="p">)</span>
+        <span class="n">sub</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">add_one_shot</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddOneShotStep</span> <span class="p">)</span>
+        <span class="n">sub</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">deleteJob</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span> <span class="p">)</span>
+        <span class="n">sub</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">print_jobs</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerPrintJobs</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">tx</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">tx</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">Scheduler</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_scheduler_topic_name"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_scheduler_topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_scheduler_topic_name</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">tx</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">tx</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">scheduler_topic_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerStep</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;add_interval_job&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_start"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_start">[docs]</a>    <span class="k">def</span> <span class="nf">test_start</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">add_interval_job</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-<span class="c">#     def test_start_real_scheduler( self ):</span>
-<span class="c">#         self.logger.error( &#39;test_start_real_scheduler&#39; )</span>
-<span class="c">#         update_time = 0.50</span>
-<span class="c">#         que = Mock( spec=HMQueue )</span>
-<span class="c">#         sched = HMScheduler( que )</span>
-<span class="c">#         sched.send_status_update = update_time</span>
-<span class="c">#         sched.start()</span>
-<span class="c"># #         time.sleep( update_time * 1.6 )</span>
-<span class="c"># #         sched.shutdown( wait=True )</span>
-<span class="c"># #         sched = None</span>
+        <span class="n">start</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">()</span>
+
+        <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;status&#39;</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;scheduler&#39;</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">Statistics</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">CurrentValueStep</span><span class="p">]</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">listeners</span>
+        <span class="n">add_interval_job</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
+
+        <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;HouseMonitor&#39;</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;uptime&#39;</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">UpTime</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">CurrentValueStep</span><span class="p">]</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">listeners</span>
+        <span class="n">add_interval_job</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
+
+        <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;0x13a20040902a02&#39;</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;DIO-0&#39;</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_SystemCheck</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">listeners</span>
+        <span class="n">add_interval_job</span><span class="o">.</span><span class="n">assert_any_call</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">statusHeartBeat</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;add_interval_job&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_add_interval"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_add_interval">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_interval</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">add_interval_job</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">add_interval_job</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+        <span class="n">add_interval_job</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">555</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Unit Test&#39;</span>
+        <span class="n">weeks</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">days</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">hours</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">minutes</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="mi">123</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="mi">456</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">add_interval</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">weeks</span><span class="p">,</span> <span class="n">days</span><span class="p">,</span> <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="n">add_interval_job</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Unit Test&#39;</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="mi">456</span><span class="p">,</span> <span class="n">weeks</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;add_cron_job&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_add_cron"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_add_cron">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_cron</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">add_cron_job</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">add_cron_job</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+        <span class="n">add_cron_job</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">555</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Unit Test&#39;</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="mi">2013</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">day_of_week</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">week</span> <span class="o">=</span> <span class="mi">99</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">hour</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">minute</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="mi">123</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="mi">456</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">add_cron</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">week</span><span class="p">,</span> <span class="n">day_of_week</span><span class="p">,</span>
+                  <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="n">add_cron_job</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">,</span> <span class="n">week</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
+                                              <span class="n">year</span><span class="o">=</span><span class="mi">2013</span><span class="p">,</span> <span class="n">day_of_week</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                              <span class="n">minute</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="mi">456</span><span class="p">,</span>
+                                              <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">),</span>
+                                               <span class="n">day</span><span class="o">=</span><span class="mi">2</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;add_date_job&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_add_date"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_add_date">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_date</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">add_date_job</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">add_date_job</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+        <span class="n">add_date_job</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">555</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="s">&#39;Unit Test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Unit Test&#39;</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="mi">123</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="mi">456</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">add_date</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span>
+
+        <span class="n">add_date_job</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">,</span>
+                                               <span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">),</span>
+                                               <span class="n">args</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Unit Test&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="mi">456</span> <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertListEqual</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">jobs</span><span class="p">[</span><span class="s">&#39;Unit Test&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">555</span><span class="p">]</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;shutdown&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_shutdown"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_shutdown">[docs]</a>    <span class="k">def</span> <span class="nf">test_shutdown</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">shutdown</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span> <span class="n">wait</span><span class="o">=</span><span class="bp">True</span> <span class="p">)</span>
+        <span class="n">shutdown</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">wait</span><span class="o">=</span><span class="bp">True</span> <span class="p">)</span>
+        <span class="n">shutdown</span><span class="o">.</span><span class="n">reset_mock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span> <span class="n">sched</span><span class="o">.</span><span class="n">scheduler</span> <span class="p">)</span>
+
+        <span class="n">sched</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span> <span class="n">wait</span><span class="o">=</span><span class="bp">True</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">shutdown</span><span class="o">.</span><span class="n">call_count</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;print_jobs&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="s">&#39;transmit&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_print_jobs"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_print_jobs">[docs]</a>    <span class="k">def</span> <span class="nf">test_print_jobs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">que</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">print_jobs</span> <span class="p">):</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">que</span> <span class="p">)</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">print_jobs</span><span class="p">()</span>
+        <span class="n">print_jobs</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">()</span>
+</div>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;print_jobs&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">Scheduler</span><span class="p">,</span> <span class="s">&#39;start&#39;</span> <span class="p">)</span>
+    <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">pub</span><span class="p">,</span> <span class="s">&#39;subscribe&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_send_command"><a class="viewcode-back" href="../../../../housemonitor.lib.test.html#housemonitor.lib.test.hmscheduler_Test.Test.test_send_command">[docs]</a>    <span class="k">def</span> <span class="nf">test_send_command</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">print_jobs</span> <span class="p">):</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">(</span> <span class="n">spec</span><span class="o">=</span><span class="n">HMQueue</span> <span class="p">)</span>
+        <span class="n">sched</span> <span class="o">=</span> <span class="n">HMScheduler</span><span class="p">(</span> <span class="n">queue</span> <span class="p">)</span>
+
+        <span class="n">device</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">scheduler_id</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">sched</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">listeners</span><span class="p">,</span> <span class="n">scheduler_id</span> <span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">scheduler_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">scheduler_id</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">listeners</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;scheduled status check&#39;</span>
+
+<span class="c">#         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )</span>
+
+        <span class="n">queue</span><span class="o">.</span><span class="n">transmit</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="n">DataEnvelope</span><span class="p">(</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;status&#39;</span><span class="p">,</span> <span class="n">packet</span><span class="o">=</span><span class="p">{},</span>
+            <span class="n">arrival_time</span><span class="o">=</span><span class="s">&#39;2013/04/27 04:44:57&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;scheduled status check&#39;</span><span class="p">,</span>
+                                                  <span class="s">&#39;listeners&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">],</span>
+                                                  <span class="s">&#39;at&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">282000</span> <span class="p">),</span>
+                                                  <span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;scheduler_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span> <span class="p">),</span> <span class="mi">10</span> <span class="p">)</span>
+
+
 <span class="c">#</span>
 <span class="c">#     def test_add_interval( self ):</span>
 <span class="c">#         que = Mock( spec=HMQueue )</span>
