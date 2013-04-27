@@ -3,19 +3,20 @@ Created on Nov 19, 2012
 
 @author: Gary
 '''
-import unittest
-import datetime
-import logging.config
+from apscheduler.scheduler import Scheduler
 from datetime import timedelta
-from datetime import datetime
-from mock import Mock
-import time
+from inputs.dataenvelope import DataEnvelope
+from lib.constants import Constants
 from lib.hmqueue import HMQueue
 from lib.hmscheduler import HMScheduler
-from lib.constants import Constants
-from inputs.dataenvelope import DataEnvelope
+from mock import *
 from pubsub import pub
-from mock import MagicMock
+import copy
+import logging.config
+import time
+from lib.getdatetime import GetDateTime
+import datetime
+import unittest
 
 
 class Test( unittest.TestCase ):
@@ -27,176 +28,246 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-#     def test_start_real_scheduler( self ):
-#         self.logger.error( 'test_start_real_scheduler' )
-#         update_time = 0.50
-#         que = Mock( spec=HMQueue )
-#         sched = HMScheduler( que )
-#         sched.send_status_update = update_time
-#         sched.start()
-# #         time.sleep( update_time * 1.6 )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     def test_add_interval( self ):
-#         que = Mock( spec=HMQueue )
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = 'device', listeners
-#         sched.add_interval( 'add interval test', seconds=0.5, args=args )
-# #         time.sleep( 3 )
-# #         sched.sendCommand.assert_called_with( 'device', listeners )
-# #         sched.shutdown( wait=True )
-#         sched = None
-#
-#     def test_add_cron( self ):
-#         que = Mock( spec=HMQueue )
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = 'device', listeners
-#         sched.add_cron( 'add_cron', second='0-59', args=args )
-# #         time.sleep( 2 )
-# #         sched.sendCommand.assert_called_with( 'device', listeners )
-# #         sched.shutdown( wait=True )
-#         sched = None
-#
-#     def test_add_date( self ):
-#         que = Mock( spec=HMQueue )
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = 'device', listeners
-#         now_plus_two_second = datetime.now() + timedelta( seconds=2 )
-#         sched.add_date( 'add_date', now_plus_two_second, args=args )
-# #         time.sleep( 3 )
-# #         sched.sendCommand.assert_called_with( 'device', listeners )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     def test_pubsub_to_add_date_works( self ):
-#         que = Mock()
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = 'device', listeners
-#         now_plus_two_seconds = datetime.now() + timedelta( seconds=2 )
-#         pub.sendMessage( Constants.TopicNames.SchedulerAddDateStep, name='test_pubsub_to_add_date_works', date=now_plus_two_seconds, args=args )
-# #         time.sleep( 4 )
-# #         sched.sendCommand.assert_called_with( 'device', listeners )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     def test_pubsub_to_add_cron_works( self ):
-#         que = Mock()
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = 'device', listeners
-#         pub.sendMessage( Constants.TopicNames.SchedulerAddCronStep, name='test_pubsub_to_add_cron_works', second='0-59', args=args )
-# #         time.sleep( 4 )
-# #         sched.sendCommand.assert_called_with( 'device', listeners )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     def test_pubsub_to_interval_works( self ):
-#         que = Mock()
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         device = 'status'
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = device, listeners
-#         pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep, name='test_pubsub_to_interval_works', seconds=0.5, args=args )
-# #         time.sleep( 4 )
-# #         sched.sendCommand.assert_called_with( device, ['step.statistics', 'steps.current_values'] )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     def test_pubsub_to_one_shot_works( self ):
-#         que = Mock()
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         device = 'oneshot'
-#         port = 'port'
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = device, port, listeners
-#         td = timedelta( seconds=2.0 )
-#         pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep, name='test_pubsub_to_one_shot_works', delta=td, args=args )
-# #         time.sleep( 4 )
-# #         sched.sendCommand.assert_called_with( device, port, ['step.statistics', 'steps.current_values'] )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     def test_one_shot_works( self ):
-#         que = Mock()
-#         sched = HMScheduler( que )
-#         sched.sendCommand = Mock()
-#         sched.start()
-#         device = 'oneshot'
-#         port = 'port'
-#         listeners = ['step.statistics', 'steps.current_values']
-#         args = device, port, listeners
-#         td = timedelta( seconds=1.0 )
-#         sched.add_one_shot( name='test_one_shot_works', delta=td, args=args )
-# #         time.sleep( 2 )
-# #         sched.sendCommand.assert_called_with( device, 'port', ['step.statistics', 'steps.current_values'] )
-# #         sched.shutdown( wait=True )
-# #         sched = None
-#
-#     # FIXME why is this failing?
-#     @unittest.skip( "Not sure why this is failing" )
-#     def test_delete_job( self ):
-#         que = Mock()
-#         sched = HMScheduler( que )
-#         sched.sendCommand = MagicMock()
-#         sched.start()
-#
-#         device = 'oneshot'
-#         port = 'port'
-#
-#         listeners = ['one']
-#         args = device, port, listeners
-#         td = timedelta( seconds=4.0 )
-#         sched.add_one_shot( name='test_one', delta=td, args=args )
-#
-#         td = timedelta( seconds=5.0 )
-#         listeners = ['two']
-#         args = device, port, listeners
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#
-#         listeners = ['three']
-#         args = device, port, listeners
-#         td = timedelta( seconds=6.0 )
-#         sched.add_one_shot( name='test_three', delta=td, args=args )
-#         sched.print_jobs()
-#
-#         sched.deleteJob( 'test_two' )
-#         sched.print_jobs()
-#         td = timedelta( seconds=5.0 )
-#         listeners = ['two']
-#         args = device, port, listeners
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.add_one_shot( name='test_two', delta=td, args=args )
-#         sched.deleteJob( 'test_two' )
-#         sched.print_jobs()
-#         time.sleep( 10 )
-#
-#         self.assertListEqual( sched.jobs['test_two'], [] )
-#         sched.shutdown( wait=True )
-#         sched = None
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_init( self, que, sub ):
+        sched = HMScheduler( que )
+        self.assertIs( sched._input_queue, que )
+        sub.assert_any_call( sched.add_interval, Constants.TopicNames.SchedulerAddIntervalStep )
+        sub.assert_any_call( sched.add_cron, Constants.TopicNames.SchedulerAddCronStep )
+        sub.assert_any_call( sched.add_date, Constants.TopicNames.SchedulerAddDateStep )
+        sub.assert_any_call( sched.add_one_shot, Constants.TopicNames.SchedulerAddOneShotStep )
+        sub.assert_any_call( sched.deleteJob, Constants.TopicNames.SchedulerDeleteJob )
+        sub.assert_any_call( sched.print_jobs, Constants.TopicNames.SchedulerPrintJobs )
+
+    @patch.object( HMQueue, 'transmit' )
+    def test_logger_name( self, tx ):
+        sched = HMScheduler( tx )
+        self.assertEqual( sched.logger_name, Constants.LogKeys.Scheduler )
+
+    @patch.object( HMQueue, 'transmit' )
+    def test_scheduler_topic_name( self, tx ):
+        sched = HMScheduler( tx )
+        self.assertEqual( sched.scheduler_topic_name, Constants.TopicNames.SchedulerStep )
+
+    @patch.object( Scheduler, 'add_interval_job' )
+    @patch.object( Scheduler, 'start' )
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_start( self, que, sub, start, add_interval_job ):
+        sched = HMScheduler( que )
+        sched.start()
+
+        start.assert_called_once_with()
+
+        name = 'scheduled status check'
+        device = 'status'
+        port = 'scheduler'
+        listeners = [Constants.TopicNames.Statistics, Constants.TopicNames.CurrentValueStep]
+        args = name, device, port, listeners
+        add_interval_job.assert_any_call( sched.sendCommand, minutes=10, args=args )
+
+        name = 'uptime'
+        device = 'HouseMonitor'
+        port = 'uptime'
+        listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
+        args = name, device, port, listeners
+        add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=args )
+
+        name = 'Pulse'
+        device = '0x13a20040902a02'
+        port = 'DIO-0'
+        listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
+        args = name, device, port, listeners
+        add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=args )
+
+    @patch.object( Scheduler, 'add_interval_job' )
+    @patch.object( Scheduler, 'start' )
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_add_interval( self, que, sub, start, add_interval_job ):
+        sched = HMScheduler( que )
+        sched.start()
+        add_interval_job.reset_mock()
+        add_interval_job.return_value = 555
+
+        name = 'Unit Test'
+        weeks = 1
+        days = 2
+        hours = 3
+        minutes = 4
+        seconds = 5
+        start_date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
+        args = 123
+        kwargs = 456
+        sched.add_interval( name, weeks, days, hours, minutes, seconds, start_date, args, kwargs )
+
+        add_interval_job.assert_called_once_with( sched.sendCommand, name='Unit Test', seconds=5,
+            args=123, days=2, hours=3, kwargs=456, weeks=1, minutes=4,
+            start_date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ) )
+
+    @patch.object( Scheduler, 'add_cron_job' )
+    @patch.object( Scheduler, 'start' )
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_add_cron( self, que, sub, start, add_cron_job ):
+        sched = HMScheduler( que )
+        sched.start()
+        add_cron_job.reset_mock()
+        add_cron_job.return_value = 555
+
+        name = 'Unit Test'
+        year = 2013
+        month = 1
+        day_of_week = 1
+        week = 99
+        day = 2
+        hour = 3
+        minute = 4
+        second = 5
+        start_date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
+        args = 123
+        kwargs = 456
+        sched.add_cron( name, year, month, day, week, day_of_week,
+                  hour, minute, second, start_date, args, kwargs )
+
+        add_cron_job.assert_called_once_with( sched.sendCommand, week=99, hour=3, args=123,
+                                              year=2013, day_of_week=1, month=1, second=5,
+                                              minute=4, kwargs=456,
+                                              start_date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ),
+                                               day=2 )
+
+    @patch.object( Scheduler, 'add_date_job' )
+    @patch.object( Scheduler, 'start' )
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_add_date( self, que, sub, start, add_date_job ):
+        sched = HMScheduler( que )
+        sched.start()
+        add_date_job.reset_mock()
+        add_date_job.return_value = 555
+        sched.jobs['Unit Test'] = []
+
+        name = 'Unit Test'
+        date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
+        args = 123
+        kwargs = 456
+        sched.add_date( name, date, args, kwargs )
+
+        add_date_job.assert_called_once_with( sched.sendCommand,
+                                               date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ),
+                                               args=123, name='Unit Test', kwargs=456 )
+
+        self.assertListEqual( sched.jobs['Unit Test'], [555] )
+
+    @patch( 'lib.getdatetime.GetDateTime.datetime' )
+    def test_add_one_shot( self, dt ):
+        d = datetime.datetime( 2013, 1, 1, 1, 1, 1 )
+        dt.return_value = d
+        que = MagicMock()
+        sched = HMScheduler( que )
+        sched.scheduler = MagicMock()
+        sched.scheduler.add_date_job = MagicMock()
+        sched.scheduler.add_date_job.return_value = 99
+        sched.jobs['test'] = []
+
+        delta = timedelta( seconds=1 )
+        name = 'Unit Test'
+        date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
+        args = 123
+        kwargs = 456
+        sched.add_one_shot( 'test', delta, args, kwargs )
+        self.assertListEqual( sched.jobs['test'], [99] )
+        self.assertEqual( sched.scheduler.add_date_job.call_count, 1 )
+
+
+    def test_deleteJob( self, ):
+        que = MagicMock()
+        sched = HMScheduler( que )
+        sched.start()
+        sched.scheduler = MagicMock( spec=Scheduler )
+        sched.scheduler.add_date_job.return_value = 55
+
+        name = 'test1'
+        device = 'a'
+        port = 'b'
+        listeners = ['c', 'd']
+        date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
+        args = name, device, port, listeners
+        kwargs = {'device': 456}
+
+        sched.add_date( name, date, args, kwargs )
+        date = datetime.datetime( 2013, 1, 2, 3, 4, 6 )
+        sched.add_date( name, date, args, kwargs )
+
+        name = 'test2'
+        sched.add_date( name, date, args, kwargs )
+        self.assertListEqual( sched.jobs['test1'], [55, 55] )
+        sched.deleteJob( 'test1' )
+        self.assertListEqual( sched.jobs['test1'], [] )
+        sched.scheduler.unschedule_job.assert_any_call( 55 )
+        self.assertEqual( sched.scheduler.unschedule_job.call_count, 2 )
+        sched.scheduler.unschedule_job.reset_mock()
+
+        sched.deleteJob( 'test3' )
+        self.assertEqual( sched.scheduler.unschedule_job.call_count, 0 )
+
+    @patch.object( Scheduler, 'shutdown' )
+    @patch.object( Scheduler, 'start' )
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_shutdown( self, que, sub, start, shutdown ):
+        sched = HMScheduler( que )
+        sched.start()
+        sched.shutdown( wait=True )
+        shutdown.assert_called_once_with( wait=True )
+        shutdown.reset_mock()
+        self.assertIsNone( sched.scheduler )
+
+        sched.shutdown( wait=True )
+        self.assertEqual( shutdown.call_count, 0 )
+
+    @patch.object( Scheduler, 'print_jobs' )
+    @patch.object( Scheduler, 'start' )
+    @patch.object( pub, 'subscribe' )
+    @patch.object( HMQueue, 'transmit' )
+    def test_print_jobs( self, que, sub, start, print_jobs ):
+        sched = HMScheduler( que )
+        sched.start()
+        sched.print_jobs()
+        print_jobs.assert_called_once_with()
+
+    @patch.object( GetDateTime, "__repr__" )
+    @patch.object( GetDateTime, "__str__" )
+    def test_sendCommand( self, str, rept ):
+        str.return_value = "a"
+        rept.return_value = "'a'"
+        queue = MagicMock( spec=HMQueue )
+        sched = HMScheduler( queue )
+
+        device = 1
+        port = 2
+        listeners = ['a', 'b']
+        scheduler_id = 1
+        sched.sendCommand( device, port, listeners, scheduler_id )
+        data = {}
+        data[Constants.DataPacket.device] = device
+        data[Constants.DataPacket.port] = port
+        data[Constants.DataPacket.scheduler_id] = scheduler_id
+        data[Constants.DataPacket.arrival_time] = GetDateTime()
+        data[Constants.DataPacket.listeners] = copy.copy( listeners )
+        data[Constants.DataPacket.name] = 'scheduled status check'
+        de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
+
+#         queue.transmit.assert_called_once_with( DataEnvelope( type='status', packet={},
+#              arrival_time='a', data={'name': 'scheduled status check',
+#                                                    'listeners': ['a', 'b'],
+#                                                    'at': 'a',
+#                                                    'device': 1, 'port': 2, 'scheduler_id': 1} ), 10 )
+#        # Not sure why this in not working.  I have tried all sorts of variations.
+        self.assertEqual( queue.transmit.call_count, 1 )
+        args = queue.transmit.call_args
+
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

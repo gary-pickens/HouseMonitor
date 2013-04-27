@@ -86,23 +86,26 @@ class HMScheduler( Base ):
 #        self.scheduler.add_jobstore(ShelveJobStore('HouseMonitor.db'), 'shelve')
         self.scheduler.start()
 
+        name = 'scheduled status check'
         device = 'status'
         port = 'scheduler'
         listeners = [Constants.TopicNames.Statistics, Constants.TopicNames.CurrentValueStep]
-        args = device, port, listeners
+        args = name, device, port, listeners
         self.scheduler.add_interval_job( self.sendCommand, minutes=10, args=args )
 
+        name = 'uptime'
         device = 'HouseMonitor'
         port = 'uptime'
         listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
-        args = device, port, listeners
+        args = name, device, port, listeners
         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
+        name = 'Pulse'
         device = '0x13a20040902a02'
         port = 'DIO-0'
         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-        args = device, port, listeners
-        self.scheduler.add_interval_job( self.statusHeartBeat, seconds=5, args=args )
+        args = name, device, port, listeners
+        self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
     def add_interval( self, name, weeks=0, days=0, hours=0, minutes=0, seconds=0, start_date=None, args=None, kwargs=None ):
         '''
@@ -132,9 +135,10 @@ class HMScheduler( Base ):
 
         '''
         self.logger.debug( 'interval ({}) add {} {} {} {} {} {} {}'.format( name, weeks, days, hours, hours, minutes, seconds, start_date ) )
-        self.jobs[name].append( self.scheduler.add_interval_job( self.sendCommand, weeks=weeks,
+        token = self.scheduler.add_interval_job( self.sendCommand, weeks=weeks,
                         days=days, hours=hours, minutes=minutes, seconds=seconds,
-                        start_date=start_date, args=args, kwargs=kwargs, name=name ) )
+                        start_date=start_date, args=args, kwargs=kwargs, name=name )
+        self.jobs[name].append( token )
 
     def add_cron( self, name, year=None, month=None, day=None, week=None, day_of_week=None,
                   hour=None, minute=None, second=None, start_date=None, args=None, kwargs=None ):
@@ -166,9 +170,10 @@ class HMScheduler( Base ):
         '''
         self.logger.debug( 'set cron({}) at {}/{}/{} {}:{}:{} {} {} {}'.format( name, year, month,
                                 day, hour, minute, second, week, day_of_week, start_date ) )
-        self.jobs[name].append( self.scheduler.add_cron_job( self.sendCommand, year=year,
+        token = self.scheduler.add_cron_job( self.sendCommand, year=year,
                     month=month, day=day, week=week, day_of_week=day_of_week, hour=hour,
-                    minute=minute, second=second, start_date=start_date, args=args, kwargs=kwargs ) )
+                    minute=minute, second=second, start_date=start_date, args=args, kwargs=kwargs )
+        self.jobs[name].append( token )
 
     def add_date( self, name, date, args=None, kwargs=None ):
         '''
@@ -189,8 +194,9 @@ class HMScheduler( Base ):
 
         '''
         self.logger.debug( 'add date({}) at {}'.format( name, date ) )
-        self.jobs[name].append( self.scheduler.add_date_job( self.sendCommand, date=date,
-                                                            name=name, args=args, kwargs=kwargs ) )
+        token = self.scheduler.add_date_job( self.sendCommand, date=date,
+                                                            name=name, args=args, kwargs=kwargs )
+        self.jobs[name].append( token )
 
     def add_one_shot( self, name, delta, args=None, kwargs=None ):
         '''
@@ -209,11 +215,12 @@ class HMScheduler( Base ):
         :type date: dictionary
 
         '''
-        now = datetime.now()
-        dt = now + delta
+        now = GetDateTime()
+        dt = now.datetime + delta
         self.logger.debug( 'one shot({}) at {}'.format( name, dt ) )
-        self.jobs[name].append( self.scheduler.add_date_job( self.sendCommand, date=dt,
-                                                            name=name, args=args, kwargs=kwargs ) )
+        token = self.scheduler.add_date_job( self.sendCommand, date=dt,
+                                name=name, args=args, kwargs=kwargs )
+        self.jobs[name].append( token )
 
     def deleteJob( self, name ):
         '''
@@ -226,10 +233,7 @@ class HMScheduler( Base ):
         item = None
         if name in self.jobs:
             for number, item in enumerate( self.jobs[name] ):
-                try:
-                    self.scheduler.unschedule_job( item )
-                except KeyError as ke:
-                    self.logger.info( 'scheduler event not found! Perhaps it has expired.' )
+                self.scheduler.unschedule_job( item )
                 self.logger.info( '{} "{}" removed from scheduler'.format( number, name ) )
             self.jobs[name] = []
 
@@ -257,7 +261,7 @@ class HMScheduler( Base ):
         '''
         self.scheduler.print_jobs()
 
-    def sendCommand( self, device, port, listeners=[], scheduler_id=uuid.uuid4() ):
+    def sendCommand( self, name, device, port, listeners=[], scheduler_id=uuid.uuid4() ):
         """
         send command will send the cammand to the HouseMonitor system
 
@@ -273,35 +277,10 @@ class HMScheduler( Base ):
         data[Constants.DataPacket.device] = device
         data[Constants.DataPacket.port] = port
         data[Constants.DataPacket.scheduler_id] = scheduler_id
-        data[Constants.DataPacket.arrival_time] = datetime.utcnow()
+        data[Constants.DataPacket.arrival_time] = GetDateTime()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
-        data[Constants.DataPacket.name] = 'scheduled status check'
+        data[Constants.DataPacket.name] = name
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
         self.logger.debug( 'DataEnvelope = {} listeners = {} scheduler_id'.format( de, listeners,
                                                         data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )
-
-    def statusHeartBeat( self, device, port, listeners=[] ):
-        """
-        send command will send the cammand to the HouseMonitor system
-
-        :param device: the device name.
-        :type device: str
-        :param port: the port name.
-        :type days: str
-        :param listeners: the listeners that this command will be routed to.
-        :type listeners: list of strings that contains the topic name of the listeners.  Most can be found in Constants.TopicNames
-
-        """
-        data = {}
-        data[Constants.DataPacket.device] = device
-        data[Constants.DataPacket.port] = port
-        data[Constants.DataPacket.arrival_time] = datetime.utcnow()
-        data[Constants.DataPacket.listeners] = copy.copy( listeners )
-        data[Constants.DataPacket.name] = 'one HZ pulse'
-        de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        current_datetime = datetime.utcnow()
-        delta = current_datetime - self.previous_datetime
-        self.logger.debug( 'delta time {} DataEnvelope = {} listeners = {}'.format( delta, de, listeners ) )
-        self._input_queue.transmit( de, Constants.Queue.high_priority )
-        self.previous_datetime = current_datetime
