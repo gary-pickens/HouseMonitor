@@ -249,14 +249,15 @@ class Test( unittest.TestCase ):
         port = 2
         listeners = ['a', 'b']
         scheduler_id = 1
-        sched.sendCommand( device, port, listeners, scheduler_id )
+        name = 'keep on keeping on'
+        sched.sendCommand( name, device, port, listeners, scheduler_id )
         data = {}
         data[Constants.DataPacket.device] = device
         data[Constants.DataPacket.port] = port
         data[Constants.DataPacket.scheduler_id] = scheduler_id
         data[Constants.DataPacket.arrival_time] = GetDateTime()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
-        data[Constants.DataPacket.name] = 'scheduled status check'
+        data[Constants.DataPacket.name] = name
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
 
 #         queue.transmit.assert_called_once_with( DataEnvelope( type='status', packet={},
