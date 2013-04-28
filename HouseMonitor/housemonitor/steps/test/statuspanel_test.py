@@ -210,6 +210,16 @@ class Test( unittest.TestCase ):
         at.reset_mock()
         ca.reset_mock()
 
+        # Test Disabled
+        sp.garage_door = sp.GARAGE_DOOR_OPEN
+        sp.disenable_alarm_button_pressed = sp.DISABLE_ALARM_BUTTON_NOT_PRESSED
+
+        sp.process_delayed_alarm.step( 1, data, listeners )
+
+        self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Disabled )
+        at.reset_mock()
+        ca.reset_mock()
+
     @patch.object( uuid, 'uuid4' )
     @patch.object( pub, "sendMessage" )
     def test_process_delayed_alarm_activeTimer( self, sm, u ):

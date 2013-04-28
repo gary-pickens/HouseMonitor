@@ -67,6 +67,19 @@ class Test( unittest.TestCase ):
         args = name, device, port, listeners
         add_interval_job.assert_any_call( sched.sendCommand, minutes=10, args=args )
 
+        name = 'uptime'
+        device = 'HouseMonitor'
+        port = 'uptime'
+        listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
+        args = name, device, port, listeners
+        add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=args )
+
+        name = 'Pulse'
+        device = '0x13a20040902a02'
+        port = 'DIO-0'
+        listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
+        args = name, device, port, listeners
+        add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=args )
 
     @patch.object( Scheduler, 'add_interval_job' )
     @patch.object( Scheduler, 'start' )

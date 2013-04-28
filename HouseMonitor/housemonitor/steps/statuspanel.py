@@ -103,8 +103,6 @@ class StatusPanel( Base ):
     ''' The time from when the garage door opens to the time the alarm 
     starts sounding '''
     garage_door_standoff_time = timedelta( minutes=15 )
-    # The following line is for testing
-#    garage_door_standoff_time = timedelta( minutes=5 )
     garage_door_initial_beep_time = timedelta( seconds=2 )
     garage_door_long_silence = 8
     garage_door_short_alarm = 2
@@ -207,6 +205,7 @@ class StatusPanel( Base ):
             # Delete all the previously scheduled slow alarm events
             pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
                             name=self.status_panel.scheduler_delayed_sound_alarm )
+            # Then turn the correct one for this event on
             pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
                             name=self.status_panel.scheduler_delayed_sound_alarm,
                             delta=self.status_panel.garage_door_standoff_time,
@@ -494,7 +493,6 @@ class StatusPanel( Base ):
     class SystemCheck( abcStep ):
 
         toggle = True
-        toggle_interval = 5
 
         def __init__( self, status_panel ):
             '''
@@ -503,7 +501,6 @@ class StatusPanel( Base ):
             '''
             super( StatusPanel.SystemCheck, self ).__init__()
             self.status_panel = status_panel
-            pub.subscribe( self.schedulerRegistration, Constants.TopicNames.RegistrationScheduler )
 
         @property
         def logger_name( self ):
@@ -514,16 +511,6 @@ class StatusPanel( Base ):
         def topic_name( self ):
             ''' The topic name to which this routine subscribes.'''
             return Constants.TopicNames.StatusPanel_SystemCheck
-
-        def schedulerRegistration( self ):
-            name = Constants.SchedulerName.LED_Status_Update
-            device = self.status_panel.panel_address
-            port = self.status_panel.panel_status_led
-            listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-            self.status_panel.long_scheduler_id = uuid.uuid4()
-            args = name, device, port, listeners
-            pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep, name=name, seconds=self.toggle_interval, args=args )
-            self.logger.debug( 'sendMessage to SchedulerAddIntervalStep name = {} seconds={}'.format( name, self.toggle_interval ) )
 
         def step( self, value, data={}, listeners=[] ):
             """
