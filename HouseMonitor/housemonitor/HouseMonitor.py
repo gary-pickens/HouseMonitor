@@ -157,6 +157,8 @@ class HouseMonitor():
 
         self.startInputs()
 
+        pub.sendMessage( Constants.TopicNames.SchedulerRegistration )
+
         self.pubAid = PubSubAid()
 
         # Endless loop will never return

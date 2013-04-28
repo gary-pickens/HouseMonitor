@@ -93,19 +93,20 @@ class HMScheduler( Base ):
         args = name, device, port, listeners
         self.scheduler.add_interval_job( self.sendCommand, minutes=10, args=args )
 
-        name = 'uptime'
-        device = 'HouseMonitor'
-        port = 'uptime'
-        listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
-        args = name, device, port, listeners
-        self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
+        # TODO remove the following lines in the near future
+#         name = 'uptime'
+#         device = 'HouseMonitor'
+#         port = 'uptime'
+#         listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
+#         args = name, device, port, listeners
+#         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
-        name = 'Pulse'
-        device = '0x13a20040902a02'
-        port = 'DIO-0'
-        listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-        args = name, device, port, listeners
-        self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
+#         name = 'Pulse'
+#         device = '0x13a20040902a02'
+#         port = 'DIO-0'
+#         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
+#         args = name, device, port, listeners
+#         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
     def add_interval( self, name, weeks=0, days=0, hours=0, minutes=0, seconds=0, start_date=None, args=None, kwargs=None ):
         '''

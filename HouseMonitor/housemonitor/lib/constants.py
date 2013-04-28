@@ -192,6 +192,8 @@ class Constants( object ):
         SchedulerDeleteJob = 'step.SchedulerDeleteJob'
         SchedulerPrintJobs = 'step.SchedulerPrintJobs'
         SchedulerStep = 'step.Scheduler'
+        Registration = 'registration'
+        RegistrationScheduler = 'registration.Scheduler'
         CurrentValueStep = 'step.CurrentValue'
         AverageStep = 'step.Average'
         Centigrade2FahrenheitStep = 'step.Centigrade_to_Fahrenheit'
@@ -245,3 +247,7 @@ class Constants( object ):
         mid_priority = 5
         default_priority = mid_priority
         low_priority = 10
+
+    class SchedulerName( object ):
+        LED_Status_Update = 'LED Status Update'
+        Uptime_update = 'uptime'

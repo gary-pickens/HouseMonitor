@@ -494,6 +494,7 @@ class StatusPanel( Base ):
     class SystemCheck( abcStep ):
 
         toggle = True
+        toggle_interval = 5
 
         def __init__( self, status_panel ):
             '''
@@ -502,6 +503,7 @@ class StatusPanel( Base ):
             '''
             super( StatusPanel.SystemCheck, self ).__init__()
             self.status_panel = status_panel
+            pub.subscribe( self.schedulerRegistration, Constants.TopicNames.RegistrationScheduler )
 
         @property
         def logger_name( self ):
@@ -512,6 +514,16 @@ class StatusPanel( Base ):
         def topic_name( self ):
             ''' The topic name to which this routine subscribes.'''
             return Constants.TopicNames.StatusPanel_SystemCheck
+
+        def schedulerRegistration( self ):
+            name = Constants.SchedulerName.LED_Status_Update
+            device = self.status_panel.panel_address
+            port = self.status_panel.panel_status_led
+            listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
+            self.status_panel.long_scheduler_id = uuid.uuid4()
+            args = name, device, port, listeners
+            pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep, name=name, seconds=self.toggle_interval, args=args )
+            self.logger.debug( 'sendMessage to SchedulerAddIntervalStep name = {} seconds={}'.format( name, self.toggle_interval ) )
 
         def step( self, value, data={}, listeners=[] ):
             """

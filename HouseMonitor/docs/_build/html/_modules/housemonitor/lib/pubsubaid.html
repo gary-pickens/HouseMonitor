@@ -58,43 +58,48 @@
 <span class="kn">from</span> <span class="nn">pubsub</span> <span class="kn">import</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">base</span> <span class="kn">import</span> <span class="n">Base</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">lib.constants</span> <span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">from</span> <span class="nn">pubsub.utils</span> <span class="kn">import</span> <span class="n">printTreeDocs</span>
 
 
-<div class="viewcode-block" id="PubSubAid"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid">[docs]</a><span class="k">class</span> <span class="nc">PubSubAid</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="PubSubAid"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid">[docs]</a><span class="k">class</span> <span class="nc">PubSubAid</span><span class="p">(</span> <span class="n">Base</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    classdocs</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">PubSubAid</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="s">&quot;step&quot;</span><span class="p">)</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">,</span> <span class="s">&quot;outputs&quot;</span><span class="p">)</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_topics</span><span class="p">,</span> <span class="s">&quot;ALL_TOPICS&quot;</span><span class="p">)</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">,</span> <span class="s">&quot;step.scheduler&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">PubSubAid</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">Step</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">,</span> <span class="s">&quot;outputs&quot;</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_topics</span><span class="p">,</span> <span class="s">&quot;ALL_TOPICS&quot;</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerStep</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">registration</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">Registration</span> <span class="p">)</span>
         <span class="n">treeDoc</span> <span class="o">=</span> <span class="n">printTreeDocs</span><span class="p">()</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="n">treeDoc</span><span class="p">)</span>
-        <span class="n">pub</span><span class="o">.</span><span class="n">setTopicUnspecifiedFatal</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span> <span class="n">treeDoc</span> <span class="p">)</span>
+        <span class="n">pub</span><span class="o">.</span><span class="n">setTopicUnspecifiedFatal</span><span class="p">(</span> <span class="bp">True</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PubSubAid.logger_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PubSubAid.logger_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Set the logger name. This needs to be added to house_monitoring_logging.conf&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s">&#39;PubSubAid&#39;</span>
 </div>
-<div class="viewcode-block" id="PubSubAid.process"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;process topic received&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="PubSubAid.process"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;process topic received&quot;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="PubSubAid.outputs"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.outputs">[docs]</a>    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;outputs topic recieved&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="PubSubAid.outputs"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.outputs">[docs]</a>    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;outputs topic recieved&#39;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="PubSubAid.all_topics"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.all_topics">[docs]</a>    <span class="k">def</span> <span class="nf">all_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;all topics recieved&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="PubSubAid.all_topics"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.all_topics">[docs]</a>    <span class="k">def</span> <span class="nf">all_topics</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;all topics recieved&#39;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="PubSubAid.scheduler"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.scheduler">[docs]</a>    <span class="k">def</span> <span class="nf">scheduler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">(</span><span class="s">&#39;scheduler topic received&#39;</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="PubSubAid.scheduler"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.scheduler">[docs]</a>    <span class="k">def</span> <span class="nf">scheduler</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">(</span> <span class="s">&#39;scheduler topic received&#39;</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="PubSubAid.registration"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.pubsubaid.PubSubAid.registration">[docs]</a>    <span class="k">def</span> <span class="nf">registration</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">WARN</span><span class="p">(</span> <span class="s">&#39;registration topic received&#39;</span> <span class="p">)</span></div></div>
 </pre></div>
 
           </div>

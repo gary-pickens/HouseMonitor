@@ -566,6 +566,22 @@ that accompanies the data through the system.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="housemonitor.lib.constants.Constants.SchedulerName">
+<em class="property">class </em><tt class="descclassname">Constants.</tt><tt class="descname">SchedulerName</tt><a class="reference internal" href="_modules/housemonitor/lib/constants.html#Constants.SchedulerName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.constants.Constants.SchedulerName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.SchedulerName.LED_Status_Update">
+<tt class="descname">LED_Status_Update</tt><em class="property"> = 'LED Status Update'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.SchedulerName.LED_Status_Update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.SchedulerName.Uptime_update">
+<tt class="descname">Uptime_update</tt><em class="property"> = 'uptime'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.SchedulerName.Uptime_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="housemonitor.lib.constants.Constants.TopicNames">
 <em class="property">class </em><tt class="descclassname">Constants.</tt><tt class="descname">TopicNames</tt><a class="reference internal" href="_modules/housemonitor/lib/constants.html#Constants.TopicNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
@@ -622,6 +638,16 @@ that accompanies the data through the system.</p>
 <dl class="attribute">
 <dt id="housemonitor.lib.constants.Constants.TopicNames.ProcessInputs">
 <tt class="descname">ProcessInputs</tt><em class="property"> = 'inputs.ProcessInputs'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.ProcessInputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.TopicNames.Registration">
+<tt class="descname">Registration</tt><em class="property"> = 'registration'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.Registration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.TopicNames.RegistrationScheduler">
+<tt class="descname">RegistrationScheduler</tt><em class="property"> = 'registration.Scheduler'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.RegistrationScheduler" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1532,7 +1558,7 @@ on timeDelta see:</p>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.previous_datetime">
-<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 27, 14, 36, 31, 985000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 28, 1, 51, 39, 338000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1555,7 +1581,7 @@ on timeDelta see:</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.sendCommand">
-<tt class="descname">sendCommand</tt><big>(</big><em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id=UUID('e287bc9b-c821-450a-a790-256c1c1d69c3')</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sendCommand</tt><big>(</big><em>name</em>, <em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id=UUID('be8d4995-1074-4071-836d-e0b2ed2bb4c3')</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>send command will send the cammand to the HouseMonitor system</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1595,25 +1621,6 @@ on timeDelta see:</p>
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference external" href="http://packages.python.org/APScheduler/#starting-the-scheduler">http://packages.python.org/APScheduler/#starting-the-scheduler</a></p>
 </div>
-</dd></dl>
-
-<dl class="method">
-<dt id="housemonitor.lib.hmscheduler.HMScheduler.statusHeartBeat">
-<tt class="descname">statusHeartBeat</tt><big>(</big><em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.statusHeartBeat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.statusHeartBeat" title="Permalink to this definition">¶</a></dt>
-<dd><p>send command will send the cammand to the HouseMonitor system</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>device</strong> (<em>str</em>) &#8211; the device name.</li>
-<li><strong>port</strong> &#8211; the port name.</li>
-<li><strong>listeners</strong> (<em>list of strings that contains the topic name of the listeners.  Most can be found in Constants.TopicNames</em>) &#8211; the listeners that this command will be routed to.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -1714,6 +1721,11 @@ routines may need to be added as they are needed</p>
 <dl class="method">
 <dt id="housemonitor.lib.pubsubaid.PubSubAid.process">
 <tt class="descname">process</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="housemonitor.lib.pubsubaid.PubSubAid.registration">
+<tt class="descname">registration</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.registration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.registration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">

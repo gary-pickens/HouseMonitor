@@ -5,11 +5,11 @@ Created on Mar 6, 2013
 @author: Gary
 
 '''
+from datetime import datetime, timedelta
 from lib.common import Common
 from lib.constants import Constants
+from pubsub import pub
 from steps.abc_step import abcStep
-from datetime import datetime
-from datetime import timedelta
 
 
 def instantuate_me( data ):
@@ -23,12 +23,14 @@ class uptime( abcStep ):
     '''
 
     start_time = None
+    update_interval = 4
 
     def __init__( self, data ):
         '''
         '''
         super( uptime, self ).__init__()
         self.start_time = data[Constants.GlobalIndexs.start_time]
+        pub.subscribe( self.schedulerRegistration, Constants.TopicNames.RegistrationScheduler )
 
     @property
     def topic_name( self ):
@@ -39,6 +41,15 @@ class uptime( abcStep ):
     def logger_name( self ):
         ''' Set the logger level. '''
         return Constants.LogKeys.steps
+
+    def schedulerRegistration( self ):
+        name = Constants.SchedulerName.Uptime_update
+        device = 'HouseMonitor'
+        port = 'uptime'
+        listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
+        args = name, device, port, listeners
+        pub.sendMessage( Constants.TopicNames.SchedulerAddIntervalStep, name=name, seconds=self.update_interval, args=args )
+        self.logger.debug( 'Succcessfully scheduled uptime update' )
 
     def step( self, value, data={}, listeners=[] ):
         """
