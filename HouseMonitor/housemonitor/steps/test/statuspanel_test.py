@@ -69,6 +69,10 @@ class Test( unittest.TestCase ):
         t = datetime( 2012, 2, 2, 2, 2, 2 )
         sp = StatusPanel()
         dt.return_value = t
+
+        sp.garage_door_monitor.turnOffAlarmAfterInterval = Mock()
+        sp.garage_door_monitor.setTimerToActivateAlarmAfterInterval = Mock()
+
         sp.garage_door_monitor.step( sp.GARAGE_DOOR_OPEN, data, list )
         self.assertEqual( sp.garage_door, sp.GARAGE_DOOR_OPEN )
         self.assertEqual( sp.when_garage_door_opened, t )
@@ -78,10 +82,12 @@ class Test( unittest.TestCase ):
     @patch( 'steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
     @patch.object( GetDateTime, 'datetime' )
     def test_first_time_with_garage_door_closed_then_open_the_garage_door( self, dt, light ):
-        data = {}
+        data = {'d': 'e'}
         list = ['a', 'b']
         t = datetime( 2012, 2, 2, 2, 2, 2 )
         sp = StatusPanel()
+        sp.garage_door_monitor.turnOffAlarmAfterInterval = Mock()
+        sp.garage_door_monitor.setTimerToActivateAlarmAfterInterval = Mock()
         dt.return_value = t
         sp.garage_door_monitor.step( sp.GARAGE_DOOR_CLOSED, data, list )
         self.assertEqual( sp.garage_door, sp.GARAGE_DOOR_CLOSED )
