@@ -82,7 +82,7 @@ class HMScheduler( Base ):
         '''
         self.logger.debug( 'Scheduler starting' )
         self.scheduler = Scheduler()
-        self.logger.debug( 'Setting jobstore to HouseMonitor.db' )
+#        self.logger.debug( 'Setting jobstore to HouseMonitor.db' )
 #        self.scheduler.add_jobstore(ShelveJobStore('HouseMonitor.db'), 'shelve')
         self.scheduler.start()
 
@@ -90,21 +90,24 @@ class HMScheduler( Base ):
         device = 'status'
         port = 'scheduler'
         listeners = [Constants.TopicNames.Statistics, Constants.TopicNames.CurrentValueStep]
-        args = name, device, port, listeners
+        scheduler_id = uuid.uuid4()
+        args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, minutes=10, args=args )
 
         name = 'uptime'
         device = 'HouseMonitor'
         port = 'uptime'
         listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
-        args = name, device, port, listeners
+        scheduler_id = uuid.uuid4()
+        args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
         name = 'Pulse'
         device = '0x13a20040902a02'
         port = 'DIO-0'
         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-        args = name, device, port, listeners
+        scheduler_id = uuid.uuid4()
+        args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
     def add_interval( self, name, weeks=0, days=0, hours=0, minutes=0, seconds=0, start_date=None, args=None, kwargs=None ):
@@ -216,7 +219,8 @@ class HMScheduler( Base ):
 
         '''
         now = GetDateTime()
-        dt = now.datetime + delta
+        dt = now.datetime()
+        dt = dt + delta
         self.logger.debug( 'one shot({}) at {}'.format( name, dt ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=dt,
                                 name=name, args=args, kwargs=kwargs )
@@ -281,6 +285,6 @@ class HMScheduler( Base ):
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = name
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        self.logger.debug( 'DataEnvelope = {} listeners = {} scheduler_id'.format( de, listeners,
+        self.logger.debug( 'listeners = {} scheduler_id =  {}'.format(  listeners,
                                                         data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )
