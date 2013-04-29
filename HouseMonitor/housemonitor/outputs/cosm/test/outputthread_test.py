@@ -27,7 +27,7 @@ class Test( unittest.TestCase ):
 
     @patch.object( XmlConfiguration, 'configure' )
     def test_logger_name( self , config ):
-        queue = HMQueue()
+        queue = HMQueue( 'COSM' )
         options = 'a'
         thread = COSMOutputThread( options, queue )
         self.assertEqual( thread.logger_name, Constants.LogKeys.outputsCOSM )
