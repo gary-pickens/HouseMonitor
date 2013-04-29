@@ -79,6 +79,5 @@ class GetDateTime( object ):
         return self.dt
 
     def __repr__( self ):
-        return self.dt.strftime( '\'%Y/%m/%d %H:%M:%S\'' )
-#    'GetDateTime(year={}, month={}, day={}, hour={}, minute={}, second={})'. \
-#            format( self.dt.year, self.dt.month, self.dt.day, self.dt.hour, self.dt.minute, self.dt.second )
+        'GetDateTime(year={}, month={}, day={}, hour={}, minute={}, second={})'. \
+            format( self.dt.year, self.dt.month, self.dt.day, self.dt.hour, self.dt.minute, self.dt.second )
