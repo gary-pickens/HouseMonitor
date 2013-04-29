@@ -74,7 +74,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span> <span class="n">Main</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Start Input Queue&#39;</span> <span class="p">)</span>
-        <span class="n">input_queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+        <span class="n">input_queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">(</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;ZigBeeInput&quot;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;instantuate XBeeInputThread&#39;</span> <span class="p">)</span>
         <span class="n">xbee_thread</span> <span class="o">=</span> <span class="n">XBeeInputThread</span><span class="p">(</span> <span class="n">input_queue</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Start Thread&#39;</span> <span class="p">)</span>

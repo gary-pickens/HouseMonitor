@@ -586,6 +586,11 @@ that accompanies the data through the system.</p>
 <em class="property">class </em><tt class="descclassname">Constants.</tt><tt class="descname">TopicNames</tt><a class="reference internal" href="_modules/housemonitor/lib/constants.html#Constants.TopicNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.TopicNames.ALL_TOPICS">
+<tt class="descname">ALL_TOPICS</tt><em class="property"> = 'ALL_TOPICS'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.ALL_TOPICS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="housemonitor.lib.constants.Constants.TopicNames.AverageStep">
 <tt class="descname">AverageStep</tt><em class="property"> = 'step.Average'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.AverageStep" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -633,6 +638,11 @@ that accompanies the data through the system.</p>
 <dl class="attribute">
 <dt id="housemonitor.lib.constants.Constants.TopicNames.OneInNStep">
 <tt class="descname">OneInNStep</tt><em class="property"> = 'step.oneInN'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.OneInNStep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="housemonitor.lib.constants.Constants.TopicNames.Outputs">
+<tt class="descname">Outputs</tt><em class="property"> = 'outputs'</em><a class="headerlink" href="#housemonitor.lib.constants.Constants.TopicNames.Outputs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1277,7 +1287,7 @@ print(utc)</p>
 <p>&#64;author: Gary</p>
 <dl class="class">
 <dt id="housemonitor.lib.hmqueue.HMQueue">
-<em class="property">class </em><tt class="descclassname">housemonitor.lib.hmqueue.</tt><tt class="descname">HMQueue</tt><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">housemonitor.lib.hmqueue.</tt><tt class="descname">HMQueue</tt><big>(</big><em>name='housemonitor.lib.hmqueue'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmqueue.html#HMQueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmqueue.HMQueue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lib.base.Base</span></tt></p>
 <dl class="attribute">
 <dt id="housemonitor.lib.hmqueue.HMQueue.QUEUE_SIZE">
@@ -1291,7 +1301,7 @@ print(utc)</p>
 <dd><p>Clear the queue</p>
 <p>This routine is mainly used for unit test</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lib.queue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">(</span><span class="s">&#39;COSM&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1349,7 +1359,7 @@ print(utc)</p>
 <p class="last">Will block if no packets are available</p>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lib.queue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">(</span><span class="s">&#39;COSM&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">transmit</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">:</span>  <span class="s">&#39;b&#39;</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
 <span class="go">{&#39;a&#39;: &#39;b&#39;}</span>
@@ -1382,7 +1392,7 @@ data will be sent to COSM.</p>
 </tbody>
 </table>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lib.queue</span> <span class="kn">import</span> <span class="n">HMQueue</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">(</span><span class="s">&#39;COSM&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">transmit</span><span class="p">({</span><span class="s">&#39;a&#39;</span><span class="p">:</span>  <span class="s">&#39;b&#39;</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cosm</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
 <span class="go">{&#39;a&#39;: &#39;b&#39;}</span>
@@ -1558,7 +1568,7 @@ on timeDelta see:</p>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.previous_datetime">
-<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 28, 1, 51, 39, 338000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 29, 20, 8, 23, 136000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1581,7 +1591,7 @@ on timeDelta see:</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.sendCommand">
-<tt class="descname">sendCommand</tt><big>(</big><em>name</em>, <em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id=UUID('be8d4995-1074-4071-836d-e0b2ed2bb4c3')</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sendCommand</tt><big>(</big><em>name</em>, <em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id=UUID('449f15bf-5875-4389-b7eb-b9b3634f21c7')</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>send command will send the cammand to the HouseMonitor system</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1701,11 +1711,13 @@ routines may need to be added as they are needed</p>
 <dt id="housemonitor.lib.pubsubaid.PubSubAid">
 <em class="property">class </em><tt class="descclassname">housemonitor.lib.pubsubaid.</tt><tt class="descname">PubSubAid</tt><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#housemonitor.lib.base.Base" title="housemonitor.lib.base.Base"><tt class="xref py py-class docutils literal"><span class="pre">housemonitor.lib.base.Base</span></tt></a></p>
-<p>classdocs</p>
+<p>PubSubAid provides subscriptions for some lingering topics and sets setTopicUnspecifiedFatal
+to true.  This will prevent using topics that do not have someplace to go.</p>
 <dl class="method">
 <dt id="housemonitor.lib.pubsubaid.PubSubAid.all_topics">
 <tt class="descname">all_topics</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.all_topics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.all_topics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>A catch all for all topics.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.pubsubaid.PubSubAid.logger_name">
@@ -1716,22 +1728,14 @@ routines may need to be added as they are needed</p>
 <dl class="method">
 <dt id="housemonitor.lib.pubsubaid.PubSubAid.outputs">
 <tt class="descname">outputs</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.outputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.outputs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>A catch all for topic outputs.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="housemonitor.lib.pubsubaid.PubSubAid.process">
-<tt class="descname">process</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="housemonitor.lib.pubsubaid.PubSubAid.registration">
-<tt class="descname">registration</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.registration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.registration" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="housemonitor.lib.pubsubaid.PubSubAid.scheduler">
-<tt class="descname">scheduler</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.scheduler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.scheduler" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="housemonitor.lib.pubsubaid.PubSubAid.step">
+<tt class="descname">step</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/pubsubaid.html#PubSubAid.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.pubsubaid.PubSubAid.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>A catch all for topic step.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1747,6 +1751,7 @@ routines may need to be added as they are needed</p>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.hmqueue_test"><tt class="docutils literal"><span class="pre">hmqueue_test</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.hmscheduler_Test"><tt class="docutils literal"><span class="pre">hmscheduler_Test</span></tt> Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.moduleloader_Test"><tt class="docutils literal"><span class="pre">moduleloader_Test</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="housemonitor.lib.test.html#module-housemonitor.lib.test.pubsubaid_test"><tt class="docutils literal"><span class="pre">pubsubaid_test</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>

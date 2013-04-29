@@ -55,6 +55,7 @@
 <span class="sd">@author: gary</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">inputs.computermonitor.computermonitor</span> <span class="kn">import</span> <span class="n">ComputerMonitor</span>
 <span class="kn">from</span> <span class="nn">inputs.processinput</span> <span class="kn">import</span> <span class="n">ProcessInput</span><span class="p">,</span> <span class="n">abcProcessInput</span><span class="p">,</span> <span class="n">ProcessXBeeInput</span>
 <span class="kn">from</span> <span class="nn">inputs.testinputthead</span> <span class="kn">import</span> <span class="n">TestInputThread</span>
@@ -153,7 +154,7 @@
 <div class="viewcode-block" id="HouseMonitor.startInputs"><a class="viewcode-back" href="../../housemonitor.html#housemonitor.HouseMonitor.HouseMonitor.startInputs">[docs]</a>    <span class="k">def</span> <span class="nf">startInputs</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Start Home Monitor Input routines &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;Start the Input Queue&#39;</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">(</span> <span class="s">&quot;Input&quot;</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">ProcessInput</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_queue</span> <span class="p">)</span>
 
@@ -207,8 +208,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">startOutputs</span><span class="p">(</span> <span class="n">global_data</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">startInputs</span><span class="p">()</span>
-
-        <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerRegistration</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">pubAid</span> <span class="o">=</span> <span class="n">PubSubAid</span><span class="p">()</span>
 

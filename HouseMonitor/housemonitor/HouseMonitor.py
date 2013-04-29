@@ -4,6 +4,7 @@ Created on Sep 10, 2012
 @author: gary
 '''
 from datetime import datetime
+import time
 from inputs.computermonitor.computermonitor import ComputerMonitor
 from inputs.processinput import ProcessInput, abcProcessInput, ProcessXBeeInput
 from inputs.testinputthead import TestInputThread
@@ -102,7 +103,7 @@ class HouseMonitor():
     def startInputs( self ):
         ''' Start Home Monitor Input routines '''
         self.logger.info( 'Start the Input Queue' )
-        self.input_queue = HMQueue()
+        self.input_queue = HMQueue( "Input" )
 
         self.input = ProcessInput( self.input_queue )
 

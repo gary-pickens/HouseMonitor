@@ -78,7 +78,7 @@
 </div>
     <span class="nd">@patch.object</span><span class="p">(</span> <span class="n">XmlConfiguration</span><span class="p">,</span> <span class="s">&#39;configure&#39;</span> <span class="p">)</span>
 <div class="viewcode-block" id="Test.test_logger_name"><a class="viewcode-back" href="../../../../../housemonitor.outputs.cosm.test.html#housemonitor.outputs.cosm.test.outputthread_test.Test.test_logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">,</span> <span class="n">config</span> <span class="p">):</span>
-        <span class="n">queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">()</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">HMQueue</span><span class="p">(</span> <span class="s">&#39;COSM&#39;</span> <span class="p">)</span>
         <span class="n">options</span> <span class="o">=</span> <span class="s">&#39;a&#39;</span>
         <span class="n">thread</span> <span class="o">=</span> <span class="n">COSMOutputThread</span><span class="p">(</span> <span class="n">options</span><span class="p">,</span> <span class="n">queue</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">thread</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">outputsCOSM</span> <span class="p">)</span>

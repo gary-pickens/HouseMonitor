@@ -76,13 +76,14 @@
     <span class="n">_queue</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; A Tread safe queue used to communicate data between threads. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">__name__</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">==</span> <span class="bp">None</span> <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">QUEUE_SIZE</span> <span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span> <span class="n">HMQueue</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="HMQueue.logger_name"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
@@ -103,7 +104,7 @@
 <span class="sd">        :exceptions: none</span>
 
 <span class="sd">        &gt;&gt;&gt; from lib.queue import HMQueue</span>
-<span class="sd">        &gt;&gt;&gt; cosm = HMQueue()</span>
+<span class="sd">        &gt;&gt;&gt; cosm = HMQueue(&#39;COSM&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; cosm.transmit({&#39;a&#39;:  &#39;b&#39;})</span>
 <span class="sd">        &gt;&gt;&gt; cosm.receive()</span>
 <span class="sd">        {&#39;a&#39;: &#39;b&#39;}</span>
@@ -112,7 +113,7 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span> <span class="p">(</span> <span class="n">priority</span><span class="p">,</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;put packet on HMQueue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;put packet on {} HMQueue:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span> <span class="p">)</span>
 </div>
 <div class="viewcode-block" id="HMQueue.receive"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.receive">[docs]</a>    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -127,14 +128,14 @@
 <span class="sd">        .. warning:: Will block if no packets are available</span>
 
 <span class="sd">        &gt;&gt;&gt; from lib.queue import HMQueue</span>
-<span class="sd">        &gt;&gt;&gt; cosm = HMQueue()</span>
+<span class="sd">        &gt;&gt;&gt; cosm = HMQueue(&#39;COSM&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; cosm.transmit({&#39;a&#39;:  &#39;b&#39;})</span>
 <span class="sd">        &gt;&gt;&gt; cosm.receive()</span>
 <span class="sd">        {&#39;a&#39;: &#39;b&#39;}</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">priority</span><span class="p">,</span> <span class="n">packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;get packet off cosm Queue: packet = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;get packet off {} Queue:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">return</span> <span class="n">packet</span>
 </div>
 <div class="viewcode-block" id="HMQueue.clear"><a class="viewcode-back" href="../../../housemonitor.lib.html#housemonitor.lib.hmqueue.HMQueue.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
@@ -144,7 +145,7 @@
 <span class="sd">        This routine is mainly used for unit test</span>
 
 <span class="sd">        &gt;&gt;&gt; from lib.queue import HMQueue</span>
-<span class="sd">        &gt;&gt;&gt; cosm = HMQueue()</span>
+<span class="sd">        &gt;&gt;&gt; cosm = HMQueue(&#39;COSM&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; cosm.clean()</span>
 
 <span class="sd">        .. warning::  All the data in the queue will be lost</span>

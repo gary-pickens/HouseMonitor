@@ -69,7 +69,7 @@
     <span class="sd">&#39;&#39;&#39; The data. &#39;&#39;&#39;</span>
     <span class="n">arrival_time</span> <span class="o">=</span> <span class="n">GetDateTime</span><span class="p">()</span>
     <span class="sd">&#39;&#39;&#39; The arrival time of the data.&#39;&#39;&#39;</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="sd">&#39;&#39;&#39; Additional data such as it source. &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;xbee&#39;</span><span class="p">,</span> <span class="n">packet</span><span class="o">=</span><span class="p">{},</span> <span class="n">arrival_time</span><span class="o">=</span><span class="n">GetDateTime</span><span class="p">(),</span> <span class="n">data</span><span class="o">=</span><span class="p">{}</span> <span class="p">):</span>
@@ -90,9 +90,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">arrival_time</span> <span class="o">=</span> <span class="n">arrival_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
-        <span class="k">return</span> <span class="s">&quot;DataEnvelope(type = &#39;{}&#39;, packet = {}, arrival_time = &#39;{}&#39;, data = {})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> 
-                            <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arrival_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="p">)</span></div>
+<span class="c">#     def str( self ):</span>
+<span class="c">#         return &quot;type = &#39;{}&#39;, packet = {}, arrival_time = &#39;{}&#39;, data = {})&quot;.format(</span>
+<span class="c">#                             self.type,</span>
+<span class="c">#                             self.packet,</span>
+<span class="c">#                             self.arrival_time,</span>
+<span class="c">#                             self.data )</span>
+<span class="c">#</span>
+<span class="c">#     def __repr__( self ):</span>
+<span class="c">#         return &quot;DataEnvelope(type = &#39;{}&#39;, packet = {}, arrival_time = &#39;{}&#39;, data = {})&quot;.format(</span>
+<span class="c">#                             self.type.__repr__(),</span>
+<span class="c">#                             self.packet.__repr__(),</span>
+<span class="c">#                             self.arrival_time.__repr__(),</span>
+<span class="c">#                             self.data.__repr__() )</span></div>
 </pre></div>
 
           </div>

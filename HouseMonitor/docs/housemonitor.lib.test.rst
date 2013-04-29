@@ -49,3 +49,11 @@ test Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`pubsubaid_test` Module
+----------------------------
+
+.. automodule:: housemonitor.lib.test.pubsubaid_test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

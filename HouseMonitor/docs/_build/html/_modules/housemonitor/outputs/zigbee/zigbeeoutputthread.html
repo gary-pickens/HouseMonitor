@@ -95,9 +95,8 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">zigbee_output</span> <span class="o">=</span> <span class="n">ZigBeeOutput</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">zigbee_output</span><span class="o">.</span><span class="n">startCorrectZigbee</span><span class="p">()</span>
-<span class="c">#            TODO: Remove the following line</span>
-<span class="c">#            self.zigbee_output.connect()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">talking</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;Connect to ZibBee&#39;</span> <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span> <span class="n">ex</span> <span class="p">)</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span> <span class="mi">10</span> <span class="p">)</span>
@@ -106,12 +105,13 @@
 </div>
 <div class="viewcode-block" id="ZigBeeOutputThread.processCommandToZigBee"><a class="viewcode-back" href="../../../../housemonitor.outputs.zigbee.html#housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutputThread.processCommandToZigBee">[docs]</a>    <span class="k">def</span> <span class="nf">processCommandToZigBee</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="n">packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_queue</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;Received packet {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">packet</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span> <span class="s">&quot;Tread Received packet&quot;</span> <span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">packet</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">zigbee_output</span><span class="o">.</span><span class="n">sendCommand</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">talking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;command sent to zigbee&#39;</span> <span class="p">)</span>
         <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">er</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span> <span class="n">er</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">talking</span> <span class="o">=</span> <span class="bp">False</span>

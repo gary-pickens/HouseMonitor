@@ -178,8 +178,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">listeners</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">listeners</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;ProcessStatusRequests sending  value = {} data = {} listeners = {}&#39;</span><span class="o">.</span>
-                           <span class="n">format</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c">#         self.logger.warn( &#39;ProcessStatusRequests sending  value = {} data = {} listeners = {}&#39;.</span>
+<span class="c">#                            format( value, data, listeners ) )</span>
         <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
 </div></div>
 <div class="viewcode-block" id="ProcessInput"><a class="viewcode-back" href="../../../housemonitor.inputs.html#housemonitor.inputs.processinput.ProcessInput">[docs]</a><span class="k">class</span> <span class="nc">ProcessInput</span><span class="p">(</span> <span class="n">abcInput</span> <span class="p">):</span>

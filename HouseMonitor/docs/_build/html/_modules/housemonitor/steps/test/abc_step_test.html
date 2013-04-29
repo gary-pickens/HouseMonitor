@@ -68,42 +68,42 @@
 <span class="kn">from</span> <span class="nn">lib.common</span> <span class="kn">import</span> <span class="n">Common</span>
 
 
-<div class="viewcode-block" id="testStep"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep">[docs]</a><span class="k">class</span> <span class="nc">testStep</span><span class="p">(</span><span class="n">abcStep</span><span class="p">):</span>
+<div class="viewcode-block" id="testStep"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep">[docs]</a><span class="k">class</span> <span class="nc">testStep</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="testStep.topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="testStep.topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep.topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="s">&#39;step&#39;</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="testStep.logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="testStep.logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Set the logger level. &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span>
 </div>
-<div class="viewcode-block" id="testStep.step"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">):</span>
+<div class="viewcode-block" id="testStep.step"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.testStep.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">):</span>
         <span class="k">pass</span>
 
 </div></div>
-<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="Test"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test">[docs]</a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
 
-    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;UnitTest&#39;</span><span class="p">)</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span> <span class="s">&#39;UnitTest&#39;</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="s">&quot;house_monitor_logging.conf&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.setUp"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span> <span class="s">&quot;house_monitor_logging.conf&quot;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.tearDown"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="Test.test__topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test__topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">test__topic_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="s">&#39;step&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="Test.test__topic_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test__topic_name">[docs]</a>    <span class="k">def</span> <span class="nf">test__topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+         <span class="n">s</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">s</span><span class="o">.</span><span class="n">topic_name</span><span class="p">,</span> <span class="s">&#39;step&#39;</span> <span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Test.test__logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test__logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test__logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Test.test__logger_name"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test__logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">test__logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="n">s</span><span class="o">.</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">steps</span> <span class="p">)</span>
 </div>
-    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span><span class="p">)</span>
-<div class="viewcode-block" id="Test.test_getUseCount_when_count_is_zero"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getUseCount_when_count_is_zero">[docs]</a>    <span class="k">def</span> <span class="nf">test_getUseCount_when_count_is_zero</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_getUseCount_when_count_is_zero"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getUseCount_when_count_is_zero">[docs]</a>    <span class="k">def</span> <span class="nf">test_getUseCount_when_count_is_zero</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">send</span> <span class="p">):</span>
         <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;device&#39;</span>
         <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;port&#39;</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
@@ -114,10 +114,10 @@
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
 
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-        <span class="n">N</span><span class="o">.</span><span class="n">getUseCount</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">getUseCount</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
 </div>
-    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span><span class="p">)</span>
-<div class="viewcode-block" id="Test.test_getUseCount"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getUseCount">[docs]</a>    <span class="k">def</span> <span class="nf">test_getUseCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_getUseCount"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getUseCount">[docs]</a>    <span class="k">def</span> <span class="nf">test_getUseCount</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">send</span> <span class="p">):</span>
         <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;device&#39;</span>
         <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;port&#39;</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
@@ -128,12 +128,11 @@
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
 
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-        <span class="n">N</span><span class="o">.</span><span class="n">getUseCount</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
-        <span class="c"># TODO FIX</span>
-<span class="c">#        N.send.assert_called_once_with(0, {&#39;device&#39;: device, &#39;port&#39;: port}, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">getUseCount</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="n">port</span><span class="p">},</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span> <span class="p">)</span>
 </div>
-    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span><span class="p">)</span>
-<div class="viewcode-block" id="Test.test_getErrorCount"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getErrorCount">[docs]</a>    <span class="k">def</span> <span class="nf">test_getErrorCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_getErrorCount"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getErrorCount">[docs]</a>    <span class="k">def</span> <span class="nf">test_getErrorCount</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">send</span> <span class="p">):</span>
         <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;device&#39;</span>
         <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;port&#39;</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
@@ -144,12 +143,11 @@
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
 
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-        <span class="n">N</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
-        <span class="c"># TODO FIX</span>
-<span class="c">#        N.send.assert_called_once_with(0, {&#39;device&#39;: device, &#39;port&#39;: port}, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="n">port</span><span class="p">},</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span> <span class="p">)</span>
 </div>
-    <span class="nd">@patch</span><span class="p">(</span><span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span><span class="p">)</span>
-<div class="viewcode-block" id="Test.test_getErrorCount_when_error_count_is_zero"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getErrorCount_when_error_count_is_zero">[docs]</a>    <span class="k">def</span> <span class="nf">test_getErrorCount_when_error_count_is_zero</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="nd">@patch</span><span class="p">(</span> <span class="s">&#39;steps.test.abc_step_test.Common.send&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="Test.test_getErrorCount_when_error_count_is_zero"><a class="viewcode-back" href="../../../../housemonitor.steps.test.html#housemonitor.steps.test.abc_step_test.Test.test_getErrorCount_when_error_count_is_zero">[docs]</a>    <span class="k">def</span> <span class="nf">test_getErrorCount_when_error_count_is_zero</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">send</span> <span class="p">):</span>
         <span class="n">device</span> <span class="o">=</span> <span class="s">&#39;device&#39;</span>
         <span class="n">port</span> <span class="o">=</span> <span class="s">&#39;port&#39;</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">testStep</span><span class="p">()</span>
@@ -160,7 +158,7 @@
         <span class="n">data</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">DataPacket</span><span class="o">.</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
 
         <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-        <span class="n">N</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="p">)</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">getErrorCount</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span> <span class="p">)</span>
 </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="c"># import sys;sys.argv = [&#39;&#39;, &#39;Test.testName&#39;]</span>

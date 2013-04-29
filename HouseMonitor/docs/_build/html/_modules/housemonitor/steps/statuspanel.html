@@ -154,8 +154,6 @@
     <span class="sd">&#39;&#39;&#39; The time from when the garage door opens to the time the alarm </span>
 <span class="sd">    starts sounding &#39;&#39;&#39;</span>
     <span class="n">garage_door_standoff_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">15</span> <span class="p">)</span>
-    <span class="c"># The following line is for testing</span>
-<span class="c">#    garage_door_standoff_time = timedelta( minutes=5 )</span>
     <span class="n">garage_door_initial_beep_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">2</span> <span class="p">)</span>
     <span class="n">garage_door_long_silence</span> <span class="o">=</span> <span class="mi">8</span>
     <span class="n">garage_door_short_alarm</span> <span class="o">=</span> <span class="mi">2</span>
@@ -258,6 +256,7 @@
             <span class="c"># Delete all the previously scheduled slow alarm events</span>
             <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerDeleteJob</span><span class="p">,</span>
                             <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_delayed_sound_alarm</span> <span class="p">)</span>
+            <span class="c"># Then turn the correct one for this event on</span>
             <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddOneShotStep</span><span class="p">,</span>
                             <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">scheduler_delayed_sound_alarm</span><span class="p">,</span>
                             <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">garage_door_standoff_time</span><span class="p">,</span>
@@ -545,7 +544,6 @@
 <div class="viewcode-block" id="StatusPanel.SystemCheck"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SystemCheck">[docs]</a>    <span class="k">class</span> <span class="nc">SystemCheck</span><span class="p">(</span> <span class="n">abcStep</span> <span class="p">):</span>
 
         <span class="n">toggle</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="n">toggle_interval</span> <span class="o">=</span> <span class="mi">5</span>
 
         <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">status_panel</span> <span class="p">):</span>
             <span class="sd">&#39;&#39;&#39;</span>
@@ -554,7 +552,6 @@
 <span class="sd">            &#39;&#39;&#39;</span>
             <span class="nb">super</span><span class="p">(</span> <span class="n">StatusPanel</span><span class="o">.</span><span class="n">SystemCheck</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span> <span class="o">=</span> <span class="n">status_panel</span>
-            <span class="n">pub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedulerRegistration</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">RegistrationScheduler</span> <span class="p">)</span>
 
         <span class="nd">@property</span>
 <div class="viewcode-block" id="StatusPanel.SystemCheck.logger_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.logger_name">[docs]</a>        <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
@@ -565,16 +562,6 @@
 <div class="viewcode-block" id="StatusPanel.SystemCheck.topic_name"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.topic_name">[docs]</a>        <span class="k">def</span> <span class="nf">topic_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
             <span class="sd">&#39;&#39;&#39; The topic name to which this routine subscribes.&#39;&#39;&#39;</span>
             <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_SystemCheck</span>
-</div>
-<div class="viewcode-block" id="StatusPanel.SystemCheck.schedulerRegistration"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.schedulerRegistration">[docs]</a>        <span class="k">def</span> <span class="nf">schedulerRegistration</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">SchedulerName</span><span class="o">.</span><span class="n">LED_Status_Update</span>
-            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_address</span>
-            <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">panel_status_led</span>
-            <span class="n">listeners</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">StatusPanel_SystemCheck</span><span class="p">,</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">ZigBeeOutput</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">status_panel</span><span class="o">.</span><span class="n">long_scheduler_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
-            <span class="n">args</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">listeners</span>
-            <span class="n">pub</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span> <span class="n">Constants</span><span class="o">.</span><span class="n">TopicNames</span><span class="o">.</span><span class="n">SchedulerAddIntervalStep</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_interval</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span> <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&#39;sendMessage to SchedulerAddIntervalStep name = {} seconds={}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle_interval</span> <span class="p">)</span> <span class="p">)</span>
 </div>
 <div class="viewcode-block" id="StatusPanel.SystemCheck.step"><a class="viewcode-back" href="../../../housemonitor.steps.html#housemonitor.steps.statuspanel.StatusPanel.SystemCheck.step">[docs]</a>        <span class="k">def</span> <span class="nf">step</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">listeners</span><span class="o">=</span><span class="p">[]</span> <span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -598,7 +585,7 @@
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span>
             <span class="c"># disable the following line. It prints aboue every two seconds.</span>
-<span class="c">#            self.logger.info( &#39;System Check called. {}&#39;.format( self.toggle ) )</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span> <span class="s">&#39;System Check called. {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toggle</span> <span class="p">)</span> <span class="p">)</span>
             <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">listeners</span></div></div></div>
 </pre></div>
 
