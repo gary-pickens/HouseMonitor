@@ -36,8 +36,7 @@
     </target>
     <target name="UnitTest" depends="clean" description="Run all UnitTests">
         <exec executable="nosetests" failonerror="true" >
-            <arg value="--ignore-files=hmscheduler_Test.py "/>
-            <arg value="--ignore-files=uptime_Test.py"/>
+            <arg value="--ignore-files=abc_step_test.py"/>
         </exec>
     </target>
     <target name="coverage" depends="clean" description="Run all UnitTests">
@@ -45,6 +44,7 @@
             <arg value="erase"/>
         </exec>
         <exec executable="nosetests" failonerror="true" >
+            <arg value="--ignore-files=abc_step_test.py"/>
         	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
             <arg value="--with-coverage"/>
             <arg value="--cover-package='housemonitor'"/>
