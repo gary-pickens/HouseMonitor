@@ -6,46 +6,53 @@ Created on Nov 6, 2012
 from pubsub import pub
 from pubsub import utils
 from base import Base
-from pprint import pprint
+from pprint import pprint, pformat
 from lib.constants import Constants
 from pubsub.utils import printTreeDocs
 
 
 class PubSubAid( Base ):
     '''
-    classdocs
+    PubSubAid provides subscriptions for some lingering topics and sets setTopicUnspecifiedFatal
+    to true.  This will prevent using topics that do not have someplace to go.
     '''
+    @property
+    def logger_name( self ):
+        """ Set the logger name. This needs to be added to house_monitoring_logging.conf"""
+        return 'PubSubAid'
 
     def __init__( self ):
         '''
         Constructor
         '''
         super( PubSubAid, self ).__init__()
-        pub.subscribe( self.process, Constants.TopicNames.Step )
-        pub.subscribe( self.outputs, "outputs" )
-        pub.subscribe( self.all_topics, "ALL_TOPICS" )
-        pub.subscribe( self.scheduler, Constants.TopicNames.SchedulerStep )
-        pub.subscribe( self.registration, Constants.TopicNames.Registration )
-        treeDoc = printTreeDocs()
-        pprint( treeDoc )
-        pub.setTopicUnspecifiedFatal( True )
+        try:
+            self.logger.debug( "PubSubAid starting" )
+            pub.subscribe( self.step, Constants.TopicNames.Step )
+            pub.subscribe( self.outputs, Constants.TopicNames.Outputs )
+            pub.subscribe( self.all_topics, Constants.TopicNames.ALL_TOPICS )
+            printTreeDocs( extra='LaDA' )
+            print()
+            pub.setTopicUnspecifiedFatal( True )
+            self.logger.debug( "PubSubAid ending" )
+        except Exception as ex:
+            self.logger.exception( 'exception in BupSupAid {}'.format( ex ) )
 
-    @property
-    def logger_name( self ):
-        """ Set the logger name. This needs to be added to house_monitoring_logging.conf"""
-        return 'PubSubAid'
-
-    def process( self ):
-        self.logger.debug( "process topic received" )
+    def step( self ):
+        ''' 
+        A catch all for topic step.
+        '''
+        self.logger.debug( "process topic step" )
 
     def outputs( self ):
-        self.logger.info( 'outputs topic recieved' )
+        '''
+        A catch all for topic outputs.
+        '''
+        self.logger.debug( "'outputs' topic received" )
 
     def all_topics( self ):
-        self.logger.debug( 'all topics recieved' )
+        '''
+        A catch all for all topics.
+        '''
+        self.logger.debug( 'all topics received' )
 
-    def scheduler( self ):
-        self.logger.DEBUG( 'scheduler topic received' )
-
-    def registration( self ):
-        self.logger.WARN( 'registration topic received' )
