@@ -14,36 +14,36 @@ from lib.common import Common
 import logging.config
 
 
-class Test(unittest.TestCase):
+class Test( unittest.TestCase ):
 
-    logger = logging.getLogger('UnitTest')
+    logger = logging.getLogger( 'UnitTest' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "house_monitor_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    def test_logger_name(self):
+    def test_logger_name( self ):
         zig = ZigBeeControl()
-        self.assertEqual(Constants.LogKeys.outputsZigBee, zig.logger_name)
+        self.assertEqual( Constants.LogKeys.outputsZigBee, zig.logger_name )
 
-    @patch('outputs.zigbee.zigbeecontrol.HMQueue', spec=HMQueue)
-    @patch('outputs.zigbee.zigbeecontrol.ZigBeeOutputThread', spec=ZigBeeOutputThread)
-    @patch('outputs.zigbee.zigbeecontrol.ZigBeeOutputStep', spec=ZigBeeOutputStep)
-    def test_start_zigbee(self, step, thread, queue):
+    @patch( 'outputs.zigbee.zigbeecontrol.HMQueue', spec=HMQueue )
+    @patch( 'outputs.zigbee.zigbeecontrol.ZigBeeOutputThread', spec=ZigBeeOutputThread )
+    @patch( 'outputs.zigbee.zigbeecontrol.ZigBeeOutputStep', spec=ZigBeeOutputStep )
+    def test_start_zigbee( self, step, thread, queue ):
         # setup
         options = 1
         cont = ZigBeeControl()
         queue.return_value = 1
 
         # run
-        cont.startZigBee(options)
+        cont.startZigBee( options )
 
         # test
-        queue.assert_called_with()
-        thread.assert_called_with(1)
-        step.assert_called_with(1)
+        queue.assert_called_with( 'ZigBeeInput' )
+        thread.assert_called_with( 1 )
+        step.assert_called_with( 1 )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
