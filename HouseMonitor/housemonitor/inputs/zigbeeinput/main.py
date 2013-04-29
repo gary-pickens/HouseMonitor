@@ -23,7 +23,7 @@ class Main( Base ):
     def __init__( self ):
         super( Main, self ).__init__()
         self.logger.debug( 'Start Input Queue' )
-        input_queue = HMQueue()
+        input_queue = HMQueue( name="ZigBeeInput" )
         self.logger.debug( 'instantuate XBeeInputThread' )
         xbee_thread = XBeeInputThread( input_queue )
         self.logger.debug( 'Start Thread' )

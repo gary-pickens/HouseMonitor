@@ -7,16 +7,17 @@ from apscheduler.scheduler import Scheduler
 from datetime import timedelta
 from inputs.dataenvelope import DataEnvelope
 from lib.constants import Constants
+from lib.getdatetime import GetDateTime
 from lib.hmqueue import HMQueue
 from lib.hmscheduler import HMScheduler
 from mock import *
 from pubsub import pub
 import copy
+import datetime
 import logging.config
 import time
-from lib.getdatetime import GetDateTime
-import datetime
 import unittest
+import uuid
 
 
 class Test( unittest.TestCase ):
@@ -39,22 +40,31 @@ class Test( unittest.TestCase ):
         sub.assert_any_call( sched.add_one_shot, Constants.TopicNames.SchedulerAddOneShotStep )
         sub.assert_any_call( sched.deleteJob, Constants.TopicNames.SchedulerDeleteJob )
         sub.assert_any_call( sched.print_jobs, Constants.TopicNames.SchedulerPrintJobs )
+        sched.shutdown()
+        sched = None
+
 
     @patch.object( HMQueue, 'transmit' )
     def test_logger_name( self, tx ):
         sched = HMScheduler( tx )
         self.assertEqual( sched.logger_name, Constants.LogKeys.Scheduler )
+        sched.shutdown()
+        sched = None
 
     @patch.object( HMQueue, 'transmit' )
     def test_scheduler_topic_name( self, tx ):
         sched = HMScheduler( tx )
         self.assertEqual( sched.scheduler_topic_name, Constants.TopicNames.SchedulerStep )
+        sched.shutdown()
+        sched = None
 
     @patch.object( Scheduler, 'add_interval_job' )
     @patch.object( Scheduler, 'start' )
     @patch.object( pub, 'subscribe' )
     @patch.object( HMQueue, 'transmit' )
     def test_start( self, que, sub, start, add_interval_job ):
+        uuid.uuid4 = Mock()
+        uuid.uuid4.return_value = '1234567'
         sched = HMScheduler( que )
         sched.start()
 
@@ -64,22 +74,29 @@ class Test( unittest.TestCase ):
         device = 'status'
         port = 'scheduler'
         listeners = [Constants.TopicNames.Statistics, Constants.TopicNames.CurrentValueStep]
-        args = name, device, port, listeners
+        scheduler_id = '1234567'
+        args = name, device, port, listeners, scheduler_id
         add_interval_job.assert_any_call( sched.sendCommand, minutes=10, args=args )
 
         name = 'uptime'
         device = 'HouseMonitor'
         port = 'uptime'
         listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
-        args = name, device, port, listeners
+        scheduler_id = '1234567'
+        args = name, device, port, listeners, scheduler_id
         add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=args )
 
         name = 'Pulse'
         device = '0x13a20040902a02'
         port = 'DIO-0'
-        listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-        args = name, device, port, listeners
-        add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=args )
+        listeners = [ Constants.TopicNames.StatusPanel_SystemCheck]
+        scheduler_id = '1234567'
+        args = name, device, port, listeners, scheduler_id
+        print add_interval_job.call_args_list
+        add_interval_job.assert_any_call( sched.sendCommand, seconds=5, args=( 'Pulse', '0x13a20040902a02', 'DIO-0', ['step.StatusPanel_SystemCheck', 'step.ZigBeeOutput'], '1234567' ) )
+
+        sched.shutdown()
+        sched = None
 
     @patch.object( Scheduler, 'add_interval_job' )
     @patch.object( Scheduler, 'start' )
@@ -105,6 +122,9 @@ class Test( unittest.TestCase ):
         add_interval_job.assert_called_once_with( sched.sendCommand, name='Unit Test', seconds=5,
             args=123, days=2, hours=3, kwargs=456, weeks=1, minutes=4,
             start_date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ) )
+
+        sched.shutdown()
+        sched = None
 
     @patch.object( Scheduler, 'add_cron_job' )
     @patch.object( Scheduler, 'start' )
@@ -136,6 +156,8 @@ class Test( unittest.TestCase ):
                                               minute=4, kwargs=456,
                                               start_date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ),
                                                day=2 )
+        sched.shutdown()
+        sched = None
 
     @patch.object( Scheduler, 'add_date_job' )
     @patch.object( Scheduler, 'start' )
@@ -159,6 +181,8 @@ class Test( unittest.TestCase ):
                                                args=123, name='Unit Test', kwargs=456 )
 
         self.assertListEqual( sched.jobs['Unit Test'], [555] )
+        sched.shutdown()
+        sched = None
 
     @patch( 'lib.getdatetime.GetDateTime.datetime' )
     def test_add_one_shot( self, dt ):
@@ -173,12 +197,14 @@ class Test( unittest.TestCase ):
 
         delta = timedelta( seconds=1 )
         name = 'Unit Test'
-        date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
         args = 123
         kwargs = 456
         sched.add_one_shot( 'test', delta, args, kwargs )
         self.assertListEqual( sched.jobs['test'], [99] )
         self.assertEqual( sched.scheduler.add_date_job.call_count, 1 )
+
+        sched.shutdown()
+        sched = None
 
 
     def test_deleteJob( self, ):
@@ -212,6 +238,9 @@ class Test( unittest.TestCase ):
         sched.deleteJob( 'test3' )
         self.assertEqual( sched.scheduler.unschedule_job.call_count, 0 )
 
+        sched.shutdown()
+        sched = None
+
     @patch.object( Scheduler, 'shutdown' )
     @patch.object( Scheduler, 'start' )
     @patch.object( pub, 'subscribe' )
@@ -226,6 +255,8 @@ class Test( unittest.TestCase ):
 
         sched.shutdown( wait=True )
         self.assertEqual( shutdown.call_count, 0 )
+        sched.shutdown()
+        sched = None
 
     @patch.object( Scheduler, 'print_jobs' )
     @patch.object( Scheduler, 'start' )
@@ -236,6 +267,8 @@ class Test( unittest.TestCase ):
         sched.start()
         sched.print_jobs()
         print_jobs.assert_called_once_with()
+        sched.shutdown()
+        sched = None
 
     @patch.object( GetDateTime, "__repr__" )
     @patch.object( GetDateTime, "__str__" )
@@ -268,6 +301,8 @@ class Test( unittest.TestCase ):
 #        # Not sure why this in not working.  I have tried all sorts of variations.
         self.assertEqual( queue.transmit.call_count, 1 )
         args = queue.transmit.call_args
+        sched.shutdown()
+        sched = None
 
 
 if __name__ == "__main__":
