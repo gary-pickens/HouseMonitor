@@ -127,8 +127,8 @@ class ProcessStatusRequests( abcProcessInput ):
         else:
             value = 1
         listeners = data[Constants.DataPacket.listeners]
-        self.logger.debug( 'ProcessStatusRequests sending  value = {} data = {} listeners = {}'.
-                           format( value, data, listeners ) )
+#         self.logger.warn( 'ProcessStatusRequests sending  value = {} data = {} listeners = {}'.
+#                            format( value, data, listeners ) )
         Common.send( value, data, listeners )
 
 class ProcessInput( abcInput ):
