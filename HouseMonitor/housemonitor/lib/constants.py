@@ -192,8 +192,6 @@ class Constants( object ):
         SchedulerDeleteJob = 'step.SchedulerDeleteJob'
         SchedulerPrintJobs = 'step.SchedulerPrintJobs'
         SchedulerStep = 'step.Scheduler'
-        Registration = 'registration'
-        RegistrationScheduler = 'registration.Scheduler'
         CurrentValueStep = 'step.CurrentValue'
         AverageStep = 'step.Average'
         Centigrade2FahrenheitStep = 'step.Centigrade_to_Fahrenheit'
@@ -220,11 +218,13 @@ class Constants( object ):
         #  Configurations
         xmlDeviceConfiguration = 'configuration.xmlDeviceConfiguration'
         #  Outputs
+        Outputs = 'outputs'
         COSM = 'outputs.COSM'
         #  Inputs
         ProcessInputs = 'inputs.ProcessInputs'
         #  Misc
         UnitTest = 'UnitTest'
+        ALL_TOPICS = 'ALL_TOPICS'
 
     class LogKeys( object ):
         Scheduler = 'scheduler'
