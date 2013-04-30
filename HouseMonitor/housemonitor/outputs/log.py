@@ -3,12 +3,13 @@ Created on Aug 5, 2012
 
 @author: Gary
 '''
-import os
-import datetime
-
-from outputs.ioutput import iOutput
 from configuration.xmlconfiguration import XmlConfiguration
 from lib.common import Common
+from outputs.ioutput import iOutput
+from pubsub import pub
+import datetime
+import os
+
 
 
 class Log( iOutput, XmlConfiguration ):
@@ -73,7 +74,13 @@ class Log( iOutput, XmlConfiguration ):
         line = "{:25.25s} {} {}{}".format( name, date, value, os.linesep )
 
         self.os.write( line )
-        Common.send( value=value, data=data, listeners=listeners )
+        try:
+            Common.send( value=value, data=data, listeners=listeners )
+        except pub.ListenerInadequate as li:
+            self.logger.exception( 'Common.send exception: {}'.format( li ) )
+        except Exception as ex:
+            self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+
         return line
 
     def configure( self ):

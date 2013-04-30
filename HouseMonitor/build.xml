@@ -87,7 +87,7 @@
         <sshexec host="${host}" username="${user}" password="${password}"
             command="tar czf backup/${project}.${version}-${DSTAMP}${TSTAMP}.tar.gz src/${remote_directory}" />
     </target>
-    <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg, doc">
+    <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
         <scp todir="${user}:${password}@${host}:src" failonerror="true">
             <fileset dir="dist">
             </fileset>

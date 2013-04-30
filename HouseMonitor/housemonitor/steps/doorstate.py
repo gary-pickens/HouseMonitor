@@ -4,10 +4,11 @@ Created on Aug 6, 2012
 @author: Gary
 '''
 from abc_step import abcStep
-from lib.constants import Constants
-from lib.common import Common
 from copy import copy
 from datetime import datetime, timedelta
+from lib.common import Common
+from lib.constants import Constants
+from pubsub import pub
 import time
 
 
@@ -80,4 +81,9 @@ class ConvertGarageDoorState( abcStep ):
             new_data[Constants.DataPacket.units] = 'invalid'
             self.logger.warn( "invalid state %d", value )
         self.logger.info( "prior door state was {} {} {}".format( new_value, new_data[Constants.DataPacket.units], listeners ) )
-        Common.send( new_value, new_data, new_listeners )
+        try:
+            Common.send( new_value, new_data, new_listeners )
+        except pub.ListenerInadequate as li:
+            self.logger.exception( 'Common.send exception: {}'.format( li ) )
+        except Exception as ex:
+            self.logger.exception( 'Common.send exception: {}'.format( ex ) )

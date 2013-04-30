@@ -221,7 +221,8 @@ class HMScheduler( Base ):
         now = GetDateTime()
         dt = now.datetime()
         dt = dt + delta
-        self.logger.debug( 'one shot({}) at {}'.format( name, dt ) )
+        self.logger.warn( 'one shot({}) at {}'.format( name, dt ) )
+        self.logger.warn( 'one shot args = {} kwargs = {}'.format( args, kwargs ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=dt,
                                 name=name, args=args, kwargs=kwargs )
         self.jobs[name].append( token )
@@ -234,10 +235,14 @@ class HMScheduler( Base ):
         :type weeks: str
 
         '''
+        self.logger.warn( 'delete job' )
         item = None
         if name in self.jobs:
             for number, item in enumerate( self.jobs[name] ):
-                self.scheduler.unschedule_job( item )
+                try:
+                    self.scheduler.unschedule_job( item )
+                except Exception as ex:
+                    pass
                 self.logger.info( '{} "{}" removed from scheduler'.format( number, name ) )
             self.jobs[name] = []
 
@@ -265,7 +270,7 @@ class HMScheduler( Base ):
         '''
         self.scheduler.print_jobs()
 
-    def sendCommand( self, name, device, port, listeners=[], scheduler_id=uuid.uuid4() ):
+    def sendCommand( self, device, port, listeners=[], scheduler_id=str( uuid.uuid4() ) ):
         """
         send command will send the cammand to the HouseMonitor system
 
@@ -277,14 +282,16 @@ class HMScheduler( Base ):
         :type listeners: list of strings that contains the topic name of the listeners.  Most can be found in Constants.TopicNames
 
         """
+        self.logger.warn( 'device = {} port = {} listeners = {} scheduler_id = {}'.format( 
+                                        device, port, listeners, scheduler_id ) )
         data = {}
         data[Constants.DataPacket.device] = device
         data[Constants.DataPacket.port] = port
         data[Constants.DataPacket.scheduler_id] = scheduler_id
         data[Constants.DataPacket.arrival_time] = GetDateTime()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
-        data[Constants.DataPacket.name] = name
+#        data[Constants.DataPacket.name] = name
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        self.logger.debug( 'listeners = {} scheduler_id =  {}'.format(  listeners,
+        self.logger.warn( 'listeners = {} scheduler_id =  {}'.format( listeners,
                                                         data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )
