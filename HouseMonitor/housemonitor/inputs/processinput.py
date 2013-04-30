@@ -185,7 +185,7 @@ class ProcessInput( abcInput ):
         '''
         try:
             envelope = self._input_queue.receive()
-            self.logger.warn( 'recieved type {} Envelope'.format( envelope.type ) )
+            self.logger.debug( 'recieved type {} Envelope'.format( envelope.type ) )
             self.commands[envelope.type].process( envelope )
         except KeyError:
             self.logger.debug( 'Invalid envelope.type = {}'.format( envelope.type ) )

@@ -110,7 +110,7 @@ class HMScheduler( Base ):
         args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
-    def add_interval( self, name, weeks=0, days=0, hours=0, minutes=0, seconds=0, start_date=None, args=None, kwargs=None ):
+    def add_interval( self, weeks=0, days=0, hours=0, minutes=0, seconds=0, start_date=None, args=None, kwargs=None ):
         '''
         Schedule an interval at which sendCommand will be called.
 
@@ -137,13 +137,14 @@ class HMScheduler( Base ):
         :raises: None
 
         '''
-        self.logger.debug( 'interval ({}) add {} {} {} {} {} {} {}'.format( name, weeks, days, hours, hours, minutes, seconds, start_date ) )
+        name = args[0]
+        self.logger.debug( 'interval ({}) add {} {} {} {} {} {} {}'.format( weeks, days, hours, hours, minutes, seconds, start_date ) )
         token = self.scheduler.add_interval_job( self.sendCommand, weeks=weeks,
                         days=days, hours=hours, minutes=minutes, seconds=seconds,
                         start_date=start_date, args=args, kwargs=kwargs, name=name )
         self.jobs[name].append( token )
 
-    def add_cron( self, name, year=None, month=None, day=None, week=None, day_of_week=None,
+    def add_cron( self, year=None, month=None, day=None, week=None, day_of_week=None,
                   hour=None, minute=None, second=None, start_date=None, args=None, kwargs=None ):
         '''
         Schedule a cron command to call sendCommand.
@@ -171,6 +172,7 @@ class HMScheduler( Base ):
         :raises: None
 
         '''
+        name = args[0]
         self.logger.debug( 'set cron({}) at {}/{}/{} {}:{}:{} {} {} {}'.format( name, year, month,
                                 day, hour, minute, second, week, day_of_week, start_date ) )
         token = self.scheduler.add_cron_job( self.sendCommand, year=year,
@@ -178,7 +180,7 @@ class HMScheduler( Base ):
                     minute=minute, second=second, start_date=start_date, args=args, kwargs=kwargs )
         self.jobs[name].append( token )
 
-    def add_date( self, name, date, args=None, kwargs=None ):
+    def add_date( self, date, args=None, kwargs=None ):
         '''
         Schedule a specific data and time to call sendCommand.
 
@@ -196,6 +198,8 @@ class HMScheduler( Base ):
         :type date: dictionary
 
         '''
+        name = args[0]
+
         self.logger.debug( 'add date({}) at {}'.format( name, date ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=date,
                                                             name=name, args=args, kwargs=kwargs )
@@ -218,10 +222,10 @@ class HMScheduler( Base ):
         :type date: dictionary
 
         '''
+        name = args[0]
         now = GetDateTime()
         dt = now.datetime()
         dt = dt + delta
-        name = args[0]
         self.logger.warn( 'one shot({}) at {}'.format( name, dt ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=dt,
                                 name=name, args=args, kwargs=kwargs )

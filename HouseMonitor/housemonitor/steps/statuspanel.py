@@ -117,7 +117,6 @@ class StatusPanel( Base ):
         self.system_check = self.SystemCheck( self )
         self.silence_alarm = self.SilenceAlarm( self )
         # Turn the alarm off when starting.
-        self.logger.warn( 'statuspanel started' )
         self.changeAlarm( self.ALARM_OFF )
 
     @property
@@ -190,7 +189,6 @@ class StatusPanel( Base ):
             '''
             super( StatusPanel.GarageDoorMonitor, self ).__init__()
             self.status_panel = status_panel
-            self.logger.warn( 'GarageDoorMonitor stated' )
 
         @property
         def logger_name( self ):
@@ -251,6 +249,7 @@ class StatusPanel( Base ):
                                 name=self.status_panel.scheduler_turn_off_initial_alarm )
             except Exception as ex:
                 self.logger.exception( 'Common.send error {}'.format( ex ) )
+
             args = self.status_panel.scheduler_turn_off_initial_alarm, \
                     self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
@@ -284,7 +283,7 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.warn( 'GarageDoorMonitor.step called' )
+
             # Garage Door transitioning from Open to Closed
             if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN and \
                     value == self.status_panel.GARAGE_DOOR_CLOSED:
@@ -323,7 +322,7 @@ class StatusPanel( Base ):
                 self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
 
-            self.logger.warn( "tick" )
+
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
             return value, data, listeners
@@ -578,5 +577,5 @@ class StatusPanel( Base ):
             """
             value = self.toggle = not self.toggle
             # disable the following line. It prints aboue every two seconds.
-            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
+#            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
             return value, data, listeners
