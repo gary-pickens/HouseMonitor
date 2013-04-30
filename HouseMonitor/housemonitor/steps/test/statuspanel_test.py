@@ -162,7 +162,7 @@ class Test( unittest.TestCase ):
     @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
     @patch( 'steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer' )
     def test_process_delayed_alarm( self, at, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         listeners = []
         sp = StatusPanel()
@@ -245,7 +245,7 @@ class Test( unittest.TestCase ):
 
     @patch.object( StatusPanel, 'changeAlarm' )
     def test_process_when_disable_alarm_button_pressed( self, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         listeners = [Constants.TopicNames.ZigBeeOutput]
         sp = StatusPanel()
@@ -259,7 +259,7 @@ class Test( unittest.TestCase ):
 
     @patch.object( StatusPanel, 'changeAlarm' )
     def test_process_when_disable_alarm_button_pressed_but_invalid_state( self, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         invalid_state = 10
         listeners = [Constants.TopicNames.ZigBeeOutput]
@@ -279,7 +279,7 @@ class Test( unittest.TestCase ):
 ################################################
     @patch.object( StatusPanel, 'changeAlarm' )
     def test_SilenceAlarm( self, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         listeners = [Constants.TopicNames.ZigBeeOutput]
         sp = StatusPanel()

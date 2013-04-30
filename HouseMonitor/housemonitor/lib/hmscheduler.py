@@ -90,7 +90,7 @@ class HMScheduler( Base ):
         device = 'status'
         port = 'scheduler'
         listeners = [Constants.TopicNames.Statistics, Constants.TopicNames.CurrentValueStep]
-        scheduler_id = uuid.uuid4()
+        scheduler_id = str( uuid.uuid4() )
         args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, minutes=10, args=args )
 
@@ -98,7 +98,7 @@ class HMScheduler( Base ):
         device = 'HouseMonitor'
         port = 'uptime'
         listeners = [Constants.TopicNames.UpTime, Constants.TopicNames.CurrentValueStep]
-        scheduler_id = uuid.uuid4()
+        scheduler_id = str( uuid.uuid4() )
         args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
@@ -106,7 +106,7 @@ class HMScheduler( Base ):
         device = '0x13a20040902a02'
         port = 'DIO-0'
         listeners = [ Constants.TopicNames.StatusPanel_SystemCheck, Constants.TopicNames.ZigBeeOutput]
-        scheduler_id = uuid.uuid4()
+        scheduler_id = str( uuid.uuid4() )
         args = name, device, port, listeners, scheduler_id
         self.scheduler.add_interval_job( self.sendCommand, seconds=5, args=args )
 
@@ -201,7 +201,7 @@ class HMScheduler( Base ):
                                                             name=name, args=args, kwargs=kwargs )
         self.jobs[name].append( token )
 
-    def add_one_shot( self, name, delta, args=None, kwargs=None ):
+    def add_one_shot( self, delta, args=None, kwargs=None ):
         '''
         Schedule sendCommand to be called after some interval. (ie. in 5 seconds or one hour).  For more information
         on timeDelta see:
@@ -221,7 +221,8 @@ class HMScheduler( Base ):
         now = GetDateTime()
         dt = now.datetime()
         dt = dt + delta
-        self.logger.debug( 'one shot({}) at {}'.format( name, dt ) )
+        name = args[0]
+        self.logger.warn( 'one shot({}) at {}'.format( name, dt ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=dt,
                                 name=name, args=args, kwargs=kwargs )
         self.jobs[name].append( token )
@@ -265,7 +266,7 @@ class HMScheduler( Base ):
         '''
         self.scheduler.print_jobs()
 
-    def sendCommand( self, name, device, port, listeners=[], scheduler_id=uuid.uuid4() ):
+    def sendCommand( self, name, device, port, listeners=[], scheduler_id=str( uuid.uuid4() ) ):
         """
         send command will send the cammand to the HouseMonitor system
 
@@ -285,6 +286,6 @@ class HMScheduler( Base ):
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = name
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        self.logger.debug( 'listeners = {} scheduler_id =  {}'.format(  listeners,
+        self.logger.warn( 'name = {} listeners = {} scheduler_id =  {}'.format( name, listeners,
                                                         data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )

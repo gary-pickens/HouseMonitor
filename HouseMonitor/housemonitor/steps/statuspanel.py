@@ -117,6 +117,7 @@ class StatusPanel( Base ):
         self.system_check = self.SystemCheck( self )
         self.silence_alarm = self.SilenceAlarm( self )
         # Turn the alarm off when starting.
+        self.logger.warn( 'statuspanel started' )
         self.changeAlarm( self.ALARM_OFF )
 
     @property
@@ -137,7 +138,10 @@ class StatusPanel( Base ):
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_garage_door_led
         light = not value
-        Common.send( light, data, steps )
+        try:
+            Common.send( light, data, steps )
+        except Exception as ex:
+            self.logger.exception( 'Common.send error {}'.format( ex ) )
 
     def changeDisableButtonWarningLight( self, value ):
         ''' Turn on or off the LED that indicates that the garage door is open. 
@@ -151,7 +155,11 @@ class StatusPanel( Base ):
         data = {}
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_disable_button_led
-        Common.send( value, data, steps )
+        try:
+            Common.send( value, data, steps )
+        except Exception as ex:
+            self.logger.exception( 'Common.send error {}'.format( ex ) )
+
 
     def changeAlarm( self, value ):
         ''' Turn on or off the alarm that indicates that the garage door is open.         
@@ -167,7 +175,10 @@ class StatusPanel( Base ):
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_alarm
         self.logger.error( "changeAlarm with {} {} {}".format( value, data, steps ) )
-        Common.send( value, data, steps )
+        try:
+            Common.send( value, data, steps )
+        except Exception as ex:
+            self.logger.exception( 'Common.send error {}'.format( ex ) )
 
     class GarageDoorMonitor( abcStep ):
         ''' GarageDoorMonitor is a class that receives the message about 
@@ -179,6 +190,7 @@ class StatusPanel( Base ):
             '''
             super( StatusPanel.GarageDoorMonitor, self ).__init__()
             self.status_panel = status_panel
+            self.logger.warn( 'GarageDoorMonitor stated' )
 
         @property
         def logger_name( self ):
@@ -197,19 +209,28 @@ class StatusPanel( Base ):
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
-            self.status_panel.long_scheduler_id = uuid.uuid4()
-            args = self.status_panel.panel_address, \
+            self.status_panel.long_scheduler_id = str( uuid.uuid4() )
+            # Delete all the previously scheduled slow alarm events
+            try:
+                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                            name=self.status_panel.scheduler_delayed_sound_alarm )
+            except Exception as ex:
+                self.logger.exception( 'Common.send error {}'.format( ex ) )
+
+            # Then turn the correct one for this event on
+            args = self.status_panel.scheduler_delayed_sound_alarm, \
+                    self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.long_scheduler_id
-            # Delete all the previously scheduled slow alarm events
-            pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                            name=self.status_panel.scheduler_delayed_sound_alarm )
-            # Then turn the correct one for this event on
-            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                            name=self.status_panel.scheduler_delayed_sound_alarm,
-                            delta=self.status_panel.garage_door_standoff_time,
-                            args=args )
+
+            try:
+                pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                                delta=self.status_panel.garage_door_standoff_time,
+                                args=args )
+            except Exception as ex:
+                self.logger.exception( 'Common.send error {}'.format( ex ) )
+
             self.logger.debug( 'Activate garage door timer' )
 
         def turnOffAlarmAfterInterval( self ):
@@ -219,18 +240,28 @@ class StatusPanel( Base ):
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_SilenceAlarm]
-            self.status_panel.short_scheduler_id = uuid.uuid4()
+            self.status_panel.short_scheduler_id = str( uuid.uuid4() )
             args = self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.short_scheduler_id
             # Delete all the previously scheduled alarms.
-            pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                            name=self.status_panel.scheduler_turn_off_initial_alarm )
-            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                            name=self.status_panel.scheduler_turn_off_initial_alarm,
-                            delta=self.status_panel.garage_door_initial_beep_time,
-                            args=args )
+            try:
+                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                                name=self.status_panel.scheduler_turn_off_initial_alarm )
+            except Exception as ex:
+                self.logger.exception( 'Common.send error {}'.format( ex ) )
+            args = self.status_panel.scheduler_turn_off_initial_alarm, \
+                    self.status_panel.panel_address, \
+                    self.status_panel.panel_alarm, \
+                    listeners, \
+                    self.status_panel.short_scheduler_id
+            try:
+                pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                                delta=self.status_panel.garage_door_initial_beep_time,
+                                args=args )
+            except Exception as ex:
+                self.logger.exception( 'Common.send error {}'.format( ex ) )
             self.logger.debug( 'Turn off alarm after {}'.format( self.status_panel.garage_door_initial_beep_time ) )
 
         def step( self, value, data={}, listeners=[] ):
@@ -253,17 +284,23 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-
+            self.logger.warn( 'GarageDoorMonitor.step called' )
             # Garage Door transitioning from Open to Closed
             if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN and \
                     value == self.status_panel.GARAGE_DOOR_CLOSED:
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                 self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.Disabled
-                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                            name=self.status_panel.scheduler_turn_off_initial_alarm )
-                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                            name=self.status_panel.scheduler_delayed_sound_alarm )
+                try:
+                    pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                                name=self.status_panel.scheduler_turn_off_initial_alarm )
+                except Exception as ex:
+                    self.logger.exception( 'Common.send error {}'.format( ex ) )
+                try:
+                    pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                                name=self.status_panel.scheduler_delayed_sound_alarm )
+                except Exception as ex:
+                    self.logger.exception( 'Common.send error {}'.format( ex ) )
 
                 self.logger.info( 'Garage door closing' )
 
@@ -286,7 +323,7 @@ class StatusPanel( Base ):
                 self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
 
-
+            self.logger.warn( "tick" )
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
             return value, data, listeners
@@ -427,17 +464,24 @@ class StatusPanel( Base ):
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
-            self.status_panel.long_scheduler_id == uuid.uuid4()
-            args = self.status_panel.panel_address, \
+            self.status_panel.long_scheduler_id == str( uuid.uuid4() )
+            try:
+                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                                 self.status_panel.scheduler_turn_off_initial_alarm )
+            except Exception as ex:
+                self.logger.exception( 'Common.send error {}'.format( ex ) )
+
+            args = self.status_panel.scheduler_turn_off_initial_alarm, \
+                    self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.long_scheduler_id
-            pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                            name=self.status_panel.scheduler_turn_off_initial_alarm )
-            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                            name=self.status_panel.scheduler_turn_off_initial_alarm,
-                            delta=timedelta( seconds=seconds ),
-                            args=args )
+            try:
+                pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                                delta=timedelta( seconds=seconds ),
+                                args=args )
+            except Exception as ex:
+                self.logger.exception( 'Common.send error {}'.format( ex ) )
             self.logger.debug( 'Activate garage door timer' )
 
         def step( self, value, data={}, listeners=[] ):
@@ -534,5 +578,5 @@ class StatusPanel( Base ):
             """
             value = self.toggle = not self.toggle
             # disable the following line. It prints aboue every two seconds.
-#            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
+            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
             return value, data, listeners

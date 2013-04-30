@@ -197,9 +197,9 @@ class Test( unittest.TestCase ):
 
         delta = timedelta( seconds=1 )
         name = 'Unit Test'
-        args = 123
+        args = ( 'test', 1, 2, 3 )
         kwargs = 456
-        sched.add_one_shot( 'test', delta, args, kwargs )
+        sched.add_one_shot( delta, args, kwargs )
         self.assertListEqual( sched.jobs['test'], [99] )
         self.assertEqual( sched.scheduler.add_date_job.call_count, 1 )
 
