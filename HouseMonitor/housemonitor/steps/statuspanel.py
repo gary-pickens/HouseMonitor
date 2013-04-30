@@ -137,12 +137,7 @@ class StatusPanel( Base ):
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_garage_door_led
         light = not value
-        try:
-            Common.send( light, data, steps )
-        except pub.ListenerInadequate as li:
-            self.logger.exception( 'Common.send exception: {}'.format( li ) )
-        except Exception as ex:
-            self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+        Common.send( light, data, steps )
 
     def changeDisableButtonWarningLight( self, value ):
         ''' Turn on or off the LED that indicates that the garage door is open. 
@@ -156,13 +151,7 @@ class StatusPanel( Base ):
         data = {}
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_disable_button_led
-        try:
-            Common.send( value, data, steps )
-        except pub.ListenerInadequate as li:
-            self.logger.exception( 'Common.send exception: {}'.format( li ) )
-        except Exception as ex:
-            self.logger.exception( 'Common.send exception: {}'.format( ex ) )
-
+        Common.send( value, data, steps )
 
     def changeAlarm( self, value ):
         ''' Turn on or off the alarm that indicates that the garage door is open.         
@@ -178,12 +167,7 @@ class StatusPanel( Base ):
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_alarm
         self.logger.error( "changeAlarm with {} {} {}".format( value, data, steps ) )
-        try:
-            Common.send( value, data, steps )
-        except pub.ListenerInadequate as li:
-            self.logger.exception( 'Common.send exception: {}'.format( li ) )
-        except Exception as ex:
-            self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+        Common.send( value, data, steps )
 
     class GarageDoorMonitor( abcStep ):
         ''' GarageDoorMonitor is a class that receives the message about 
@@ -213,24 +197,19 @@ class StatusPanel( Base ):
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
-            self.status_panel.long_scheduler_id = str( uuid.uuid4() )
+            self.status_panel.long_scheduler_id = uuid.uuid4()
             args = self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.long_scheduler_id
             # Delete all the previously scheduled slow alarm events
-            try:
-                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                                name=self.status_panel.scheduler_delayed_sound_alarm )
-                # Then turn the correct one for this event on
-                pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                                name=self.status_panel.scheduler_delayed_sound_alarm,
-                                delta=self.status_panel.garage_door_standoff_time,
-                                args=args )
-            except pub.ListenerInadequate as li:
-                self.logger.exception( 'Common.send exception: {}'.format( li ) )
-            except Exception as ex:
-                self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+            pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                            name=self.status_panel.scheduler_delayed_sound_alarm )
+            # Then turn the correct one for this event on
+            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                            name=self.status_panel.scheduler_delayed_sound_alarm,
+                            delta=self.status_panel.garage_door_standoff_time,
+                            args=args )
             self.logger.debug( 'Activate garage door timer' )
 
         def turnOffAlarmAfterInterval( self ):
@@ -240,23 +219,19 @@ class StatusPanel( Base ):
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_SilenceAlarm]
-            self.status_panel.short_scheduler_id = str( uuid.uuid4() )
+            self.status_panel.short_scheduler_id = uuid.uuid4()
             args = self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.short_scheduler_id
             # Delete all the previously scheduled alarms.
-            try:
-                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                                name=self.status_panel.scheduler_turn_off_initial_alarm )
-                pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                                name=self.status_panel.scheduler_turn_off_initial_alarm,
-                                delta=self.status_panel.garage_door_initial_beep_time,
-                                args=args )
-            except pub.ListenerInadequate as li:
-                self.logger.exception( 'Common.send exception: {}'.format( li ) )
-            except Exception as ex:
-                self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+            pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                            name=self.status_panel.scheduler_turn_off_initial_alarm )
+            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                            name=self.status_panel.scheduler_turn_off_initial_alarm,
+                            delta=self.status_panel.garage_door_initial_beep_time,
+                            args=args )
+            self.logger.debug( 'Turn off alarm after {}'.format( self.status_panel.garage_door_initial_beep_time ) )
 
         def step( self, value, data={}, listeners=[] ):
             """
@@ -285,16 +260,10 @@ class StatusPanel( Base ):
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                 self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.Disabled
-                try:
-                    pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                                     name=self.status_panel.scheduler_turn_off_initial_alarm )
-
-                    pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                                name=self.status_panel.scheduler_delayed_sound_alarm )
-                except pub.ListenerInadequate as li:
-                    self.logger.exception( 'Common.send exception: {}'.format( li ) )
-                except Exception as ex:
-                    self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                            name=self.status_panel.scheduler_turn_off_initial_alarm )
+                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                            name=self.status_panel.scheduler_delayed_sound_alarm )
 
                 self.logger.info( 'Garage door closing' )
 
@@ -367,9 +336,9 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
+            self.logger.info( 'Silence alarm.' )
             if data[Constants.DataPacket.scheduler_id] == self.status_panel.short_scheduler_id:
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-                self.logger.info( 'Alarm Silenced' )
             return value, data, listeners
 
     class DisableAlarmButton( abcStep ):
@@ -458,22 +427,17 @@ class StatusPanel( Base ):
             start the alarm. 
             '''
             listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
-            self.status_panel.long_scheduler_id == str( uuid.uuid4() )
+            self.status_panel.long_scheduler_id == uuid.uuid4()
             args = self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
                     self.status_panel.long_scheduler_id
-            try:
-                pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                                name=self.status_panel.scheduler_turn_off_initial_alarm )
-                pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
-                                name=self.status_panel.scheduler_turn_off_initial_alarm,
-                                delta=timedelta( seconds=seconds ),
-                                args=args )
-            except pub.ListenerInadequate as li:
-                self.logger.exception( 'Common.send exception: {}'.format( li ) )
-            except Exception as ex:
-                self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+            pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
+                            name=self.status_panel.scheduler_turn_off_initial_alarm )
+            pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
+                            name=self.status_panel.scheduler_turn_off_initial_alarm,
+                            delta=timedelta( seconds=seconds ),
+                            args=args )
             self.logger.debug( 'Activate garage door timer' )
 
         def step( self, value, data={}, listeners=[] ):

@@ -3,22 +3,23 @@ Created on Oct 10, 2012
 
 @author: Gary
 '''
-from abc_input import abcInput
-from configuration.xmlDeviceConfiguration import ( InvalidConfigurationOptionError, InvalidDeviceError,
-    InvalidPortError, xmlDeviceConfiguration )
-from datetime import datetime
-from lib.base import Base
-from lib.common import Common
-from lib.constants import Constants
-from lib.getdatetime import GetDateTime
-from pubsub import pub
-from pubsub.core.topicmgr import ListenerSpecIncomplete
-from struct import *
 import abc
+from struct import *
 import copy
 import pprint
-import thread
+from datetime import datetime
+from pubsub.core.topicmgr import ListenerSpecIncomplete
 
+from configuration.xmlDeviceConfiguration import InvalidDeviceError
+from configuration.xmlDeviceConfiguration import InvalidPortError
+from configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
+from configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
+from lib.common import Common
+from abc_input import abcInput
+from lib.base import Base
+from lib.constants import Constants
+from lib.getdatetime import GetDateTime
+import thread
 
 
 class abcProcessInput( Base, object ):
@@ -88,9 +89,6 @@ class ProcessXBeeInput( abcProcessInput ):
                                 self.logger.exception( str( ie ) )
                         except InvalidConfigurationOptionError as ie:
                                 self.logger.exception( str( ie ) )
-                        except pub.ListenerInadequate as li:
-                            self.logger.exception( 'Common.send exception: {}'.format( li ) )
-
             else:
                 self.logger.info( 'None processed ZigBee response {}'.format( pprint.pformat( packet ) ) )
         except KeyError:
@@ -131,12 +129,7 @@ class ProcessStatusRequests( abcProcessInput ):
         listeners = data[Constants.DataPacket.listeners]
 #         self.logger.warn( 'ProcessStatusRequests sending  value = {} data = {} listeners = {}'.
 #                            format( value, data, listeners ) )
-        try:
-            Common.send( value, data, listeners )
-        except pub.ListenerInadequate as li:
-            self.logger.exception( 'Common.send exception: {}'.format( li ) )
-        except Exception as ex:
-            self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+        Common.send( value, data, listeners )
 
 class ProcessInput( abcInput ):
     '''

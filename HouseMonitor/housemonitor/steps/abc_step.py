@@ -66,12 +66,7 @@ class abcStep( Base ):
             data[Constants.DataPacket.device] = 'HouseMonitor.' + self.whoami
             data[Constants.DataPacket.port] = data[Constants.DataPacket.name] = 'Count'
             data[Constants.DataPacket.arrival_time] = self.last_count_time
-        try:
             Common.send( self.counter, data, copy.copy( listeners ) )
-        except pub.ListenerInadequate as li:
-            self.logger.exception( 'Common.send exception: {}'.format( li ) )
-        except Exception as ex:
-            self.logger.exception( 'Common.send exception: {}'.format( ex ) )
 
     def getErrorCount( self, value, data, listeners ):
         ''' Report the number of errors that has occurred in this step.
@@ -99,12 +94,7 @@ class abcStep( Base ):
             data[Constants.DataPacket.device] = 'HouseMonitor.' + self.whoami
             data[Constants.DataPacket.port] = data[Constants.DataPacket.name] = 'Error Count'
             data[Constants.DataPacket.arrival_time] = self.last_error_time
-            try:
-                Common.send( self.errors, data, copy.copy( listeners ) )
-            except pub.ListenerInadequate as li:
-                self.logger.exception( 'Common.send exception: {}'.format( li ) )
-            except Exception as ex:
-                self.logger.exception( 'Common.send exception: {}'.format( ex ) )
+            Common.send( self.errors, data, copy.copy( listeners ) )
 
     @abc.abstractproperty
     def topic_name( self ):    # pragma: no cover
