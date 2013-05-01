@@ -180,7 +180,7 @@ class HMScheduler( Base ):
                     minute=minute, second=second, start_date=start_date, args=args, kwargs=kwargs )
         self.jobs[name].append( token )
 
-    def add_date( self, date, args=None, kwargs=None ):
+    def add_date( self, date, args, **kwargs ):
         '''
         Schedule a specific data and time to call sendCommand.
 
@@ -241,7 +241,10 @@ class HMScheduler( Base ):
         item = None
         if name in self.jobs:
             for number, item in enumerate( self.jobs[name] ):
-                self.scheduler.unschedule_job( item )
+                try:
+                    self.scheduler.unschedule_job( item )
+                except KeyError:
+                    pass
                 self.logger.info( '{} "{}" removed from scheduler'.format( number, name ) )
             self.jobs[name] = []
 
@@ -289,6 +292,6 @@ class HMScheduler( Base ):
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = name
         de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        self.logger.warn( 'name = {} listeners = {} scheduler_id =  {}'.format( name, listeners,
+        self.logger.debug( 'name = {} listeners = {} scheduler_id =  {}'.format( name, listeners,
                                                         data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )

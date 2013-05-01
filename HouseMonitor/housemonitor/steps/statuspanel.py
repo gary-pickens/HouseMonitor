@@ -239,10 +239,7 @@ class StatusPanel( Base ):
             '''
             listeners = [Constants.TopicNames.StatusPanel_SilenceAlarm]
             self.status_panel.short_scheduler_id = str( uuid.uuid4() )
-            args = self.status_panel.panel_address, \
-                    self.status_panel.panel_alarm, \
-                    listeners, \
-                    self.status_panel.short_scheduler_id
+
             # Delete all the previously scheduled alarms.
             try:
                 pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
@@ -250,11 +247,11 @@ class StatusPanel( Base ):
             except Exception as ex:
                 self.logger.exception( 'Common.send error {}'.format( ex ) )
 
-            args = self.status_panel.scheduler_turn_off_initial_alarm, \
+            args = ( self.status_panel.scheduler_turn_off_initial_alarm, \
                     self.status_panel.panel_address, \
                     self.status_panel.panel_alarm, \
                     listeners, \
-                    self.status_panel.short_scheduler_id
+                    self.status_panel.short_scheduler_id )
             try:
                 pub.sendMessage( Constants.TopicNames.SchedulerAddOneShotStep,
                                 delta=self.status_panel.garage_door_initial_beep_time,
@@ -301,7 +298,7 @@ class StatusPanel( Base ):
                 except Exception as ex:
                     self.logger.exception( 'Common.send error {}'.format( ex ) )
 
-                self.logger.info( 'Garage door closing' )
+                self.logger.info( 'Garage door closed' )
 
             # Garage Door transitioning from Closed to Open
             if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_CLOSED and \
