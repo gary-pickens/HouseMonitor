@@ -61,7 +61,7 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 
-<div class="viewcode-block" id="XBeeCommunications"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications">[docs]</a><span class="k">class</span> <span class="nc">XBeeCommunications</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="XBeeCommunications"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications">[docs]</a><span class="k">class</span> <span class="nc">XBeeCommunications</span><span class="p">(</span> <span class="n">Base</span><span class="p">,</span> <span class="nb">object</span> <span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    classdocs</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -71,49 +71,46 @@
     <span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">zigbee</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="n">delay</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c"># seconds</span>
+    <span class="n">delay</span> <span class="o">=</span> <span class="mi">7</span>    <span class="c"># seconds</span>
     <span class="sd">&#39;&#39;&#39; How long to wait before attempting to connect to the serial port on failure. &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">XBeeCommunications</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span> <span class="n">XBeeCommunications</span><span class="p">,</span> <span class="bp">self</span> <span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="XBeeCommunications.logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="XBeeCommunications.logger_name"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.logger_name">[docs]</a>    <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="k">return</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogKeys</span><span class="o">.</span><span class="n">inputsZigBee</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="XBeeCommunications.setup"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c"># pragma: no cover</span>
+<div class="viewcode-block" id="XBeeCommunications.setup"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>    <span class="c"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        setup - a virtual function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="XBeeCommunications.read"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="XBeeCommunications.read"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        read - function read a frame of data from the XBee</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Waiting for packet&quot;</span><span class="p">)</span>
         <span class="n">packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zigbee</span><span class="o">.</span><span class="n">wait_read_frame</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Packet received&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packet</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">packet</span>
 </div>
-<div class="viewcode-block" id="XBeeCommunications.connect"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="XBeeCommunications.connect"><a class="viewcode-back" href="../../../../housemonitor.inputs.zigbeeinput.html#housemonitor.inputs.zigbeeinput.xbeecommunications.XBeeCommunications.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The main method for connecting with XBee radio</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Attempting connection to XBee&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;Attempting connection to XBee&quot;</span> <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">serial_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span> <span class="n">ex</span> <span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
                 <span class="k">break</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">ZigBee</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serial_id</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Successfully connected to XBee&quot;</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zigbee</span> <span class="o">=</span> <span class="n">ZigBee</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial_id</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span> <span class="s">&quot;Successfully connected to XBee&quot;</span> <span class="p">)</span></div></div>
 </pre></div>
 
           </div>

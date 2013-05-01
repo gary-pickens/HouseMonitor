@@ -124,7 +124,12 @@
         <span class="n">line</span> <span class="o">=</span> <span class="s">&quot;{:25.25s} {} {}{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">linesep</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span> <span class="n">line</span> <span class="p">)</span>
-        <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="o">=</span><span class="n">listeners</span> <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Common</span><span class="o">.</span><span class="n">send</span><span class="p">(</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">listeners</span><span class="o">=</span><span class="n">listeners</span> <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span> <span class="s">&#39;Common.send error {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">ex</span> <span class="p">)</span> <span class="p">)</span>
+
         <span class="k">return</span> <span class="n">line</span>
 </div>
 <div class="viewcode-block" id="Log.configure"><a class="viewcode-back" href="../../../housemonitor.outputs.html#housemonitor.outputs.log.Log.configure">[docs]</a>    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>

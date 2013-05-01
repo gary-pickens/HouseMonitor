@@ -1411,7 +1411,7 @@ data will be sent to COSM.</p>
 <p>You control the scheduler by sending messages to the scheduler using pubsub.</p>
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.add_cron">
-<tt class="descname">add_cron</tt><big>(</big><em>name</em>, <em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>week=None</em>, <em>day_of_week=None</em>, <em>hour=None</em>, <em>minute=None</em>, <em>second=None</em>, <em>start_date=None</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_cron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_cron" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_cron</tt><big>(</big><em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>week=None</em>, <em>day_of_week=None</em>, <em>hour=None</em>, <em>minute=None</em>, <em>second=None</em>, <em>start_date=None</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_cron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_cron" title="Permalink to this definition">¶</a></dt>
 <dd><p>Schedule a cron command to call sendCommand.</p>
 <p>For more information on the parameter see:</p>
 <blockquote>
@@ -1446,7 +1446,7 @@ data will be sent to COSM.</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.add_date">
-<tt class="descname">add_date</tt><big>(</big><em>name</em>, <em>date</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_date" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_date</tt><big>(</big><em>date</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Schedule a specific data and time to call sendCommand.</p>
 <p>For more information on the parameter see:</p>
 <blockquote>
@@ -1473,7 +1473,7 @@ data will be sent to COSM.</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.add_interval">
-<tt class="descname">add_interval</tt><big>(</big><em>name</em>, <em>weeks=0</em>, <em>days=0</em>, <em>hours=0</em>, <em>minutes=0</em>, <em>seconds=0</em>, <em>start_date=None</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_interval" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_interval</tt><big>(</big><em>weeks=0</em>, <em>days=0</em>, <em>hours=0</em>, <em>minutes=0</em>, <em>seconds=0</em>, <em>start_date=None</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_interval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Schedule an interval at which sendCommand will be called.</p>
 <p>For more information on the parameter see:</p>
 <blockquote>
@@ -1508,7 +1508,7 @@ data will be sent to COSM.</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.add_one_shot">
-<tt class="descname">add_one_shot</tt><big>(</big><em>name</em>, <em>delta</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_one_shot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_one_shot" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_one_shot</tt><big>(</big><em>delta</em>, <em>args=None</em>, <em>kwargs=None</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.add_one_shot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.add_one_shot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Schedule sendCommand to be called after some interval. (ie. in 5 seconds or one hour).  For more information
 on timeDelta see:</p>
 <div class="admonition-see-also admonition seealso">
@@ -1558,7 +1558,7 @@ on timeDelta see:</p>
 
 <dl class="attribute">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.previous_datetime">
-<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 4, 30, 18, 24, 15, 480000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">previous_datetime</tt><em class="property"> = datetime.datetime(2013, 5, 1, 17, 57, 46, 582000)</em><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.previous_datetime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1581,7 +1581,7 @@ on timeDelta see:</p>
 
 <dl class="method">
 <dt id="housemonitor.lib.hmscheduler.HMScheduler.sendCommand">
-<tt class="descname">sendCommand</tt><big>(</big><em>name</em>, <em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id=UUID('f1a9cb67-3c21-4836-aa0d-8470e2aac62a')</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">sendCommand</tt><big>(</big><em>name</em>, <em>device</em>, <em>port</em>, <em>listeners=</em><span class="optional">[</span><span class="optional">]</span>, <em>scheduler_id='766387f0-d6a6-4ea3-99e3-aec784e5720d'</em><big>)</big><a class="reference internal" href="_modules/housemonitor/lib/hmscheduler.html#HMScheduler.sendCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#housemonitor.lib.hmscheduler.HMScheduler.sendCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>send command will send the cammand to the HouseMonitor system</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
