@@ -81,7 +81,6 @@ class ProcessXBeeInput( abcProcessInput ):
                                 package[Constants.DataPacket.steps] = copy.copy( self.devices.get_steps( source_addr_long, port ) )
                                 data = samples[0][port]
 
-                                self.logger.warn( 'Common.send({}, {}, {}) called'.format( data, package, package[Constants.DataPacket.steps] ) )
                                 Common.send( data, package, package[Constants.DataPacket.steps] )
                         except InvalidDeviceError as ie:
                                 self.logger.exception( str( ie ) )

@@ -138,7 +138,7 @@ class HMScheduler( Base ):
 
         '''
         name = args[0]
-        self.logger.debug( 'interval ({}) add {} {} {} {} {} {} {}'.format( weeks, days, hours, hours, minutes, seconds, start_date ) )
+        self.logger.debug( 'interval ({}) add {} {} {} {} {} {} {}'.format( name, weeks, days, hours, hours, minutes, seconds, start_date ) )
         token = self.scheduler.add_interval_job( self.sendCommand, weeks=weeks,
                         days=days, hours=hours, minutes=minutes, seconds=seconds,
                         start_date=start_date, args=args, kwargs=kwargs, name=name )
@@ -202,7 +202,7 @@ class HMScheduler( Base ):
 
         self.logger.debug( 'add date({}) at {}'.format( name, date ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=date,
-                                                            name=name, args=args, kwargs=kwargs )
+                                                             args=args, kwargs=kwargs )
         self.jobs[name].append( token )
 
     def add_one_shot( self, delta, args=None, kwargs=None ):
@@ -226,7 +226,6 @@ class HMScheduler( Base ):
         now = GetDateTime()
         dt = now.datetime()
         dt = dt + delta
-        self.logger.warn( 'one shot({}) at {}'.format( name, dt ) )
         token = self.scheduler.add_date_job( self.sendCommand, date=dt,
                                 name=name, args=args, kwargs=kwargs )
         self.jobs[name].append( token )

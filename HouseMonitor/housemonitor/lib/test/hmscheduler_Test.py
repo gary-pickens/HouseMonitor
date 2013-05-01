@@ -115,12 +115,12 @@ class Test( unittest.TestCase ):
         minutes = 4
         seconds = 5
         start_date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
-        args = 123
+        args = ( name )
         kwargs = 456
-        sched.add_interval( name, weeks, days, hours, minutes, seconds, start_date, args, kwargs )
+        sched.add_interval( weeks, days, hours, minutes, seconds, start_date, args, kwargs )
 
-        add_interval_job.assert_called_once_with( sched.sendCommand, name='Unit Test', seconds=5,
-            args=123, days=2, hours=3, kwargs=456, weeks=1, minutes=4,
+        add_interval_job.assert_called_once_with( sched.sendCommand, seconds=5,
+            args=name, days=2, hours=3, kwargs=456, weeks=1, minutes=4,
             start_date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ) )
 
         sched.shutdown()
@@ -146,12 +146,12 @@ class Test( unittest.TestCase ):
         minute = 4
         second = 5
         start_date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
-        args = 123
+        args = ( name )
         kwargs = 456
-        sched.add_cron( name, year, month, day, week, day_of_week,
+        sched.add_cron( year, month, day, week, day_of_week,
                   hour, minute, second, start_date, args, kwargs )
 
-        add_cron_job.assert_called_once_with( sched.sendCommand, week=99, hour=3, args=123,
+        add_cron_job.assert_called_once_with( sched.sendCommand, week=99, hour=3, args=args,
                                               year=2013, day_of_week=1, month=1, second=5,
                                               minute=4, kwargs=456,
                                               start_date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ),
@@ -172,15 +172,15 @@ class Test( unittest.TestCase ):
 
         name = 'Unit Test'
         date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
-        args = 123
+        args = ( name )
         kwargs = 456
-        sched.add_date( name, date, args, kwargs )
+        sched.add_date( date, *args, **kwargs )
 
         add_date_job.assert_called_once_with( sched.sendCommand,
                                                date=datetime.datetime( 2013, 1, 2, 3, 4, 5 ),
-                                               args=123, name='Unit Test', kwargs=456 )
+                                               args=args, kwargs=456 )
 
-        self.assertListEqual( sched.jobs['Unit Test'], [555] )
+        self.assertListEqual( sched.jobs[name], [555, 555] )
         sched.shutdown()
         sched = None
 
@@ -221,13 +221,14 @@ class Test( unittest.TestCase ):
         date = datetime.datetime( 2013, 1, 2, 3, 4, 5 )
         args = name, device, port, listeners
         kwargs = {'device': 456}
+        sched.jobs['test1'] = []
 
-        sched.add_date( name, date, args, kwargs )
+        sched.add_date( date, args, kwargs )
         date = datetime.datetime( 2013, 1, 2, 3, 4, 6 )
-        sched.add_date( name, date, args, kwargs )
+        sched.add_date( date, args, kwargs )
 
         name = 'test2'
-        sched.add_date( name, date, args, kwargs )
+        sched.add_date( date, args, kwargs )
         self.assertListEqual( sched.jobs['test1'], [55, 55] )
         sched.deleteJob( 'test1' )
         self.assertListEqual( sched.jobs['test1'], [] )

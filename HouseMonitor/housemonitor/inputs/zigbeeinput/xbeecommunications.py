@@ -41,10 +41,7 @@ class XBeeCommunications( Base, object ):
         """
         read - function read a frame of data from the XBee
         """
-        self.logger.warn( "Waiting for packet" )
         packet = self.zigbee.wait_read_frame()
-        self.logger.info( "Packet received" )
-        self.logger.debug( "{}".format( packet ) )
         return packet
 
     def connect( self ):

@@ -54,13 +54,9 @@ class XBeeInputThread( Base, threading.Thread ):
     def run( self ):
         self.startCorrectZigbee()
         self.zigbee.connect()
-        self.logger.warn( 'Successfully connect to Zigbee' )
         while True:
-            self.logger.warn( 'waiting for data from Zigbee' )
             packet = self.zigbee.read()
-            self.logger.info( 'read data from Zigbee' )
             env = DataEnvelope( type='xbee', packet=packet )
-            self.logger.warn( 'read data {}'.format( packet ) )
             self.input_queue.transmit( env, Constants.Queue.mid_priority )
             if ( self.exit_flag ):
                 break
