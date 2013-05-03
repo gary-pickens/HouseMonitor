@@ -173,7 +173,7 @@ class StatusPanel( Base ):
         data = {}
         data[Constants.DataPacket.device] = self.panel_address
         data[Constants.DataPacket.port] = self.panel_alarm
-        self.logger.error( "changeAlarm with {} {} {}".format( value, data, steps ) )
+        self.logger.debug( "changeAlarm with {} {} {}".format( value, data, steps ) )
         try:
             Common.send( value, data, steps )
         except Exception as ex:
@@ -369,7 +369,7 @@ class StatusPanel( Base ):
             :rtype: Boolean, dict, listeners
     
             """
-            self.logger.info( 'Silence alarm.' )
+            self.logger.debug( 'Silence alarm.' )
             if data[Constants.DataPacket.scheduler_id] == self.status_panel.short_scheduler_id:
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
             return value, data, listeners
@@ -419,7 +419,7 @@ class StatusPanel( Base ):
     
             """
             if value == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED:
-                self.logger.info( 'Disable button: {} DISABLE_ALARM_BUTTON_PRESSED = {}'.format( value, self.status_panel.DISABLE_ALARM_BUTTON_PRESSED ) )
+                self.logger.info( 'Disable alarm button pressed' )
                 self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_PRESSED
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_ON )
