@@ -1,7 +1,7 @@
 '''
 Created on Oct 10, 2012
 
-@author: Gary
+@author: Gary Pickens
 '''
 import abc
 from struct import *
