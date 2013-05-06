@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup( 
     name='HouseMonitor',
-    version='4.0.1',
+    version='4.0.2',
     author='Gary Pickens',
     author_email='gary_pickens@yahoo.com',
     packages=['housemonitor',
