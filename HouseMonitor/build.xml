@@ -102,11 +102,7 @@
             </fileset>
         </scp>
 -->
-<<<<<<< HEAD
         <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
-=======
-    	<sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
->>>>>>> refs/remotes/origin/fixSchedule
            command="cd src/;rm -rf ${project}-${version}" />
          <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
             command="cd src/;unzip ${project}-${version}.zip" />

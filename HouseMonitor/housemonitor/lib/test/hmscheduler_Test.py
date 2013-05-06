@@ -25,7 +25,7 @@ class Test( unittest.TestCase ):
     sched = None
 
     def setUp( self ):
-        logging.config.fileConfig( "house_monitor_logging.conf" )
+        logging.config.fileConfig( "unittest_logging.conf" )
 
     def tearDown( self ):
         if self.sched != None:

@@ -16,19 +16,19 @@ from configuration.formatconfiguration import FormatConfiguration
 from lib.getdatetime import GetDateTime
 
 
-class Test(unittest.TestCase):
+class Test( unittest.TestCase ):
 
-    logger = logging.getLogger('UnitTest')
+    logger = logging.getLogger( 'UnitTest' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "unittest_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    @patch('inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure')
-    @patch('inputs.zigbeeinput.beaglebonexbeecommunications.Serial')
-    def test_setup(self, serial, cfg):
+    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.Serial' )
+    def test_setup( self, serial, cfg ):
         port = 'COM2'
         baud = 9600
         value = 0xaa
@@ -45,28 +45,28 @@ class Test(unittest.TestCase):
                       }
         serial.return_value = value
         return_value = bb.setup()
-        bb.write_uart_configuration_setup.assert_any_call('tx_mux', 1)
-        self.assertEqual(bb.write_uart_configuration_setup.call_count, 2)
-        serial.assert_called_once_with(port, baud, timeout=10)
-        self.assertEqual(value, return_value)
+        bb.write_uart_configuration_setup.assert_any_call( 'tx_mux', 1 )
+        self.assertEqual( bb.write_uart_configuration_setup.call_count, 2 )
+        serial.assert_called_once_with( port, baud, timeout=10 )
+        self.assertEqual( value, return_value )
 
-    @patch('inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure')
-    @patch('inputs.zigbeeinput.beaglebonexbeecommunications.Serial.close')
-    def test_close(self, close, cfg):
+    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.Serial.close' )
+    def test_close( self, close, cfg ):
         bb = BeagleboneXbeeCommunications()
         bb.close()
         close.assert_called_once_with()
 
-    @patch('inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure')
-    def test_configuration_topic_name(self, cfg):
+    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    def test_configuration_topic_name( self, cfg ):
         bb = BeagleboneXbeeCommunications()
-        self.assertEqual(bb.configuration_topic_name, 'inputs.zigbeeinput.beaglebonexbeecommunications')
+        self.assertEqual( bb.configuration_topic_name, 'inputs.zigbeeinput.beaglebonexbeecommunications' )
 
-    @patch('inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure')
-    def test_configuration_file_name(self, cfg):
+    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    def test_configuration_file_name( self, cfg ):
         bb = BeagleboneXbeeCommunications()
-        self.assertEqual(bb.configuration_file_name, 'inputs.zigbeeinput.beaglebonexbeecommunications')
+        self.assertEqual( bb.configuration_file_name, 'inputs.zigbeeinput.beaglebonexbeecommunications' )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()  # pragma: no cover
+    unittest.main()    # pragma: no cover

@@ -10,64 +10,64 @@ from mock import Mock, patch
 import os
 
 
-class Test(unittest.TestCase):
+class Test( unittest.TestCase ):
 
-    logger = logging.getLogger('lib')
+    logger = logging.getLogger( 'lib' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "unittest_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    def test_loadm(self):
+    def test_loadm( self ):
         lmod = ModuleLoader()
         data = {'current values': 'abc'}
-        lmod.load(data)
+        lmod.load( data )
 
-    def test_file_name(self):
+    def test_file_name( self ):
         m = ModuleLoader()
-        self.assertEqual(m.file_name(), 'lib.moduleloader')
+        self.assertEqual( m.file_name(), 'lib.moduleloader' )
 
-    def test_load_with_exception_in_imp_read_module(self):
+    def test_load_with_exception_in_imp_read_module( self ):
         lmod = ModuleLoader()
-        with patch('os.walk') as os.walk:
+        with patch( 'os.walk' ) as os.walk:
             os.walk.return_value = ["abc"]
-            with patch('imp.find_module') as find_module:
-                find_module.side_effect = ImportError("ImportError in read_module")
+            with patch( 'imp.find_module' ) as find_module:
+                find_module.side_effect = ImportError( "ImportError in read_module" )
                 data = {'current values': 'abc'}
-                lmod.load(data)
-                find_module.assert_called_once_with("c", ["steps"])
+                lmod.load( data )
+                find_module.assert_called_once_with( "c", ["steps"] )
 
-    def test_load_with_exception_in_imp_load_module(self):
+    def test_load_with_exception_in_imp_load_module( self ):
         lmod = ModuleLoader()
-        with patch('os.walk') as os.walk:
+        with patch( 'os.walk' ) as os.walk:
             os.walk.return_value = ["abc"]
-            with patch('imp.find_module') as find_module:
+            with patch( 'imp.find_module' ) as find_module:
                 find_module.return_value = ['a', 'b', 'c']
-                with patch('imp.load_module') as load_module:
-                    load_module.side_effect = ImportError("ImportError in load_module")
-                    with patch('lib.moduleloader.ModuleLoader.close_file') as close_file:
+                with patch( 'imp.load_module' ) as load_module:
+                    load_module.side_effect = ImportError( "ImportError in load_module" )
+                    with patch( 'lib.moduleloader.ModuleLoader.close_file' ) as close_file:
                         data = {'current values': 'abc'}
-                        lmod.load(data)
-                        load_module.assert_called_once_with("c", "a", "b", "c")
-                        find_module.assert_called_once_with('c', ['steps'])
+                        lmod.load( data )
+                        load_module.assert_called_once_with( "c", "a", "b", "c" )
+                        find_module.assert_called_once_with( 'c', ['steps'] )
                         close_file.assert_called_once()
 
-    def test_load_with_exception_in_package_instantiate_me(self):
+    def test_load_with_exception_in_package_instantiate_me( self ):
         lmod = ModuleLoader()
-        with patch('os.walk') as os.walk:
+        with patch( 'os.walk' ) as os.walk:
             os.walk.return_value = ["abc"]
-            with patch('imp.find_module') as find_module:
+            with patch( 'imp.find_module' ) as find_module:
                 find_module.return_value = ['a', 'b', 'c']
-                with patch('imp.load_module') as load_module:
-                    with patch('lib.moduleloader.ModuleLoader.get_class_name') as get_class_name:
-                        with patch('lib.moduleloader.ModuleLoader.close_file') as close_file:
-                            get_class_name.side_effect = AttributeError("")
+                with patch( 'imp.load_module' ) as load_module:
+                    with patch( 'lib.moduleloader.ModuleLoader.get_class_name' ) as get_class_name:
+                        with patch( 'lib.moduleloader.ModuleLoader.close_file' ) as close_file:
+                            get_class_name.side_effect = AttributeError( "" )
                             data = {'current values': 'abc'}
-                            lmod.load(data)
-                            load_module.assert_called_once_with("c", "a", "b", "c")
-                            find_module.assert_called_once_with('c', ['steps'])
+                            lmod.load( data )
+                            load_module.assert_called_once_with( "c", "a", "b", "c" )
+                            find_module.assert_called_once_with( 'c', ['steps'] )
                             close_file.assert_called_once()
 
 if __name__ == "__main__":

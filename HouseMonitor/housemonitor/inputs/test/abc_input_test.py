@@ -11,35 +11,35 @@ from lib.constants import Constants
 from mock import Mock, MagicMock, patch
 
 
-class myInput(abcInput):
+class myInput( abcInput ):
 
-    def input(self):
+    def input( self ):
         pass
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         return Constants.LogKeys.inputs
 
     @property
-    def topic_name(self):
+    def topic_name( self ):
         return Constants.TopicNames.UnitTest
 
 
-class Test(unittest.TestCase):
+class Test( unittest.TestCase ):
 
-    logger = logging.getLogger('UnitTest')
+    logger = logging.getLogger( 'UnitTest' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "unittest_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    def test_instantuating(self):
+    def test_instantuating( self ):
         i = myInput()
-        self.assertIsInstance(i, myInput)
+        self.assertIsInstance( i, myInput )
 
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()  # pragma: no cover
+    unittest.main()    # pragma: no cover

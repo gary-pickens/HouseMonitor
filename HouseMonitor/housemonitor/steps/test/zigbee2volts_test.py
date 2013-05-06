@@ -17,44 +17,44 @@ from steps.zigbee2volts import ZigbeeCountToVolts
 from steps.zigbee2volts import instantuate_me
 
 
-class Test(unittest.TestCase):
-    logger = logging.getLogger('UnitTest')
+class Test( unittest.TestCase ):
+    logger = logging.getLogger( 'UnitTest' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "unittest_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    def test_convert_count_of_0_to_volts(self):
+    def test_convert_count_of_0_to_volts( self ):
         z = ZigbeeCountToVolts()
         data = {}
         listeners = ['a', 'b']
         data = {'device': 'a', 'port': 'b'}
-        value, data, listeners = z.step(0, data, listeners)
-        self.assertAlmostEqual(value, 0, 2)
+        value, data, listeners = z.step( 0, data, listeners )
+        self.assertAlmostEqual( value, 0, 2 )
 
-    def test_convert_count_of_100_to_volts(self):
+    def test_convert_count_of_100_to_volts( self ):
         z = ZigbeeCountToVolts()
         data = {}
         listeners = ['a', 'b']
         data = {'device': 'a', 'port': 'b'}
-        value, data, listeners = z.step(100, data, listeners)
-        self.assertAlmostEqual(value, 0.1171875, 2)
+        value, data, listeners = z.step( 100, data, listeners )
+        self.assertAlmostEqual( value, 0.1171875, 2 )
 
-    def test_topic_name(self):
+    def test_topic_name( self ):
         z = ZigbeeCountToVolts()
-        self.assertEqual(z.topic_name, Constants.TopicNames.ZigbeeAnalogNumberToVoltsStep)
+        self.assertEqual( z.topic_name, Constants.TopicNames.ZigbeeAnalogNumberToVoltsStep )
 
-    def test_logger_name(self):
+    def test_logger_name( self ):
         z = ZigbeeCountToVolts()
-        self.assertEqual(z.logger_name, Constants.LogKeys.steps)
+        self.assertEqual( z.logger_name, Constants.LogKeys.steps )
 
-    def test_instantuate_me(self):
+    def test_instantuate_me( self ):
         data = {}
-        z = instantuate_me(data)
-        self.assertIsInstance(z, ZigbeeCountToVolts)
+        z = instantuate_me( data )
+        self.assertIsInstance( z, ZigbeeCountToVolts )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()  # pragma: no cover
+    unittest.main()    # pragma: no cover

@@ -17,18 +17,18 @@ from lib.getdatetime import GetDateTime
 from inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
 
 
-class Test(unittest.TestCase):
-    logger = logging.getLogger('UnitTest')
+class Test( unittest.TestCase ):
+    logger = logging.getLogger( 'UnitTest' )
 
-    def setUp(self):
-        logging.config.fileConfig("house_monitor_logging.conf")
+    def setUp( self ):
+        logging.config.fileConfig( "unittest_logging.conf" )
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    def testName(self):
+    def testName( self ):
         pass
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()  # pragma: no cover
+    unittest.main()    # pragma: no cover

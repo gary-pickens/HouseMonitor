@@ -72,7 +72,7 @@ class Test( unittest.TestCase ):
                          'network_address': '0xf9f2'}}
 
     def setUp( self ):
-        logging.config.fileConfig( "house_monitor_logging.conf" )
+        logging.config.fileConfig( "unittest_logging.conf" )
 
     def tearDown( self ):
         pass

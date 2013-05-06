@@ -14,7 +14,7 @@ class Test( unittest.TestCase ):
     logger = logging.getLogger( 'lib' )
 
     def setUp( self ):
-        logging.config.fileConfig( "house_monitor_logging.conf" )
+        logging.config.fileConfig( "unittest_logging.conf" )
 
     def tearDown( self ):
         pass
