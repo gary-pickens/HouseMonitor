@@ -14,7 +14,7 @@ References
 #. `Patch Man Page <http://www.voidspace.org.uk/python/mock/patch.html>`_.
 #. `Where to Patch <http://docs.python.org/3/library/unittest.mock.html#where-to-patch>`_.
 #. `Patching in the wrong place <http://alexmarandon.com/articles/python_mock_gotchas/>`_.
-
+#. `Some good information about patching datetime <http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/>`_.
 
 =======================================
 A good template for creating unit tests

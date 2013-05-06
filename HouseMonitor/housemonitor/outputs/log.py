@@ -73,7 +73,12 @@ class Log( iOutput, XmlConfiguration ):
         line = "{:25.25s} {} {}{}".format( name, date, value, os.linesep )
 
         self.os.write( line )
-        Common.send( value=value, data=data, listeners=listeners )
+
+        try:
+            Common.send( value=value, data=data, listeners=listeners )
+        except Exception as ex:
+            self.logger.exception( 'Common.send error {}'.format( ex ) )
+
         return line
 
     def configure( self ):

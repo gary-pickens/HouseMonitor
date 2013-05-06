@@ -80,4 +80,7 @@ class ConvertGarageDoorState( abcStep ):
             new_data[Constants.DataPacket.units] = 'invalid'
             self.logger.warn( "invalid state %d", value )
         self.logger.info( "prior door state was {} {} {}".format( new_value, new_data[Constants.DataPacket.units], listeners ) )
-        Common.send( new_value, new_data, new_listeners )
+        try:
+            Common.send( new_value, new_data, new_listeners )
+        except Exception as ex:
+            self.logger.exception( 'Common.send error {}'.format( ex ) )

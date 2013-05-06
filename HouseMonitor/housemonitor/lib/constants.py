@@ -218,11 +218,13 @@ class Constants( object ):
         #  Configurations
         xmlDeviceConfiguration = 'configuration.xmlDeviceConfiguration'
         #  Outputs
+        Outputs = 'outputs'
         COSM = 'outputs.COSM'
         #  Inputs
         ProcessInputs = 'inputs.ProcessInputs'
         #  Misc
         UnitTest = 'UnitTest'
+        ALL_TOPICS = 'ALL_TOPICS'
 
     class LogKeys( object ):
         Scheduler = 'scheduler'
@@ -245,3 +247,7 @@ class Constants( object ):
         mid_priority = 5
         default_priority = mid_priority
         low_priority = 10
+
+    class SchedulerName( object ):
+        LED_Status_Update = 'LED Status Update'
+        Uptime_update = 'uptime'

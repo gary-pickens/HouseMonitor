@@ -69,6 +69,10 @@ class Test( unittest.TestCase ):
         t = datetime( 2012, 2, 2, 2, 2, 2 )
         sp = StatusPanel()
         dt.return_value = t
+
+        sp.garage_door_monitor.turnOffAlarmAfterInterval = Mock()
+        sp.garage_door_monitor.setTimerToActivateAlarmAfterInterval = Mock()
+
         sp.garage_door_monitor.step( sp.GARAGE_DOOR_OPEN, data, list )
         self.assertEqual( sp.garage_door, sp.GARAGE_DOOR_OPEN )
         self.assertEqual( sp.when_garage_door_opened, t )
@@ -78,10 +82,12 @@ class Test( unittest.TestCase ):
     @patch( 'steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
     @patch.object( GetDateTime, 'datetime' )
     def test_first_time_with_garage_door_closed_then_open_the_garage_door( self, dt, light ):
-        data = {}
+        data = {'d': 'e'}
         list = ['a', 'b']
         t = datetime( 2012, 2, 2, 2, 2, 2 )
         sp = StatusPanel()
+        sp.garage_door_monitor.turnOffAlarmAfterInterval = Mock()
+        sp.garage_door_monitor.setTimerToActivateAlarmAfterInterval = Mock()
         dt.return_value = t
         sp.garage_door_monitor.step( sp.GARAGE_DOOR_CLOSED, data, list )
         self.assertEqual( sp.garage_door, sp.GARAGE_DOOR_CLOSED )
@@ -156,7 +162,7 @@ class Test( unittest.TestCase ):
     @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
     @patch( 'steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer' )
     def test_process_delayed_alarm( self, at, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         listeners = []
         sp = StatusPanel()
@@ -210,6 +216,16 @@ class Test( unittest.TestCase ):
         at.reset_mock()
         ca.reset_mock()
 
+        # Test Disabled
+        sp.garage_door = sp.GARAGE_DOOR_OPEN
+        sp.disenable_alarm_button_pressed = sp.DISABLE_ALARM_BUTTON_NOT_PRESSED
+
+        sp.process_delayed_alarm.step( 1, data, listeners )
+
+        self.assertEqual( sp.process_delayed_alarm.delayedAlarmState, sp.process_delayed_alarm.Disabled )
+        at.reset_mock()
+        ca.reset_mock()
+
     @patch.object( uuid, 'uuid4' )
     @patch.object( pub, "sendMessage" )
     def test_process_delayed_alarm_activeTimer( self, sm, u ):
@@ -229,7 +245,7 @@ class Test( unittest.TestCase ):
 
     @patch.object( StatusPanel, 'changeAlarm' )
     def test_process_when_disable_alarm_button_pressed( self, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         listeners = [Constants.TopicNames.ZigBeeOutput]
         sp = StatusPanel()
@@ -243,7 +259,7 @@ class Test( unittest.TestCase ):
 
     @patch.object( StatusPanel, 'changeAlarm' )
     def test_process_when_disable_alarm_button_pressed_but_invalid_state( self, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         invalid_state = 10
         listeners = [Constants.TopicNames.ZigBeeOutput]
@@ -263,7 +279,7 @@ class Test( unittest.TestCase ):
 ################################################
     @patch.object( StatusPanel, 'changeAlarm' )
     def test_SilenceAlarm( self, ca ):
-        uu = uuid.uuid4()
+        uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}
         listeners = [Constants.TopicNames.ZigBeeOutput]
         sp = StatusPanel()

@@ -57,5 +57,5 @@ class ZigBeeOutputStep( abcStep ):
         """
         packet = {'data': data, 'value': value}
         self.queue.transmit( packet, self.queue.three_quarters_priority )
-        self.logger.debug( "ZigBee Step data transmitted to ZigBee thread = {}".format( packet ) )
+        self.logger.debug( "ZigBee Step data transmitted to ZigBee thread" )
         return value, data, listeners

@@ -44,9 +44,8 @@ class ZigBeeOutputThread( Base, threading.Thread ):
         try:
             self.zigbee_output = ZigBeeOutput()
             self.zigbee_output.startCorrectZigbee()
-#            TODO: Remove the following line
-#            self.zigbee_output.connect()
             self.connected = self.talking = True
+            self.logger.debug( 'Connect to ZibBee' )
         except Exception as ex:
             self.logger.error( ex )
             time.sleep( 10 )
@@ -55,12 +54,13 @@ class ZigBeeOutputThread( Base, threading.Thread ):
 
     def processCommandToZigBee( self ):
         packet = self.output_queue.receive()
-        self.logger.debug( "Received packet {}".format( packet ) )
+        self.logger.debug( "Tread Received packet" )
         try:
             data = packet['data']
             value = packet['value']
             self.zigbee_output.sendCommand( value, data )
             self.talking = self.connected = True
+            self.logger.debug( 'command sent to zigbee' )
         except IOError as er:
             self.logger.exception( er )
             self.connected = self.talking = False

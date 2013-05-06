@@ -1,7 +1,7 @@
 '''
 Created on Oct 10, 2012
 
-@author: Gary
+@author: Gary Pickens
 '''
 import abc
 from struct import *
@@ -81,7 +81,6 @@ class ProcessXBeeInput( abcProcessInput ):
                                 package[Constants.DataPacket.steps] = copy.copy( self.devices.get_steps( source_addr_long, port ) )
                                 data = samples[0][port]
 
-                                self.logger.debug( 'Common.send({}, {}, {}) called'.format( data, package, package[Constants.DataPacket.steps] ) )
                                 Common.send( data, package, package[Constants.DataPacket.steps] )
                         except InvalidDeviceError as ie:
                                 self.logger.exception( str( ie ) )
@@ -89,6 +88,8 @@ class ProcessXBeeInput( abcProcessInput ):
                                 self.logger.exception( str( ie ) )
                         except InvalidConfigurationOptionError as ie:
                                 self.logger.exception( str( ie ) )
+                        except Exception as ex:
+                            self.logger.exception( 'Common.send error {}'.format( ex ) )
             else:
                 self.logger.info( 'None processed ZigBee response {}'.format( pprint.pformat( packet ) ) )
         except KeyError:
@@ -121,15 +122,16 @@ class ProcessStatusRequests( abcProcessInput ):
         :return: None
         :Raises: None
         '''
-        data = envelope.data
-        if Constants.DataPacket.current_value in data:
-            value = data[Constants.DataPacket.current_value]
-        else:
-            value = 1
-        listeners = data[Constants.DataPacket.listeners]
-        self.logger.debug( 'ProcessStatusRequests sending  value = {} data = {} listeners = {}'.
-                           format( value, data, listeners ) )
-        Common.send( value, data, listeners )
+        try:
+            data = envelope.data
+            if Constants.DataPacket.current_value in data:
+                value = data[Constants.DataPacket.current_value]
+            else:
+                value = 1
+            listeners = data[Constants.DataPacket.listeners]
+            Common.send( value, data, listeners )
+        except Exception as ex:
+            self.logger.exception( 'Common.send error {}'.format( ex ) )
 
 class ProcessInput( abcInput ):
     '''
@@ -182,7 +184,7 @@ class ProcessInput( abcInput ):
         '''
         try:
             envelope = self._input_queue.receive()
-            self.logger.info( 'recieved type {} Envelope'.format( envelope.type ) )
+            self.logger.debug( 'recieved type {} Envelope'.format( envelope.type ) )
             self.commands[envelope.type].process( envelope )
         except KeyError:
             self.logger.debug( 'Invalid envelope.type = {}'.format( envelope.type ) )

@@ -52,7 +52,7 @@ class COSMControl( Base ):
 
         '''
         self.logger.debug( 'COSM starting up' )
-        self.queue = HMQueue()
+        self.queue = HMQueue( 'COSM' )
         self.cosmOutputThread = COSMOutputThread( self.queue, options, name='COSM' )
         self.cosmOutputThread.start()
         self.cosm = COSMOutputStep( self.queue )

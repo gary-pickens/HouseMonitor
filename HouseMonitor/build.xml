@@ -36,8 +36,7 @@
     </target>
     <target name="UnitTest" depends="clean" description="Run all UnitTests">
         <exec executable="nosetests" failonerror="true" >
-            <arg value="--ignore-files=hmscheduler_Test.py "/>
-            <arg value="--ignore-files=uptime_Test.py"/>
+            <arg value="--ignore-files=abc_step_test.py"/>
         </exec>
     </target>
     <target name="coverage" depends="clean" description="Run all UnitTests">
@@ -45,6 +44,7 @@
             <arg value="erase"/>
         </exec>
         <exec executable="nosetests" failonerror="true" >
+            <arg value="--ignore-files=abc_step_test.py"/>
         	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
             <arg value="--with-coverage"/>
             <arg value="--cover-package='housemonitor'"/>
@@ -87,7 +87,7 @@
         <sshexec host="${host}" username="${user}" password="${password}"
             command="tar czf backup/${project}.${version}-${DSTAMP}${TSTAMP}.tar.gz src/${remote_directory}" />
     </target>
-    <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg, doc">
+    <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
         <scp todir="${user}:${password}@${host}:src" failonerror="true">
             <fileset dir="dist">
             </fileset>
@@ -98,11 +98,15 @@
             </fileset>
         </scp>
         <scp todir="${user}:${password}@${host}:/www/pages/cover" failonerror="true">
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\htmlcov">
+            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\cover">
             </fileset>
         </scp>
 -->
+<<<<<<< HEAD
         <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
+=======
+    	<sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
+>>>>>>> refs/remotes/origin/fixSchedule
            command="cd src/;rm -rf ${project}-${version}" />
          <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
             command="cd src/;unzip ${project}-${version}.zip" />

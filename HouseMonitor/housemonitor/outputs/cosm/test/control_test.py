@@ -34,7 +34,7 @@ class Test( unittest.TestCase ):
                     options = None
                     que.return_value = 1
                     cont.startCOSM( options )
-                    que.assert_called_with()
+                    que.assert_called_with( 'COSM' )
                     thread.assert_called_with( 1, None, name='COSM' )
                     self.assertTrue( op.called )
 

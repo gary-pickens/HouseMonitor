@@ -5,11 +5,10 @@ Created on Mar 6, 2013
 @author: Gary
 
 '''
+from datetime import datetime, timedelta
 from lib.common import Common
 from lib.constants import Constants
 from steps.abc_step import abcStep
-from datetime import datetime
-from datetime import timedelta
 
 
 def instantuate_me( data ):

@@ -82,7 +82,6 @@ class ComputerMonitor( Base, threading.Thread ):
                 Constants.DataPacket.listeners: copy.copy( listeners )}
 
         env = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data, arrival_time=dt )
-        self.logger.debug( 'read data {}'.format( env ) )
         self.input_queue.transmit( packet=env, priority=Constants.Queue.low_priority )
 
     def process_data( self, file_contents, dt ):

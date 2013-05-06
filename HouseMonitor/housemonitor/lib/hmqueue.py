@@ -25,13 +25,14 @@ class HMQueue( Base ):
     _queue = None
     ''' A Tread safe queue used to communicate data between threads. '''
 
-    def __init__( self ):
+    def __init__( self, name=__name__ ):
         '''
         Constructor
         '''
         if ( self._queue == None ):
             self._queue = Queue.PriorityQueue( self.QUEUE_SIZE )
         super( HMQueue, self ).__init__()
+        self.name = name
 
     @property
     def logger_name( self ):
@@ -52,7 +53,7 @@ class HMQueue( Base ):
         :exceptions: none
 
         >>> from lib.queue import HMQueue
-        >>> cosm = HMQueue()
+        >>> cosm = HMQueue('COSM')
         >>> cosm.transmit({'a':  'b'})
         >>> cosm.receive()
         {'a': 'b'}
@@ -61,7 +62,7 @@ class HMQueue( Base ):
 
         '''
         self._queue.put( ( priority, packet ) )
-        self.logger.debug( "put packet on HMQueue: packet = {}".format( packet ) )
+        self.logger.debug( "put packet on {} HMQueue:".format( self.name ) )
 
     def receive( self ):
         '''
@@ -76,14 +77,14 @@ class HMQueue( Base ):
         .. warning:: Will block if no packets are available
 
         >>> from lib.queue import HMQueue
-        >>> cosm = HMQueue()
+        >>> cosm = HMQueue('COSM')
         >>> cosm.transmit({'a':  'b'})
         >>> cosm.receive()
         {'a': 'b'}
 
         '''
         priority, packet = self._queue.get()
-        self.logger.debug( "get packet off cosm Queue: packet = {}".format( packet ) )
+        self.logger.debug( "get packet off {} Queue:".format( self.name ) )
         return packet
 
     def clear( self ):
@@ -93,7 +94,7 @@ class HMQueue( Base ):
         This routine is mainly used for unit test
 
         >>> from lib.queue import HMQueue
-        >>> cosm = HMQueue()
+        >>> cosm = HMQueue('COSM')
         >>> cosm.clean()
 
         .. warning::  All the data in the queue will be lost

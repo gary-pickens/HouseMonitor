@@ -10,7 +10,7 @@ from lib.base import Base
 from outputs.zigbee.zigbeeoutputstep import ZigBeeOutputStep
 
 
-class ZigBeeControl(Base):
+class ZigBeeControl( Base ):
     '''
     ZigBeeControl starts the ZigBee processing to send data to ZigBee at the following
     URL:
@@ -22,18 +22,18 @@ class ZigBeeControl(Base):
     ZigBeeOutputThread = None
     cosm = None
 
-    def __init__(self):
+    def __init__( self ):
         '''
         Constructor
         '''
-        super(ZigBeeControl, self).__init__()
+        super( ZigBeeControl, self ).__init__()
 
     @property
-    def logger_name(self):
+    def logger_name( self ):
         """ Set the logger level. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.outputsZigBee
 
-    def startZigBee(self, options):
+    def startZigBee( self, options ):
         '''
         Start the ZigBee processing.
 
@@ -48,7 +48,8 @@ class ZigBeeControl(Base):
         main thread and sends them to the ZigBee thread.
 
         '''
-        self.queue = HMQueue()
-        self.ZigBeeOutputThread = ZigBeeOutputThread(self.queue)
+        self.queue = HMQueue( 'ZigBeeInput' )
+        self.zig = ZigBeeOutputStep( self.queue )
+
+        self.ZigBeeOutputThread = ZigBeeOutputThread( self.queue )
         self.ZigBeeOutputThread.start()
-        self.zig = ZigBeeOutputStep(self.queue)
