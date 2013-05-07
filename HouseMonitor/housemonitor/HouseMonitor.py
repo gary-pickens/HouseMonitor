@@ -22,7 +22,7 @@ from outputs.xmlrpc.control import XMLRPCControl
 from outputs.zigbee.zigbeecontrol import ZigBeeControl
 from pprint import pprint
 from pubsub import pub
-from lib.housemonitorinfo import *
+from housemonitorinfo import *
 import logging.config
 import sys
 

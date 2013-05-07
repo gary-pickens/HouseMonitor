@@ -11,6 +11,7 @@ housemonitor\HouseMonitor.py
 housemonitor\__init__.py
 housemonitor\house_monitor_logging.conf
 housemonitor\housemonitor.service
+housemonitor\housemonitorinfo.py
 housemonitor/configuration\__init__.py
 housemonitor/configuration\abc_configuration.py
 housemonitor/configuration\cosmconfiguration.py

@@ -1,0 +1,9 @@
+#
+#
+#
+HouseMonitorVersion = '@VERSION@'
+HouseMonitorAuthor = '@AUTHOR@'
+HouseMonitorEmail = '@EMAIL@'
+HouseMonitorBuildDate = '@DATE@'
+HouseMonitorTitle = '@TITLE@'
+HouseMonitorProject = '@PROJECT@'
