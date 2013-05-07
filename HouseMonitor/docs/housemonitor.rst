@@ -9,6 +9,14 @@ housemonitor Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`housemonitorinfo` Module
+------------------------------
+
+.. automodule:: housemonitor.housemonitorinfo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 

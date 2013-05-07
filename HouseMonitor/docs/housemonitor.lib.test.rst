@@ -1,6 +1,14 @@
 test Package
 ============
 
+:mod:`arg_test` Module
+----------------------
+
+.. automodule:: housemonitor.lib.test.arg_test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`common_Test` Module
 -------------------------
 

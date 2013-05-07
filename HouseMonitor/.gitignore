@@ -25,3 +25,4 @@ HouseMonitor.db
 /.metadata
 /UnitTest.log
 /setup.py
+/ cover
