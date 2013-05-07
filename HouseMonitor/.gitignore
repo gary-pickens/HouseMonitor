@@ -24,3 +24,4 @@ HouseMonitor.db
 /.coverage
 /.metadata
 /UnitTest.log
+/setup.py

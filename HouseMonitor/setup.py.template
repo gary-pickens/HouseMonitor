@@ -2,9 +2,9 @@ from distutils.core import setup
 
 setup( 
     name='HouseMonitor',
-    version='4.0.3',
-    author='Gary Pickens',
-    author_email='gary_pickens@yahoo.com',
+    version='VERSION',
+    author='AUTHOR',
+    author_email='EMAIL',
     packages=['housemonitor',
               'housemonitor/configuration',
               'housemonitor/inputs',

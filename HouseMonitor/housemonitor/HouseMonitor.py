@@ -22,6 +22,7 @@ from outputs.xmlrpc.control import XMLRPCControl
 from outputs.zigbee.zigbeecontrol import ZigBeeControl
 from pprint import pprint
 from pubsub import pub
+from lib.housemonitorinfo import *
 import logging.config
 import sys
 
@@ -66,10 +67,12 @@ class HouseMonitor():
         self.parse_options()
 
     def print_start_message( self ):
-        self.logger.info( "Monitor House" )
-        self.logger.info( "by Gary Pickens" )
-        self.logger.info( "Version 3.0.2" )
-        self.logger.info( datetime.now().isoformat() )
+        self.logger.info( '{:^30}'.format( HouseMonitorTitle ) )
+        self.logger.info( '' )
+        self.logger.info( 'author:             ' + HouseMonitorAuthor )
+        self.logger.info( 'email:              ' + HouseMonitorEmail )
+        self.logger.info( 'version:            ' + HouseMonitorVersion )
+        self.logger.info( 'date built:         ' + HouseMonitorBuildDate )
 
     def parse_options( self ):
         Options = OptionParser()
