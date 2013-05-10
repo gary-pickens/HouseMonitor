@@ -62,6 +62,10 @@ class Constants( object ):
         listeners = 'listeners'
         scheduler_id = 'scheduler_id'
 
+        action = 'action'
+        send = 'send'
+        accumulate = 'accumulate'
+
     class EnvelopeTypes( object ):
         '''
         Contains definitions that describe the data that is passed in the input queue
@@ -150,6 +154,7 @@ class Constants( object ):
             tags = 'tags'
             unit = 'unit'
             id = 'id'
+            datapoints = 'datapoints'
 
         """
         Variable from the location fields
