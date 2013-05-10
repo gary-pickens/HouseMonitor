@@ -10,7 +10,6 @@
             <units>boolean</units>
             <steps type="list">
             	<step>step.GarageDoorMonitor</step>
-                <step>step.onBooleanChange</step>
                 <step>step.CurrentValue</step>
                 <step>step.garage_door_state</step>
                 <step>outputs.COSM</step>
