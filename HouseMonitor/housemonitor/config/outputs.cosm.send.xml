@@ -5,7 +5,7 @@
 	    <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
 	    <id>64451</id>
 	    <url>https://api.cosm.com/v2/feeds/{}.json</url>
-	    <title>Garage</title>
+	    <title>House Monitor</title>
 	    <exposure>indoor</exposure>
 	    <domain>physical</domain>
 	    <disposition>fixed</disposition>
@@ -28,7 +28,7 @@
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
         <url>https://api.cosm.com/v2/feeds/{}.json</url>
-        <title>Garage</title>
+        <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
         <disposition>fixed</disposition>
@@ -49,7 +49,7 @@
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
         <url>https://api.cosm.com/v2/feeds/{}.json</url>
-        <title>Sunroom temperature sensor</title>
+        <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
         <disposition>fixed</disposition>
@@ -72,7 +72,7 @@
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
         <url>https://api.cosm.com/v2/feeds/{}.json</url>
-        <title>Outdoor Temperature Sensor</title>
+        <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
         <disposition>fixed</disposition>
