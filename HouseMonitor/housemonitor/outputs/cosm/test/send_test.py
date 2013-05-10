@@ -3,22 +3,23 @@ Created on Dec 10, 2012
 
 @author: Gary
 '''
-import unittest
-from outputs.cosm.control import COSMControl
-from lib.hmqueue import HMQueue
-from outputs.cosm.send import COSMSend
-from outputs.cosm.outputthread import COSMOutputThread
-from outputs.cosm.outputStep import COSMOutputStep
 from configuration.cosmconfiguration import CosmConfiguration
-from mock import Mock, MagicMock, patch
+from httplib2 import HttpLib2Error
 from lib.common import Common
-import logging.config
+from lib.getdatetime import GetDateTime
 from lib.constants import Constants
-import pprint
+from lib.hmqueue import HMQueue
+from mock import Mock, MagicMock, patch
+from outputs.cosm.control import COSMControl
+from outputs.cosm.outputStep import COSMOutputStep
+from outputs.cosm.outputthread import COSMOutputThread
+from outputs.cosm.send import COSMSend
 import datetime
 import httplib2
-from httplib2 import HttpLib2Error
 import json
+import logging.config
+import pprint
+import unittest
 
 
 class Test( unittest.TestCase ):
@@ -60,7 +61,39 @@ class Test( unittest.TestCase ):
                                 Constants.Cosm.version: 'version',
                                 Constants.Cosm.location_str: 'location',
                                 Constants.Cosm.datastreams: 'datastreams',
-                            }}}
+                            }
+                  },
+     'device 2': {'port 1': {
+                                Constants.Cosm.datastream.tags: 'tag',
+                                Constants.Cosm.datastream.cosm_channel: '2',
+                                Constants.Cosm.datastream.max_value: 100,
+                                Constants.Cosm.datastream.min_value: 0,
+                                Constants.Cosm.location.created: 'created',
+                                Constants.Cosm.location.disposition: 'disposition',
+                                Constants.Cosm.location.domain: 'domain',
+                                Constants.Cosm.location.exposure: 'exposure',
+                                Constants.Cosm.location.latitude: 'lat',
+                                Constants.Cosm.location.longitude: 'lon',
+                                Constants.Cosm.location.private: 'private',
+                                Constants.Cosm.apikey: 'apikey',
+                                Constants.Cosm.auto_feed_url: 'auto_feed_url',
+                                Constants.Cosm.creator: 'creator',
+                                Constants.Cosm.created: 'created',
+                                Constants.Cosm.email: 'email',
+                                Constants.Cosm.feed: 'feed',
+                                Constants.Cosm.id: 'id',
+                                Constants.Cosm.private: 'private',
+                                Constants.Cosm.status: 'status',
+                                Constants.Cosm.tags: 'tags',
+                                Constants.Cosm.title: 'title',
+                                Constants.Cosm.updated: 'updated',
+                                Constants.Cosm.url: 'url',
+                                Constants.Cosm.version: 'version',
+                                Constants.Cosm.location_str: 'location',
+                                Constants.Cosm.datastreams: 'datastreams',
+                            }
+                  }
+     }
 
     config_data_1 = \
     {'device': {'port': {
@@ -116,18 +149,49 @@ class Test( unittest.TestCase ):
         self.assertEqual( item['id'], '1' )
 
     @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    def test_createDataStream_with_two_datapoints( self, config ):
+        options = None
+        cs = COSMSend( options )
+        config.assert_called_once_with()
+        cs.config = self.config_data
+        device = 'device 1'
+        port = 'port 1'
+        current_value = 10
+        data = {'device': device,
+                'port': port,
+                Constants.DataPacket.units: 'X',
+                Constants.DataPacket.action: Constants.DataPacket.accumulate,
+                Constants.DataPacket.arrival_time: datetime.datetime( 2012, 1, 2, 3, 4, 5 ),
+                Constants.DataPacket.current_value: current_value}
+        cs.createDataStream( device, port, data )
+#        self.assertListEqual( cs.datapoints['1'], [{'at':'2012-01-02T03:04:05', 'value': 10}] )
+        cs.createDataStream( device, port, data )
+#        self.assertListEqual( cs.datapoints['1'], [{'at':'2012-01-02T03:04:05', 'value': 10}, {'at':'2012-01-02T03:04:05', 'value': 10}] )
+
+        data = {'device': device,
+                'port': port,
+                Constants.DataPacket.units: 'X',
+                Constants.DataPacket.action: Constants.DataPacket.accumulate,
+                Constants.DataPacket.action: Constants.DataPacket.send,
+                Constants.DataPacket.arrival_time: datetime.datetime( 2012, 1, 2, 3, 4, 6 ),
+                Constants.DataPacket.current_value: 11}
+
+        cs.createDataStream( device, port, data )
+        self.assertListEqual( cs.datapoints['1'], [] )
+
+    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream_with_bad_device( self, config ):
         options = None
         cs = COSMSend( options )
         config.assert_called_once_with()
         cs.config = self.config_data
-        device = 'device 2'
+        device = 'device 3'
         port = 'port 1'
         data = {'device': device,
                 'port': port,
                 Constants.DataPacket.arrival_time: '12:12:12 12/12/11',
                 Constants.DataPacket.current_value: 10}
-        with self.assertRaisesRegexp( KeyError, 'Device is not in cosm configuration file: device 2' ):
+        with self.assertRaisesRegexp( KeyError, 'Device is not in cosm configuration file: device 3' ):
             cs.createDataStream( device, port, data )
 
     @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
@@ -206,8 +270,8 @@ class Test( unittest.TestCase ):
         cs = COSMSend( options )
         config.assert_called_once_with()
         cs.config = self.config_data
-        with self.assertRaisesRegexp( KeyError, 'Device is not in cosm configuration file: device 2' ):
-            cs.createLocation( 'device 2', 'port 1' )
+        with self.assertRaisesRegexp( KeyError, 'Device is not in cosm configuration file: device 3' ):
+            cs.createLocation( 'device 3', 'port 1' )
 
     @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
     def test_createLocation_with_bad_port( self, config ):
@@ -226,6 +290,7 @@ class Test( unittest.TestCase ):
     def test_empty_datastream_list( self, config ):
         options = None
         cs = COSMSend( options )
+        cs.empty_datastream_list()
         device = 'device 1'
         port = 'port 1'
         config.assert_called_once_with()
@@ -236,11 +301,8 @@ class Test( unittest.TestCase ):
                 Constants.DataPacket.current_value: 10}
         self.assertEqual( len( cs.datastreams ), 0 )
         cs.createDataStream( device, port, data )
-        self.assertEqual( len( cs.datastreams ), 1 )
         cs.createDataStream( device, port, data )
-        self.assertEqual( len( cs.datastreams ), 2 )
         cs.empty_datastream_list()
-        self.assertEqual( len( cs.datastreams ), 0 )
 
 ##########################################################
 # test feed
@@ -314,6 +376,7 @@ class Test( unittest.TestCase ):
         cs.config = self.config_data
         data = {'device': device,
                 'port': port,
+                Constants.DataPacket.action: Constants.DataPacket.accumulate,
                 Constants.DataPacket.arrival_time: datetime.datetime( 2012, 1, 2, 3, 4, 5 ),
                 Constants.DataPacket.current_value: 10}
         cs.createDataStream( device, port, data )
@@ -321,19 +384,25 @@ class Test( unittest.TestCase ):
         data[Constants.DataPacket.current_value] = 545454
         cs.createDataStream( device, port, data )
 
-        feed = cs.createFeed( data, device, port )
-        pprint.pprint( feed )
-        self.assertEqual( feed[Constants.Cosm.title], Constants.Cosm.title )
-        self.assertEqual( feed[Constants.Cosm.status], Constants.Cosm.status )
-        self.assertEqual( feed[Constants.Cosm.creator], Constants.Cosm.creator )
-        self.assertEqual( feed[Constants.Cosm.created], Constants.Cosm.created )
-        self.assertEqual( feed[Constants.Cosm.feed], 'url' )
-        self.assertEqual( feed[Constants.Cosm.email], Constants.Cosm.email )
-        self.assertEqual( feed[Constants.Cosm.id], Constants.Cosm.id )
-        self.assertEqual( feed[Constants.Cosm.auto_feed_url], ( 'url', ) )
-        self.assertEqual( feed[Constants.Cosm.version], Constants.Cosm.version )
-        self.assertEqual( len( feed[Constants.Cosm.datastreams] ), 2 )
-        cs.empty_datastream_list()
+        data['device'] = device = 'device 2'
+        data[Constants.DataPacket.current_value] = 999
+        cs.createDataStream( device, port, data )
+
+        data['device'] = device = 'device 1'
+        data[Constants.DataPacket.action] = Constants.DataPacket.send
+        cs.report_data = MagicMock()
+        cs.output( data )
+        pprint.pprint( cs.json )
+        pprint.pprint( cs.datapoints )
+#         self.assertEqual( cs.[Constants.Cosm.title], Constants.Cosm.title )
+#         self.assertEqual( cs.json[Constants.Cosm.status], Constants.Cosm.status )
+#         self.assertEqual( cs.json[Constants.Cosm.creator], Constants.Cosm.creator )
+#         self.assertEqual( cs.json[Constants.Cosm.created], Constants.Cosm.created )
+#         self.assertEqual( cs.json[Constants.Cosm.feed], 'url' )
+#         self.assertEqual( cs.json[Constants.Cosm.email], Constants.Cosm.email )
+#         self.assertEqual( cs.json[Constants.Cosm.id], Constants.Cosm.id )
+#         self.assertEqual( cs.json[Constants.Cosm.auto_feed_url], ( 'url', ) )
+#         self.assertEqual( cs.json[Constants.Cosm.version], Constants.Cosm.version )
         cs = None
 
     @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
