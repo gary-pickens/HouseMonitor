@@ -545,7 +545,7 @@ class StatusPanel( Base ):
         @property
         def logger_name( self ):
             ''' Set the logger level. '''
-            return Constants.LogKeys.StatusPanel
+            return Constants.LogKeys.outputsCOSM
 
         @property
         def topic_name( self ):
@@ -574,5 +574,5 @@ class StatusPanel( Base ):
             """
             value = self.toggle = not self.toggle
             # disable the following line. It prints aboue every two seconds.
-#            self.logger.info( 'System Check called. {}'.format( self.toggle ) )
+#            self.logger.warn( 'System Check called. {}'.format( self.toggle ) )
             return value, data, listeners
