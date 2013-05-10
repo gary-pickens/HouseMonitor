@@ -61,7 +61,7 @@ class Test( unittest.TestCase ):
         thread._cosm_send.output = MagicMock()
         thread.process()
         thread._queue.receive.assert_called_once_with()
-        thread._cosm_send.empty_datastream_list.assert_called_once_with()
+#        thread._cosm_send.empty_datastream_list.assert_called_once_with()
         thread._cosm_send.output.assert_called_once_with( data )
 
 if __name__ == "__main__":

@@ -65,7 +65,6 @@ class COSMOutputThread( Base, threading.Thread ):
 
         '''
         packet = self._queue.receive()
-        self._cosm_send.empty_datastream_list()
         data = packet[Constants.Cosm.packet.data]
         data[Constants.Cosm.packet.current_value] = packet[Constants.Cosm.packet.current_value]
         self._cosm_send.output( data )
