@@ -48,7 +48,7 @@ class ConvertGarageDoorState( abcStep ):
 
         """
         state = ''
-        self.send_old_values( value, data, listeners )
+#        self.send_old_values( value, data, listeners )
 
         if ( value == False ):
             state = "open"
