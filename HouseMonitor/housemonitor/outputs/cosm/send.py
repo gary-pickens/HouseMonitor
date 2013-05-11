@@ -15,56 +15,6 @@ import httplib2
 import json
 import copy
 
-#
-# {
-#     "id":64451,
-#     "title":"Outdoor Temperature Sensor",
-#     "private":"false",
-#     "tags":["Door", "Temperature"],
-#     "feed":"https://api.cosm.com/v2/feeds/64451.json",
-#     "auto_feed_url":"https://api.cosm.com/v2/feeds/64451.json",
-#     "status":"frozen",
-#     "updated":"2013-05-10T00:20:04.834544Z",
-#     "created":"2012-06-21T18:21:32.543111Z",
-#     "email":"gary_pickens@yahoo.com",
-#     "creator":"https://cosm.com/users/gary_pickens",
-#     "version":"1.0.0",
-#     "datastreams":
-#         [
-#             {"id":"0",
-#              "current_value":"1",
-#               "at":"2013-05-10T00:19:57.035382Z",
-#               "max_value":"1.0",
-#               "min_value":"0.0",
-#               "tags":["Door"]
-#             },
-#             {"id":"1",
-#              "current_value":"81.5",
-#              "at":"2013-05-09T23:05:58.855006Z",
-#              "max_value":"120.0",
-#              "min_value":"0.0",
-#              "tags":["Temperature"],
-#              "unit":{"label":"F"}},
-#              { "id":"2",
-#                  "current_value":"79.3",
-#                  "at":"2013-05-09T22:12:24.635869Z",
-#                  "max_value":"120.0",
-#                  "min_value":"0.0",
-#                  "tags":["Temperature"]
-#             },
-#             {"id":"3", "current_value":"55.7",
-#              "at":"2013-05-10T00:20:03.640119Z",
-#              "max_value":"120.0", "min_value":"0.0",
-#              "tags":["Temperature"]
-#              }
-#          ],
-#     "location": {"disposition":"fixed",
-#                   "exposure":"indoor",
-#                   "domain":"physical",
-#                   "lat":30.3351807498968,
-#                   "lon":-97.7104604244232
-#                   }
-# }
 
 class COSMSend( CosmConfiguration ):
     '''
@@ -78,6 +28,9 @@ class COSMSend( CosmConfiguration ):
     ''' A dictionary of data items to send to COSM. '''
 
     datapoints = { }
+    ''' A dictionary of lists containing data points for each channel on COSM.  
+    It contains the time and value.'''
+
     json = None
 
     options = None
@@ -107,7 +60,13 @@ class COSMSend( CosmConfiguration ):
 
     def output( self, data={}, http=None ):
         """
-        output the results to COSMSend.com
+        Output the results to COSMSend.com
+        
+        If the data dictionary contain 'action' and it is set to 'send' this routine will 
+        send data to COSM.
+        
+        if the key is not set to send the this routine will store the data as a data point and 
+        transmit with an other packet going to COSM.
 
 
         :param value: the current value
@@ -121,12 +80,10 @@ class COSMSend( CosmConfiguration ):
         try:
             device, port = Common.getDeviceAndPort( data )
             self.createDataStream( device, port, data )
-            self.logger.info( 'Item added to datastream' )
             if Constants.DataPacket.action in data and \
                     data[Constants.DataPacket.action] == Constants.DataPacket.send:
                 self.json = self.createJSONReport( device, port, data )
                 self.report_data( self.json, data, http=http )
-                self.logger.info( 'datastream cleared' )
                 self.empty_datastream_list()
         except Exception as ex:
             self.logger.exception( "exception in send.output {}".format( ex ) )
@@ -176,7 +133,10 @@ class COSMSend( CosmConfiguration ):
         Create a data item, fill it with data, and append it to the list
         datastream.
 
-        # TODO Fix parameter list
+        :param device: the device
+        :param type: string
+        :param port the port
+        :param type: string
         :param data: the data that is pasted between steps
         :type dict:
         :returns: None
@@ -205,7 +165,6 @@ class COSMSend( CosmConfiguration ):
 
             if Constants.DataPacket.arrival_time in data:
                 arrival_datetime = data[Constants.DataPacket.arrival_time]
-                self.logger.warn( 'arrival_datatime = {} type {}'.format( arrival_datetime, type( arrival_datetime ) ) )
                 at = arrival_datetime.isoformat()
             if Constants.DataPacket.current_value in data:
                 value = data[Constants.DataPacket.current_value]
@@ -218,7 +177,6 @@ class COSMSend( CosmConfiguration ):
             item = {}
             if Constants.DataPacket.arrival_time in data:
                 arrival_datetime = data[Constants.DataPacket.arrival_time]
-                self.logger.warn( 'arrival_datatime = {} type {}'.format( arrival_datetime, type( arrival_datetime ) ) )
                 item[Constants.DataPacket.arrival_time] = arrival_datetime.isoformat()
             if Constants.DataPacket.current_value in data:
                 item[Constants.DataPacket.current_value] = data[Constants.DataPacket.current_value]
@@ -339,6 +297,10 @@ class COSMSend( CosmConfiguration ):
         """
         Create a JSON report.
 
+        :param device: the device
+        :param type: string
+        :param port the port
+        :param type: string
         :param data: data that travels with the object
         :param data: dict
         :returns: json object
@@ -346,7 +308,7 @@ class COSMSend( CosmConfiguration ):
 
         """
         feed = self.createFeed( data, device, port )
-        self.logger.warn( 'JSON feed = \n{}'.format( json.dumps( feed, indent=4 ) ) )
+        self.logger.debug( 'JSON feed = \n{}'.format( json.dumps( feed, indent=4 ) ) )
         return( json.dumps( feed ) )
 
     def empty_datastream_list( self ):

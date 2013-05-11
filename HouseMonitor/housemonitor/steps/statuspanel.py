@@ -286,7 +286,8 @@ class StatusPanel( Base ):
                     value == self.status_panel.GARAGE_DOOR_CLOSED:
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
                 self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
-                self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.Disabled
+                self.status_panel.process_delayed_alarm.delayedAlarmState = \
+                                        self.status_panel.process_delayed_alarm.Disabled
                 try:
                     pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
                                 name=self.status_panel.scheduler_turn_off_initial_alarm )

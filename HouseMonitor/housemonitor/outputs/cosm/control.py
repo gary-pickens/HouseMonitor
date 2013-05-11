@@ -15,10 +15,20 @@ from outputStep import COSMOutputStep
 
 class COSMControl( Base ):
     '''
-    COSMControl starts the COSM processing to send data to COSM at the following
-    URL:
+    COSMControl starts the COSM processing which sends data to the COSM web site
+    at the following URL:
 
-    https://cosm.com/
+    `https://cosm.com/ <https://cosm.com/>`_.
+
+    This consists of three parts:
+    
+    1. Start the COSMQueue which uses Queue, a thread safe queue for communcating between threads.
+    
+    2. Start the COSMOutputThread which talks to the COSM server.  This is a slow process.
+    
+    3. Start the COSMOutputStep object which takes massages sent to COSM on the main thread and sends it to the COSM thread.  It's topic name is:
+    
+        Constants.TopicNames.COSM('outputs.COSM').
 
     '''
     queue = None
@@ -39,16 +49,16 @@ class COSMControl( Base ):
     def startCOSM( self, options ):
         '''
         Start the COSM processing.
-
-        This consists of three parts:
-
-        #. Start the COSMQueue which used Queue, a thread safe queue for communcating
-        between threads.
-
-        #. Start the COSMOutputThread which talks to the COSM server.  This is a slow process.
-
-        #. Start the COSMOutputProcessing object which takes massages sent to COSM on the
-        main thread and sends them to the COSM thread.
+        
+        >>> from optparse import OptionParser
+        >>> from outputs.cosm.control import COSMControl
+        >>> c = COSMControl()
+        >>> options = 1
+        >>> # c.startCOSM(options)
+        >>> # c.cosmOutputThread.forever = False
+        >>> c = None
+        
+        .. warning:: This doctest has been disabled.  It is trying to start too much.
 
         '''
         self.logger.debug( 'COSM starting up' )
@@ -56,3 +66,8 @@ class COSMControl( Base ):
         self.cosmOutputThread = COSMOutputThread( self.queue, options, name='COSM' )
         self.cosmOutputThread.start()
         self.cosm = COSMOutputStep( self.queue )
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

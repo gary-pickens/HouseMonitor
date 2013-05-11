@@ -48,6 +48,13 @@ class CurrentValues( Base ):
         :returns: dict containing the above items
         :raises: None
         
+        >>> from lib.currentvalues import CurrentValues
+        >>> cv = CurrentValues()
+        >>> data = {Constants.DataPacket.arrival_time: 'now', Constants.DataPacket.units: 'F', Constants.DataPacket.name: 'gary'}
+        >>> cv.buildDataBlock(999, data)
+        {'units': 'F', 'current_value': 999, 'at': 'now', 'name': 'gary'}
+        
+        
         '''
         if value != None:
             current_data = {}
@@ -75,6 +82,13 @@ class CurrentValues( Base ):
         :param data: the port the data is coming from.
         :type data: dict
         :raises: None
+        
+        >>> from lib.currentvalues import CurrentValues
+        >>> cv = CurrentValues()
+        >>> cv.store(999, 'device', 'port', {'a': 'A', 'b': 'B'})
+        >>> print cv._current_values
+        {'device': {'port': {'current_value': 999}}}
+
         '''
         self.logger.debug( 'store {} {} {}'.format( device, port, value ) )
         self._current_values_lock.acquire()
@@ -99,6 +113,13 @@ class CurrentValues( Base ):
         Thread safe
 
         :return: the current_value data
+
+        >>> from lib.currentvalues import CurrentValues
+        >>> cv = CurrentValues()
+        >>> cv.store(999, 'device', 'port', {})
+        >>> cv.get()
+        {'device': {'port': {'current_value': 999}}}
+
         '''
         self.logger.debug( 'get current value tree' )
         self._current_values_lock.acquire()
@@ -117,6 +138,13 @@ class CurrentValues( Base ):
         :param port: The port
         :type port: str
         :return: dict containing the data for the selected item
+        
+        >>> from lib.currentvalues import CurrentValues
+        >>> cv = CurrentValues()
+        >>> cv.store(999, 'device', 'port', {})
+        >>> cv.get_current_value('device', 'port')
+        {'current_value': 999}
+        
         '''
         self._current_values_lock.acquire()
         try:
@@ -130,3 +158,8 @@ class CurrentValues( Base ):
     def logger_name( self ):
         ''' Set the logger level. '''
         return 'lib'
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+

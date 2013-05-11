@@ -18,9 +18,10 @@ Related web pages
 
 #. `HouseMonitor <http://beaglebone/HouseMonitor/index.html>`_.
 
-****************
+
+================
 Beaglebone Notes
-****************
+================
 
 Notes on installing HouseMonitor.py on a BeagleBone computer
 ============================================================
@@ -154,13 +155,13 @@ remove it and install lightthp
 Baud rate for Tera Term
 =======================
 
+To talk to the Beagle Bone over the USB serial link set the baud rate to::
+
 115200
 
-****************
-Beaglebone Notes
-****************
-
-Setting up the Xbee
+====================
+Setting up the XBees
+====================
 
 # Plug xbee into the Xbee Explorer.
 # Connect the Xbee Explorer to the computer via USB cable.
@@ -169,14 +170,16 @@ Setting up the Xbee
 # select **ZIGBEE Router API** under the **Function Set**
 
 
-*********
+=========
 Ant Notes
-*********
+=========
+
 Reading base directory
 ======================
 
 To read the base directory use:
-:::::::::::::::::::::::::::::::
+
+::
    <property name="base" value="${basedir}" />
 
 I tried and tried the following:
@@ -274,9 +277,9 @@ so I went to Window>Preferences>Ant>Runtime>Classpath>Select Global Entries and 
 ** Problem Fixed **
 
 
-************
+============
 Python Notes
-************
+============
 
 python path used by Eclipse
 ===========================
@@ -306,9 +309,9 @@ python path used by Eclipse
 
     Of course this is all concatenated into one line.
 
-*********
+=========
 GIT Notes
-*********
+=========
 
 Reference
 =========
@@ -414,9 +417,9 @@ Listing files
     git ls-files -m
 
 
-*************************
+=========================
 Sphinx & reStructuredText
-*************************
+=========================
 
 Web links
 =========
@@ -576,10 +579,11 @@ Example::
         :returns: dict containing the above items
         :raises: KeyError
 
+See the `Reference Manual <http://sphinx-doc.org/domains.html>`_. for more information.
 
-******************
+==================
 Creating Packaging
-******************
+==================
 
 Web links
 =========
@@ -588,9 +592,9 @@ Web links
 
 #.  ` < >`_.
 
-*******
+=======
 DocTest
-*******
+=======
 
 Web links
 =========
@@ -616,9 +620,125 @@ add **-v** for more output.  For example:::
 
    python example.py -v
 
-****
+
+==================
+A Good COSM Report
+==================
+
+::
+
+       {
+           "status": "frozen",
+           "datastreams": 
+             [
+               {
+                   "tags": "Door",
+                   "max_value": "1",
+                   "min_value": "0",
+                   "units": {
+                       "label": "closed"
+                   },
+                   "at": "2013-05-10T13:43:10.460207",
+                   "datapoints": [
+                       {
+                           "at": "2013-05-10T13:33:52.229189",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:34:21.615878",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:34:50.993990",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:35:20.370394",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:35:49.753481",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:36:19.134127",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:36:48.516787",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:37:17.894411",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:37:47.276919",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:38:16.679934",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:38:46.051974",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:39:15.415072",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:39:44.796084",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:40:14.177309",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:40:43.557040",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:41:12.936861",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:41:42.322634",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:42:11.698000",
+                           "value": "1"
+                       },
+                       {
+                           "at": "2013-05-10T13:42:41.078097",
+                           "value": "1"
+                       }
+                   ],
+                   "current_value": "1",
+                   "id": "0"
+               }
+           ],
+           "updated": "2013-05-10T13:43:10.496188",
+           "creator": "https://cosm.com/users/64451",
+           "title": "House Monitor",
+           "email": "gary_pickens@yahoo.com",
+           "version": "1.0.0",
+           "location": {
+               "domain": "physical",
+               "private": "false",
+               "disposition": "fixed",
+               "exposure": "indoor"
+           },
+           "id": "64451"
+       }
+
+
+====
 Misc
-****
+====
 #. Look into Stevedore.  Here are a few URL's:
     #. `SteveDore on GITHUB <https://github.com/dreamhost/stevedore>`_.
     #. `SteveDore on PyPi <http://pypi.python.org/pypi/stevedore>`_.

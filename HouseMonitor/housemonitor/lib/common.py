@@ -23,12 +23,15 @@ class Common( object ):
         Send takes the first listener off of the list listeners and sends the
         data to the next routine using the pubsub package.
 
-        Args:
-            value: the value to send to the next routine
-            data: additional data do pass along
-            listeners: a list of subscribers that will get the data
+        :param value: the value to send to the next routine
+        :param data: additional data do pass along
+        :param listeners: a list of subscribers that will get the data
+        :Raises: ListenerSpecIncomplete Raised if there is a problem with the topic name.
 
-        see special section that describe the listeners list
+        >>> from lib.common import Common
+        >>> Common.send(999, {'device': 'xyz', 'port': 'abc'}, ())
+        
+        Note: **This is a static method**
         """
         if len( listeners ):
             # get the first item on the list
@@ -44,7 +47,7 @@ class Common( object ):
     @staticmethod
     def getDeviceAndPort( data ):
         """
-        Gets the device and port out of data dictionary
+        Gets the device and port out of data dictionary.
 
         :param data: The data that is passed into step.
         :type data: dict
@@ -52,10 +55,12 @@ class Common( object ):
         :rtype: string, string
         :Raises: KeyError
 
-        >>> from steps.tmp36volts2centigrade import ConvertTMP36VoltsToCentigrade
-        >>> zig = ConvertTMP36VoltsToCentigrade()
-        >>> zig.getDeviceAndPort({'device': 'xyz', 'port': 'abc'})
-        'xyz', 'abc'
+        >>> from lib.common import Common
+        >>> Common.getDeviceAndPort({'device': 'xyz', 'port': 'abc'})
+        ('xyz', 'abc')
+
+
+        Note: **This is a static method**
         """
         device = ''
         port = ''
@@ -77,16 +82,25 @@ class Common( object ):
         """
         This function will create a values tree containing value.
 
-        Args:
         :param value: The number to add to the list of numbers.
         :type value: boolean, int or float
         :param device: the device.
         :type device: string
-        :param device: the port.
+        :param port: the port.
         :type port: string
         :param values: a dictionary for storing the value value.
-        :type port: dictionary
+        :type values: dictionary
         :return: a boolean indicating if the entry is new
+        
+        >>> from lib.common import Common
+        >>> dic = {}
+        >>> Common.generateDevicePortTree(999, 'device', 'port', dic)
+        True
+        >>> print dic
+        {'device': {'port': 999}}
+        
+        Note: **This is a static method**
+
         """
         new_entry = False
         if device not in values:
@@ -96,3 +110,7 @@ class Common( object ):
             values[device][port] = value
             new_entry = True
         return new_entry
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

@@ -50,9 +50,9 @@ class HMQueue( Base ):
 
         :param packet: a data packet with the data to be processed
         :returns: none
-        :exceptions: none
+        :Raises: none
 
-        >>> from lib.queue import HMQueue
+        >>> from lib.hmqueue import HMQueue
         >>> cosm = HMQueue('COSM')
         >>> cosm.transmit({'a':  'b'})
         >>> cosm.receive()
@@ -72,11 +72,11 @@ class HMQueue( Base ):
 
         :returns packet: The same packet the was transmitted by the transmit function.
         :rtype:  Same as the data that was sent by the transmit function
-        :exceptions: None
+        :Raises: None
 
         .. warning:: Will block if no packets are available
 
-        >>> from lib.queue import HMQueue
+        >>> from lib.hmqueue import HMQueue
         >>> cosm = HMQueue('COSM')
         >>> cosm.transmit({'a':  'b'})
         >>> cosm.receive()
@@ -93,9 +93,9 @@ class HMQueue( Base ):
 
         This routine is mainly used for unit test
 
-        >>> from lib.queue import HMQueue
-        >>> cosm = HMQueue('COSM')
-        >>> cosm.clean()
+        >>> from lib.hmqueue import HMQueue
+        >>> que = HMQueue('COSM')
+        >>> que.clear()
 
         .. warning::  All the data in the queue will be lost
         '''
