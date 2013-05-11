@@ -52,11 +52,11 @@ class COSMControl( Base ):
         
         >>> from optparse import OptionParser
         >>> from outputs.cosm.control import COSMControl
-        >>> c = COSMControl()
-        >>> options = 1
-        >>> # c.startCOSM(options)
-        >>> # c.cosmOutputThread.forever = False
-        >>> c = None
+        >>> c = COSMControl()                                                   # doctest: +SKIP
+        >>> options = 1                                                         # doctest: +SKIP
+        >>> c.startCOSM(options)                                                # doctest: +SKIP
+        >>> c.cosmOutputThread.forever = False                                  # doctest: +SKIP
+        >>> c = None                                                            # doctest: +SKIP
         
         .. warning:: This doctest has been disabled.  It is trying to start too much.
 
