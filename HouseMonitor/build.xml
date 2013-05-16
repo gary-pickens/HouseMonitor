@@ -338,4 +338,11 @@
             <arg value="housemonitor"/>
         </exec>
     </target>
+    <target name="qt" description="Build qt monitor">
+        <exec dir="housemonitor/qt" executable="pyside-uic.exe">
+            <arg value="HouseMonitor3.ui"/>
+            <arg value="-o"/>
+            <arg value="monitor.py"/>
+        </exec>
+    </target>
 </project>
