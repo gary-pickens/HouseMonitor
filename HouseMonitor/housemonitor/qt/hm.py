@@ -5,7 +5,6 @@ import sys
 import monitor
 from monitorthread import MonitorThread
 from monitordata import MonitorData
-# from housemonitor.monitor.monitormodel import MonitorModel
 
 
 class HMStandardItemModel( QStandardItemModel ):
