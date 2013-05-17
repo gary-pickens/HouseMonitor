@@ -11,8 +11,7 @@ import datetime
 import pprint
 import xmlrpclib
 from monitordata import MonitorData
-# from monitormodel import MonitorModel
-
+import winsound
 
 class MonitorThread( QThread ):
     '''
@@ -22,7 +21,9 @@ class MonitorThread( QThread ):
     url = 'http://{}:{}'.format( 'beaglebone', 9002 )
     proxy = None
 
-    read_data_timer_id = None
+    alarm_tone = 523
+    alarm_duration = 700
+
     read_data_interval = 3000
 
     options = None
@@ -44,6 +45,10 @@ class MonitorThread( QThread ):
         self.monitored_data = monitored_data
         self.read_data_timer_id = self.startTimer( self.read_data_interval )
 
+    def sound_alarm( self ):
+        winsound.Beep( self.alarm_tone, self.alarm_duration )
+        self.alarm_sounded = True
+        print 'beep'
 
     def run( self ):
         self.connect_to_house_monitor()
@@ -71,8 +76,11 @@ class MonitorThread( QThread ):
         if ( device == '0x13a200409029bf' and port == 'dio-0' ):
             if current_value == 'True':
                 self.door_state.emit( 'Closed' )
+                self.alarm_duration = False
             else:
                 self.door_state.emit( 'Open' )
+                if not self.alarm_sounded:
+                    self.sound_alarm()
         if ( device == '0x13a200408cccc3' and port == 'adc-0' ):
             self.sunroom_temperature.emit( current_value )
 
