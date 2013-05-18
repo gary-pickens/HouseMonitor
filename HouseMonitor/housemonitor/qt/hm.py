@@ -85,8 +85,11 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         self.computer_table_view.setModel( self.computer_proxy_model )
 
 
-        self.status_table_view.horizontalHeader().resize( 0, 600 )
-        self.status_table_view.horizontalHeader().resize( 3, 125 )
+        self.all_table_view.horizontalHeader().setResizeMode( 0, QHeaderView.ResizeToContents )
+        self.status_table_view.horizontalHeader().setResizeMode( 0, QHeaderView.ResizeToContents )
+        self.house_monitor_table_view.horizontalHeader().setResizeMode( 0, QHeaderView.ResizeToContents )
+        self.computer_table_view.horizontalHeader().setResizeMode( 0, QHeaderView.ResizeToContents )
+
         self.model.setHorizontalHeaderItem( 0, QStandardItem( 'Device' ) )
         self.model.setHorizontalHeaderItem( 1, QStandardItem( 'Port' ) )
         self.model.setHorizontalHeaderItem( 2, QStandardItem( 'Value' ) )

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'HouseMonitor3.ui'
 #
-# Created: Thu May 16 15:46:24 2013
+# Created: Fri May 17 16:09:44 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
         self.general_tab = QtGui.QWidget()
         self.general_tab.setObjectName("general_tab")
         self.layoutWidget = QtGui.QWidget(self.general_tab)
-        self.layoutWidget.setGeometry(QtCore.QRect(40, 50, 261, 71))
+        self.layoutWidget.setGeometry(QtCore.QRect(40, 50, 261, 77))
         self.layoutWidget.setObjectName("layoutWidget")
         self.formLayout = QtGui.QFormLayout(self.layoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -95,7 +95,7 @@ class Ui_MainWindow(object):
         self.house_monitor_table_view.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         self.house_monitor_table_view.setWordWrap(False)
         self.house_monitor_table_view.setObjectName("house_monitor_table_view")
-        self.house_monitor_table_view.horizontalHeader().setVisible(False)
+        self.house_monitor_table_view.horizontalHeader().setVisible(True)
         self.house_monitor_table_view.horizontalHeader().setCascadingSectionResizes(True)
         self.house_monitor_table_view.horizontalHeader().setDefaultSectionSize(200)
         self.house_monitor_table_view.verticalHeader().setVisible(False)
@@ -108,6 +108,7 @@ class Ui_MainWindow(object):
         self.computer_table_view.setWordWrap(False)
         self.computer_table_view.setCornerButtonEnabled(False)
         self.computer_table_view.setObjectName("computer_table_view")
+        self.computer_table_view.horizontalHeader().setStretchLastSection(True)
         self.status_view.addTab(self.computer_tab, "")
         self.all = QtGui.QWidget()
         self.all.setObjectName("all")
@@ -121,6 +122,7 @@ class Ui_MainWindow(object):
         self.all_table_view.setAlternatingRowColors(True)
         self.all_table_view.setWordWrap(False)
         self.all_table_view.setObjectName("all_table_view")
+        self.all_table_view.horizontalHeader().setStretchLastSection(True)
         self.status_view.addTab(self.all, "")
         self.horizontalLayout.addWidget(self.status_view)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -157,7 +159,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.status_view.setCurrentIndex(0)
+        self.status_view.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
