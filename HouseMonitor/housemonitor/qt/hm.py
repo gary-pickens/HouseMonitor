@@ -38,6 +38,13 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
     md = None
     model = None
     mt = None
+    thread_exit_signal = Signal()
+
+    def stop_program( self ):
+        self.mt.finish_thread.emit()
+        self.mt.wait( 1000 )
+        self.close()
+
 
     def __init__( self, parent=None ):
         super( MainWindow, self ).__init__()
@@ -94,6 +101,9 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         self.model.setHorizontalHeaderItem( 1, QStandardItem( 'Port' ) )
         self.model.setHorizontalHeaderItem( 2, QStandardItem( 'Value' ) )
         self.model.setHorizontalHeaderItem( 3, QStandardItem( 'Time' ) )
+
+        self.actionExit.triggered.connect( self.stop_program )
+        self.mt.finish_thread.connect( self.mt.finish_up )
 
 app = QApplication( sys.argv )
 form = MainWindow()

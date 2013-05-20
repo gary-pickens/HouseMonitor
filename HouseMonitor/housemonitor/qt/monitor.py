@@ -149,6 +149,9 @@ class Ui_MainWindow(object):
         self.actionComputer_Status.setObjectName("actionComputer_Status")
         self.actionAbout = QtGui.QAction(MainWindow)
         self.actionAbout.setObjectName("actionAbout")
+        self.actionExit = QtGui.QAction(MainWindow)
+        self.actionExit.setObjectName("actionExit")
+        self.menuFile.addAction(self.actionExit)
         self.menuView.addAction(self.actionGeneral)
         self.menuView.addAction(self.actionStatus)
         self.menuView.addAction(self.actionProgram_Status)
@@ -180,4 +183,6 @@ class Ui_MainWindow(object):
         self.actionProgram_Status.setText(QtGui.QApplication.translate("MainWindow", "Program Status", None, QtGui.QApplication.UnicodeUTF8))
         self.actionComputer_Status.setText(QtGui.QApplication.translate("MainWindow", "Computer Status", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+Q", None, QtGui.QApplication.UnicodeUTF8))
 

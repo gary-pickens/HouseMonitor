@@ -748,4 +748,10 @@ Misc
 
 #. `Common Mistakes When Using a 555 Timer <http://www.555-timer-circuits.com/common-mistakes.html>`_.
 
+#. `systemctl <https://wiki.archlinux.org/index.php/Systemd>`_. the command for starting and stopping 
+    deamons in some Unix's.
+    
+#.  `Informatiion about sending back notifications to systemd <http://www.freedesktop.org/software/systemd/man/systemd-notify.html>`_.
+
+#.  `A python version of sd_notify <https://github.com/kirelagin/pysystemd-daemon>`_.
 

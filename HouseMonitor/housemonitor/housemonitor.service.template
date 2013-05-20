@@ -7,6 +7,7 @@ WorkingDirectory=/home/gary/bin/HouseMonitor/HouseMonitor-@VERSION@-py2.7.egg/ho
 Environment="PYTHONPATH=/home/gary/bin/HouseMonitor"
 ExecStart=/usr/bin/python HouseMonitor.py
 Type=simple
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

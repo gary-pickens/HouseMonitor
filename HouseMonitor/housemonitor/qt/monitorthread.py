@@ -3,7 +3,6 @@ Created on May 13, 2013
 
 @author: Gary
 '''
-from PySide.QtGui import *    # @UnusedWildImport
 from PySide.QtCore import QThread, Signal
 import xmlrpclib
 import winsound
@@ -42,8 +41,13 @@ class MonitorThread( QThread ):
     garage_temperature = Signal( str )
     sunroom_temperature = Signal( str )
     door_state = Signal( str )
+    finish_thread = Signal()
 
     model = None
+
+    def finish_up( self ):
+        # TODO: why can't I call quit directly?
+        self.quit()
 
     def __init__( self, monitored_data ):
         '''
