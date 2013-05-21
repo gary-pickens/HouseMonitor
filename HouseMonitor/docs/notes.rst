@@ -59,6 +59,8 @@ Notes on installing HouseMonitor.py on a BeagleBone computer
 Building a new system for HouseMonitor
 ======================================
 
+**See next section about experinces installing new system in May.**
+
 #. Download image.
 #. Description for `installing <http://circuitco.com/support/index.php?title=BeagleBone#Creating_a_SD_Card>`_. new image. Here is a summary of the web page for initializing your card using windows:
 
@@ -152,6 +154,48 @@ remove it and install lightthp
      It appears to be working just fine.  I uploaded numerous html files to /www/pages and subdirectories 
      and I can brows to them with no problem.  **Perhaps I should leave well enough alone.**   
    
+   
+
+Building a new system for HouseMonitor **May 21st update**
+==========================================================
+
+Yesterday I noticed that the system was not working so I did some investigating.  After several hours 
+I decided to install a new SD rom with the latest software.  This is my journey:
+
+#. I tried to use the image I got earlier this year and it kept giving me trouble.  Mainly, I could not load the
+top three things from the list above. After much work I thought I would try the latest package, I was hoping
+the missing packages would be on the new release.  I was wrong but I could install:
+    * ``python-setuptools``
+    * ``python-xmlrpc``
+    * ``python-compile``
+
+The only thing I could not install was:
+
+   * ``sudo``
+
+This means I will have to do everything as root.  Not the way I like to work, and exstive modifications to my ant script/
+
+#. Getting jsch working again.  When I tried to upload my files to the beaglebone jsch would not work.  I required
+numerous attempts to get it working.
+
+   *. I had updated my java version while working trying to recover from the virus. As a result jsch stopped working.
+   After searching on the Internet I found that other people were having the same problem and there was a new version
+   of jsch. So I downloaded and installed it.
+   
+   *. So I tried again and this time it complained that I was not known on the remote system.  So I copied my pub
+   file to my account on the beaglebone computer.
+   
+   *. The next attempt it complained about was the computer identity had changed.  So I deleted the beaglebone line
+   from known_hose in the .ssh directory.  
+   
+   *. I was still having problems and studing on the Internet, I read adding 'trust="true"' to the scp and sshexec lines
+   would fix the problem.
+   
+   *. Finally, I can copy files to the beaglebone!  I need to go back and study what the above changes mean.  
+   
+    
+ 
+
 Baud rate for Tera Term
 =======================
 
@@ -754,4 +798,6 @@ Misc
 #.  `Informatiion about sending back notifications to systemd <http://www.freedesktop.org/software/systemd/man/systemd-notify.html>`_.
 
 #.  `A python version of sd_notify <https://github.com/kirelagin/pysystemd-daemon>`_.
+
+#.  `The definitive guide <http://0pointer.de/blog/projects/systemd-docs.html>`_.
 
