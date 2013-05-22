@@ -79,6 +79,12 @@ Building a new system for HouseMonitor
 #. Power up the beagle bone computer.
 #. Connect to the beaglebone using TenTen on the serial port or with SSH.
 #. Log on as root with no password
+
+#. Update and Upgrade the packages.
+
+   * ``opkg update``
+   * ``opkg upgrade``
+   
 #. Create an account using:
 
     * ``adduser gary``
