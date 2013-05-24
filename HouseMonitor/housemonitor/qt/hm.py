@@ -52,7 +52,9 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         md = MonitorData()
         self.model = HMStandardItemModel ( 0, 4, md )
         self.mt = MonitorThread( md )
+# Old style signal
 #        self.connect( self.mt, SIGNAL( 'read_data()' ), self.model.read_data )
+# New style signal
         self.mt.read_data.connect( self.model.read_data )
 
         self.mt.start()
