@@ -4,9 +4,9 @@ Created on Mar 6, 2013
 @author: Gary
 '''
 import unittest
-from steps.uptime import uptime
-from steps.uptime import instantuate_me
-from lib.constants import Constants
+from housemonitor.steps.uptime import uptime
+from housemonitor.steps.uptime import instantuate_me
+from housemonitor.lib.constants import Constants
 from datetime import datetime
 import time
 

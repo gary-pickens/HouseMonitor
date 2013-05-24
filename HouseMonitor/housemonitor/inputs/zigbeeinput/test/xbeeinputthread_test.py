@@ -5,16 +5,16 @@ Created on Dec 18, 2012
 '''
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch
-from lib.getdatetime import GetDateTime
-from configuration.formatconfiguration import FormatConfiguration
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.getdatetime import GetDateTime
 
-from inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
 
 
 class Test( unittest.TestCase ):

@@ -5,7 +5,7 @@ Created on Apr 30, 2013
 @author: Gary
 '''
 import unittest
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
 
 class Test( unittest.TestCase ):

@@ -4,7 +4,7 @@ Created on Dec 17, 2012
 @author: Gary
 '''
 import unittest
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 import logging.config
 from mock import Mock, patch
 import datetime

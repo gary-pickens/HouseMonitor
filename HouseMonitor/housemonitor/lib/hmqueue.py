@@ -5,8 +5,8 @@ Created on 3/8/2013
 
 '''
 import Queue
-from lib.base import Base
-from lib.constants import Constants
+from housemonitor.lib.base import Base
+from housemonitor.lib.constants import Constants
 
 
 class HMQueue( Base ):

@@ -4,13 +4,13 @@ Created on Mar 8, 2013
 @author: Gary
 '''
 import unittest
-from outputs.zigbee.zigbeecontrol import ZigBeeControl
-from outputs.zigbee.zigbeeoutputstep import ZigBeeOutputStep
-from outputs.zigbee.zigbeeoutputthread import ZigBeeOutputThread
-from lib.hmqueue import HMQueue
-from lib.constants import Constants
+from housemonitor.outputs.zigbee.zigbeecontrol import ZigBeeControl
+from housemonitor.outputs.zigbee.zigbeeoutputstep import ZigBeeOutputStep
+from housemonitor.outputs.zigbee.zigbeeoutputthread import ZigBeeOutputThread
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.constants import Constants
 from mock import Mock, MagicMock, patch
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
 
 

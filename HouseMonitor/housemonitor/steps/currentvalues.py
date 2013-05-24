@@ -5,12 +5,12 @@ Created on Nov 7, 2012
 
 '''
 import copy
-from lib.base import Base
-from lib.constants import Constants
-from lib.currentvalues import CurrentValues
+from housemonitor.lib.base import Base
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.currentvalues import CurrentValues
 from abc_step import abcStep
 import pprint
-from lib.common import Common
+from housemonitor.lib.common import Common
 
 
 def instantuate_me( data ):

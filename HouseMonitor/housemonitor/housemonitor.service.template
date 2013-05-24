@@ -3,9 +3,8 @@ Description=House Monitoring and Control System
 After=syslog.target
 
 [Service]
-WorkingDirectory=/home/gary/bin/HouseMonitor/HouseMonitor-@VERSION@-py2.7.egg/housemonitor
-Environment="PYTHONPATH=/home/gary/bin/HouseMonitor"
-ExecStart=/usr/bin/python HouseMonitor.py
+WorkingDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-4.0.4-py2.7.egg/housemonitor
+ExecStart=/usr/bin/python /usr/lib/python2.7/site-packages/HouseMonitor-4.0.4-py2.7.egg/housemonitor/HouseMonitor.py
 Type=simple
 Restart=always
 

@@ -4,14 +4,14 @@ Created on Dec 10, 2012
 @author: Gary
 '''
 import unittest
-from inputs.testinputthead import SendGarageDoorData, TestInputThread
-from inputs.dataenvelope import DataEnvelope
+from housemonitor.inputs.testinputthead import SendGarageDoorData, TestInputThread
+from housemonitor.inputs.dataenvelope import DataEnvelope
 from mock import Mock, MagicMock, patch
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
-from lib.hmqueue import HMQueue
+from housemonitor.lib.hmqueue import HMQueue
 import datetime
 import time
 
@@ -47,7 +47,7 @@ class Test( unittest.TestCase ):
         th = TestInputThread( queue )
         self.assertEqual( th.logger_name, Constants.LogKeys.inputs )
 
-    @patch( 'inputs.testinputthead.SendGarageDoorData.send' )
+    @patch( 'housemonitor.inputs.testinputthead.SendGarageDoorData.send' )
     def test_TestInputThread( self, sg ):
         queue = MagicMock()
         th = TestInputThread( queue )

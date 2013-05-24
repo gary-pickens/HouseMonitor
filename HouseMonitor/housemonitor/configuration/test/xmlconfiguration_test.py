@@ -4,16 +4,16 @@ Created on Dec 18, 2012
 @author: Gary
 '''
 import unittest
-from configuration.xmlconfiguration import XmlConfiguration
-from configuration.xmlconfiguration import ConfigurationFileNotFoundError
-from configuration.xmlconfiguration import ConfigurationFileError
+from housemonitor.configuration.xmlconfiguration import XmlConfiguration
+from housemonitor.configuration.xmlconfiguration import ConfigurationFileNotFoundError
+from housemonitor.configuration.xmlconfiguration import ConfigurationFileError
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch, MagicMock
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 from xml.etree.ElementTree import ElementTree, fromstring
 
 
@@ -68,7 +68,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( x['device'], 'xbee' )
 
     @patch.object( XmlConfiguration, 'configure' )
-    @patch( 'configuration.xmlconfiguration.os.path.exists' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_none_passed_in( self, exists, configure ):
         x = myConfiguration()
         x.configutation_directory = 'c:\\abc\\config'
@@ -78,7 +78,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( fn, 'c:\\abc\\config\\unittest.xml' )
 
     @patch.object( XmlConfiguration, 'configure' )
-    @patch( 'configuration.xmlconfiguration.os.path.exists' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_a_filename_passed_in( self, exists, configure ):
         x = myConfiguration()
         x.configutation_directory = 'c:\\abc\\config'
@@ -88,7 +88,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( fn, 'c:\\abc\\config\\abc.xml' )
 
     @patch.object( XmlConfiguration, 'configure' )
-    @patch( 'configuration.xmlconfiguration.os.path.exists' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_a_filename_passed_in_and_no_xml_sufix( self, exists, configure ):
         x = myConfiguration()
         x.configutation_directory = 'c:\\abc\\config'
@@ -98,7 +98,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( fn, 'c:\\abc\\config\\abc.xml' )
 
     @patch.object( XmlConfiguration, 'configure' )
-    @patch( 'configuration.xmlconfiguration.os.path.exists' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_a_file_that_does_not_exist( self, exists, configure ):
         x = myConfiguration()
         x.configutation_directory = 'c:\\abc\\config'
@@ -121,7 +121,7 @@ class Test( unittest.TestCase ):
         parse_xml_file.assert_called_once_with( None )
         process_configuration.assert_called_once_with( 'parseTree' )
 
-    @patch( 'configuration.xmlconfiguration.XmlConfiguration.configure' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.XmlConfiguration.configure' )
     @patch.object( ElementTree, 'parse' )
     @patch( '__builtin__.open' )
     def test_parse_xml_file( self, pat, parse, fn ):
@@ -137,7 +137,7 @@ class Test( unittest.TestCase ):
             file_handle = mock_open.return_value.__enter__.return_value
 #            parse.assert_called_once_with( file_handle )
 
-    @patch( 'configuration.xmlconfiguration.os.getcwd' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.os.getcwd' )
     def test_ConfigurationFileError( self, getcwd ):
         value = 'xxx'
         getcwd.return_value = 'abc/'

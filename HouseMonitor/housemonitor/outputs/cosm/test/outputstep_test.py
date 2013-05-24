@@ -4,11 +4,11 @@ Created on Dec 10, 2012
 @author: Gary
 '''
 import unittest
-from lib.hmqueue import HMQueue
-from outputs.cosm.outputStep import COSMOutputStep
-from lib.common import Common
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.outputs.cosm.outputStep import COSMOutputStep
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
 
@@ -23,7 +23,7 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'outputs.cosm.control.HMQueue', spec=HMQueue )
+    @patch( 'housemonitor.outputs.cosm.control.HMQueue', spec=HMQueue )
     def test_step( self, que ):
         value = 5252
         data = {'device': 'device', 'port': 'port'}

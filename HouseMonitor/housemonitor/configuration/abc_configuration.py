@@ -5,7 +5,7 @@ Created on Aug 5, 2012
 '''
 import abc
 from pubsub import pub
-from lib.base import Base
+from housemonitor.lib.base import Base
 
 
 class abcConfiguration(Base, object):

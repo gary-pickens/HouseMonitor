@@ -4,17 +4,17 @@ Created on Dec 17, 2012
 @author: Gary
 '''
 import unittest
-from steps.oneInN import OneInN
-from steps.oneInN import instantuate_me
+from housemonitor.steps.oneInN import OneInN
+from housemonitor.steps.oneInN import instantuate_me
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch, MagicMock
-from lib.getdatetime import GetDateTime
-from steps.abc_step import abcStep
-from lib.common import Common
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.steps.abc_step import abcStep
+from housemonitor.lib.common import Common
 
 
 class testStep( abcStep ):
@@ -44,14 +44,14 @@ class Test( unittest.TestCase ):
         pass
 
     def test__topic_name( self ):
-         s = testStep()
-         self.assertEqual( s.topic_name, 'step' )
+        s = testStep()
+        self.assertEqual( s.topic_name, 'step' )
 
     def test__logger_name( self ):
         s = testStep()
         self.assertEqual( s.logger_name, Constants.LogKeys.steps )
 
-    @patch( 'steps.test.abc_step_test.Common.send' )
+    @patch( 'housemonitor.steps.test.abc_step_test.Common.send' )
     def test_getUseCount_when_count_is_zero( self, send ):
         device = 'device'
         port = 'port'
@@ -65,7 +65,7 @@ class Test( unittest.TestCase ):
         listeners = ['a', 'b', 'c']
         N.getUseCount( 1, data, listeners )
 
-    @patch( 'steps.test.abc_step_test.Common.send' )
+    @patch( 'housemonitor.steps.test.abc_step_test.Common.send' )
     def test_getUseCount( self, send ):
         device = 'device'
         port = 'port'
@@ -78,9 +78,9 @@ class Test( unittest.TestCase ):
 
         listeners = ['a', 'b', 'c']
         N.getUseCount( 1, data, listeners )
-        N.send.assert_called_once_with( 0, {'device': device, 'port': port}, ['a', 'b', 'c'] )
+        send.assert_called_once_with( 111, {'device': 'HouseMonitor.testStep', 'at': None, 'port': 'Count', 'name': 'Count'}, ['a', 'b', 'c'] )
 
-    @patch( 'steps.test.abc_step_test.Common.send' )
+    @patch( 'housemonitor.steps.test.abc_step_test.Common.send' )
     def test_getErrorCount( self, send ):
         device = 'device'
         port = 'port'
@@ -93,9 +93,9 @@ class Test( unittest.TestCase ):
 
         listeners = ['a', 'b', 'c']
         N.getErrorCount( 1, data, listeners )
-        N.send.assert_called_once_with( 0, {'device': device, 'port': port}, ['a', 'b', 'c'] )
+        send.assert_called_once_with( 10, {'device': 'HouseMonitor.testStep', 'at': None, 'port': 'Error Count', 'name': 'Error Count'}, ['a', 'b', 'c'] )
 
-    @patch( 'steps.test.abc_step_test.Common.send' )
+    @patch( 'housemonitor.steps.test.abc_step_test.Common.send' )
     def test_getErrorCount_when_error_count_is_zero( self, send ):
         device = 'device'
         port = 'port'

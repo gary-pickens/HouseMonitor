@@ -10,15 +10,15 @@ import pprint
 from datetime import datetime
 from pubsub.core.topicmgr import ListenerSpecIncomplete
 
-from configuration.xmlDeviceConfiguration import InvalidDeviceError
-from configuration.xmlDeviceConfiguration import InvalidPortError
-from configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
-from configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
-from lib.common import Common
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidDeviceError
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidPortError
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
+from housemonitor.configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
+from housemonitor.lib.common import Common
 from abc_input import abcInput
-from lib.base import Base
-from lib.constants import Constants
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.base import Base
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.getdatetime import GetDateTime
 import thread
 
 

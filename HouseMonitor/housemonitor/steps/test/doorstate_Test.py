@@ -4,8 +4,8 @@ Created on Sep 4, 2012
 @author: Gary
 '''
 import unittest
-from steps.doorstate import ConvertGarageDoorState
-from steps.doorstate import instantuate_me
+from housemonitor.steps.doorstate import ConvertGarageDoorState
+from housemonitor.steps.doorstate import instantuate_me
 from datetime import datetime
 
 

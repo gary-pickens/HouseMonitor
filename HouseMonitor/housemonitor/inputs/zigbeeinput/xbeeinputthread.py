@@ -6,11 +6,11 @@ Created on Oct 10, 2012
 import threading
 import os
 
-from inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
 from windowsxbeecommunications import WindowsXbeeCommunications
-from inputs.dataenvelope import DataEnvelope
-from lib.constants import Constants
-from lib.base import Base
+from housemonitor.inputs.dataenvelope import DataEnvelope
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.base import Base
 
 
 class UnsupportedSystemError( Exception ):

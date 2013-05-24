@@ -4,17 +4,17 @@ Created on Mar 8, 2013
 @author: Gary
 '''
 import unittest
-from outputs.zigbee.zigbeeoutput import ZigBeeOutput
-from outputs.zigbee.zigbeecontrol import ZigBeeControl
-from outputs.zigbee.zigbeeoutputstep import ZigBeeOutputStep
-from outputs.zigbee.zigbeeoutputthread import ZigBeeOutputThread
-from inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
-from inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
-from inputs.zigbeeinput.xbeecommunications import XBeeCommunications
-from lib.hmqueue import HMQueue
-from lib.constants import Constants
+from housemonitor.outputs.zigbee.zigbeeoutput import ZigBeeOutput
+from housemonitor.outputs.zigbee.zigbeecontrol import ZigBeeControl
+from housemonitor.outputs.zigbee.zigbeeoutputstep import ZigBeeOutputStep
+from housemonitor.outputs.zigbee.zigbeeoutputthread import ZigBeeOutputThread
+from housemonitor.inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
+from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.xbeecommunications import XBeeCommunications
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.constants import Constants
 from mock import Mock, MagicMock, patch
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
 from xbee import ZigBee
 
@@ -33,7 +33,7 @@ class Test( unittest.TestCase ):
         out = ZigBeeOutput()
         self.assertEqual( out.logger_name, Constants.LogKeys.outputsZigBee )
 
-#    @patch('outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications)
+#    @patch('housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications)
 #    def test_setLow(self, win):
 #        destination_address = 0x13a20040902a02
 #        port = 'DIO-1'
@@ -42,7 +42,7 @@ class Test( unittest.TestCase ):
 #        ot.startCorrectZigbee(os_name='nt')
 #        ot.setLow(destination_address, port)
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_0_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -55,7 +55,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_1_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -68,7 +68,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_2_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -81,7 +81,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_3_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -94,7 +94,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_4_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -107,7 +107,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_5_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -120,7 +120,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_6_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -133,7 +133,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_7_Low( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -147,7 +147,7 @@ class Test( unittest.TestCase ):
                                                     command='D7',
                                                     frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_0_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -160,7 +160,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_1_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -173,7 +173,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_2_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -186,7 +186,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_3_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -199,7 +199,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_4_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -212,7 +212,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_5_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -225,7 +225,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_6_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -238,7 +238,7 @@ class Test( unittest.TestCase ):
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_set_DIO_7_High( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -252,7 +252,7 @@ class Test( unittest.TestCase ):
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02',
                                                     frame_id='\xaa' )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_no_device( self, win ):
         data = {}
         data[Constants.DataPacket.port] = 'DIO-7'
@@ -262,7 +262,7 @@ class Test( unittest.TestCase ):
         with self.assertRaisesRegexp( KeyError, 'The device is missing from the data block:.*' ):
             ot.sendCommand( True, data )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_no_port( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -272,7 +272,7 @@ class Test( unittest.TestCase ):
         with self.assertRaisesRegexp( KeyError, "The port is missing from the data block: .*" ):
             ot.sendCommand( True, data )
 
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_invalid_device( self, win ):
         data = {}
         data[Constants.DataPacket.device] = 'xxxxxxxxxx'
@@ -284,7 +284,7 @@ class Test( unittest.TestCase ):
             ot.sendCommand( True, data )
 
     #  TODO work more on this
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_invalid_port( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -296,7 +296,7 @@ class Test( unittest.TestCase ):
             ot.sendCommand( True, data )
 
     #  TODO work more on this
-#    @patch('outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications)
+#    @patch('housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications)
 #    def test_invalid_value(self, win):
 #        data = {}
 #        data[Constants.DataPacket.device] = '0x13a20040902a02'
@@ -308,7 +308,7 @@ class Test( unittest.TestCase ):
 #            ot.sendCommand('', data)
 
     #  TODO work more on this
-    @patch( 'outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_pack_and_unpack( self, win ):
         data = {}
         data[Constants.DataPacket.device] = '0x13a20040902a02'

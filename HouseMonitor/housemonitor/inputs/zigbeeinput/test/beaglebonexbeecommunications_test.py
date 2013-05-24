@@ -3,17 +3,17 @@ Created on Dec 18, 2012
 
 @author: Gary
 '''
-from inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
-from lib.getdatetime import GetDateTime
-from configuration.formatconfiguration import FormatConfiguration
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class Test( unittest.TestCase ):
@@ -26,8 +26,8 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
-    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.Serial' )
+    @patch( 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.Serial' )
     def test_setup( self, serial, cfg ):
         port = 'COM2'
         baud = 9600
@@ -50,22 +50,22 @@ class Test( unittest.TestCase ):
         serial.assert_called_once_with( port, baud, timeout=10 )
         self.assertEqual( value, return_value )
 
-    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
-    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.Serial.close' )
+    @patch( 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.Serial.close' )
     def test_close( self, close, cfg ):
         bb = BeagleboneXbeeCommunications()
         bb.close()
         close.assert_called_once_with()
 
-    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
     def test_configuration_topic_name( self, cfg ):
         bb = BeagleboneXbeeCommunications()
-        self.assertEqual( bb.configuration_topic_name, 'inputs.zigbeeinput.beaglebonexbeecommunications' )
+        self.assertEqual( bb.configuration_topic_name, 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications' )
 
-    @patch( 'inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.XmlConfiguration.configure' )
     def test_configuration_file_name( self, cfg ):
         bb = BeagleboneXbeeCommunications()
-        self.assertEqual( bb.configuration_file_name, 'inputs.zigbeeinput.beaglebonexbeecommunications' )
+        self.assertEqual( bb.configuration_file_name, 'housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications' )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

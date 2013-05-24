@@ -4,10 +4,10 @@ Created on Sep 13, 2012
 @author: Gary
 '''
 
-from lib.base import Base
-from inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
-from lib.hmqueue import HMQueue
-from lib.constants import Constants
+from housemonitor.lib.base import Base
+from housemonitor.inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.constants import Constants
 
 
 def instantuate_me():

@@ -4,11 +4,11 @@ Created on Oct 16, 2012
 @author: Gary
 
 '''
-from lib.constants import Constants
-from configuration.formatconfiguration import FormatConfiguration
-from lib.base import Base
+from housemonitor.lib.constants import Constants
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.base import Base
 from abc_step import abcStep
-from lib.common import Common
+from housemonitor.lib.common import Common
 import pprint
 
 

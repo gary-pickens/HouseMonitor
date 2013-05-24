@@ -6,7 +6,7 @@ Created on Sep 23, 2012
 '''
 import pprint
 
-from lib.base import Base
+from housemonitor.lib.base import Base
 from xmlconfiguration import XmlConfiguration
 
 

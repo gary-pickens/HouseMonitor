@@ -5,16 +5,16 @@ Created on Dec 18, 2012
 '''
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch, MagicMock
-from lib.getdatetime import GetDateTime
-from configuration.formatconfiguration import FormatConfiguration
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.getdatetime import GetDateTime
 
-from inputs.zigbeeinput.xbeecommunications import XBeeCommunications
+from housemonitor.inputs.zigbeeinput.xbeecommunications import XBeeCommunications
 from xbee.zigbee import ZigBee
 
 
@@ -42,7 +42,7 @@ class Test( unittest.TestCase ):
         xbee.zigbee.wait_read_frame.assert_called_once_with()
         self.assertDictEqual( value, d )
 
-    @patch( 'inputs.zigbeeinput.xbeecommunications.ZigBee' )
+    @patch( 'housemonitor.inputs.zigbeeinput.xbeecommunications.ZigBee' )
     def test_successful_connect( self, zigbee ):
         rv = 55
         xbee = myClass()
@@ -64,7 +64,7 @@ class Test( unittest.TestCase ):
             self.count += 1
             return 55
 
-    @patch( 'inputs.zigbeeinput.xbeecommunications.ZigBee' )
+    @patch( 'housemonitor.inputs.zigbeeinput.xbeecommunications.ZigBee' )
     def test_fail_to_connect_first_time_then_succeed_second_time( self, zigbee ):
         rv = 55
         xbee = myClass()

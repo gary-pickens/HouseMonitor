@@ -4,11 +4,11 @@ Created on Mar 8, 2013
 @author: Gary
 '''
 import unittest
-from outputs.zigbee.zigbeeoutputthread import ZigBeeOutputThread
-from lib.hmqueue import HMQueue
-from lib.constants import Constants
+from housemonitor.outputs.zigbee.zigbeeoutputthread import ZigBeeOutputThread
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.constants import Constants
 from mock import Mock, MagicMock, patch
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
 from xbee import ZigBee
 
@@ -28,8 +28,8 @@ class Test( unittest.TestCase ):
         thread = ZigBeeOutputThread( queue )
         self.assertEqual( thread.logger_name, Constants.LogKeys.outputsZigBee )
 
-    @patch( 'outputs.zigbee.zigbeeoutputthread.time.sleep' )
-    @patch( 'outputs.zigbee.zigbeeoutputthread.ZigBeeOutput' )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutputthread.time.sleep' )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutput' )
     def test_ZigBeeOutput_throws_exception( self, zo, t ):
         queue = HMQueue()
         thread = ZigBeeOutputThread( queue )
@@ -50,7 +50,7 @@ class Test( unittest.TestCase ):
 #        self.assertFalse(thread.connected)
 #        self.assertFalse(thread.talking)
 
-    @patch( 'outputs.zigbee.zigbeeoutputthread.HMQueue.receive' )
+    @patch( 'housemonitor.outputs.zigbee.zigbeeoutputthread.HMQueue.receive' )
     def test_processCommandToZigBee( self, qr ):
         packet = {}
         queue = HMQueue()

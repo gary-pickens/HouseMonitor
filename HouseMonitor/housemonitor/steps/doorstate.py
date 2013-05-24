@@ -4,8 +4,8 @@ Created on Aug 6, 2012
 @author: Gary
 '''
 from abc_step import abcStep
-from lib.constants import Constants
-from lib.common import Common
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.common import Common
 from copy import copy
 from datetime import datetime, timedelta
 import time

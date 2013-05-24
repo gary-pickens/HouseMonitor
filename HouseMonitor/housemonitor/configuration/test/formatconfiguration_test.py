@@ -4,14 +4,14 @@ Created on Dec 18, 2012
 @author: Gary
 '''
 import unittest
-from configuration.formatconfiguration import FormatConfiguration
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch, MagicMock
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 from xml.etree.ElementTree import ElementTree, fromstring
 
 
@@ -28,7 +28,7 @@ class Test( unittest.TestCase ):
     @patch.object( FormatConfiguration, 'configure' )
     def test_configuration_topic_name( self, configure ):
         x = FormatConfiguration()
-        self.assertEqual( x.configuration_file_name, "configuration.formatconfiguration" )
+        self.assertEqual( x.configuration_file_name, "housemonitor.configuration.formatconfiguration" )
 
     @patch.object( FormatConfiguration, 'configure' )
     def test_logger_name( self, configure ):

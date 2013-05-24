@@ -11,7 +11,7 @@ import sys
 import pprint
 
 from xmlconfiguration import XmlConfiguration
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
 
 class InvalidDeviceError(Exception):

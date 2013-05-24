@@ -4,11 +4,11 @@ Created on Mar 2, 2013
 @author: Gary
 '''
 import unittest
-from steps.maxvalue import MaxValue
-from steps.maxvalue import instantuate_me
-from lib.common import Common
+from housemonitor.steps.maxvalue import MaxValue
+from housemonitor.steps.maxvalue import instantuate_me
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
 

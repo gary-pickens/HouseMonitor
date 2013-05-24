@@ -3,24 +3,24 @@ Created on Dec 18, 2012
 
 @author: Gary
 '''
-from inputs.processinput import ProcessInput
-from inputs.processinput import ProcessXBeeInput
-from inputs.processinput import ProcessStatusRequests
-from inputs.dataenvelope import DataEnvelope
-from lib.hmqueue import HMQueue
-from configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
-from configuration.xmlDeviceConfiguration import InvalidDeviceError
-from configuration.xmlDeviceConfiguration import InvalidPortError
-from configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
+from housemonitor.inputs.processinput import ProcessInput
+from housemonitor.inputs.processinput import ProcessXBeeInput
+from housemonitor.inputs.processinput import ProcessStatusRequests
+from housemonitor.inputs.dataenvelope import DataEnvelope
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidDeviceError
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidPortError
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
 
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class Test( unittest.TestCase ):
@@ -84,8 +84,8 @@ class Test( unittest.TestCase ):
         pxi = ProcessXBeeInput( devices )
         self.assertEqual( pxi.logger_name, Constants.LogKeys.inputsZigBee )
 
-    @patch( 'inputs.processinput.Common.send' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.Common.send' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_invalid_device_error( self, config, send ):
         env = DataEnvelope()
         env.packet = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
@@ -124,8 +124,8 @@ class Test( unittest.TestCase ):
         xp.logger.exception.assert_called_with( "'Invalid device (0x13a200409029bf)'" )
         self.assertEqual( send.call_count, 0 )
 
-    @patch( 'inputs.processinput.Common.send' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.Common.send' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_invalid_port_error( self, config, send ):
         env = DataEnvelope()
         env.packet = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
@@ -164,8 +164,8 @@ class Test( unittest.TestCase ):
         xp.logger.exception.assert_called_with( "'Invalid port (adc-3)'" )
         self.assertEqual( send.call_count, 0 )
 
-    @patch( 'inputs.processinput.Common.send' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.Common.send' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_invalid_configuration_options_error( self, config, send ):
         env = DataEnvelope()
         env.packet = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
@@ -203,9 +203,9 @@ class Test( unittest.TestCase ):
         xp.logger.exception.assert_called_with( "'Required configuration option not present (units) for device(0x13a200409029bf) port (adc-0)'" )
         self.assertEqual( send.call_count, 0 )
 
-    @patch( 'inputs.processinput.datetime' )
-    @patch( 'inputs.processinput.Common.send' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.datetime' )
+    @patch( 'housemonitor.inputs.processinput.Common.send' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_with_valid_data( self, config, send, dt ):
         env = DataEnvelope()
         test_time = datetime.datetime( 2012, 1, 2, 3, 4, 5 )
@@ -229,7 +229,7 @@ class Test( unittest.TestCase ):
         psr = ProcessStatusRequests( devices )
         self.assertEqual( psr.logger_name, Constants.LogKeys.inputs )
 
-    @patch( 'inputs.processinput.Common.send' )
+    @patch( 'housemonitor.inputs.processinput.Common.send' )
     def test_ProcessStatusRequests_process( self, send ):
         devices = {'device': {'port': {}}}
         env = DataEnvelope()
@@ -241,26 +241,26 @@ class Test( unittest.TestCase ):
 
 # ProcessInput
 
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def testProcessInput_topic_name( self, config ):
         devices = {'device': {'port': {}}}
         pi = ProcessInput( devices )
         self.assertEqual( pi.topic_name, Constants.TopicNames.ProcessInputs )
 
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def testProcessInput_configuration_file_name( self, config ):
         devices = {'device': {'port': {}}}
         pi = ProcessInput( devices )
-        self.assertEqual( pi.configuration_file_name, 'inputs.processinput' )
+        self.assertEqual( pi.configuration_file_name, 'housemonitor.inputs.processinput' )
 
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_ProcessInput_logger_name( self, config ):
         devices = {'device': {'port': {}}}
         pi = ProcessInput( devices )
         self.assertEqual( pi.logger_name, Constants.LogKeys.inputs )
 
     @patch.object( ProcessXBeeInput, 'process' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     @patch.object( HMQueue, 'receive' )
     def test_ProcessInput_work_xbee_input( self, process, config, receive ):
         envelope = DataEnvelope( type='xbee' )
@@ -272,7 +272,7 @@ class Test( unittest.TestCase ):
         pi.commands[envelope.type].process.assert_called_once_with( envelope )
 
     @patch.object( ProcessStatusRequests, 'process' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     @patch.object( HMQueue, 'receive' )
     def test_ProcessInput_work_status_request( self, process, config, receive ):
         envelope = DataEnvelope( type=Constants.EnvelopeTypes.status )
@@ -288,7 +288,7 @@ class Test( unittest.TestCase ):
 
     @patch.object( HMQueue, 'receive' )
     @patch.object( ProcessInput, 'work' )
-    @patch( 'inputs.processinput.xmlDeviceConfiguration.configure' )
+    @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_input( self, receive, work, config ):
         que = HMQueue()
         self.pi = ProcessInput( que )

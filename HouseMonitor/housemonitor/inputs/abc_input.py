@@ -5,8 +5,8 @@ Created on Aug 2, 2012
 '''
 import abc
 from pubsub import pub
-from lib.base import Base
-from lib.constants import Constants
+from housemonitor.lib.base import Base
+from housemonitor.lib.constants import Constants
 
 
 class abcInput(Base, object):

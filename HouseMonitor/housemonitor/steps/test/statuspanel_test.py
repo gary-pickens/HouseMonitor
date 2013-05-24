@@ -3,14 +3,14 @@ Created on Mar 28, 2013
 
 @author: Gary
 '''
-from configuration.formatconfiguration import FormatConfiguration
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
 from datetime import datetime, timedelta
-from lib.common import Common
-from lib.constants import Constants
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.common import Common
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.getdatetime import GetDateTime
 from mock import Mock, patch, MagicMock
 from pubsub import pub
-from steps.statuspanel import StatusPanel, instantuate_me
+from housemonitor.steps.statuspanel import StatusPanel, instantuate_me
 import logging.config
 import pprint
 import unittest
@@ -46,7 +46,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.process_delayed_alarm.topic_name, Constants.TopicNames.StatusPanel_ProcessDelayedAlarm )
         self.assertEqual( N.disable_alarm_button.topic_name, Constants.TopicNames.StatusPanel_DisableAlarmButton )
 
-    @patch( 'steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
+    @patch( 'housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
     @patch.object( GetDateTime, 'datetime' )
     def test_first_time_with_garage_door_closed( self, dt, light ):
         data = {}
@@ -61,7 +61,7 @@ class Test( unittest.TestCase ):
         light.reset_mock()
 
 
-    @patch( 'steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
+    @patch( 'housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
     @patch.object( GetDateTime, 'datetime' )
     def test_first_time_with_garage_door_open( self, dt, light ):
         data = {}
@@ -79,7 +79,7 @@ class Test( unittest.TestCase ):
         light.assert_called_once_with( sp.GARAGE_DOOR_OPEN )
         light.reset_mock()
 
-    @patch( 'steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
+    @patch( 'housemonitor.steps.statuspanel.StatusPanel.changeGarageDoorWarningLight' )
     @patch.object( GetDateTime, 'datetime' )
     def test_first_time_with_garage_door_closed_then_open_the_garage_door( self, dt, light ):
         data = {'d': 'e'}
@@ -122,7 +122,7 @@ class Test( unittest.TestCase ):
 #################################################
 #  change Garage Door Warning Light
 #################################################
-    @patch( 'steps.statuspanel.Common.send' )
+    @patch( 'housemonitor.steps.statuspanel.Common.send' )
     def test_change_Garage_Door_light_to_open( self, send ):
         data = {}
         listeners = [Constants.TopicNames.ZigBeeOutput]
@@ -134,7 +134,7 @@ class Test( unittest.TestCase ):
 #################################################
 #  change alarm
 #################################################
-    @patch( 'steps.statuspanel.Common.send' )
+    @patch( 'housemonitor.steps.statuspanel.Common.send' )
     def test_change_alarm_to_on( self, send ):
         data = {}
         listeners = [Constants.TopicNames.ZigBeeOutput]
@@ -145,7 +145,7 @@ class Test( unittest.TestCase ):
 #################################################
 #  change alarm
 #################################################
-    @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
+    @patch( 'housemonitor.steps.statuspanel.StatusPanel.changeAlarm' )
     def test_press_disarm_alarm_button( self, ca ):
         data = {}
         listeners = [Constants.TopicNames.ZigBeeOutput]
@@ -159,8 +159,8 @@ class Test( unittest.TestCase ):
 #################################################
 #  Process Delayed Alarm
 #################################################
-    @patch( 'steps.statuspanel.StatusPanel.changeAlarm' )
-    @patch( 'steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer' )
+    @patch( 'housemonitor.steps.statuspanel.StatusPanel.changeAlarm' )
+    @patch( 'housemonitor.steps.statuspanel.StatusPanel.ProcessDelayedAlarm.activateTimer' )
     def test_process_delayed_alarm( self, at, ca ):
         uu = str( uuid.uuid4() )
         data = {Constants.DataPacket.scheduler_id: uu}

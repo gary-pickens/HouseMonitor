@@ -4,17 +4,17 @@ Created on Nov 14, 2012
 @author: Gary
 '''
 import unittest
-from steps.oneInN import OneInN
-from steps.oneInN import instantuate_me
+from housemonitor.steps.oneInN import OneInN
+from housemonitor.steps.oneInN import instantuate_me
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch
-from lib.getdatetime import GetDateTime
-from configuration.formatconfiguration import FormatConfiguration
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class Test( unittest.TestCase ):
@@ -26,7 +26,7 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_oneInN_with_one_device_and_port( self, configuration ):
         N = OneInN()
 
@@ -48,7 +48,7 @@ class Test( unittest.TestCase ):
 
         N = None
 
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_oneInN_with_two_device_and_port( self, configuration ):
         N = OneInN()
 
@@ -80,7 +80,7 @@ class Test( unittest.TestCase ):
 
         N = None
 
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_oneInN_with_no_device_in_count_dict( self, configuration ):
         N = OneInN()
         N.config = {'0x13a200409029bf': {'adc-1': '2'}, '0x13a200408cccc3': {'adc-0': '2', 'adc-1': '5'}}
@@ -95,7 +95,7 @@ class Test( unittest.TestCase ):
         N.step( 1, data, listeners )
         self.assertEqual( N.count[device][port], 1 )
 
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_oneInN_with_one_device_in_count_dict_that_is_not_the_same( self, configuration ):
         device0 = 'device0'
         device1 = 'device1'
@@ -114,8 +114,8 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.count[device0][port0], 1 )
         self.assertEqual( N.count[device1][port1], 10 )
 
-    @patch( 'steps.oneInN.Common.send' )
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.Common.send' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_oneInN_with_one_device_and_other_port_in_count_dict( self, send, configuration ):
         N = OneInN()
         GetDateTime.isoformat = Mock()
@@ -137,18 +137,18 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.errors, 0 )
         self.assertEqual( N.last_error_time, None )
         self.assertEqual( N.counter, 1 )
- #       self.assertEqual(N.last_count_time, '123')
+#         self.assertEqual(N.last_count_time, '123')
 
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_instantuate_me( self, config ):
         data = {}
         N = instantuate_me( data )
         self.assertIsInstance( N, OneInN )
 
-    @patch( 'configuration.formatconfiguration.FormatConfiguration.configure' )
+    @patch( 'housemonitor.configuration.formatconfiguration.FormatConfiguration.configure' )
     def test_configuration_file_name( self, config ):
         oin = OneInN()
-        self.assertEqual( oin.configuration_file_name(), 'steps.oneInN' )
+        self.assertEqual( oin.configuration_file_name(), 'housemonitor.steps.oneInN' )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

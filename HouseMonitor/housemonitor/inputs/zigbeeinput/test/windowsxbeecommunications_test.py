@@ -3,17 +3,17 @@ Created on Dec 18, 2012
 
 @author: Gary
 '''
-from inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
+from housemonitor.inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch
-from lib.getdatetime import GetDateTime
-from configuration.formatconfiguration import FormatConfiguration
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class Test( unittest.TestCase ):
@@ -25,8 +25,8 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
-    @patch( 'inputs.zigbeeinput.windowsxbeecommunications.Serial' )
+    @patch( 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications.Serial' )
     def test_setup( self, serial, cfg ):
         port = 'COM2'
         baud = 9600
@@ -39,22 +39,22 @@ class Test( unittest.TestCase ):
         serial.assert_called_once_with( port, baud )
         self.assertEqual( return_value, value )
 
-    @patch( 'inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
-    @patch( 'inputs.zigbeeinput.windowsxbeecommunications.Serial.close' )
+    @patch( 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications.Serial.close' )
     def test_close( self, close, cfg ):
         win = WindowsXbeeCommunications()
         win.close()
         close.assert_called_once_with()
 
-    @patch( 'inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
     def test_configuration_topic_name( self, cfg ):
         win = WindowsXbeeCommunications()
-        self.assertEqual( win.configuration_topic_name, 'inputs.zigbeeinput.windowsxbeecommunications' )
+        self.assertEqual( win.configuration_topic_name, 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications' )
 
-    @patch( 'inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
+    @patch( 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications.XmlConfiguration.configure' )
     def test_configuration_file_name( self, cfg ):
         win = WindowsXbeeCommunications()
-        self.assertEqual( win.configuration_file_name, 'inputs.zigbeeinput.windowsxbeecommunications' )
+        self.assertEqual( win.configuration_file_name, 'housemonitor.inputs.zigbeeinput.windowsxbeecommunications' )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

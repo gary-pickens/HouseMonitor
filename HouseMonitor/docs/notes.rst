@@ -82,8 +82,8 @@ Building a new system for HouseMonitor
 
 #. Update and Upgrade the packages.
 
-   * ``opkg update``
-   * ``opkg upgrade``
+   * ``opkg --tmp-dir ~ update``
+   * ``opkg --tmp-dir ~ upgrade``
    
 #. Create an account using:
 
@@ -160,7 +160,44 @@ remove it and install lightthp
      It appears to be working just fine.  I uploaded numerous html files to /www/pages and subdirectories 
      and I can brows to them with no problem.  **Perhaps I should leave well enough alone.**   
    
+Setting up ssh
+==============
+
+Linux
+-----
+
+#. Figure out a pass phrase.
+
+#. Change to the .ssh directory.  Create one if it is not in your home directory.
+
+#. On the Linux development machine generate a key with the following command::
+
+      ssh-keygen -b 2048 -f lbeaglebone
    
+#. Log on to the beaglebone computer and append the public file (the lbeaglebone.pub) to the file
+named 'authorized_keys'
+
+Windows with Eclipse
+--------------------
+
+#. Go to Window > Preferences the open Open General > Network Connections > SSH2
+
+#. Then open the tab called 'Key Management'
+
+#. Press the Generate RSA Key...
+
+#. Fill out the Passphrase and the confirm passphrase.
+
+#. Press Save Private Key to save the public and private key.  You will have to specify a name for  the key.
+
+#. Exit eclipse
+
+#. Copy to public key to the beaglebone computer.
+
+#. Append the public key file to 'authorized_keys' in .ssh.  The following command will do the job::
+
+      cat finename.pub >> authorized_keys
+
 
 Building a new system for HouseMonitor **May 21st update**
 ==========================================================
@@ -168,9 +205,10 @@ Building a new system for HouseMonitor **May 21st update**
 Yesterday I noticed that the system was not working so I did some investigating.  After several hours 
 I decided to install a new SD rom with the latest software.  This is my journey:
 
-#. I tried to use the image I got earlier this year and it kept giving me trouble.  Mainly, I could not load the
+# I tried to use the image I got earlier this year and it kept giving me trouble.  Mainly, I could not load the
 top three things from the list above. After much work I thought I would try the latest package, I was hoping
 the missing packages would be on the new release.  I was wrong but I could install:
+    
     * ``python-setuptools``
     * ``python-xmlrpc``
     * ``python-compile``
@@ -181,26 +219,23 @@ The only thing I could not install was:
 
 This means I will have to do everything as root.  Not the way I like to work, and exstive modifications to my ant script/
 
-#. Getting jsch working again.  When I tried to upload my files to the beaglebone jsch would not work.  I required
+# Getting jsch working again.  When I tried to upload my files to the beaglebone jsch would not work.  I required
 numerous attempts to get it working.
 
-   *. I had updated my java version while working trying to recover from the virus. As a result jsch stopped working.
+   * I had updated my java version while working trying to recover from the virus. As a result jsch stopped working.
    After searching on the Internet I found that other people were having the same problem and there was a new version
    of jsch. So I downloaded and installed it.
    
-   *. So I tried again and this time it complained that I was not known on the remote system.  So I copied my pub
+   * So I tried again and this time it complained that I was not known on the remote system.  So I copied my pub
    file to my account on the beaglebone computer.
    
-   *. The next attempt it complained about was the computer identity had changed.  So I deleted the beaglebone line
+   * The next attempt it complained about was the computer identity had changed.  So I deleted the beaglebone line
    from known_hose in the .ssh directory.  
    
-   *. I was still having problems and studing on the Internet, I read adding 'trust="true"' to the scp and sshexec lines
+   * I was still having problems and studing on the Internet, I read adding 'trust="true"' to the scp and sshexec lines
    would fix the problem.
    
-   *. Finally, I can copy files to the beaglebone!  I need to go back and study what the above changes mean.  
-   
-    
- 
+   * Finally, I can copy files to the beaglebone!  I need to go back and study what the above changes mean.  
 
 Baud rate for Tera Term
 =======================

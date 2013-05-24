@@ -4,13 +4,13 @@ Created on 2012-10-17
 @author: Gary
 
 '''
-from steps.abc_step import abcStep
-from lib.constants import Constants
-from configuration.formatconfiguration import FormatConfiguration
+from housemonitor.steps.abc_step import abcStep
+from housemonitor.lib.constants import Constants
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
 from collections import deque
 from pprint import pprint
 from pubsub.utils import printTreeDocs
-from lib.common import Common
+from housemonitor.lib.common import Common
 
 
 def instantuate_me( data ):

@@ -4,15 +4,15 @@ Created on Nov 14, 2012
 @author: Gary
 '''
 import unittest
-from steps.oneInN import OneInN
-from steps.oneInN import instantuate_me
+from housemonitor.steps.oneInN import OneInN
+from housemonitor.steps.oneInN import instantuate_me
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class Test( unittest.TestCase ):
@@ -25,7 +25,7 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_one_device_and_port( self, config ):
         N = OneInN()
 
@@ -47,7 +47,7 @@ class Test( unittest.TestCase ):
 
         N = None
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_two_device_and_port( self, config ):
         N = OneInN()
 
@@ -79,7 +79,7 @@ class Test( unittest.TestCase ):
 
         N = None
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_using_abc_step( self, config ):
         N = OneInN()
 
@@ -104,7 +104,7 @@ class Test( unittest.TestCase ):
 #        self.assertEqual(N.errors, 0)
 #        self.assertEqual(N.last_error_time, None)
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_no_device( self, config ):
         N = OneInN()
         Common.send = Mock()
@@ -117,7 +117,7 @@ class Test( unittest.TestCase ):
         N.substep( 1, data, listeners )
         self.assertEqual( N.errors, 1 )
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_no_port( self, config ):
         N = OneInN()
         Common.send = Mock()
@@ -131,7 +131,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.errors, 1 )
         self.assertEqual( N.counter, 0 )
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_no_device_in_count_dict( self, config ):
         N = OneInN()
         Common.send = Mock()
@@ -151,7 +151,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.errors, 0 )
         self.assertEqual( N.counter, 1 )
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_one_device_in_count_dict_that_is_not_the_same( self, config ):
         device0 = 'device0'
         device1 = 'device1'
@@ -175,7 +175,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.errors, 0 )
         self.assertEqual( N.counter, 1 )
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_oneInN_with_one_device_and_other_port_in_count_dict( self, config ):
         N = OneInN()
         Common.send = Mock()
@@ -199,7 +199,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( N.last_error_time, None )
         self.assertEqual( N.counter, 1 )
 
-    @patch( 'steps.oneInN.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.oneInN.FormatConfiguration.configure' )
     def test_instantuate_me( self, config ):
         data = {}
         N = instantuate_me( data )

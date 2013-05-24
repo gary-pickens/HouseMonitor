@@ -3,17 +3,17 @@ Created on Dec 10, 2012
 
 @author: Gary
 '''
-from configuration.cosmconfiguration import CosmConfiguration
+from housemonitor.configuration.cosmconfiguration import CosmConfiguration
 from httplib2 import HttpLib2Error
-from lib.common import Common
-from lib.getdatetime import GetDateTime
-from lib.constants import Constants
-from lib.hmqueue import HMQueue
+from housemonitor.lib.common import Common
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.hmqueue import HMQueue
 from mock import Mock, MagicMock, patch
-from outputs.cosm.control import COSMControl
-from outputs.cosm.outputStep import COSMOutputStep
-from outputs.cosm.outputthread import COSMOutputThread
-from outputs.cosm.send import COSMSend
+from housemonitor.outputs.cosm.control import COSMControl
+from housemonitor.outputs.cosm.outputStep import COSMOutputStep
+from housemonitor.outputs.cosm.outputthread import COSMOutputThread
+from housemonitor.outputs.cosm.send import COSMSend
 import datetime
 import httplib2
 import json
@@ -126,7 +126,7 @@ class Test( unittest.TestCase ):
                                 Constants.Cosm.datastreams: 'datastreams',
                             }}}
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream( self, config ):
         options = None
         cs = COSMSend( options )
@@ -148,7 +148,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( item[Constants.DataPacket.current_value], current_value )
         self.assertEqual( item['id'], '1' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream_with_two_datapoints( self, config ):
         options = None
         cs = COSMSend( options )
@@ -179,7 +179,7 @@ class Test( unittest.TestCase ):
         cs.createDataStream( device, port, data )
         self.assertListEqual( cs.datapoints['1'], [] )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream_with_bad_device( self, config ):
         options = None
         cs = COSMSend( options )
@@ -194,7 +194,7 @@ class Test( unittest.TestCase ):
         with self.assertRaisesRegexp( KeyError, 'Device is not in cosm configuration file: device 3' ):
             cs.createDataStream( device, port, data )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream_with_bad_port( self, config ):
         options = None
         cs = COSMSend( options )
@@ -209,7 +209,7 @@ class Test( unittest.TestCase ):
         with self.assertRaisesRegexp( KeyError, 'Port is not in cosm configuration file: port 2' ):
             cs.createDataStream( device, port, data )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream_with_bad_no_arrival_time( self, config ):
         options = None
         cs = COSMSend( options )
@@ -224,7 +224,7 @@ class Test( unittest.TestCase ):
         with self.assertRaisesRegexp( KeyError, 'at is not in data' ):
             cs.createDataStream( device, port, data )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createDataStream_with_bad_no_current_value( self, config ):
         options = None
         cs = COSMSend( options )
@@ -244,7 +244,7 @@ class Test( unittest.TestCase ):
 # Test Location
 ####################################################################################
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createLocation( self, config ):
         options = None
         cs = COSMSend( options )
@@ -264,7 +264,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( location[Constants.Cosm.location.longitude], Constants.Cosm.location.longitude )
         self.assertEqual( location[Constants.Cosm.location.private], Constants.Cosm.location.private )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createLocation_with_bad_device( self, config ):
         options = None
         cs = COSMSend( options )
@@ -273,7 +273,7 @@ class Test( unittest.TestCase ):
         with self.assertRaisesRegexp( KeyError, 'Device is not in cosm configuration file: device 3' ):
             cs.createLocation( 'device 3', 'port 1' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createLocation_with_bad_port( self, config ):
         options = None
         cs = COSMSend( options )
@@ -286,7 +286,7 @@ class Test( unittest.TestCase ):
 # test empty_datastreas
 ##########################################################
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_empty_datastream_list( self, config ):
         options = None
         cs = COSMSend( options )
@@ -307,7 +307,7 @@ class Test( unittest.TestCase ):
 ##########################################################
 # test feed
 ##########################################################
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createFeed( self, config ):
         options = None
         cs = COSMSend( options )
@@ -334,7 +334,7 @@ class Test( unittest.TestCase ):
         cs.empty_datastream_list()
         cs = None
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createFeed_with_no_device_in_config_file( self, config ):
         options = None
         cs = COSMSend( options )
@@ -350,7 +350,7 @@ class Test( unittest.TestCase ):
             feed = cs.createFeed( data, device, port )
         cs = None
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createFeed_with_no_port_in_config_file( self, config ):
         options = None
         cs = COSMSend( options )
@@ -366,7 +366,7 @@ class Test( unittest.TestCase ):
             feed = cs.createFeed( data, device, port )
         cs = None
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createFeed_with_two_datestreams( self, config ):
         options = None
         cs = COSMSend( options )
@@ -405,7 +405,7 @@ class Test( unittest.TestCase ):
 #         self.assertEqual( cs.json[Constants.Cosm.version], Constants.Cosm.version )
         cs = None
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_createJSONReport( self, config ):
         options = None
         cs = COSMSend( options )
@@ -462,7 +462,7 @@ class Test( unittest.TestCase ):
         cs.empty_datastream_list()
         cs = None
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_report_data( self, config ):
         device = 'device'
         port = 'port'
@@ -515,8 +515,8 @@ class Test( unittest.TestCase ):
         print http.request.call_args
         http.request.assert_called_once_with( 'url', body='test', headers={'Content-Type': 'application/x-www-form-urlencoded', 'X-PachubeApiKey': 'apikey'}, method='PUT' )
 
-    @patch( 'outputs.cosm.send.httplib2.Http' )
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.httplib2.Http' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_report_data_passing_in_http( self, config, http ):
         device = 'device'
         port = 'port'
@@ -571,7 +571,7 @@ class Test( unittest.TestCase ):
         print http.request.call_args
         http.request.assert_called_once_with( 'url', body='test', headers={'Content-Type': 'application/x-www-form-urlencoded', 'X-PachubeApiKey': 'apikey'}, method='PUT' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_report_data_with_300_status( self, config ):
         device = 'device'
         port = 'port'
@@ -624,7 +624,7 @@ class Test( unittest.TestCase ):
         print http.request.call_args
         http.request.assert_called_once_with( 'url', body='test', headers={'Content-Type': 'application/x-www-form-urlencoded', 'X-PachubeApiKey': 'apikey'}, method='PUT' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_report_data_in_test_mode( self, config ):
         device = 'device'
         port = 'port'
@@ -674,7 +674,7 @@ class Test( unittest.TestCase ):
                     }
         cs.report_data( json, data, http )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_report_data_with_HttpLib2Error( self, config ):
         device = 'device'
         port = 'port'
@@ -728,7 +728,7 @@ class Test( unittest.TestCase ):
         print http.request.call_args
         http.request.assert_called_once_with( 'url', body='test', headers={'Content-Type': 'application/x-www-form-urlencoded', 'X-PachubeApiKey': 'apikey'}, method='PUT' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_report_data_with_AttribueError( self, config ):
         device = 'device'
         port = 'port'
@@ -782,19 +782,19 @@ class Test( unittest.TestCase ):
         print http.request.call_args
         http.request.assert_called_once_with( 'url', body='test', headers={'Content-Type': 'application/x-www-form-urlencoded', 'X-PachubeApiKey': 'apikey'}, method='PUT' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_config_topic_name( self, c ):
         options = MagicMock( in_test_mode=False )
         cs = COSMSend( options )
-        self.assertEqual( cs.config_topic_name, 'outputs.cosm.send' )
+        self.assertEqual( cs.config_topic_name, 'housemonitor.outputs.cosm.send' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_config_file_name( self, c ):
         options = MagicMock( in_test_mode=False )
         cs = COSMSend( options )
-        self.assertEqual( cs.configuration_file_name, 'outputs.cosm.send' )
+        self.assertEqual( cs.configuration_file_name, 'housemonitor.outputs.cosm.send' )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_output( self, c ):
         options = MagicMock( in_test_mode=False )
         device = 'device'
@@ -810,7 +810,7 @@ class Test( unittest.TestCase ):
         cs.createJSONReport.called_once_with( device, port, data )
         cs.report_data.called_once_with( device, port, data )
 
-    @patch( 'outputs.cosm.send.CosmConfiguration.configure' )
+    @patch( 'housemonitor.outputs.cosm.send.CosmConfiguration.configure' )
     def test_output_with_exception( self, c ):
         options = MagicMock( in_test_mode=False )
         device = 'device'

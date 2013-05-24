@@ -4,8 +4,8 @@ Created on Nov 30, 2012
 @author: Gary
 '''
 import unittest
-from lib.currentvalues import CurrentValues
-from lib.constants import Constants
+from housemonitor.lib.currentvalues import CurrentValues
+from housemonitor.lib.constants import Constants
 
 
 class Test(unittest.TestCase):

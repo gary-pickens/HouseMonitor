@@ -9,7 +9,7 @@ import copy
 import pprint
 
 from base import Base
-from constants import Constants
+from housemonitor.lib.constants import Constants
 
 
 class CurrentValues( Base ):

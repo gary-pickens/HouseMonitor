@@ -3,18 +3,18 @@ Created on Dec 18, 2012
 
 @author: Gary
 '''
-from steps.formatvalue import FormatValue
+from housemonitor.steps.formatvalue import FormatValue
 
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
-from lib.getdatetime import GetDateTime
-from steps.formatvalue import FormatValue
-from steps.formatvalue import instantuate_me
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.steps.formatvalue import FormatValue
+from housemonitor.steps.formatvalue import instantuate_me
 
 
 class Test( unittest.TestCase ):
@@ -26,7 +26,7 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'steps.formatvalue.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.formatvalue.FormatConfiguration.configure' )
     def test_step( self, config ):
         listeners = ['a', 'b', 'c']
 
@@ -42,7 +42,7 @@ class Test( unittest.TestCase ):
         value, data, listeners = fv.step( 1.1111111, data, listeners )
         self.assertEqual( value, '1.11' )
 
-    @patch( 'steps.formatvalue.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.formatvalue.FormatConfiguration.configure' )
     def test_step_with_value_error( self, config ):
         listeners = ['a', 'b', 'c']
 
@@ -55,25 +55,25 @@ class Test( unittest.TestCase ):
         fv = FormatValue()
         fv.config = {'0x13a200409029bf': {'adc-1': '{:.2a}'}, '0x13a200408cccc3': {'adc-0': '2', 'adc-1': '5'}}
 
-        with self.assertRaisesRegexp( ValueError, 'The format is incompatable with the input data type {:.2a}: device 0x13a200409029bf port adc-1 file steps.formatvalue: error message Unknown format code .a. for object of type .float.' ):
+        with self.assertRaisesRegexp( ValueError, 'The format is incompatable with the input data type {:.2a}: device 0x13a200409029bf port adc-1 file housemonitor.steps.formatvalue: error message Unknown format code .a. for object of type .float.' ):
             value, data, listeners = fv.step( 1.1111111, data, listeners )
 
-    @patch( 'steps.formatvalue.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.formatvalue.FormatConfiguration.configure' )
     def test_topic_name( self, config ):
         fv = FormatValue()
         self.assertEqual( fv.topic_name, Constants.TopicNames.FormatValueStep )
 
-    @patch( 'steps.formatvalue.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.formatvalue.FormatConfiguration.configure' )
     def test_logger_name( self, config ):
         fv = FormatValue()
         self.assertEqual( fv.logger_name, Constants.LogKeys.steps )
 
-    @patch( 'steps.formatvalue.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.formatvalue.FormatConfiguration.configure' )
     def test_configuration_file_name( self, config ):
         fv = FormatValue()
-        self.assertEqual( fv.configuration_file_name, 'steps.formatvalue' )
+        self.assertEqual( fv.configuration_file_name, 'housemonitor.steps.formatvalue' )
 
-    @patch( 'steps.formatvalue.FormatConfiguration.configure' )
+    @patch( 'housemonitor.steps.formatvalue.FormatConfiguration.configure' )
     def test_instantuate_me( self, config ):
         data = {}
         N = instantuate_me( data )

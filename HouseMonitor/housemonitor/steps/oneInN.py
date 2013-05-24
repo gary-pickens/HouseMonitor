@@ -4,10 +4,10 @@ Created on 2012-11-14
 @author: Gary
 
 '''
-from lib.constants import Constants
-from configuration.formatconfiguration import FormatConfiguration
+from housemonitor.lib.constants import Constants
+from housemonitor.configuration.formatconfiguration import FormatConfiguration
 from abc_step import abcStep
-from lib.common import Common
+from housemonitor.lib.common import Common
 
 
 def instantuate_me( data ):

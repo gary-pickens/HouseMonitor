@@ -4,9 +4,9 @@ Created on Dec 4, 2012
 @author: Gary
 '''
 import unittest
-from lib.base import Base
-from lib.constants import Constants
-from lib.common import Common
+from housemonitor.lib.base import Base
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.common import Common
 from pubsub import pub
 from mock import *
 from pprint import pprint

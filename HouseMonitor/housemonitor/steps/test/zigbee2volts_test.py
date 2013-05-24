@@ -3,18 +3,18 @@ Created on Dec 18, 2012
 
 @author: Gary
 '''
-from steps.zigbee2volts import ZigbeeCountToVolts
+from housemonitor.steps.zigbee2volts import ZigbeeCountToVolts
 
 import unittest
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
-from lib.getdatetime import GetDateTime
-from steps.zigbee2volts import ZigbeeCountToVolts
-from steps.zigbee2volts import instantuate_me
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.steps.zigbee2volts import ZigbeeCountToVolts
+from housemonitor.steps.zigbee2volts import instantuate_me
 
 
 class Test( unittest.TestCase ):

@@ -3,12 +3,12 @@ Created on Apr 12, 2013
 
 @author: Gary
 '''
-from inputs import dataenvelope
-from inputs.computermonitor.computermonitor import ComputerMonitor
-from inputs.dataenvelope import DataEnvelope
-from lib.common import Common
-from lib.constants import Constants
-from lib.getdatetime import GetDateTime
+from housemonitor.inputs import dataenvelope
+from housemonitor.inputs.computermonitor.computermonitor import ComputerMonitor
+from housemonitor.inputs.dataenvelope import DataEnvelope
+from housemonitor.lib.common import Common
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.getdatetime import GetDateTime
 from mock import *
 from datetime import datetime
 import logging.config

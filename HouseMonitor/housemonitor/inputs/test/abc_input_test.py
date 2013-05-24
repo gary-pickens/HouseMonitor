@@ -3,11 +3,11 @@ Created on Dec 18, 2012
 
 @author: Gary
 '''
-from inputs.abc_input import abcInput
+from housemonitor.inputs.abc_input import abcInput
 
 import unittest
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 from mock import Mock, MagicMock, patch
 
 

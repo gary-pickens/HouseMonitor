@@ -6,8 +6,8 @@ Created on Dec 17, 2012
 import unittest
 import logging.config
 from mock import Mock, MagicMock, patch
-from configuration.cosmconfiguration import CosmConfiguration
-from configuration.xmlconfiguration import XmlConfiguration
+from housemonitor.configuration.cosmconfiguration import CosmConfiguration
+from housemonitor.configuration.xmlconfiguration import XmlConfiguration
 import xml.etree.ElementTree as ET
 
 
@@ -20,7 +20,7 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'configuration.xmlconfiguration.XmlConfiguration.configure' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.XmlConfiguration.configure' )
     def test_read_configuration_data( self, configure ):
         cosm = CosmConfiguration()
         root = ET.fromstring( xml )
@@ -31,7 +31,7 @@ class Test( unittest.TestCase ):
         self.assertIn( "dio-0", config['0x13a200409029bf'] )
         self.assertIn( 'tags', config['0x13a200409029bf']['adc-1'] )
 
-    @patch( 'configuration.xmlconfiguration.XmlConfiguration.configure' )
+    @patch( 'housemonitor.configuration.xmlconfiguration.XmlConfiguration.configure' )
     def test_getitem( self, configure ):
         cosm = CosmConfiguration()
         cosm.config = {'a': 'b'}

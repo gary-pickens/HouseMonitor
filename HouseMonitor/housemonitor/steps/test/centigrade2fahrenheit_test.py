@@ -4,15 +4,15 @@ Created on Dec 17, 2012
 @author: Gary
 '''
 import unittest
-from steps.centigrade2fahrenheit import ConvertCentigradeToFahrenheit
-from steps.centigrade2fahrenheit import instantuate_me
+from housemonitor.steps.centigrade2fahrenheit import ConvertCentigradeToFahrenheit
+from housemonitor.steps.centigrade2fahrenheit import instantuate_me
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class Test( unittest.TestCase ):

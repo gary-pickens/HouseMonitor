@@ -8,11 +8,11 @@ import os
 import struct
 from datetime import datetime, timedelta
 from xbee import ZigBee
-from lib.common import Common
-from lib.constants import Constants
-from lib.base import Base
-from inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
-from inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
+from housemonitor.lib.common import Common
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.base import Base
+from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
 
 
 class UnsupportedSystemError( Exception ):

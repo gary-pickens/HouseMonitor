@@ -3,9 +3,9 @@ Created on Oct 10, 2012
 
 @author: Gary
 '''
-from lib.base import Base
+from housemonitor.lib.base import Base
 from xbee.zigbee import ZigBee
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import abc
 import time
 

@@ -4,7 +4,7 @@ Created on Jul 30, 2012
 @author: Gary
 '''
 from abc_step import abcStep
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
 
 def instantuate_me( data ):

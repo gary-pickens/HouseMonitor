@@ -3,8 +3,8 @@ Created on Apr 28, 2013
 
 @author: Gary
 '''
-from lib.constants import Constants
-from lib.pubsubaid import PubSubAid
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.pubsubaid import PubSubAid
 from mock import *
 from pubsub import pub
 import unittest

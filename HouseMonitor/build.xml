@@ -143,6 +143,7 @@
     <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
         <scp todir="${user}:${password}@${host}:~gary/src" failonerror="true" trust="true">
             <fileset dir="dist">
+            	<include name="${project}-${version}.zip"/>
             </fileset>
         </scp>
 <!--
@@ -155,19 +156,24 @@
             </fileset>
         </scp>
 -->
-        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true" trust="true"
-           command="cd ~gary/src/;rm -rf ${project}-${version}" />
-         <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"  trust="true"
+<!--        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
+           command="cd src/;rm -rf ${project}-${version}" />
+-->
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="rm -rf /usr/lib/python2.7/site-packages//${project}-${version}" />
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="rm -rf ~gary/src/${project}-${version}" />
+        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
             command="cd ~gary/src/;unzip ${project}-${version}.zip" />
-        <sshexec host="${host}" username="${user}" password="${password}"  trust="true"
-            command="easy_install --install-dir ${HMHOME} -Z ~gary/src/${project}-${version}.zip" />
-        <sshexec host="${host}" username="${user}" password="${password}"  trust="true"
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="easy_install -Z ~gary/src/${project}-${version}.zip" />
+        <sshexec host="${host}" username="${user}" password="${password}"
             command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
-        <sshexec host="${host}" username="${user}" password="${password}"  trust="true"
-            command="cp ~gary/src/HouseMonitor-${version}/housemonitor/config/cacerts.txt ~gary/bin/HouseMonitor/httplib2-0.8-py2.7.egg/httplib2" />
-        <sshexec host="${host}" username="${user}" password="${password}" trust="true"
+        <sshexec host="${host}" username="${user}" password="${password}"
+            command="cp ~gary/src/${project}-${version}/housemonitor/config/cacerts.txt /usr/lib/python2.7/site-packages/httplib2-0.8-py2.7.egg/httplib2" />
+        <sshexec host="${host}" username="${user}" password="${password}"
             command="systemctl --system daemon-reload" />
-        <sshexec host="${host}" username="${user}" password="${password}" trust="true"
+        <sshexec host="${host}" username="${user}" password="${password}"
             command="systemctl restart housemonitor.service" />    	
     </target>
     <target name="copydoctobeaglebone" description="copy the doc files to the beaglebone computer" depends="doc">

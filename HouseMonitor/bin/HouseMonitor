@@ -1,10 +1,12 @@
+#!/usr/bin/python2.7
 '''
 Created on Nov 23, 2012
 
-@author: Gary
+@author: Gary Pickens
 '''
-import HouseMonitor
+from housemonitor import HouseMonitor
 
 
 if __name__ == '__main__':
-    HouseMonitor().run()
+    hm = HouseMonitor()
+    hm.run()

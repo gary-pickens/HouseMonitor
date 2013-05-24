@@ -5,9 +5,9 @@ Created on Oct 17, 2012
 '''
 import pprint
 
-from lib.base import Base
+from housemonitor.lib.base import Base
 from xmlconfiguration import XmlConfiguration
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
 class FormatConfiguration( XmlConfiguration, dict ):
     """

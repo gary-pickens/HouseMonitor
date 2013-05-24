@@ -7,7 +7,7 @@ from pubsub import pub
 from pubsub import utils
 from base import Base
 from pprint import pprint, pformat
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 from pubsub.utils import printTreeDocs
 
 

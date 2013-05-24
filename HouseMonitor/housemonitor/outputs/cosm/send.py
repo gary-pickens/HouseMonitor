@@ -4,12 +4,12 @@ Created on Sep 23, 2012
 @author: Gary
 
 '''
-from configuration.cosmconfiguration import CosmConfiguration
+from housemonitor.configuration.cosmconfiguration import CosmConfiguration
 from datetime import datetime
 from httplib2 import HttpLib2Error
-from lib.common import Common
-from lib.constants import Constants
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.common import Common
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.getdatetime import GetDateTime
 from pprint import pprint
 import httplib2
 import json

@@ -6,10 +6,10 @@ Created on Oct 2, 2012
 '''
 import threading
 
-from lib.hmqueue import HMQueue
-from lib.base import Base
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.base import Base
 from send import COSMSend
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
 
 class COSMOutputThread( Base, threading.Thread ):

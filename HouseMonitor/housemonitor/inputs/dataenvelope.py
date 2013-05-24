@@ -3,7 +3,7 @@ Created on Oct 10, 2012
 
 @author: Gary
 '''
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class DataEnvelope( object ):

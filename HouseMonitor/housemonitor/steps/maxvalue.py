@@ -5,8 +5,8 @@ Created on Jan 17, 2013
 @author: Gary
 
 '''
-from lib.common import Common
-from lib.constants import Constants
+from housemonitor.lib.common import Common
+from housemonitor.lib.constants import Constants
 from abc_step import abcStep
 
 

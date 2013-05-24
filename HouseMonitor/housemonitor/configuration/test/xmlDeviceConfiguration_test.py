@@ -4,17 +4,17 @@ Created on Dec 20, 2012
 @author: Gary
 '''
 import unittest
-from configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
-from configuration.xmlDeviceConfiguration import InvalidDeviceError
-from configuration.xmlDeviceConfiguration import InvalidPortError
-from configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
+from housemonitor.configuration.xmlDeviceConfiguration import xmlDeviceConfiguration
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidDeviceError
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidPortError
+from housemonitor.configuration.xmlDeviceConfiguration import InvalidConfigurationOptionError
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, patch
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 import xml.etree.ElementTree as ET
 
 

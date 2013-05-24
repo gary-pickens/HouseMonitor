@@ -5,21 +5,21 @@ Created on Sep 10, 2012
 '''
 from datetime import datetime
 import time
-from inputs.computermonitor.computermonitor import ComputerMonitor
-from inputs.processinput import ProcessInput, abcProcessInput, ProcessXBeeInput
-from inputs.testinputthead import TestInputThread
-from inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
-from lib.base import Base
-from lib.constants import Constants
-from lib.currentvalues import CurrentValues
-from lib.hmqueue import HMQueue
-from lib.hmscheduler import HMScheduler, HMScheduler
-from lib.moduleloader import ModuleLoader
-from lib.pubsubaid import PubSubAid
+from housemonitor.inputs.computermonitor.computermonitor import ComputerMonitor
+from housemonitor.inputs.processinput import ProcessInput, abcProcessInput, ProcessXBeeInput
+from housemonitor.inputs.testinputthead import TestInputThread
+from housemonitor.inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
+from housemonitor.lib.base import Base
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.currentvalues import CurrentValues
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.hmscheduler import HMScheduler, HMScheduler
+from housemonitor.lib.moduleloader import ModuleLoader
+from housemonitor.lib.pubsubaid import PubSubAid
 from optparse import OptionParser
-from outputs.cosm.control import COSMControl
-from outputs.xmlrpc.control import XMLRPCControl
-from outputs.zigbee.zigbeecontrol import ZigBeeControl
+from housemonitor.outputs.cosm.control import COSMControl
+from housemonitor.outputs.xmlrpc.control import XMLRPCControl
+from housemonitor.outputs.zigbee.zigbeecontrol import ZigBeeControl
 from pprint import pprint
 from pubsub import pub
 from housemonitorinfo import *

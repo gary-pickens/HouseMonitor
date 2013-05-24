@@ -4,13 +4,13 @@ Created on Mar 8, 2013
 @author: Gary
 '''
 import unittest
-from outputs.cosm.outputthread import COSMOutputThread
-from configuration.xmlconfiguration import XmlConfiguration
-from lib.hmqueue import HMQueue
-from outputs.cosm.send import COSMSend
-from lib.constants import Constants
+from housemonitor.outputs.cosm.outputthread import COSMOutputThread
+from housemonitor.configuration.xmlconfiguration import XmlConfiguration
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.outputs.cosm.send import COSMSend
+from housemonitor.lib.constants import Constants
 from mock import Mock, MagicMock, patch
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
 from xbee import ZigBee
 
@@ -32,7 +32,7 @@ class Test( unittest.TestCase ):
         thread = COSMOutputThread( options, queue )
         self.assertEqual( thread.logger_name, Constants.LogKeys.outputsCOSM )
 
-    @patch( 'outputs.cosm.outputthread.COSMSend' )
+    @patch( 'housemonitor.outputs.cosm.outputthread.COSMSend' )
     def test_init( self, send ):
         options = 'a'
         queue = 'q'
@@ -40,7 +40,7 @@ class Test( unittest.TestCase ):
         send.assert_called_once_with( options )
         self.assertEqual( thread._queue, 'q' )
 
-    @patch( 'outputs.cosm.outputthread.COSMSend' )
+    @patch( 'housemonitor.outputs.cosm.outputthread.COSMSend' )
     def test_init_with_send( self, send ):
         options = 'a'
         queue = 'q'
@@ -48,7 +48,7 @@ class Test( unittest.TestCase ):
         self.assertEqual( thread._cosm_send, 's' )
         self.assertEqual( thread._queue, 'q' )
 
-    @patch( 'outputs.cosm.outputthread.COSMSend' )
+    @patch( 'housemonitor.outputs.cosm.outputthread.COSMSend' )
     def test_run( self, send ):
         options = 'a'
         data = {}

@@ -6,9 +6,9 @@ Created on Aug 5, 2012
 import os
 import datetime
 
-from outputs.ioutput import iOutput
-from configuration.xmlconfiguration import XmlConfiguration
-from lib.common import Common
+from housemonitor.outputs.ioutput import iOutput
+from housemonitor.configuration.xmlconfiguration import XmlConfiguration
+from housemonitor.lib.common import Common
 
 
 class Log( iOutput, XmlConfiguration ):

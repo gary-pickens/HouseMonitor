@@ -3,13 +3,13 @@ Created on Nov 6, 2012
 
 @author: Gary
 '''
-from outputthread import COSMOutputThread
-from lib.hmqueue import HMQueue
+from .outputthread import COSMOutputThread
+from housemonitor.lib.hmqueue import HMQueue
 from send import COSMSend
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
-from configuration.cosmconfiguration import CosmConfiguration
-from lib.base import Base
+from housemonitor.configuration.cosmconfiguration import CosmConfiguration
+from housemonitor.lib.base import Base
 from outputStep import COSMOutputStep
 
 

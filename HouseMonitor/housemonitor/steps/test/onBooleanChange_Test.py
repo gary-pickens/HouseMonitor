@@ -4,15 +4,15 @@ Created on Nov 15, 2012
 @author: Gary
 '''
 import unittest
-from steps.onbooleanchange import onBooleanChange
-from steps.onbooleanchange import instantuate_me
+from housemonitor.steps.onbooleanchange import onBooleanChange
+from housemonitor.steps.onbooleanchange import instantuate_me
 import datetime
-from lib.common import Common
+from housemonitor.lib.common import Common
 import logging.config
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 import pprint
 from mock import Mock, MagicMock, patch
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.getdatetime import GetDateTime
 import time
 
 
@@ -25,7 +25,7 @@ class Test( unittest.TestCase ):
     def tearDown( self ):
         pass
 
-    @patch( 'steps.onbooleanchange.Common.send' )
+    @patch( 'housemonitor.steps.onbooleanchange.Common.send' )
     def test_onBooleanChange_with_one_device_and_port( self, send ):
         device = 'device'
         port = 'port'

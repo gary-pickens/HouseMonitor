@@ -10,9 +10,9 @@ from sets import Set
 import re
 import inspect
 
-from lib.base import Base
-from configuration.xmlconfiguration import XmlConfiguration
-from lib.getdatetime import GetDateTime
+from housemonitor.lib.base import Base
+from housemonitor.configuration.xmlconfiguration import XmlConfiguration
+from housemonitor.lib.getdatetime import GetDateTime
 
 
 class ModuleLoader( Base ):

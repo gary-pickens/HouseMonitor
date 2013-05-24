@@ -11,9 +11,9 @@ from datetime import datetime
 import Queue
 from mock import Mock
 import time
-from lib.hmqueue import HMQueue
-from lib.constants import Constants
-from inputs.dataenvelope import DataEnvelope
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.constants import Constants
+from housemonitor.inputs.dataenvelope import DataEnvelope
 from pubsub import pub
 from mock import MagicMock, Mock, patch
 

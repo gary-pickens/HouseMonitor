@@ -4,7 +4,7 @@ Created on Aug 5, 2012
 @author: Gary
 '''
 from pubsub import pub
-from lib.constants import Constants
+from housemonitor.lib.constants import Constants
 
 
 class Common( object ):

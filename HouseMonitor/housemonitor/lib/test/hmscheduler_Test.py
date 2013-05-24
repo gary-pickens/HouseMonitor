@@ -5,11 +5,11 @@ Created on May 5 2013
 '''
 from apscheduler.scheduler import Scheduler
 from datetime import timedelta
-from inputs.dataenvelope import DataEnvelope
-from lib.constants import Constants
-from lib.getdatetime import GetDateTime
-from lib.hmqueue import HMQueue
-from lib.hmscheduler import HMScheduler
+from housemonitor.inputs.dataenvelope import DataEnvelope
+from housemonitor.lib.constants import Constants
+from housemonitor.lib.getdatetime import GetDateTime
+from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.hmscheduler import HMScheduler
 from mock import *
 from pubsub import pub
 import copy
@@ -193,7 +193,7 @@ class Test( unittest.TestCase ):
         self.sched.shutdown()
         self.sched = None
 
-    @patch( 'lib.getdatetime.GetDateTime.datetime' )
+    @patch( 'housemonitor.lib.getdatetime.GetDateTime.datetime' )
     def test_add_one_shot( self, dt ):
         d = datetime.datetime( 2013, 1, 1, 1, 1, 1 )
         dt.return_value = d
