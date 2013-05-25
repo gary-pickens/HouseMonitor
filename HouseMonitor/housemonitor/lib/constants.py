@@ -65,6 +65,7 @@ class Constants( object ):
         action = 'action'
         send = 'send'
         accumulate = 'accumulate'
+        toEmailAddresss = 'To Email Addresses'
 
     class EnvelopeTypes( object ):
         '''
@@ -212,6 +213,7 @@ class Constants( object ):
         Statistics = "step.Statistics"
         UpTime = "step.Uptime"
         ZigBeeOutput = "step.ZigBeeOutput"
+        SendMailMessage = "step.SendMailMessage"
         Step = "step"
 
         StatusPanel_GarageDoorMonitor = 'step.GarageDoorMonitor'
@@ -245,6 +247,7 @@ class Constants( object ):
         PubSubAid = 'PubSubAid'
         StatusPanel = 'StatusPanel'
         ComputerMonitor = 'ComputerMonitor'
+        SendMail = 'SendMail'
         UnitTest = 'UnitTest'
 
     class Queue( object ):
