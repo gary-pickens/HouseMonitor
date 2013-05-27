@@ -5,16 +5,13 @@ Created on 2012-05-13
 
 '''
 from abc_step import abcStep
-from datetime import timedelta
+from datetime import timedelta, datetime
 from housemonitor.lib.base import Base
 from housemonitor.lib.common import Common
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.getdatetime import GetDateTime
 from pubsub import pub
-import sys
-import traceback
 import uuid
-
 
 
 def instantuate_me( data ):
@@ -41,7 +38,7 @@ class StatusPanel( Base ):
     # *SilenceAlarm* will be notified 2 seconds after the garage door has been opened.
     # *DisableAlarmButton* will be notified when the Disable Alarm Button has been pressed.
     # *ProcessDelayedAlarm* Will be notified when to change the alarm setting.
-    # *SystemCheck* will monitor the health of the system and cause the greeen LED to flash if 
+    # *SystemCheck* will monitor the health of the system and cause the green LED to flash if
     everything is okay.
     
     
@@ -97,11 +94,9 @@ class StatusPanel( Base ):
     DISABLE_ALARM_BUTTON_PRESSED = False
     DISABLE_ALARM_BUTTON_NOT_PRESSED = True
     disenable_alarm_button_pressed = DISABLE_ALARM_BUTTON_NOT_PRESSED
-    ''' Indicates that the disable alarm has been pressed.  
-    Cleared by closing the door. '''
+    ''' Indicates that the disable alarm has been pressed.  Cleared by closing the door. '''
 
-    ''' The time from when the garage door opens to the time the alarm 
-    starts sounding '''
+    ''' The time from when the garage door opens to the time the alarm starts sounding '''
     garage_door_standoff_time = timedelta( minutes=15 )
     garage_door_initial_beep_time = timedelta( seconds=2 )
     garage_door_long_silence = 8
@@ -125,7 +120,7 @@ class StatusPanel( Base ):
         return Constants.LogKeys.StatusPanel
 
     def changeGarageDoorWarningLight( self, value ):
-        ''' Turn on or off the LED that indicates that the disable alarm has been pressed. 
+        ''' Turn on or off the LED that indicates that the disable alarm has been pressed.
         
         :param value: determines if the light will be on or off.
         :type value: Boolean
@@ -143,7 +138,7 @@ class StatusPanel( Base ):
             self.logger.exception( 'Common.send error {}'.format( ex ) )
 
     def changeDisableButtonWarningLight( self, value ):
-        ''' Turn on or off the LED that indicates that the garage door is open. 
+        ''' Turn on or off the LED that indicates that the garage door is open.
         
         :param value: determines if the light will be on or off.
         :type value: Boolean
@@ -159,9 +154,8 @@ class StatusPanel( Base ):
         except Exception as ex:
             self.logger.exception( 'Common.send error {}'.format( ex ) )
 
-
     def changeAlarm( self, value ):
-        ''' Turn on or off the alarm that indicates that the garage door is open.         
+        ''' Turn on or off the alarm that indicates that the garage door is open.
 
         :param value: determines if the alarm will be on or off.
         :type value: Boolean
@@ -180,8 +174,7 @@ class StatusPanel( Base ):
             self.logger.exception( 'Common.send error {}'.format( ex ) )
 
     class GarageDoorMonitor( abcStep ):
-        ''' GarageDoorMonitor is a class that receives the message about 
-        the garage door.
+        ''' GarageDoorMonitor is a class that receives the message about the garage door.
         '''
 
         def __init__( self, status_panel ):
@@ -202,9 +195,9 @@ class StatusPanel( Base ):
 
         def setTimerToActivateAlarmAfterInterval( self ):
             '''
-            This will start a timer when the garage door opens.  When the 
-            timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
-            start the alarm. 
+            This will start a timer when the garage door opens.  When the
+            timer expire a message will be sent to ProcessDelayedAlarm.step() which will
+            start the alarm.
             '''
             listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
             self.status_panel.long_scheduler_id = str( uuid.uuid4() )
@@ -233,9 +226,9 @@ class StatusPanel( Base ):
 
         def turnOffAlarmAfterInterval( self ):
             '''
-            This will start a timer when the garage door opens.  When the 
-            timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
-            start the alarm. 
+            This will start a timer when the garage door opens.  When the
+            timer expire a message will be sent to ProcessDelayedAlarm.step() which will
+            start the alarm.
             '''
             listeners = [Constants.TopicNames.StatusPanel_SilenceAlarm]
             self.status_panel.short_scheduler_id = str( uuid.uuid4() )
@@ -257,8 +250,25 @@ class StatusPanel( Base ):
                                 delta=self.status_panel.garage_door_initial_beep_time,
                                 args=args )
             except Exception as ex:
-                self.logger.exception( 'Common.send error {}'.format( ex ) )
+                self.logger.exception( 'pub.sendMessage error {}'.format( ex ) )
+
             self.logger.debug( 'Turn off alarm after {}'.format( self.status_panel.garage_door_initial_beep_time ) )
+
+        def send_mail_saying_garage_door_opened( self ):
+            try:
+                message = 'Garage Door Opened at {}'.format( datetime().now().format( '%y/%m/%d  %H:%M:%S' ) )
+                kargs = {'list': Constants.SendEMailLists.GarageDoorOpening, 'msg': message}
+                pub.sendMessage( Constants.TopicNames.SendMailMessage, **kargs )
+            except Exception as ex:
+                self.logger.exception( 'Error sending open message to email step error {}'.format( ex ) )
+
+        def send_mail_saying_garage_door_closed( self ):
+            try:
+                message = 'Garage Door Closed at {}'.format( datetime().now().format( '%y/%m/%d  %H:%M:%S' ) )
+                kargs = {'list': Constants.SendEMailLists.GarageDoorClosed, 'msg': message}
+                pub.sendMessage( Constants.TopicNames.SendMailMessage, **kargs )
+            except Exception as ex:
+                self.logger.exception( 'Error sending closed message to email step error {}'.format( ex ) )
 
         def step( self, value, data={}, listeners=[] ):
             """
@@ -299,6 +309,8 @@ class StatusPanel( Base ):
                 except Exception as ex:
                     self.logger.exception( 'Common.send error {}'.format( ex ) )
 
+                self.send_mail_saying_garage_door_closed()
+
                 self.logger.info( 'Garage door closed' )
 
             # Garage Door transitioning from Closed to Open
@@ -311,6 +323,7 @@ class StatusPanel( Base ):
                 self.turnOffAlarmAfterInterval()
                 self.setTimerToActivateAlarmAfterInterval()
                 self.status_panel.process_delayed_alarm.delayedAlarmState = self.status_panel.process_delayed_alarm.PreAlarm
+                self.send_mail_saying_garage_door_opened()
                 self.logger.info( 'Garage door opening' )
 
             # Garage Door is Closed
@@ -320,16 +333,15 @@ class StatusPanel( Base ):
                 self.status_panel.disenable_alarm_button_pressed = self.status_panel.DISABLE_ALARM_BUTTON_NOT_PRESSED
                 self.status_panel.changeDisableButtonWarningLight( self.status_panel.LED_OFF )
 
-
             self.status_panel.garage_door = value
             self.status_panel.changeGarageDoorWarningLight( value )
             return value, data, listeners
 
     class SilenceAlarm( abcStep ):
         '''
-        When the garage door first opens a alarm will sound for about two seconds.  This class 
-        will turn the alarm off.  This class will be activated by calling sendMessage specifing the 
-        amount af time for the alarm to sound.  This is done in the turnOffAlarmAfterInterval 
+        When the garage door first opens a alarm will sound for about two seconds.  This class
+        will turn the alarm off.  This class will be activated by calling sendMessage specifing the
+        amount af time for the alarm to sound.  This is done in the turnOffAlarmAfterInterval
         call above.
         '''
 
@@ -431,6 +443,7 @@ class StatusPanel( Base ):
         If the door has been open for an extended period, ProcessDelayedAlarm will start the alarm.  It will sound until the garage door
         is closed or the disable alarm button is pressed.
         '''
+
         def __init__( self, status_panel ):
             '''
             '''
@@ -452,13 +465,16 @@ class StatusPanel( Base ):
         PreAlarm = 1
         Short_Beep = 2
         Long_Silence = 3
-        delayedAlarmState = Disabled;
+        delayedAlarmState = Disabled
+
+        send_email_message = True
+        ''' Indicates that an email should be sent to indicate that the door has been open too long. '''
 
         def activateTimer( self, seconds ):
             '''
-            This will start a timer when the garage door opens.  When the 
-            timer expire a message will be sent to ProcessDelayedAlarm.step() which will 
-            start the alarm. 
+            This will start a timer when the garage door opens.  When the
+            timer expire a message will be sent to ProcessDelayedAlarm.step() which will
+            start the alarm.
             '''
             listeners = [Constants.TopicNames.StatusPanel_ProcessDelayedAlarm]
             self.status_panel.long_scheduler_id == str( uuid.uuid4() )
@@ -481,9 +497,23 @@ class StatusPanel( Base ):
                 self.logger.exception( 'Common.send error {}'.format( ex ) )
             self.logger.debug( 'Activate garage door timer' )
 
+        def send_email( self ):
+            '''
+            Send email saying that the door has been open too long.
+            
+            '''
+            try:
+                self.send_email_message = False
+                deltatime = GetDateTime().dt - self.when_garage_door_opened
+                message = 'Garage Door has been open for {}'.format( str( deltatime ) )
+                kargs = {'list': Constants.SendEMailLists.GarageDoorOpenTooLong, 'msg': message}
+                pub.sendMessage( Constants.TopicNames.SendMailMessage, **kargs )
+            except Exception as ex:
+                self.logger.exception( 'Error sending email message {}'.format( ex ) )
+
         def step( self, value, data={}, listeners=[] ):
             """
-            This routine will receive a message X minutes after the door has been opened.  If the garage door is 
+            This routine will receive a message X minutes after the door has been opened.  If the garage door is
             still open and the alarm has not been disabled, it will start the alarm:
             
             | 1. set disable alarm to disabled
@@ -491,7 +521,7 @@ class StatusPanel( Base ):
                         
             :param value: Not used
             :type value: Boolean
-            :param data: a dictionary containing more information about the value. 
+            :param data: a dictionary containing more information about the value.
             :param listeners: a list of the subscribed routines to send the data to
             :returns: value, data, listeners
             :rtype: Boolean, dict, listeners
@@ -500,20 +530,24 @@ class StatusPanel( Base ):
             # Test if the correct packet
             if data[Constants.DataPacket.scheduler_id] == self.status_panel.long_scheduler_id:
                 if self.status_panel.garage_door == self.status_panel.GARAGE_DOOR_OPEN:
-                    if self.status_panel.disenable_alarm_button_pressed == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED :
+                    if self.status_panel.disenable_alarm_button_pressed == self.status_panel.DISABLE_ALARM_BUTTON_PRESSED:
                         self.delayedAlarmState = self.Disabled
                         self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
+                        self.send_email_message = False
                         self.logger.debug( 'Disable alarm pressed. exit' )
                     else:
                         if ( self.delayedAlarmState == self.PreAlarm ):
                             self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
                             self.activateTimer( self.status_panel.garage_door_short_alarm )
                             self.delayedAlarmState = self.Short_Beep
+                            self.send_email_message = False
                             self.logger.debug( 'short beep' )
                         elif ( self.delayedAlarmState == self.Short_Beep ):
                             self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
                             self.activateTimer( self.status_panel.garage_door_long_silence )
                             self.delayedAlarmState = self.Long_Silence
+                            if self.send_email_message:
+                                self.send_email()
                             self.logger.debug( 'long silence' )
                         elif ( self.delayedAlarmState == self.Long_Silence ):
                             self.status_panel.changeAlarm( self.status_panel.ALARM_ON )
@@ -528,6 +562,7 @@ class StatusPanel( Base ):
                             self.logger.warn( 'invalid state = {}'.format( self.delayedAlarmState ) )
                 else:
                     self.delayedAlarmState = self.Disabled
+                    self.send_email_message = False
                     self.status_panel.changeAlarm( self.status_panel.ALARM_OFF )
             return value, data, listeners
 
@@ -537,7 +572,7 @@ class StatusPanel( Base ):
 
         def __init__( self, status_panel ):
             '''
-            SystemCheck will toggle on and off the green status LED indicating that 
+            SystemCheck will toggle on and off the green status LED indicating that
             the system is running.
             '''
             super( StatusPanel.SystemCheck, self ).__init__()

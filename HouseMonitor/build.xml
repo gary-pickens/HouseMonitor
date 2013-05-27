@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Home Monitor Program" default="clean">
-    <property name="version" value="4.0.4" />
+    <property name="version" value="4.0.5" />
     <property name="project" value="HouseMonitor" />
     <property name="remote_directory" value="${project}.${version}" />
     <property name="host" value="beaglebone" />
@@ -156,9 +156,8 @@
             </fileset>
         </scp>
 -->
-<!--        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
-           command="cd src/;rm -rf ${project}-${version}" />
--->
+        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
+           command="cd ~gary/src/;rm -rf ${project}-${version}" />
         <sshexec host="${host}" username="${user}" password="${password}"
             command="rm -rf /usr/lib/python2.7/site-packages//${project}-${version}" />
         <sshexec host="${host}" username="${user}" password="${password}"

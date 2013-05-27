@@ -65,7 +65,8 @@ class Constants( object ):
         action = 'action'
         send = 'send'
         accumulate = 'accumulate'
-        toEmailAddresss = 'To Email Addresses'
+        email_list_name = 'email list name'
+        email_message = 'email message'
 
     class EnvelopeTypes( object ):
         '''
@@ -259,3 +260,10 @@ class Constants( object ):
     class SchedulerName( object ):
         LED_Status_Update = 'LED Status Update'
         Uptime_update = 'uptime'
+
+    class SendEMailLists( object ):
+        GarageDoorOpening = 'Garage Door Opening',
+        GarageDoorClosed = 'Garage Door Closed',
+        GarageDoorOpenTooLong = 'Garage Door Open Too Long',
+
+

@@ -3,11 +3,12 @@ Created on May 24, 2013
 
 @author: Gary
 '''
-from housemonitor.steps.abc_step import abcStep
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.hmqueue import HMQueue
+from housemonitor.lib.base import Base
+from pubsub import pub
 
-class SendMailStep( object ):
+class SendMailStep( Base ):
     '''
     This object will take messages from pubsub and send them to the email thread.
 
@@ -24,19 +25,15 @@ class SendMailStep( object ):
         '''
         super( SendMailStep, self ).__init__()
         self.queue = queue
+        pub.subscribe( self.sendEMailMessage, Constants.TopicNames.SendMailMessage )
         self.logger.debug( "SendMailStep started" )
-
-    @property
-    def topic_name( self ):
-        ''' The topic name to which this routine subscribes.'''
-        return Constants.TopicNames.SendMailMessage
 
     @property
     def logger_name( self ):
         ''' Set the logger level. '''
         return Constants.LogKeys.SendMail
 
-    def step( self, value, data={}, listeners=[] ):
+    def sendEMailMessage( self, **kargs ):
         """
         This function receives data that will be sent to COSM and forwards it to the COSM output processing
         thread.
@@ -44,17 +41,10 @@ class SendMailStep( object ):
         This function will compare the value with the previous value and if they are different send the data to
         the next listener else don't send the data along.
 
-        :param value: The input value to be processesed
-        :type value: int, float, string, etc
-        :param data: a dictionary containing more information about the value.
-        :param listeners: a list of the subscribed routines to send the data to
-        :returns: new_value, new_data, new_listeners
-        :rtype: int, dict, listeners
-        :raises: ValueError, KeyError
+        :param **kargs: a dictionary containing where the email is coming from and the message to send.
+        :type map: containing the mailing list name('list') and the message('msg')
         
         """
-        packet = {'data': data, 'value': value}
-        self.queue.transmit( packet, self.queue.three_quarters_priority )
+        self.queue.transmit( **kargs )
         self.logger.debug( "SendMailStep data transmitted to SendMail thread" )
-        return value, data, listeners
 

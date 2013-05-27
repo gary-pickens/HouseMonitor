@@ -25,6 +25,7 @@ from pubsub import pub
 from housemonitorinfo import *
 import logging.config
 import sys
+from housemonitor.outputs.sendmail.sendmailcontrol import SendMailControl
 
 
 class HouseMonitor():
@@ -143,6 +144,12 @@ class HouseMonitor():
 
         self.logger.info( 'Start output communications with ZigBee' )
         self.zigbee = ZigBeeControl()
+        self.zigbee.startZigBee( self.options )
+
+        self.logger.info( 'Start output email' )
+        self.email = SendMailControl()
+        self.email.startSendMail( self.options )
+
         self.zigbee.startZigBee( self.options )
 
     def run( self ):

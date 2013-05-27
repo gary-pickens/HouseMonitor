@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<email>
+    <smtp_host>smtp.mail.yahoo.com</smtp_host>
+    <smtp_port>465</smtp_port>
+    <require_login>True</require_login>
+    <from_address>gary_pickens@yahoo.com</from_address>
+    <password>6a9k3Td8Xb</password>
+    <list name="Garage Door Opening">
+        gary_pickens@yahoo.com,
+        garypickens@gmail.com
+    </list>
+    <list name="Garage Door Closing">
+        gary_pickens@yahoo.com
+    </list>
+    <list name="Garage Door Open > 15 minutes">
+        gary_pickens@yahoo.com,
+        gwpickens@hotmail.com
+    </list>
+</email>
