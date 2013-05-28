@@ -25,9 +25,11 @@ from pubsub import pub
 from housemonitorinfo import *
 import logging.config
 import sys
+import os
 
 
-class HouseMonitor():
+
+class HouseMonitor( object ):
     '''
     House Monitor is the main program responsible for starting the housemonitor system.  It preforms the the following
     functions:
@@ -58,9 +60,14 @@ class HouseMonitor():
     zigbee = None
     pubAid = None
 
+
     def __init__( self ):
 
-        logging.config.fileConfig( "house_monitor_logging.conf" )
+        if os.name == 'nt':
+            logging.config.fileConfig( "house_monitor_logging.conf" )
+        else:
+            logging.config.fileConfig( "/usr/share/HouseMonitor/house_monitor_logging.conf" )
+
         self.logger = logging.getLogger( 'HouseMonitor' )
 
         self.print_start_message()
@@ -167,6 +174,15 @@ class HouseMonitor():
         self.input.input()
 
         self.logger.info( "Exiting" )
+
+def start():
+
+    import pkg_resources
+    my_data = pkg_resources.ResourceManager.resource_string( __name__, "housemonitor.configuration.formatconfiguration.xml" )
+
+    print( 'mydata = {}'.format( my_data ) )
+    print os.getcwd()
+    print '!!!!!!!!!!!!!!!!!!!!!!!!! hi !!!!!!!!!!!!!!!!!!!!!'
 
 if __name__ == "__main__":
     HouseMonitor().run()

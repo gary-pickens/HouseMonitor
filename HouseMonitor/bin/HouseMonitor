@@ -1,11 +1,10 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python
 '''
-Created on Nov 23, 2012
+Created on May 27, 2013
 
 @author: Gary Pickens
 '''
-from housemonitor import HouseMonitor
-
+from housemonitor.HouseMonitor import HouseMonitor
 
 if __name__ == '__main__':
     hm = HouseMonitor()

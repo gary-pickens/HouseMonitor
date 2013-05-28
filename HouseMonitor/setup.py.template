@@ -18,13 +18,37 @@ setup(
               'housemonitor/steps',
               'housemonitor/utils'
               ],
-              package_data={'housemonitor': ['config/*.xml', 'house_monitor_logging.conf', "config/cacerts.txt", 'housemonitor.service']},
+              package_data={'housemonitor': ['housemonitor/house_monitor_logging.conf', 
+                                                'config/cacerts.txt', 
+                                                'config/*.xml', 
+                                                'housemonitor.service']},
+              data_files=[
+                    ('/etc/systemd/system', ['housemonitor/housemonitor.service']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/FilterByName.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/HouseMonitor.outputs.log.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/avg.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/configuration.xmlDeviceConfiguration.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/formatvalue.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/housemonitor.configuration.formatconfiguration.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/housemonitor.inputs.zigbeeinput.windowsxbeecommunications.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/housemonitor.outputs.cosm.send.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/inputs.XBee.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/config/oneInN.xml']),
+                    ('/usr/share/HouseMonitor', ['housemonitor/house_monitor_logging.conf']),
+                    
+              ],
     scripts=['bin/HouseMonitor',
              'bin/displayXbeeStatus',
              'bin/mon',
              'bin/NodeDiscovery',
              'bin/XbeeConfig'
              ],
+    entry_points = {
+        'housemonitor_id': [
+            'housemonitor_func = housemonitor.HouseMonitor.HouseMonitor:start'
+         ]
+    },
     url='http://pypi.python.org/pypi/HouseMonitor/',
     license='license.txt',
     description='Tools for monitoring a house with XBee\'s.',

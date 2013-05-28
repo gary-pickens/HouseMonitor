@@ -71,7 +71,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_none_passed_in( self, exists, configure ):
         x = myConfiguration()
-        x.configutation_directory = 'c:\\abc\\config'
+        x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name()
         exists.assert_called_once_with( 'c:\\abc\\config\\unittest.xml' )
@@ -81,7 +81,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_a_filename_passed_in( self, exists, configure ):
         x = myConfiguration()
-        x.configutation_directory = 'c:\\abc\\config'
+        x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name( 'abc.xml' )
         exists.assert_called_once_with( 'c:\\abc\\config\\abc.xml' )
@@ -91,7 +91,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_a_filename_passed_in_and_no_xml_sufix( self, exists, configure ):
         x = myConfiguration()
-        x.configutation_directory = 'c:\\abc\\config'
+        x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name( 'abc' )
         exists.assert_called_once_with( 'c:\\abc\\config\\abc.xml' )
@@ -101,7 +101,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
     def test_file_name_with_a_file_that_does_not_exist( self, exists, configure ):
         x = myConfiguration()
-        x.configutation_directory = 'c:\\abc\\config'
+        x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = False
         with self.assertRaisesRegexp( ConfigurationFileNotFoundError,
                                      'Configuration file does not exist: c:.*abc.*config.*abc.xml' ):
