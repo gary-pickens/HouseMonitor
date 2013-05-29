@@ -8,6 +8,7 @@
     <property name="email" value="gary_pickens@yahoo.com" />
 	<property name="title" value="House Monitor and Control"/>
 	<property name="current.dir" value="${basedir}" />
+	<taskdef resource="pyAntTasks.properties"/>
     <tstamp>
       <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
     </tstamp>
@@ -35,9 +36,9 @@
         <exec executable="virtualenv">
             <arg line="--no-site-packages pip_test_env" />
         </exec> 
-        <exec executable="pip_test_env\Scripts\activate.bat"/>
-        <exec executable="pip_test_env\Scripts\pip.exe">
-                <arg line=" install dist\HouseMonitor-${version}.zip" />
+        <exec executable="pip_test_env/Scripts/activate"/>
+        <exec executable="pip_test_env/Scripts/pip.exe">
+                <arg line=" install dist/${project}-${version}.tar.gz" />
         </exec>
     </target>
     <target name="UpdateConfig" description="Update Configuration Files">
@@ -85,12 +86,12 @@
         <echo file="setup.py">${setup.py.template}</echo>
     </target>
     <target name="UnitTest" depends="clean, UpdateConfig" description="Run all UnitTests">
-        <exec executable="nosetests" failonerror="true" >
+        <py-run pythonpath="${current.dir}" script="/usr/bin/nosetests" >
             <arg value="--ignore-files=abc_step_test.py"/>
-        </exec>
+		</py-run>
     </target>
     <target name="coverage" depends="clean, UpdateConfig" description="Run all UnitTests with Coverage">
-        <exec executable="coverage" failonerror="true" >
+    	<exec executable="coverage" failonerror="true" >
             <arg value="erase"/>
         </exec>
         <exec executable="nosetests" failonerror="true" >
@@ -113,7 +114,7 @@
     </target>
     <target name="clean" description="remove intermediate files">
         <delete>
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+            <fileset dir="${current.dir}">
                 <include name="**/*.pyc" />
                 <include name="**/*.pyo" />
                 <include name="**/*.log" />
@@ -193,7 +194,7 @@
         </exec>
     </target>
     <target name="doc-create" description="build documentation" depends="doc-clean">
-        <exec executable="sphinx-apidoc"> 
+    	<exec executable="sphinx-apidoc"> 
 			<arg value="-H ${project}"/>
         	<arg value="-A ${author}"/>
         	<arg value="-V ${version}"/>
@@ -204,7 +205,7 @@
     </target>
     <target name="doc-clean" description="remove intermediate files">
         <delete>
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+            <fileset dir="${current.dir}">
                 <include name="docs/HouseMonitor*.rst" />
                 <include name="docs/housemonitor*.rst" />
                 <include name="docs\_build" />
@@ -341,4 +342,5 @@
             <arg value="monitor.py"/>
         </exec>
     </target>
+
 </project>

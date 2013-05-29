@@ -74,8 +74,8 @@ class Test( unittest.TestCase ):
         x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name()
-        exists.assert_called_once_with( 'c:\\abc\\config\\unittest.xml' )
-        self.assertEqual( fn, 'c:\\abc\\config\\unittest.xml' )
+        exists.assert_called_once_with( 'c:\\abc\\config/unittest.xml' )
+        self.assertEqual( fn, 'c:\\abc\\config/unittest.xml' )
 
     @patch.object( XmlConfiguration, 'configure' )
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
@@ -84,8 +84,8 @@ class Test( unittest.TestCase ):
         x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name( 'abc.xml' )
-        exists.assert_called_once_with( 'c:\\abc\\config\\abc.xml' )
-        self.assertEqual( fn, 'c:\\abc\\config\\abc.xml' )
+        exists.assert_called_once_with( 'c:\\abc\\config/abc.xml' )
+        self.assertEqual( fn, 'c:\\abc\\config/abc.xml' )
 
     @patch.object( XmlConfiguration, 'configure' )
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
@@ -94,8 +94,8 @@ class Test( unittest.TestCase ):
         x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name( 'abc' )
-        exists.assert_called_once_with( 'c:\\abc\\config\\abc.xml' )
-        self.assertEqual( fn, 'c:\\abc\\config\\abc.xml' )
+        exists.assert_called_once_with( 'c:\\abc\\config/abc.xml' )
+        self.assertEqual( fn, 'c:\\abc\\config/abc.xml' )
 
     @patch.object( XmlConfiguration, 'configure' )
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
@@ -104,7 +104,7 @@ class Test( unittest.TestCase ):
         x.configuratation_directory = 'c:\\abc\\config'
         exists.return_value = False
         with self.assertRaisesRegexp( ConfigurationFileNotFoundError,
-                                     'Configuration file does not exist: c:.*abc.*config.*abc.xml' ):
+                                     'Configuration file does not exist:' ):
             fn = x.file_name( 'abc' )
 
     @patch.object( myConfiguration, 'parse_xml_file' )
@@ -126,12 +126,12 @@ class Test( unittest.TestCase ):
     @patch( '__builtin__.open' )
     def test_parse_xml_file( self, pat, parse, fn ):
         open_name = '%s.open' % __name__
-        with patch( open_name, create=True ) as mock_open:
+        with patch( open_name, create = True ) as mock_open:
             filename = u'filename'
-            mock_open.return_value = MagicMock( spec=file )
+            mock_open.return_value = MagicMock( spec = file )
             xml = myConfiguration()
 
-            xml.file_name = MagicMock( return_value=filename )
+            xml.file_name = MagicMock( return_value = filename )
             xml.parse_xml_file( filename )
             xml.file_name.assert_called_once_with( filename )
             file_handle = mock_open.return_value.__enter__.return_value
