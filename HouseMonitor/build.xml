@@ -143,29 +143,29 @@
             command="tar czf backup/${project}.${version}-${DSTAMP}${TSTAMP}.tar.gz src/${remote_directory}" />
     </target>
     <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
+		<!-- Copy HouseMonitor-xx.xx.tar.gz to the beaglebone. -->
         <scp todir="${user}:${password}@${host}:~gary/src" failonerror="true" trust="true">
             <fileset dir="dist">
-            	<include name="${project}-${version}.zip"/>
+            	<include name="${project}-${version}.tar.gz"/>
             </fileset>
         </scp>
-        <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
-           command="cd src/;rm -rf ${project}-${version}" />
-<!--        <sshexec host="${host}" username="${user}" password="${password}"
-            command="pip uninstall -y HouseMonitor" />
--->
+		<!-- decompress the file -->
     	<sshexec host="${host}" username="${user}" password="${password}"
             command="rm -rf ~gary/src/${project}-${version}" />
         <sshexec host="${host}" username="${user}" password="${password}" failonerror="true"
-            command="cd ~gary/src/;unzip ${project}-${version}.zip" />
+            command="cd ~gary/src/;tar xvf ${project}-${version}.tar.gz" />
+        <!-- Install the file -->
         <sshexec host="${host}" username="${user}" password="${password}"
-            command="pip install ~gary/src/${project}-${version}.zip" />
-<!--        <sshexec host="${host}" username="${user}" password="${password}"
+            command="pip install ~gary/src/${project}-${version}.tar.gz" />
+        <!-- Copy the file that starts HouseMonitor to /etc/systemd/system -->
+        <sshexec host="${host}" username="${user}" password="${password}"
             command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
+		<!-- Do the thangs to start the process -->
         <sshexec host="${host}" username="${user}" password="${password}"
-            command="systemctl -\-system daemon-reload" />
+            command="systemctl --system daemon-reload" />
         <sshexec host="${host}" username="${user}" password="${password}"
             command="systemctl restart housemonitor.service" />    	
--->
+
     </target>
     <target name="copydoctobeaglebone" description="copy the doc files to the beaglebone computer" depends="doc">
         <scp todir="${user}:${password}@${host}:/www/pages" failonerror="true">
