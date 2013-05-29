@@ -259,6 +259,17 @@ Setting up the XBees
 Ant Notes
 =========
 
+pyAntTasks
+==========
+
+#. An article about `pyAntTasks <http://www.ibm.com/developerworks/library/os-ecant/>`_..
+
+#. The `jar file <http://code.google.com/p/pyanttasks/>`_. .
+
+
+
+
+
 Reading base directory
 ======================
 
