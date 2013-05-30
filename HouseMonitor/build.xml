@@ -8,7 +8,7 @@
     <property name="email" value="gary_pickens@yahoo.com" />
 	<property name="title" value="House Monitor and Control"/>
 	<property name="current.dir" value="${basedir}" />
-    <tstamp>
+	<tstamp>
       <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
     </tstamp>
 
@@ -22,12 +22,13 @@
 	<property name="HMHOME" value="~gary/bin/HouseMonitor" />
     <property name="XbeeConfig" value="bin/XbeeConfig" />
 	
-    <target name="egg" description="Create egg" depends='UnitTest'>
+    <target name="egg" description="Create egg" depends='UnitTest, fix'>
         <exec executable="python" failonerror="true">
             <arg line="setup.py sdist" />
         </exec> 
     </target>
-    <target name="egg-test" description="Test egg in ">
+
+	<target name="egg-test" description="Test egg in ">
         <delete dir='pip_test_env/build'/>
         <exec executable="virtualenv">
             <arg line="--no-site-packages pip_test_env" />
@@ -40,7 +41,8 @@
                 <arg line=" install dist\HouseMonitor-${version}.zip" />
         </exec>
     </target>
-    <target name="UpdateConfig" description="Update Configuration Files">
+
+	<target name="UpdateConfig" description="Update Configuration Files">
 
         <loadfile property="housemonitorinfo.py" srcfile="housemonitor/housemonitorinfo.py.template">
              <filterchain>
@@ -84,16 +86,20 @@
     	</loadfile>
         <echo file="setup.py">${setup.py.template}</echo>
     </target>
-    <target name="UnitTest" depends="clean, UpdateConfig" description="Run all UnitTests">
+
+	<target name="UnitTest" depends="clean, UpdateConfig" description="Run all UnitTests">
         <exec executable="nosetests" failonerror="true" >
             <arg value="--ignore-files=abc_step_test.py"/>
         </exec>
     </target>
-    <target name="coverage" depends="clean, UpdateConfig" description="Run all UnitTests with Coverage">
-        <exec executable="coverage" failonerror="true" >
+
+	<target name="coverage" depends="clean, UpdateConfig" description="Run all UnitTests with Coverage">
+
+		<exec executable="coverage" failonerror="true" >
             <arg value="erase"/>
         </exec>
-        <exec executable="nosetests" failonerror="true" >
+
+		<exec executable="nosetests" failonerror="true" >
             <arg value="--ignore-files=abc_step_test.py"/>
         	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
             <arg value="--with-coverage"/>
@@ -103,15 +109,19 @@
             <arg value="--cover-inclusive"/>
             <arg value="housemonitor"/>
         </exec>
-        <exec executable="coverage" failonerror="true" >
+
+		<exec executable="coverage" failonerror="true" >
             <arg value="html"/>
         	<arg value="-d cover"/>
         </exec>
-        <exec executable="coverage" failonerror="true" >
+
+		<exec executable="coverage" failonerror="true" >
             <arg value="xml"/>
         </exec>
-    </target>
-    <target name="clean" description="remove intermediate files">
+
+	</target>
+
+	<target name="clean" description="remove intermediate files">
         <delete>
             <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
                 <include name="**/*.pyc" />
@@ -128,19 +138,25 @@
             </fileset>
         </delete>
     </target>
-    <target name="cleanbeaglebone" description="remove the files in ${remote_directory">
-        <sshexec host="${host}" username="${user}" password="${password}"
+
+	<target name="cleanbeaglebone" description="remove the files in ${remote_directory">
+
+		<sshexec host="${host}" username="${user}" password="${password}"
             command="rm -rf src/${remote_directory}" />
-        <sshexec host="${host}" username="${user}" password="${password}"
+
+		<sshexec host="${host}" username="${user}" password="${password}"
             command="sudo rm -rf ${HMHOME};mkdir ${HMHOME}" />
-    </target>
-    <target name="archivebeaglebone"
+
+	</target>
+
+	<target name="archivebeaglebone"
         description="create archive of files on the beaglebone computer">
         <tstamp />
         <sshexec host="${host}" username="${user}" password="${password}"
             command="tar czf backup/${project}.${version}-${DSTAMP}${TSTAMP}.tar.gz src/${remote_directory}" />
     </target>
-    <target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
+
+	<target name="copytobeaglebone" description="copy the files to the beaglebone computer" depends="egg">
         <scp todir="${user}:${password}@${host}:~gary/src" failonerror="true" trust="true">
             <fileset dir="dist">
             	<include name="${project}-${version}.zip"/>
@@ -351,4 +367,8 @@
             <arg value="monitor.py"/>
         </exec>
     </target>
+	<target name="fix" description="Fix LF and CR">
+		<fixcrlf srcdir="bin" eol="unix" fixlast="True" />
+        <fixcrlf srcdir="housemonitor" includes="**/*.py"  eol="unix" fixlast="True" />
+	</target>
 </project>
