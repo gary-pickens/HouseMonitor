@@ -33,6 +33,8 @@ class SendMailThread( SendMailConfiguration, threading.Thread ):
     to_address = ['gary_pickens@yahoo.com', 'garypickens@gmail.com']
     debug_level = 0
 
+    forever = True
+
     def __init__( self, queue ):
         '''
         Constructor
@@ -83,7 +85,6 @@ class SendMailThread( SendMailConfiguration, threading.Thread ):
 
         self.sendSMTPMessage( msg )
 
-
-
     def run( self ):
-        self.sendMessage()
+        while self.forever:
+            self.sendMessage()

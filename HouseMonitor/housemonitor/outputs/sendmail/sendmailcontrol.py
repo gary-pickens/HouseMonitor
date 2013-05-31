@@ -18,7 +18,7 @@ class SendMailControl( Base ):
     queue = None
     send_mail_threads = []
     send_mail = None
-    number_of_threads = 3
+    number_of_threads = 5
 
     def __init__( self ):
         '''
