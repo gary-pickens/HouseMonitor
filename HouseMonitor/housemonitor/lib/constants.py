@@ -43,6 +43,10 @@ class Constants( object ):
         xbee_beaglebone_receive_enable = 'xbee_beaglebone_receive_enable'
         xbee_beaglebone_transmit_enable = 'xbee_beaglebone_transmit_enable'
         xbee_beaglebone_baudrate = 'xbee_beaglebone_baudrate'
+        '''
+        Beaglebone Black constants
+        '''
+        xbee_beaglebone_black_uart = 'xbee_beaglebone_black_uart'
 
     class DataPacket( object ):
         """

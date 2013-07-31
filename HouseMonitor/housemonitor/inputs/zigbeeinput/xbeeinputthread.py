@@ -6,7 +6,7 @@ Created on Oct 10, 2012
 import threading
 import os
 
-from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.beagleboneblackxbeecommunications import BeagleboneBlackXbeeCommunications
 from windowsxbeecommunications import WindowsXbeeCommunications
 from housemonitor.inputs.dataenvelope import DataEnvelope
 from housemonitor.lib.constants import Constants
@@ -26,7 +26,7 @@ class XBeeInputThread( Base, threading.Thread ):
     zigbee = None
     exit_flag = False
 
-    communication_module = {'posix': BeagleboneXbeeCommunications,
+    communication_module = {'posix': BeagleboneBlackXbeeCommunications,
                             'nt': WindowsXbeeCommunications}
 
     @property

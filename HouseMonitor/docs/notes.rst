@@ -23,37 +23,248 @@ Related web pages
 Beaglebone Notes
 ================
 
+Notes from July 27, 2013 failure.
+=================================
+
+On the evening of July 26th at about midnight, we had a bad thurndorstorm storm pass through the Austin.  The next 
+morning I found the main coumputer and beaglebone computers down.  The windows machine booted okay and I was able
+to log into the beaglebone computer okay using the serial line.  But when I tried to log on using SSH I was not 
+able to connect to the beaglebone.  
+
+I tried all sorts of things trying to figure out the problem.  Sometimes I was able to get it to work for server hours 
+but it would evenually fail again.  The main symtom was the networking would stop working.  Here is some of the things 
+I learned along the way.
+
+How to read system log.
+-----------------------
+
+The following is a good explaination of how to read the system log:
+`Explorations into Angstrom syslog and systemd <http://www.mattlmassey.com/2012/07/10/explorations-into-angstrom-syslog-and-systemd>`_.
+ 
+#. Basicly to read the system log use the following command::
+
+   jouralctl
+   
+#. It accepts the following options::
+
+      journalctl [OPTIONS...] [MATCH]
+      
+      Send control commands to or query the journal.
+      
+        -h --help              Show this help
+           --version           Show package version
+           --no-pager          Do not pipe output into a pager
+        -a --all               Show all fields, including long and unprintable
+        -f --follow            Follow journal
+        -n --lines=INTEGER     Journal entries to show
+           --no-tail           Show all lines, even in follow mode
+        -o --output=STRING     Change journal output mode (short, short-monotonic,
+                               verbose, export, json, cat)
+        -q --quiet             Don't show privilege warning
+        -l --local             Only local entries
+        -b --this-boot         Show data only from current boot
+        -D --directory=PATH    Show journal files from directory
+        -p --priority=RANGE    Show only messages within the specified priority range
+      
+      Commands:
+           --new-id128         Generate a new 128 Bit ID
+           --header            Show journal header information
+           --setup-keys        Generate new FSS key pair
+             --interval=TIME   Time interval for changing the FSS sealing key
+           --verify            Verify journal file consistency
+             --verify-key=KEY  Specify FSS verification key
+       
+#. I have been using the following command::
+
+   journalctl -f -n 200 -b
+
+#. Since I am on the serial line the window does not resize nicely to I have to do it manually. I use the following commands::
+
+   stty cols 250 rows 79
+
+#. The journal is located at /run/log/journal.
+
+#. The is volatile memory and will be lost with each reboot.  To move it to non-volatile memory simply create a directory called /var/log/journal.
+
+#. More `notes on journaling <http://0pointer.de/blog/projects/journalctl.html>`_ and `here <https://wiki.archlinux.org/index.php/Systemd#Journal>`_.
+
+#. Here is the error message::
+
+      Jul 28 17:48:48 beaglebone systemd[1]: Reloading.
+      Jul 28 17:49:28 beaglebone systemd[1]: Reloading.
+      Jul 28 17:50:34 beaglebone systemd[1]: Reloading.
+      Jul 28 17:52:33 beaglebone systemd[1]: Reloading.
+      Jul 28 17:59:58 beaglebone dropbear[905]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 17:59:58 beaglebone dropbear[905]: Child connection from ::ffff:192.168.1.66:18608
+      Jul 28 17:59:59 beaglebone dropbear[905]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18608
+      Jul 28 18:00:47 beaglebone dropbear[905]: Exit (root): Exited normally
+      Jul 28 18:00:47 beaglebone dropbear[907]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:00:47 beaglebone dropbear[907]: Child connection from ::ffff:192.168.1.66:18609
+      Jul 28 18:00:48 beaglebone dropbear[907]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18609
+      Jul 28 18:00:48 beaglebone dropbear[907]: Exit (root): Exited normally
+      Jul 28 18:02:19 beaglebone dropbear[915]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:02:19 beaglebone dropbear[915]: Child connection from ::ffff:192.168.1.66:18615
+      Jul 28 18:02:19 beaglebone dropbear[915]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18615
+      Jul 28 18:02:54 beaglebone dropbear[915]: Exit (root): Exited normally
+      Jul 28 18:02:54 beaglebone dropbear[917]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:02:54 beaglebone dropbear[917]: Child connection from ::ffff:192.168.1.66:18619
+      Jul 28 18:02:54 beaglebone dropbear[917]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18619
+      Jul 28 18:02:57 beaglebone dropbear[917]: Exit (root): Exited normally
+      Jul 28 18:07:06 beaglebone dropbear[921]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:07:06 beaglebone dropbear[921]: Child connection from ::ffff:192.168.1.66:18741
+      Jul 28 18:07:07 beaglebone dropbear[921]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18741
+      Jul 28 18:07:45 beaglebone dropbear[921]: Exit (root): Exited normally
+      Jul 28 18:07:45 beaglebone dropbear[923]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:07:45 beaglebone dropbear[923]: Child connection from ::ffff:192.168.1.66:18743
+      Jul 28 18:07:45 beaglebone dropbear[923]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18743
+      Jul 28 18:07:48 beaglebone dropbear[923]: Exit (root): Exited normally
+      Jul 28 18:10:42 beaglebone dropbear[927]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:10:42 beaglebone dropbear[927]: Child connection from ::ffff:192.168.1.66:18760
+      Jul 28 18:10:43 beaglebone dropbear[927]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18760
+      Jul 28 18:11:23 beaglebone dropbear[927]: Exit (root): Exited normally
+      Jul 28 18:11:23 beaglebone dropbear[929]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:11:23 beaglebone dropbear[929]: Child connection from ::ffff:192.168.1.66:18769
+      Jul 28 18:11:24 beaglebone dropbear[929]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18769
+      Jul 28 18:11:29 beaglebone dropbear[929]: Exit (root): Exited normally
+      Jul 28 18:12:45 beaglebone dropbear[933]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:12:45 beaglebone dropbear[933]: Child connection from ::ffff:192.168.1.66:18774
+      Jul 28 18:12:46 beaglebone dropbear[933]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18774
+      Jul 28 18:13:22 beaglebone dropbear[933]: Exit (root): Exited normally
+      Jul 28 18:13:22 beaglebone dropbear[935]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:13:22 beaglebone dropbear[935]: Child connection from ::ffff:192.168.1.66:18778
+      Jul 28 18:13:22 beaglebone dropbear[935]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18778
+      Jul 28 18:13:24 beaglebone dropbear[935]: Exit (root): Exited normally
+      Jul 28 18:18:28 beaglebone dropbear[939]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:18:28 beaglebone dropbear[939]: Child connection from ::ffff:192.168.1.66:18897
+      Jul 28 18:18:28 beaglebone dropbear[939]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18897
+      Jul 28 18:19:03 beaglebone dropbear[939]: Exit (root): Exited normally
+      Jul 28 18:19:03 beaglebone dropbear[941]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:19:03 beaglebone dropbear[941]: Child connection from ::ffff:192.168.1.66:18899
+      Jul 28 18:19:03 beaglebone dropbear[941]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18899
+      Jul 28 18:19:06 beaglebone dropbear[941]: Exit (root): Exited normally
+      Jul 28 18:22:28 beaglebone dropbear[945]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:22:28 beaglebone dropbear[945]: Child connection from ::ffff:192.168.1.66:18917
+      Jul 28 18:22:29 beaglebone dropbear[945]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18917
+      Jul 28 18:23:04 beaglebone dropbear[945]: Exit (root): Exited normally
+      Jul 28 18:23:04 beaglebone dropbear[948]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:23:04 beaglebone dropbear[948]: Child connection from ::ffff:192.168.1.66:18921
+      Jul 28 18:23:04 beaglebone dropbear[948]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:18921
+      Jul 28 18:23:07 beaglebone dropbear[948]: Exit (root): Exited normally
+      Jul 28 18:28:51 beaglebone dropbear[951]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:28:51 beaglebone dropbear[951]: Child connection from ::ffff:192.168.1.66:19047
+      Jul 28 18:28:52 beaglebone dropbear[951]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:19047
+      Jul 28 18:29:29 beaglebone dropbear[951]: Exit (root): Exited normally
+      Jul 28 18:29:29 beaglebone dropbear[953]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:29:29 beaglebone dropbear[953]: Child connection from ::ffff:192.168.1.66:19050
+      Jul 28 18:29:29 beaglebone dropbear[953]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:19050
+      Jul 28 18:29:31 beaglebone dropbear[953]: Exit (root): Exited normally
+      Jul 28 18:30:01 beaglebone /usr/sbin/crond[957]: pam_unix(crond:session): session opened for user root by (uid=0)
+      Jul 28 18:30:01 beaglebone /USR/SBIN/CROND[958]: (root) CMD (/usr/bin/ntpdate -b -s -u pool.ntp.org)
+      Jul 28 18:30:10 beaglebone ntpdate[958]: step time server 198.101.234.139 offset 0.025639 sec
+      Jul 28 18:30:10 beaglebone /USR/SBIN/CROND[957]: pam_unix(crond:session): session closed for user root
+      Jul 28 18:33:27 beaglebone dropbear[959]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:33:27 beaglebone dropbear[959]: Child connection from ::ffff:192.168.1.66:19066
+      Jul 28 18:33:28 beaglebone dropbear[959]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:19066
+      Jul 28 18:34:02 beaglebone dropbear[959]: Exit (root): Exited normally
+      Jul 28 18:34:02 beaglebone dropbear[961]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:34:02 beaglebone dropbear[961]: Child connection from ::ffff:192.168.1.66:19070
+      Jul 28 18:34:02 beaglebone dropbear[961]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:19070
+      Jul 28 18:34:05 beaglebone dropbear[961]: Exit (root): Exited normally
+      Jul 28 18:35:43 beaglebone dropbear[965]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:35:43 beaglebone dropbear[965]: Child connection from ::ffff:192.168.1.66:19183
+      Jul 28 18:35:44 beaglebone dropbear[965]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:19183
+      Jul 28 18:36:23 beaglebone dropbear[965]: Exit (root): Exited normally
+      Jul 28 18:36:23 beaglebone dropbear[968]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+      Jul 28 18:36:23 beaglebone dropbear[968]: Child connection from ::ffff:192.168.1.66:19193
+      Jul 28 18:36:23 beaglebone dropbear[968]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:19193
+      Jul 28 18:36:26 beaglebone dropbear[968]: Exit (root): Exited normally
+      Jul 28 18:36:36 beaglebone connmand[90]: connmand[90]: eth0 {RX} 92855 packets 56653779 bytes
+      Jul 28 18:36:36 beaglebone connmand[90]: connmand[90]: eth0 {TX} 47477 packets 10409327 bytes
+      Jul 28 18:36:36 beaglebone connmand[90]: connmand[90]: eth0 {update} flags 4099 <UP>
+      Jul 28 18:36:36 beaglebone connmand[90]: eth0 {RX} 92855 packets 56653779 bytes
+      Jul 28 18:36:36 beaglebone connmand[90]: eth0 {TX} 47477 packets 10409327 bytes
+      Jul 28 18:36:36 beaglebone connmand[90]: eth0 {update} flags 4099 <UP>
+      Jul 28 18:36:39 beaglebone avahi-daemon[91]: Withdrawing address record for 192.168.1.73 on eth0.
+      Jul 28 18:36:39 beaglebone avahi-daemon[91]: Leaving mDNS multicast group on interface eth0.IPv4 with address 192.168.1.73.
+      Jul 28 18:36:39 beaglebone avahi-daemon[91]: Interface eth0.IPv4 no longer relevant for mDNS.
+      Jul 28 18:36:39 beaglebone connmand[90]: connman_inet_clear_ipv6_address: Invalid argument
+      Jul 28 18:36:39 beaglebone connmand[90]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+      Jul 28 18:36:39 beaglebone connmand[90]: eth0 {newlink} index 2 operstate 2 <DOWN>
+      Jul 28 18:36:39 beaglebone connmand[90]: Disabling DNS server 192.168.1.254
+      Jul 28 18:36:39 beaglebone connmand[90]: Removing DNS server 192.168.1.254
+      Jul 28 18:36:39 beaglebone connmand[90]: Deleting host route failed (No such process)
+      Jul 28 18:36:39 beaglebone connmand[90]: Removing default gateway route failed (No such process)
+      Jul 28 18:36:39 beaglebone connmand[90]: connman_inet_clear_address: Invalid argument
+      Jul 28 18:36:39 beaglebone connmand[90]: connman_inet_clear_ipv6_address: Invalid argument
+      Jul 28 18:36:39 beaglebone avahi-daemon[91]: Withdrawing address record for fe80::5256:63ff:fec8:6c19 on eth0.
+      Jul 28 18:36:39 beaglebone connmand[90]: eth0 {del} address 192.168.1.73/24 label eth0
+      Jul 28 18:36:39 beaglebone connmand[90]: eth0 {del} route 192.168.1.0 gw 0.0.0.0 scope 253 <LINK>
+      Jul 28 18:36:39 beaglebone connmand[90]: eth0 {del} route fe80:: gw :: scope 0 <UNIVERSE>
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: connman_inet_clear_ipv6_address: Invalid argument
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: eth0 {newlink} index 2 operstate 2 <DOWN>
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: Disabling DNS server 192.168.1.254
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: Removing DNS server 192.168.1.254
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: Deleting host route failed (No such process)
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: Removing default gateway route failed (No such process)
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: connman_inet_clear_address: Invalid argument
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: connman_inet_clear_ipv6_address: Invalid argument
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: eth0 {del} address 192.168.1.73/24 label eth0
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: eth0 {del} route 192.168.1.0 gw 0.0.0.0 scope 253 <LINK>
+      Jul 28 18:36:39 beaglebone connmand[90]: connmand[90]: eth0 {del} route fe80:: gw :: scope 0 <UNIVERSE>
+
+#. It appears the first error was reading from dropbear_dss_host_key.
+
+   * it appears to be a binary file that was last modified on Nov 22 2012.
+
+#. The next error is when avahi-daemon withdraws address record fe80::5256:63ff:fec8:6c19 on eth0.
+
+#. The next significate error is when connmand deletes address 192.168.1.73 on eth0.
+
+#. To enable debug on journaling, add a -d to the line that starts with ExecStrart in file /lib/systemd/system/connman.service.  The new file should look as follows::
+
+   [Unit]
+   Description=Connection service
+   After=syslog.target
+   [Service]
+   Type=dbus
+   BusName=net.connman
+   ExecStart=/usr/sbin/connmand -n -d
+   [Install]
+   WantedBy=multi-user.target
+
+
 Notes on installing HouseMonitor.py on a BeagleBone computer
 ============================================================
 
-    * Create or stall HouseMonitor
-    * Create or install and correct the following file called housemonitor.service::
+* Create or stall HouseMonitor
+* Create or install and correct the following file called housemonitor.service::
 
-        [Unit]
-        Description=House Monitoring and Control System
-        After=syslog.target
+      [Unit]
+      Description=House Monitoring and Control System
+      After=syslog.target
+      
+      [Service]
+      WorkingDirectory=/home/gary/bin/HouseMonitor.final/HouseMonitor
+      ExecStart=/usr/bin/python HouseMonitor.py
+      Type=simple
+      
+      [Install]
+      WantedBy=multi-user.target
 
-        [Service]
-        WorkingDirectory=/home/gary/bin/HouseMonitor.final/HouseMonitor
-        ExecStart=/usr/bin/python HouseMonitor.py
-        Type=simple
+* Execute the following command to install the service::
 
-        [Install]
-        WantedBy=multi-user.target
+      systemctl enable housemonitor.service
 
-    * Execute the following command to install the service::
-    
-        systemctl enable housemonitor.service
-    
-    * To start HouseMonitor excute the following command::
-        
-        systemctl start housemonitor.service
-        
-    * To check the status execute the following command::
-    
-        systemctl start housemonitor.service
-        
-    * See for the `sysemctl <http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=systemctl>`_. man page.
+* To start HouseMonitor excute the following command::
+  
+      systemctl start housemonitor.service
+  
+* To check the status execute the following command::
+
+      systemctl start housemonitor.service
+  
+* See for the `sysemctl <http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=systemctl>`_. man page.
      
 
 Building a new system for HouseMonitor
@@ -61,19 +272,19 @@ Building a new system for HouseMonitor
 
 **See next section about experinces installing new system in May.**
 
-#. Download image.
+#. `Download image <http://downloads.angstrom-distribution.org/demo/beaglebone/>`_.
 #. Description for `installing <http://circuitco.com/support/index.php?title=BeagleBone#Creating_a_SD_Card>`_. new image. Here is a summary of the web page for initializing your card using windows:
 
-    * Download the SD card image you want to use listed below. These are the images that ship with the boards.
-    * Decompress the verification image file using 7-zip.
-    * Insert the SD card writer/reader into the Windows machine.
-    * Insert 4GB SD card into the reader/writer.
-    * Run the HPFormatter tool and format the SD card for FAT or FAT32 in order to remove the second partition from the card.
-    * Close the HPFormatter tool when done.
-    * Start the Win32DiskImager.
-    * Select the decompressed image file and correct SD card location. **MAKE SURE YOU SELECT THE CORRECT LOCATION OF THE SD CARD.**
-    * Click on 'Write'.
-    * After the image writing is done, eject the SD card.
+   * Download the SD card image you want to use listed below. These are the images that ship with the boards.
+   * Decompress the verification image file using 7-zip.
+   * Insert the SD card writer/reader into the Windows machine.
+   * Insert 4GB SD card into the reader/writer.
+   * Run the HPFormatter tool and format the SD card for FAT or FAT32 in order to remove the second partition from the card.
+   * Close the HPFormatter tool when done.
+   * Start the Win32DiskImager.
+   * Select the decompressed image file and correct SD card location. **MAKE SURE YOU SELECT THE CORRECT LOCATION OF THE SD CARD.**
+   * Click on 'Write'.
+   * After the image writing is done, eject the SD card.
 
 #. Insert the sd rom in the beaglebone computer.
 #. Power up the beagle bone computer.
@@ -87,39 +298,43 @@ Building a new system for HouseMonitor
    
 #. Create an account using:
 
-    * ``adduser gary``
+   * ``adduser gary``
 
-#. Install sudo with the following commands
-    * ``opkg install sudo``
-    * ``visudo``
-    * Added the following line:
-        gary ALL = (ALL) ALL
+#. Install sudo with the following commands.
+
+   * ``opkg install sudo``
+   * ``visudo``
+   * Added the following line::
+   
+     gary ALL = (ALL) ALL
 
 #. Log on as gary
 
 #.  Update any packages using the following commands.
 
-    * ``sudo opkg install python-setuptools``
-    * ``sudo opkg install python-xmlrpc``
-    * ``sudo opkg install python-compile``
+   * ``sudo opkg install python-setuptools``
+   * ``sudo opkg install python-xmlrpc``
+   * ``sudo opkg install python-compile``
 
 #. Install pip by using the following command:
 
-    * ``sudo curl -k -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py``
-    * ``sudo python get-pip.py``
+   * ``sudo curl -k -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py``
+   * ``sudo python get-pip.py``
 
 #. Installing HouseMonitor
-    * Download HouseMonitor-3.0.2.zip to the BeagleBone.
-    * Make a directory called HouseMonitor in ``~gary/bin``
-    * Run the following command as root:
-        ``easy_install --install-dir /home/gary/bin/HouseMonitor -Z HouseMonitor-3.0.2.zip``
+   * Download HouseMonitor-3.0.2.zip to the BeagleBone.
+   * Make a directory called HouseMonitor in ``~gary/bin``
+   * Run the following command as root::
+    
+      easy_install --install-dir /home/gary/bin/HouseMonitor -Z HouseMonitor-3.0.2.zip
         
-#. After tring the web server cloud9 for some time I decided it was not for me so I decided to
-remove it and install lightthp
+#. After trying the web server cloud9 for some time I decided it was not for me so I decided to 
+remove it and install lightthp.
 
-   * remove cloud9 with the following command::
+   * Remove cloud9 with the following command::
 
          opkg remove --force-removal-of-dependent-packages cloud9
+
 
    * It gave some warnings that not all had been removed so I tried::
       
@@ -143,7 +358,7 @@ remove it and install lightthp
    * Chect the status of lighttpd.service the the following command::
 
          systemctl status lighttpd.service
-         
+
    *  Then I reboot::
    
          reboot
@@ -159,6 +374,8 @@ remove it and install lightthp
    * Now the question is, can I remove cloud9.service and bone101.service files from the system?
      It appears to be working just fine.  I uploaded numerous html files to /www/pages and subdirectories 
      and I can brows to them with no problem.  **Perhaps I should leave well enough alone.**   
+   
+Note found several months later: `A blog that discusses removing cloud 9, etc and installing lighttpd <http://blog.ippe.biz/2013/03/lighttpd-and-php-on-beaglebone.html>`_.
    
 Setting up ssh
 ==============
@@ -222,18 +439,13 @@ This means I will have to do everything as root.  Not the way I like to work, an
 # Getting jsch working again.  When I tried to upload my files to the beaglebone jsch would not work.  I required
 numerous attempts to get it working.
 
-   * I had updated my java version while working trying to recover from the virus. As a result jsch stopped working.
-   After searching on the Internet I found that other people were having the same problem and there was a new version
-   of jsch. So I downloaded and installed it.
+   * I had updated my java version while working trying to recover from the virus. As a result jsch stopped working.  After searching on the Internet I found that other people were having the same problem and there was a new version of jsch. So I downloaded and installed it.
    
-   * So I tried again and this time it complained that I was not known on the remote system.  So I copied my pub
-   file to my account on the beaglebone computer.
+   * So I tried again and this time it complained that I was not known on the remote system.  So I copied my pub file to my account on the beaglebone computer.
    
-   * The next attempt it complained about was the computer identity had changed.  So I deleted the beaglebone line
-   from known_hose in the .ssh directory.  
+   * The next attempt it complained about was the computer identity had changed.  So I deleted the beaglebone line from known_hose in the .ssh directory.  
    
-   * I was still having problems and studing on the Internet, I read adding 'trust="true"' to the scp and sshexec lines
-   would fix the problem.
+   * I was still having problems and studing on the Internet, I read adding 'trust="true"' to the scp and sshexec lines would fix the problem.
    
    * Finally, I can copy files to the beaglebone!  I need to go back and study what the above changes mean.  
 
@@ -242,7 +454,7 @@ Baud rate for Tera Term
 
 To talk to the Beagle Bone over the USB serial link set the baud rate to::
 
-115200
+      115200
 
 ====================
 Setting up the XBees
@@ -841,4 +1053,6 @@ Misc
 #.  `A python version of sd_notify <https://github.com/kirelagin/pysystemd-daemon>`_.
 
 #.  `The definitive guide <http://0pointer.de/blog/projects/systemd-docs.html>`_.
+
+#.   `Explorations into Angstrom syslog and systemd <http://www.mattlmassey.com/2012/07/10/explorations-into-angstrom-syslog-and-systemd>`_.
 

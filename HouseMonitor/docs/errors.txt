@@ -1,0 +1,1690 @@
+Jul 28 21:49:00 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:00 beaglebone connmand[96]: src/technology.c:__connman_technology_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:00 beaglebone connmand[96]: src/notifier.c:__connman_notifier_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/service.c:__connman_service_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/provider.c:__connman_provider_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x68330 name provider
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:__connman_network_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:__connman_device_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/agent.c:__connman_agent_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/ippool.c:__connman_ippool_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/iptables.c:__connman_iptables_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/nat.c:__connman_nat_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x68638 name nat
+Jul 28 21:49:00 beaglebone connmand[96]: src/iptables.c:__connman_iptables_command() command -t nat -F POSTROUTING argc 5
+Jul 28 21:49:00 beaglebone connmand[96]: src/iptables.c:iptables_init() nat
+Jul 28 21:49:00 beaglebone connmand[96]: src/nat.c:flush_nat() Flushing the nat table failed
+Jul 28 21:49:00 beaglebone connmand[96]: src/tethering.c:__connman_tethering_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/counter.c:__connman_counter_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/manager.c:__connman_manager_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x67fe4 name manager
+Jul 28 21:49:00 beaglebone connmand[96]: src/config.c:__connman_config_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/config.c:read_configs()
+Jul 28 21:49:00 beaglebone connmand[96]: src/stats.c:__connman_stats_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/clock.c:__connman_clock_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/timezone.c:__connman_timezone_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/timezone.c:__connman_timezone_lookup() sysconfig zone (null)
+Jul 28 21:49:00 beaglebone connmand[96]: src/timezone.c:__connman_timezone_lookup() localtime zone Etc/Universal
+Jul 28 21:49:00 beaglebone connmand[96]: src/resolver.c:__connman_resolver_init() dnsproxy 1
+Jul 28 21:49:00 beaglebone connmand[96]: src/dnsproxy.c:__connman_dnsproxy_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/dnsproxy.c:__connman_dnsproxy_add_listener() interface lo
+Jul 28 21:49:00 beaglebone connmand[96]: src/dnsproxy.c:create_dns_listener() interface lo
+Jul 28 21:49:00 beaglebone connmand[96]: src/dnsproxy.c:create_dns_listener() interface lo
+Jul 28 21:49:00 beaglebone connmand[96]: src/resolver.c:__connman_resolvfile_append() interface lo server 127.0.0.1
+Jul 28 21:49:00 beaglebone connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x6860c name dnsproxy
+Jul 28 21:49:00 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/rtnl.c:__connman_rtnl_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/task.c:__connman_task_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/proxy.c:__connman_proxy_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/detect.c:__connman_detect_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/rtnl.c:connman_rtnl_register() rtnl 0x6835c name detect
+Jul 28 21:49:00 beaglebone connmand[96]: src/session.c:__connman_session_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x684b4 name session
+Jul 28 21:49:00 beaglebone connmand[96]: src/timeserver.c:__connman_timeserver_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/connection.c:__connman_connection_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/rtnl.c:connman_rtnl_register() rtnl 0x67fcc name connection
+Jul 28 21:49:00 beaglebone connmand[96]: src/plugin.c:__connman_plugin_init()
+Jul 28 21:49:00 beaglebone connmand[96]: Can't load /usr/lib/connman/plugins/fake.so: /usr/lib/connman/plugins/fake.so: undefined symbol: connman_network_register
+Jul 28 21:49:00 beaglebone connmand[96]: Checking loopback interface settings
+Jul 28 21:49:00 beaglebone connmand[96]: System hostname is beaglebone
+Jul 28 21:49:00 beaglebone connmand[96]: src/utsname.c:connman_utsname_driver_register() driver 0x4032d31c name loopback
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:connman_network_driver_register() driver 0x4036da4c name bluetooth-pan
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:probe_driver() driver 0x4036da4c name bluetooth-pan
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:connman_device_driver_register() driver 0x4036da24 name bluetooth
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:probe_driver() driver 0x4036da24 name bluetooth
+Jul 28 21:49:00 beaglebone connmand[96]: src/technology.c:connman_technology_driver_register() Registering bluetooth driver
+Jul 28 21:49:00 beaglebone connmand[96]: plugins/ofono.c:ofono_init()
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:connman_network_driver_register() driver 0x4035fdc0 name network
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:probe_driver() driver 0x4035fdc0 name network
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:connman_device_driver_register() driver 0x4035fd98 name modem
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:probe_driver() driver 0x4035fd98 name modem
+Jul 28 21:49:00 beaglebone connmand[96]: src/technology.c:connman_technology_driver_register() Registering cellular driver
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:connman_network_driver_register() driver 0x4034e47c name wifi
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:probe_driver() driver 0x4034e47c name wifi
+Jul 28 21:49:00 beaglebone connmand[96]: src/technology.c:connman_technology_driver_register() Registering wifi driver
+Jul 28 21:49:00 beaglebone dbus[121]: [system] Activating service name='fi.w1.wpa_supplicant1' (using servicehelper)
+Jul 28 21:49:00 beaglebone connmand[96]: src/technology.c:connman_technology_driver_register() Registering ethernet driver
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:connman_network_driver_register() driver 0x40337c68 name cable
+Jul 28 21:49:00 beaglebone connmand[96]: src/network.c:probe_driver() driver 0x40337c68 name cable
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:connman_device_driver_register() driver 0x40337c84 name ethernet
+Jul 28 21:49:00 beaglebone connmand[96]: src/device.c:probe_driver() driver 0x40337c84 name ethernet
+Jul 28 21:49:00 beaglebone gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.917063 seconds
+Jul 28 21:49:00 beaglebone connmand[96]: src/technology.c:connman_technology_driver_register() Registering cdc_ethernet driver
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:__connman_rtnl_start()
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:send_getlink()
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:send_request() GETLINK len 17 type 18 flags 0x0301 seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:send_getaddr()
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:send_getroute()
+Jul 28 21:49:01 beaglebone connmand[96]: src/dhcp.c:__connman_dhcp_init()
+Jul 28 21:49:01 beaglebone dbus[121]: [system] Successfully activated service 'fi.w1.wpa_supplicant1'
+Jul 28 21:49:01 beaglebone connmand[96]: src/dhcpv6.c:__connman_dhcpv6_init()
+Jul 28 21:49:01 beaglebone connmand[96]: src/wpad.c:__connman_wpad_init()
+Jul 28 21:49:01 beaglebone connmand[96]: src/wispr.c:__connman_wispr_init()
+Jul 28 21:49:01 beaglebone connmand[96]: src/rfkill.c:__connman_rfkill_init()
+Jul 28 21:49:01 beaglebone connmand[96]: src/rfkill.c:rfkill_process()
+Jul 28 21:49:01 beaglebone connmand[96]: src/timezone.c:inotify_data()
+Jul 28 21:49:01 beaglebone connmand[96]: src/timezone.c:inotify_data() bytes read 32
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1996
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 996 type 16 flags 0x0002 seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 1
+Jul 28 21:49:01 beaglebone connmand[96]: lo {newlink} index 1 operstate 0 <UNKNOWN>
+Jul 28 21:49:01 beaglebone connmand[96]: src/detect.c:detect_newlink() type 772 index 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1000 type 16 flags 0x0002 seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {create} index 2 type 1 <ETHER>
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {update} flags 4098 <DOWN>
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {newlink} index 2 operstate 2 <DOWN>
+Jul 28 21:49:01 beaglebone connmand[96]: Adding interface eth0 [ ethernet ]
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_create() node 505663c86c19 type 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_create() device 0x912d8
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_set_string() device 0x912d8 key Address value 50:56:63:C8:6C:19
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_register() device 0x912d8 name Ethernet
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_register() driver 0x40337c84 name ethernet
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_probe() device 0x912d8
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:connman_rtnl_add_newlink_watch() id 1
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4098 change 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:__connman_technology_add_device() device 0x912d8
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:technology_get() type 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:load_state() technology 0x90bf0
+Jul 28 21:49:01 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:technology_get() technology 0x90bf0
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:__connman_device_enable() device 0x912d8
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_enable() device 0x912d8
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_set_powered() driver 0x912d8 powered 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_set_disconnected() device 0x912d8 disconnected 0
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4098 change 0
+Jul 28 21:49:01 beaglebone gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.555962 seconds
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 20
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DONE len 20 type 3 flags 0x0002 seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:process_response() seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:send_request() UNKNOWN len 17 type 22 flags 0x0301 seq 1
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/wifi.c:system_ready()
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_driver_register() driver 0x4034e498 name wifi
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:probe_driver() driver 0x4034e498 name wifi
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {update} flags 4163 <UP,RUNNING>
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {newlink} index 2 operstate 0 <UNKNOWN>
+Jul 28 21:49:01 beaglebone connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4163 change 1
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() power on
+Jul 28 21:49:01 beaglebone connmand[96]: src/device.c:connman_device_set_powered() driver 0x912d8 powered 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {update} flags 4099 <UP>
+Jul 28 21:49:01 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_lower_down() ipconfig ipv4 (nil) ipv6 (nil)
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:01 beaglebone connmand[96]: eth0 {newlink} index 2 operstate 2 <DOWN>
+Jul 28 21:49:01 beaglebone connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:01 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4099 change 0
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 48
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWADDR len 48 type 20 flags 0x0002 seq 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newaddr() index 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 20
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DONE len 20 type 3 flags 0x0002 seq 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:process_response() seq 1
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:send_request() GETROUTE len 17 type 26 flags 0x0301 seq 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 240
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 20
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DONE len 20 type 3 flags 0x0002 seq 2
+Jul 28 21:49:01 beaglebone connmand[96]: src/rtnl.c:process_response() seq 2
+Jul 28 21:49:02 beaglebone gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.472884 seconds
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:__connman_technology_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/notifier.c:__connman_notifier_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/provider.c:__connman_provider_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x68330 name provider
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:__connman_network_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:__connman_device_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/agent.c:__connman_agent_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/ippool.c:__connman_ippool_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/iptables.c:__connman_iptables_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/nat.c:__connman_nat_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x68638 name nat
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/iptables.c:__connman_iptables_command() command -t nat -F POSTROUTING argc 5
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/iptables.c:iptables_init() nat
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/nat.c:flush_nat() Flushing the nat table failed
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/tethering.c:__connman_tethering_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/counter.c:__connman_counter_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/manager.c:__connman_manager_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x67fe4 name manager
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/config.c:__connman_config_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/config.c:read_configs()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/stats.c:__connman_stats_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/clock.c:__connman_clock_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/timezone.c:__connman_timezone_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/timezone.c:__connman_timezone_lookup() sysconfig zone (null)
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/timezone.c:__connman_timezone_lookup() localtime zone Etc/Universal
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/resolver.c:__connman_resolver_init() dnsproxy 1
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:__connman_dnsproxy_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:__connman_dnsproxy_add_listener() interface lo
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:create_dns_listener() interface lo
+Jul 28 21:49:02 beaglebone load-timestamp.sh[100]: Sun Jul 28 21:49:00 UTC 2013
+Jul 28 21:49:02 beaglebone dbus-daemon[121]: dbus[121]: [system] Activating service name='fi.w1.wpa_supplicant1' (using servicehelper)
+Jul 28 21:49:02 beaglebone dbus-daemon[121]: dbus[121]: [system] Successfully activated service 'fi.w1.wpa_supplicant1'
+Jul 28 21:49:02 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.917063 seconds
+Jul 28 21:49:02 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.555962 seconds
+Jul 28 21:49:02 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.472884 seconds
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:create_dns_listener() interface lo
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/resolver.c:__connman_resolvfile_append() interface lo server 127.0.0.1
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x6860c name dnsproxy
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:__connman_rtnl_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/task.c:__connman_task_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/proxy.c:__connman_proxy_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/detect.c:__connman_detect_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:connman_rtnl_register() rtnl 0x6835c name detect
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/session.c:__connman_session_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/notifier.c:connman_notifier_register() notifier 0x684b4 name session
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/timeserver.c:__connman_timeserver_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/connection.c:__connman_connection_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:connman_rtnl_register() rtnl 0x67fcc name connection
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/plugin.c:__connman_plugin_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: Can't load /usr/lib/connman/plugins/fake.so: /usr/lib/connman/plugins/fake.so: undefined symbol: connman_network_register
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: Checking loopback interface settings
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: System hostname is beaglebone
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/utsname.c:connman_utsname_driver_register() driver 0x4032d31c name loopback
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_driver_register() driver 0x4036da4c name bluetooth-pan
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:probe_driver() driver 0x4036da4c name bluetooth-pan
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_driver_register() driver 0x4036da24 name bluetooth
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:probe_driver() driver 0x4036da24 name bluetooth
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:connman_technology_driver_register() Registering bluetooth driver
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: plugins/ofono.c:ofono_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_driver_register() driver 0x4035fdc0 name network
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:probe_driver() driver 0x4035fdc0 name network
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_driver_register() driver 0x4035fd98 name modem
+Jul 28 21:49:02 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.463541 seconds
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:probe_driver() driver 0x4035fd98 name modem
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:connman_technology_driver_register() Registering cellular driver
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_driver_register() driver 0x4034e47c name wifi
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:probe_driver() driver 0x4034e47c name wifi
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:connman_technology_driver_register() Registering wifi driver
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:connman_technology_driver_register() Registering ethernet driver
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_driver_register() driver 0x40337c68 name cable
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/network.c:probe_driver() driver 0x40337c68 name cable
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_driver_register() driver 0x40337c84 name ethernet
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:probe_driver() driver 0x40337c84 name ethernet
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:connman_technology_driver_register() Registering cdc_ethernet driver
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:__connman_rtnl_start()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:send_getlink()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:send_request() GETLINK len 17 type 18 flags 0x0301 seq 0
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:send_getaddr()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:send_getroute()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/dhcp.c:__connman_dhcp_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/dhcpv6.c:__connman_dhcpv6_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/wpad.c:__connman_wpad_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/wispr.c:__connman_wispr_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rfkill.c:__connman_rfkill_init()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rfkill.c:rfkill_process()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/timezone.c:inotify_data()
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/timezone.c:inotify_data() bytes read 32
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1996
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 996 type 16 flags 0x0002 seq 0
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 1
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: lo {newlink} index 1 operstate 0 <UNKNOWN>
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/detect.c:detect_newlink() type 772 index 1
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1000 type 16 flags 0x0002 seq 0
+Jul 28 21:49:02 beaglebone gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.463541 seconds
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: eth0 {create} index 2 type 1 <ETHER>
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: eth0 {update} flags 4098 <DOWN>
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 operstate 2 <DOWN>
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: Adding interface eth0 [ ethernet ]
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_create() node 505663c86c19 type 1
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_create() device 0x912d8
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_set_string() device 0x912d8 key Address value 50:56:63:C8:6C:19
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_register() device 0x912d8 name Ethernet
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_register() driver 0x40337c84 name ethernet
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_probe() device 0x912d8
+Jul 28 21:49:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:connman_rtnl_add_newlink_watch() id 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4098 change 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/technology.c:__connman_technology_add_device() device 0x912d8
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_get() type 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/technology.c:load_state() technology 0x90bf0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_get() technology 0x90bf0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/device.c:__connman_device_enable() device 0x912d8
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_enable() device 0x912d8
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_set_powered() driver 0x912d8 powered 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_set_disconnected() device 0x912d8 disconnected 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4098 change 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 20
+Jul 28 21:49:02 beaglebone gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.459645 seconds
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DONE len 20 type 3 flags 0x0002 seq 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:process_response() seq 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:send_request() UNKNOWN len 17 type 22 flags 0x0301 seq 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/wifi.c:system_ready()
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_driver_register() driver 0x4034e498 name wifi
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/device.c:probe_driver() driver 0x4034e498 name wifi
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: eth0 {update} flags 4163 <UP,RUNNING>
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 operstate 0 <UNKNOWN>
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4163 change 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() power on
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_set_powered() driver 0x912d8 powered 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: eth0 {update} flags 4099 <UP>
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_lower_down() ipconfig ipv4 (nil) ipv6 (nil)
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 operstate 2 <DOWN>
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4099 change 0
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 48
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWADDR len 48 type 20 flags 0x0002 seq 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newaddr() index 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 20
+Jul 28 21:49:03 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.459645 seconds
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DONE len 20 type 3 flags 0x0002 seq 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:process_response() seq 1
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:send_request() GETROUTE len 17 type 26 flags 0x0301 seq 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 240
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0002 seq 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 20
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DONE len 20 type 3 flags 0x0002 seq 2
+Jul 28 21:49:03 beaglebone connmand[96]: connmand[96]: src/rtnl.c:process_response() seq 2
+Jul 28 21:49:03 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.805199 seconds
+Jul 28 21:49:11 beaglebone gdm[112]: gdm-binary[112]: WARNING: GdmLocalDisplayFactory: maximum number of X display failures reached: check X server log for errors
+Jul 28 21:49:03 beaglebone gdm-binary[112]: WARNING: GdmDisplay: display lasted 0.805199 seconds
+Jul 28 21:49:03 beaglebone gdm-binary[112]: WARNING: GdmLocalDisplayFactory: maximum number of X display failures reached: check X server log for errors
+Jul 28 21:49:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 21:49:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 108 type 24 flags 0x0000 seq 0
+Jul 28 21:49:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 21:49:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 108 type 24 flags 0x0000 seq 0
+Jul 28 21:49:04 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:04 beaglebone connmand[96]: eth0 {add} route fe80:: gw :: scope 0 <UNIVERSE>
+Jul 28 21:49:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 21:49:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 21:49:04 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:11 beaglebone connmand[96]: eth0 {update} flags 69699 <UP,RUNNING,LOWER_UP>
+Jul 28 21:49:12 beaglebone avahi-daemon[97]: Registering new address record for fe80::5256:63ff:fec8:6c19 on eth0.*.
+Jul 28 21:49:12 beaglebone login[266]: pam_env(login:session): Unable to open env file: /etc/default/locale: No such file or directory
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_lower_up() ipconfig ipv4 (nil) ipv6 (nil)
+Jul 28 21:49:12 beaglebone login[266]: pam_unix(login:session): session opened for user root by LOGIN(uid=0)
+Jul 28 21:49:12 beaglebone connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:12 beaglebone connmand[96]: eth0 {newlink} index 2 operstate 6 <UP>
+Jul 28 21:49:12 beaglebone connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:12 beaglebone login[331]: ROOT LOGIN  on '/dev/ttyO0'
+Jul 28 21:49:12 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 69699 change 0
+Jul 28 21:49:12 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() carrier on
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_create() identifier carrier type 1
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_create() network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_set_name() network 0x90da8 name Wired
+Jul 28 21:49:12 beaglebone connmand[96]: src/device.c:connman_device_add_network() device 0x912d8 network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 2 by src/device.c:971:connman_device_add_network()
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:network_probe() network 0x90da8 name Wired
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:network_probe() driver 0x40337c68 name cable
+Jul 28 21:49:12 beaglebone connmand[96]: plugins/ethernet.c:cable_probe() network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_set_available() network 0x90da8 available 1
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:network_probe() network 0x90da8 name Wired
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:network_probe() driver 0x40337c68 name cable
+Jul 28 21:49:12 beaglebone connmand[96]: plugins/ethernet.c:cable_probe() network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:__connman_service_create_from_network() network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:connman_service_create() service 0x92190
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:service_initialize() service 0x92190
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:service_get() service 0x92190
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:update_from_network() service 0x92190 network 0x90da8
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_get_string() network 0x90da8 key Name
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_get_bool() network 0x90da8 key Roaming
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_get_string() network 0x90da8 key WiFi.Security
+Jul 28 21:49:12 beaglebone connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 3 by src/service.c:5270:update_from_network()
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_create() index 2
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_create() ipconfig 0x913d0
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:create_ipv6config() index 2
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:create_ipv6config() ipconfig 0x908c8
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:service_register() service 0x92190
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:service_register() path /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 21:49:12 beaglebone connmand[96]: src/config.c:__connman_config_provision_service() service 0x92190
+Jul 28 21:49:12 beaglebone connmand[96]: src/service.c:service_load() service 0x92190
+Jul 28 21:49:12 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_load() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:12 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_load() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_enable() ipconfig 0x908c8
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:enable_ipv6()
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_ref_debug() 0x908c8 ref 2 by src/ipconfig.c:1698:__connman_ipconfig_enable()
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_up() eth0 up
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_lower_up() eth0 lower up
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:stats_start() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:enable_ipv6()
+Jul 28 21:49:16 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:16 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:16 beaglebone connmand[96]: src/session.c:service_add() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_schedule_added() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:connman_network_set_connected() network 0x90da8 connected 0/1 connecting 0 associating 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:set_connected() service 0x92190 ipv4 0x913d0 ipv6 0x908c8
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:set_connected() method ipv4 4 ipv6 5
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:autoconf_ipv6_set() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:connman_network_get_string() network 0x90da8 key Name
+Jul 28 21:49:16 beaglebone connmand[96]: src/device.c:connman_device_set_disconnected() device 0x912d8 disconnected 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 4 by src/network.c:1158:autoconf_ipv6_set()
+Jul 28 21:49:16 beaglebone connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:16 beaglebone connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:set_connected_dhcp() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:set_configuration() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/device.c:connman_device_set_disconnected() device 0x912d8 disconnected 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 3 (configuration) type 1 (IPv4)
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_enable() ipconfig 0x913d0
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_ref_debug() 0x913d0 ref 2 by src/ipconfig.c:1696:__connman_ipconfig_enable()
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_up() eth0 up
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_lower_up() eth0 lower up
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:stats_start() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_indicate_state() service 0x92190 old idle - new configuration/idle => configuration
+Jul 28 21:49:16 beaglebone connmand[96]: src/session.c:service_state_changed() service 0x92190 state 3
+Jul 28 21:49:16 beaglebone connmand[96]: src/notifier.c:notify_idle_state() idle 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/manager.c:idle_state() idle 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/stats.c:__connman_stats_service_register() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: src/stats.c:stats_open() file 0x92310 name /var/lib/connman/ethernet_505663c86c19_cable/data
+Jul 28 21:49:16 beaglebone connmand[96]: src/stats.c:stats_file_setup() file 0x92310 fd 14 name /var/lib/connman/ethernet_505663c86c19_cable/data
+Jul 28 21:49:16 beaglebone connmand[96]: src/stats.c:stats_file_remap() file 0x92310 size 4096 addr (nil) len 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 108 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 108 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: eth0 {add} route fe80:: gw :: scope 0 <UNIVERSE>
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: eth0 {update} flags 69699 <UP,RUNNING,LOWER_UP>
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_lower_up() ipconfig ipv4 (nil) ipv6 (nil)
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 operstate 6 <UP>
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 69699 change 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() carrier on
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_create() identifier carrier type 1
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_create() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_name() network 0x90da8 name Wired
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_add_network() device 0x912d8 network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 2 by src/device.c:971:connman_device_add_network()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:network_probe() network 0x90da8 name Wired
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:network_probe() driver 0x40337c68 name cable
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:cable_probe() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_available() network 0x90da8 available 1
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:network_probe() network 0x90da8 name Wired
+Jul 28 21:49:16 beaglebone init.sh[104]: couldn't find usb device
+Jul 28 21:49:12 beaglebone systemd-logind[105]: New session c1 of user root.
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:network_probe() driver 0x40337c68 name cable
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:cable_probe() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_create_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_create() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_initialize() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_get() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:update_from_network() service 0x92190 network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_get_string() network 0x90da8 key Name
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_get_bool() network 0x90da8 key Roaming
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_get_string() network 0x90da8 key WiFi.Security
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 3 by src/service.c:5270:update_from_network()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_create() index 2
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_create() ipconfig 0x913d0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:create_ipv6config() index 2
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:create_ipv6config() ipconfig 0x908c8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_register() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_register() path /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/config.c:__connman_config_provision_service() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_load() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_load() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_load() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_enable() ipconfig 0x908c8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:enable_ipv6()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_ref_debug() 0x908c8 ref 2 by src/ipconfig.c:1698:__connman_ipconfig_enable()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_up() eth0 up
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_lower_up() eth0 lower up
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:stats_start() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:enable_ipv6()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/session.c:service_add() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_schedule_added() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_connected() network 0x90da8 connected 0/1 connecting 0 associating 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:set_connected() service 0x92190 ipv4 0x913d0 ipv6 0x908c8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:set_connected() method ipv4 4 ipv6 5
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:autoconf_ipv6_set() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_get_string() network 0x90da8 key Name
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_set_disconnected() device 0x912d8 disconnected 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 4 by src/network.c:1158:autoconf_ipv6_set()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:set_connected_dhcp() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:set_configuration() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_set_disconnected() device 0x912d8 disconnected 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 3 (configuration) type 1 (IPv4)
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_enable() ipconfig 0x913d0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_ref_debug() 0x913d0 ref 2 by src/ipconfig.c:1696:__connman_ipconfig_enable()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_up() eth0 up
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_lower_up() eth0 lower up
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:stats_start() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_indicate_state() service 0x92190 old idle - new configuration/idle => configuration
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/session.c:service_state_changed() service 0x92190 state 3
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/notifier.c:notify_idle_state() idle 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/manager.c:idle_state() idle 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/stats.c:__connman_stats_service_register() service 0x92190
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/stats.c:stats_open() file 0x92310 name /var/lib/connman/ethernet_505663c86c19_cable/data
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/stats.c:stats_file_setup() file 0x92310 fd 14 name /var/lib/connman/ethernet_505663c86c19_cable/data
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/stats.c:stats_file_remap() file 0x92310 size 4096 addr (nil) len 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/dhcp.c:__connman_dhcp_start()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 5 by src/dhcp.c:490:__connman_dhcp_start()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/dhcp.c:dhcp_request() dhcp 0x90f38
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/utsname.c:connman_utsname_get_hostname()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/utsname.c:connman_utsname_get_hostname() driver 0x4032d31c name loopback
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_associating() network 0x90da8 associating 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:service_send_added_foreach() added /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 21:49:16 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:16 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:16 beaglebone connmand[96]: src/dhcp.c:__connman_dhcp_start()
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:connman_network_ref_debug() 0x90da8 name Wired ref 5 by src/dhcp.c:490:__connman_dhcp_start()
+Jul 28 21:49:16 beaglebone connmand[96]: src/dhcp.c:dhcp_request() dhcp 0x90f38
+Jul 28 21:49:16 beaglebone connmand[96]: src/utsname.c:connman_utsname_get_hostname()
+Jul 28 21:49:16 beaglebone connmand[96]: src/utsname.c:connman_utsname_get_hostname() driver 0x4032d31c name loopback
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:16 beaglebone connmand[96]: src/network.c:connman_network_set_associating() network 0x90da8 associating 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:service_send_added_foreach() added /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:append_ipv4() ipv4 0x913d0 state configuration
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_append_ipv4config()
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:append_ipv6() ipv6 0x908c8 state idle
+Jul 28 21:49:16 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_append_ipv6config()
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:append_proxy()
+Jul 28 21:49:16 beaglebone connmand[96]: src/service.c:append_provider() 0x92190 (nil)
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 64
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWADDR len 64 type 20 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:49:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:append_ipv4() ipv4 0x913d0 state configuration
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_append_ipv4config()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:append_ipv6() ipv6 0x908c8 state idle
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_append_ipv6config()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:append_proxy()
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/service.c:append_provider() 0x92190 (nil)
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 64
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWADDR len 64 type 20 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:49:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:49:17 beaglebone connmand[96]: connmand[96]: src/inet.c:rs_timeout_cb() user data 0x92da0
+Jul 28 21:49:17 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:17 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() re-send router solicitation 3
+Jul 28 21:49:17 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:17 beaglebone connmand[96]: connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:17 beaglebone connmand[96]: src/inet.c:rs_timeout_cb() user data 0x92da0
+Jul 28 21:49:17 beaglebone connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:17 beaglebone connmand[96]: src/network.c:check_dhcpv6() re-send router solicitation 3
+Jul 28 21:49:17 beaglebone connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:17 beaglebone connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:17 beaglebone connmand[96]: connmand[96]: src/dhcp.c:lease_available_cb() Lease available
+Jul 28 21:49:29 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:32 beaglebone connmand[96]: connmand[96]: src/dhcp.c:lease_available_cb() last address 192.168.1.73
+Jul 28 21:49:32 beaglebone connmand[96]: connmand[96]: src/dhcp.c:lease_available_cb() c_address (null)
+Jul 28 21:49:32 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_set_gateway()
+Jul 28 21:49:32 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_nameserver_append() service 0x92190 nameserver 192.168.1.254 auto 0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/utsname.c:__connman_utsname_set_domainname() domainname gateway.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/utsname.c:__connman_utsname_set_domainname() driver 0x4032d31c name loopback
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: Setting domainname to gateway.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/network.c:dhcp_callback() success 1
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_associating() network 0x90da8 associating 0
+Jul 28 21:49:17 beaglebone connmand[96]: src/dhcp.c:lease_available_cb() Lease available
+Jul 28 21:49:17 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:17 beaglebone connmand[96]: src/dhcp.c:lease_available_cb() last address 192.168.1.73
+Jul 28 21:49:17 beaglebone connmand[96]: src/dhcp.c:lease_available_cb() c_address (null)
+Jul 28 21:49:17 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_set_gateway()
+Jul 28 21:49:17 beaglebone connmand[96]: src/service.c:__connman_service_nameserver_append() service 0x92190 nameserver 192.168.1.254 auto 0
+Jul 28 21:49:17 beaglebone connmand[96]: src/utsname.c:__connman_utsname_set_domainname() domainname gateway.2wire.net
+Jul 28 21:49:17 beaglebone connmand[96]: src/utsname.c:__connman_utsname_set_domainname() driver 0x4032d31c name loopback
+Jul 28 21:49:17 beaglebone connmand[96]: Setting domainname to gateway.2wire.net
+Jul 28 21:49:17 beaglebone connmand[96]: src/network.c:dhcp_callback() success 1
+Jul 28 21:49:17 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 21:49:34 beaglebone connmand[96]: src/network.c:connman_network_set_associating() network 0x90da8 associating 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_add()
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:connman_inet_set_address() index 2 address 192.168.1.73 prefix_len 24
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x14 flags 0x104 index 2 family 2 address 192.168.1.73 peer (null) prefixlen 24 broadcast (null)
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_gateway_add()
+Jul 28 21:49:34 beaglebone avahi-daemon[97]: Joining mDNS multicast group on interface eth0.IPv4 with address 192.168.1.73.
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:__connman_connection_gateway_remove() service 0x92190 type 1
+Jul 28 21:49:34 beaglebone avahi-daemon[97]: New relevant interface eth0.IPv4 for mDNS.
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:connman_inet_del_network_route() ifname eth0
+Jul 28 21:49:34 beaglebone avahi-daemon[97]: Registering new address record for 192.168.1.73 on eth0.IPv4.
+Jul 28 21:49:34 beaglebone connmand[96]: Deleting host route failed (No such process)
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_gateway_add() type 1 gw 192.168.1.254 peer (null)
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:__connman_connection_gateway_add() service 0x92190 index 2 gateway 192.168.1.254 vpn ip (null) type 1
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 2 by src/connection.c:234:add_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:connman_inet_add_network_route() ifname eth0
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:connman_inet_compare_subnet() host 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 4 (ready) type 1 (IPv4)
+Jul 28 21:49:34 beaglebone connmand[96]: src/wpad.c:__connman_wpad_start() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: src/wpad.c:__connman_wpad_start() hostname wpad.gateway.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 3 by src/wpad.c:178:__connman_wpad_start()
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:service_rp_filter() connected ethernet_505663c86c19_cable ipconfig 0x913d0 method 4 count 1 filter 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:service_indicate_state() service 0x92190 old configuration - new ready/idle => ready
+Jul 28 21:49:34 beaglebone connmand[96]: src/session.c:service_state_changed() service 0x92190 state 4
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:service_save() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:34 beaglebone connmand[96]: src/resolver.c:connman_resolver_append() interface eth0 domain (null) server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/resolver.c:append_resolver() interface eth0 domain (null) server 192.168.1.254 lifetime 0 flags 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:__connman_dnsproxy_append() interface eth0 server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:find_server() interface eth0 server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:create_server() interface eth0 server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: Adding DNS server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/resolver.c:connman_resolver_append() interface eth0 domain gateway.2wire.net server (null)
+Jul 28 21:49:34 beaglebone connmand[96]: src/resolver.c:append_resolver() interface eth0 domain gateway.2wire.net server (null) lifetime 0 flags 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:__connman_dnsproxy_append() interface eth0 server (null)
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:append_domain() interface eth0 domain gateway.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: src/notifier.c:__connman_notifier_connect() type 2
+Jul 28 21:49:34 beaglebone connmand[96]: src/notifier.c:technology_connected() type 2 connected 1
+Jul 28 21:49:34 beaglebone connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:34 beaglebone connmand[96]: src/technology.c:__connman_technology_set_connected() technology 0x90bf0 connected 1
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 21:49:34 beaglebone connmand[96]: Enabling DNS server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/nat.c:update_default_interface() interface eth0
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:set_default_gateway() type 1 gateway ipv4 0x72968 ipv6 (nil)
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:connman_inet_set_gateway_address() ifname eth0
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:__connman_service_indicate_default() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 21:49:34 beaglebone connmand[96]: Enabling DNS server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: src/nat.c:update_default_interface() interface eth0
+Jul 28 21:49:34 beaglebone connmand[96]: src/6to4.c:__connman_6to4_probe() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWADDR len 60 type 20 flags 0x0000 seq 1
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newaddr() index 2
+Jul 28 21:49:34 beaglebone connmand[96]: eth0 {add} address 192.168.1.73/24 label eth0 family 2
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:service_ip_bound() eth0 ip bound
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:service_ip_bound() service 0x92190 ipconfig 0x913d0 type 1 method 4
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:append_ipv4() ipv4 0x913d0 state ready
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_append_ipv4()
+Jul 28 21:49:34 beaglebone connmand[96]: src/service.c:append_ipv6() ipv6 0x908c8 state idle
+Jul 28 21:49:34 beaglebone connmand[96]: src/session.c:ipconfig_changed() service 0x92190 ipconfig 0x913d0
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:rs_timeout_cb() user data 0x920f8
+Jul 28 21:49:34 beaglebone connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:34 beaglebone connmand[96]: src/network.c:check_dhcpv6() re-send router solicitation 2
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:34 beaglebone connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/wpad.c:wpad_result() status 7
+Jul 28 21:49:34 beaglebone connmand[96]: src/wpad.c:wpad_result() hostname wpad.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:34 beaglebone connmand[96]: eth0 {add} route 192.168.1.0 gw 0.0.0.0 scope 253 <LINK>
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 52
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 52 type 24 flags 0x0000 seq 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:34 beaglebone connmand[96]: eth0 {add} route 192.168.1.254 gw 0.0.0.0 scope 253 <LINK>
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 52
+Jul 28 21:49:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 52 type 24 flags 0x0000 seq 0
+Jul 28 21:49:34 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:34 beaglebone connmand[96]: eth0 {add} route 0.0.0.0 gw 192.168.1.254 scope 0 <UNIVERSE>
+Jul 28 21:49:34 beaglebone connmand[96]: src/connection.c:connection_newgateway() index 2 gateway 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_add()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_set_address() index 2 address 192.168.1.73 prefix_len 24
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x14 flags 0x104 index 2 family 2 address 192.168.1.73 peer (null) prefixlen 24 broadcast (null)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_gateway_add()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:__connman_connection_gateway_remove() service 0x92190 type 1
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_del_network_route() ifname eth0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: Deleting host route failed (No such process)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_gateway_add() type 1 gw 192.168.1.254 peer (null)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:__connman_connection_gateway_add() service 0x92190 index 2 gateway 192.168.1.254 vpn ip (null) type 1
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 2 by src/connection.c:234:add_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_add_network_route() ifname eth0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_compare_subnet() host 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 4 (ready) type 1 (IPv4)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/wpad.c:__connman_wpad_start() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/wpad.c:__connman_wpad_start() hostname wpad.gateway.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 3 by src/wpad.c:178:__connman_wpad_start()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:service_rp_filter() connected ethernet_505663c86c19_cable ipconfig 0x913d0 method 4 count 1 filter 0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:service_indicate_state() service 0x92190 old configuration - new ready/idle => ready
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/session.c:service_state_changed() service 0x92190 state 4
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:service_save() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/resolver.c:connman_resolver_append() interface eth0 domain (null) server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/resolver.c:append_resolver() interface eth0 domain (null) server 192.168.1.254 lifetime 0 flags 0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:__connman_dnsproxy_append() interface eth0 server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:find_server() interface eth0 server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:create_server() interface eth0 server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: Adding DNS server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/resolver.c:connman_resolver_append() interface eth0 domain gateway.2wire.net server (null)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/resolver.c:append_resolver() interface eth0 domain gateway.2wire.net server (null) lifetime 0 flags 0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:__connman_dnsproxy_append() interface eth0 server (null)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:append_domain() interface eth0 domain gateway.2wire.net
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/notifier.c:__connman_notifier_connect() type 2
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/notifier.c:technology_connected() type 2 connected 1
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/technology.c:__connman_technology_set_connected() technology 0x90bf0 connected 1
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service 0x92190
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: Enabling DNS server 192.168.1.254
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/nat.c:update_default_interface() interface eth0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/connection.c:set_default_gateway() type 1 gateway ipv4 0x72968 ipv6 (nil)
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_set_gateway_address() ifname eth0
+Jul 28 21:49:34 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_indicate_default() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: Enabling DNS server 192.168.1.254
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/nat.c:update_default_interface() interface eth0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/6to4.c:__connman_6to4_probe() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWADDR len 60 type 20 flags 0x0000 seq 1
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newaddr() index 2
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: eth0 {add} address 192.168.1.73/24 label eth0 family 2
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:service_ip_bound() eth0 ip bound
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:service_ip_bound() service 0x92190 ipconfig 0x913d0 type 1 method 4
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:append_ipv4() ipv4 0x913d0 state ready
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_append_ipv4()
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:append_ipv6() ipv6 0x908c8 state idle
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/session.c:ipconfig_changed() service 0x92190 ipconfig 0x913d0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/inet.c:rs_timeout_cb() user data 0x920f8
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() re-send router solicitation 2
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wpad.c:wpad_result() status 7
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wpad.c:wpad_result() hostname wpad.2wire.net
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: eth0 {add} route 192.168.1.0 gw 0.0.0.0 scope 253 <LINK>
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 60 type 24 flags 0x0000 seq 0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 52
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 52 type 24 flags 0x0000 seq 0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: eth0 {add} route 192.168.1.254 gw 0.0.0.0 scope 253 <LINK>
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 52
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 52 type 24 flags 0x0000 seq 0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newroute() index 2
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: eth0 {add} route 0.0.0.0 gw 192.168.1.254 scope 0 <UNIVERSE>
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/connection.c:connection_newgateway() index 2 gateway 192.168.1.254
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wpad.c:wpad_result() status 5
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:append_proxy()
+Jul 28 21:49:35 beaglebone connmand[96]: src/wpad.c:wpad_result() status 5
+Jul 28 21:49:35 beaglebone connmand[96]: src/service.c:append_proxy()
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wispr.c:__connman_wispr_start() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 4 by src/wispr.c:778:__connman_wispr_start()
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_detect() wispr/portal context 0x91648
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_detect() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_detect() interface eth0
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/proxy.c:connman_proxy_lookup() interface eth0 url http://ipv4.connman.net/online/status.html
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 5 by src/proxy.c:121:connman_proxy_lookup()
+Jul 28 21:49:35 beaglebone connmand[96]: connmand[96]: src/proxy.c:connman_proxy_lookup() token 1
+Jul 28 21:49:35 beaglebone connmand[96]: src/wispr.c:__connman_wispr_start() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 4 by src/wispr.c:778:__connman_wispr_start()
+Jul 28 21:49:35 beaglebone connmand[96]: src/wispr.c:wispr_portal_detect() wispr/portal context 0x91648
+Jul 28 21:49:35 beaglebone connmand[96]: src/wispr.c:wispr_portal_detect() service 0x92190
+Jul 28 21:49:35 beaglebone connmand[96]: src/wispr.c:wispr_portal_detect() interface eth0
+Jul 28 21:49:35 beaglebone connmand[96]: src/proxy.c:connman_proxy_lookup() interface eth0 url http://ipv4.connman.net/online/status.html
+Jul 28 21:49:35 beaglebone connmand[96]: src/service.c:connman_service_ref_debug() 0x92190 ref 5 by src/proxy.c:121:connman_proxy_lookup()
+Jul 28 21:49:35 beaglebone connmand[96]: src/proxy.c:connman_proxy_lookup() token 1
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/inet.c:rs_timeout_cb() user data 0x70630
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() re-send router solicitation 1
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:proxy_callback() proxy (null)
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:connman_wispr_message_init()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_request_portal()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 4 by src/proxy.c:49:remove_lookup()
+Jul 28 21:49:36 beaglebone connmand[96]: src/inet.c:rs_timeout_cb() user data 0x70630
+Jul 28 21:49:36 beaglebone connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:36 beaglebone connmand[96]: src/network.c:check_dhcpv6() re-send router solicitation 1
+Jul 28 21:49:36 beaglebone connmand[96]: src/inet.c:__connman_inet_ipv6_send_rs()
+Jul 28 21:49:36 beaglebone connmand[96]: src/inet.c:ndisc_send_unspec()
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:proxy_callback() proxy (null)
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:connman_wispr_message_init()
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:wispr_portal_request_portal()
+Jul 28 21:49:36 beaglebone connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 4 by src/proxy.c:49:remove_lookup()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_web_result()
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:wispr_portal_web_result()
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:wispr_portal_web_result()
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:wispr_portal_web_result() status: 200
+Jul 28 21:49:36 beaglebone connmand[96]: src/wispr.c:portal_manage_status()
+Jul 28 21:49:36 beaglebone connmand[96]: Client-IP: 99.91.5.99
+Jul 28 21:49:36 beaglebone connmand[96]: Client-Country: US
+Jul 28 21:49:36 beaglebone connmand[96]: Client-Region: TX
+Jul 28 21:49:36 beaglebone connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 5 (online) type 1 (IPv4)
+Jul 28 21:49:36 beaglebone connmand[96]: src/service.c:service_indicate_state() service 0x92190 old ready - new online/idle => online
+Jul 28 21:49:36 beaglebone connmand[96]: src/session.c:service_state_changed() service 0x92190 state 5
+Jul 28 21:49:36 beaglebone connmand[96]: src/timeserver.c:__connman_timeserver_sync() service 0x92190
+Jul 28 21:49:36 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:36 beaglebone connmand[96]: src/timeserver.c:load_timeservers() Error loading timeservers: Key file does not have key 'Timeservers'
+Jul 28 21:49:36 beaglebone connmand[96]: src/timeserver.c:__connman_timeserver_sync() No timeservers set.
+Jul 28 21:49:36 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:36 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:36 beaglebone connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service 0x92190
+Jul 28 21:49:36 beaglebone connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 21:49:36 beaglebone connmand[96]: Enabling DNS server 192.168.1.254
+Jul 28 21:49:36 beaglebone connmand[96]: src/nat.c:update_default_interface() interface eth0
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_web_result()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:wispr_portal_web_result() status: 200
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/wispr.c:portal_manage_status()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: Client-IP: 99.91.5.99
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: Client-Country: US
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: Client-Region: TX
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 5 (online) type 1 (IPv4)
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/service.c:service_indicate_state() service 0x92190 old ready - new online/idle => online
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/session.c:service_state_changed() service 0x92190 state 5
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/timeserver.c:__connman_timeserver_sync() service 0x92190
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/settings
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/timeserver.c:load_timeservers() Error loading timeservers: Key file does not have key 'Timeservers'
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/timeserver.c:__connman_timeserver_sync() No timeservers set.
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service 0x92190
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: Enabling DNS server 192.168.1.254
+Jul 28 21:49:36 beaglebone connmand[96]: connmand[96]: src/nat.c:update_default_interface() interface eth0
+Jul 28 21:49:37 beaglebone connmand[96]: connmand[96]: src/inet.c:rs_timeout_cb() user data 0x92378
+Jul 28 21:49:37 beaglebone connmand[96]: connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:37 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 4 by src/network.c:1096:check_dhcpv6()
+Jul 28 21:49:37 beaglebone connmand[96]: src/inet.c:rs_timeout_cb() user data 0x92378
+Jul 28 21:49:37 beaglebone connmand[96]: src/network.c:check_dhcpv6() reply (nil)
+Jul 28 21:49:37 beaglebone connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 4 by src/network.c:1096:check_dhcpv6()
+Jul 28 21:50:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:50:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 21:50:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:50:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 21:53:40 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:53:40 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:53:40 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:53:40 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:54:06 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:54:06 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:54:06 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:54:06 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 21:54:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:54:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 21:54:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:54:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 21:56:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:56:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 21:56:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 21:56:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 21:57:10 beaglebone dropbear[334]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 21:57:10 beaglebone dropbear[334]: Child connection from ::ffff:192.168.1.66:21884
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x2cc4)
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x2cc4 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0002)
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0002 rcode 0
+Jul 28 21:57:10 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x2cc4)
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x2cc4 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0002)
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0002 rcode 0
+Jul 28 21:57:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 21:57:10 beaglebone dropbear[334]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21884
+Jul 28 21:58:00 beaglebone dropbear[334]: Exit (root): Exited normally
+Jul 28 21:58:00 beaglebone dropbear[336]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 21:58:00 beaglebone dropbear[336]: Child connection from ::ffff:192.168.1.66:21885
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x2370)
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x2370 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x2370)
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x2370 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0004)
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0004 rcode 0
+Jul 28 21:58:00 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0004)
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0004 rcode 0
+Jul 28 21:58:00 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 21:58:01 beaglebone dropbear[336]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21885
+Jul 28 21:58:03 beaglebone dropbear[336]: Exit (root): Exited normally
+Jul 28 22:00:25 beaglebone dropbear[342]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 22:00:25 beaglebone dropbear[342]: Child connection from ::ffff:192.168.1.66:21897
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x2105)
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x2105 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0006)
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0006 rcode 0
+Jul 28 22:00:25 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x2105)
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x2105 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0006)
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0006 rcode 0
+Jul 28 22:00:25 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:00:25 beaglebone dropbear[342]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21897
+Jul 28 22:01:08 beaglebone dropbear[342]: Exit (root): Exited normally
+Jul 28 22:01:08 beaglebone dropbear[346]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 22:01:08 beaglebone dropbear[346]: Child connection from ::ffff:192.168.1.66:21909
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x06b1)
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x06b1 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0008)
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0008 rcode 0
+Jul 28 22:01:08 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:01:08 beaglebone dropbear[346]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21909
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x06b1)
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x06b1 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0008)
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0008 rcode 0
+Jul 28 22:01:13 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:01:14 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:01:14 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:01:14 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:01:14 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:01:14 beaglebone dropbear[346]: Exit (root): Exited normally
+Jul 28 22:03:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:03:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:03:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:03:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:03:51 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:03:51 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:03:51 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:03:51 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:04:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:04:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:04:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:04:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:06:25 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:06:25 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:06:25 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:06:25 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:07:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:07:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:07:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:07:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:08:21 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:08:21 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:08:21 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:08:21 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:10:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:10:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:10:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:10:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:14:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:14:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:14:02 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:14:02 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:14:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:14:36 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:14:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:14:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:14:53 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:14:53 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:14:53 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:14:53 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:15:28 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:15:28 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:15:28 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:15:28 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:16:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:16:05 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:16:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:16:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:17:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:17:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:17:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:17:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:20:32 beaglebone dropbear[357]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 22:20:32 beaglebone dropbear[357]: Child connection from ::ffff:192.168.1.66:21938
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0xdab1)
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0xdab1 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:20:32 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0xdab1)
+Jul 28 22:20:33 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0xdab1 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:20:33 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:20:33 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x000a)
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x000a rcode 0
+Jul 28 22:20:32 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:20:33 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x000a)
+Jul 28 22:20:33 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x000a rcode 0
+Jul 28 22:20:33 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:20:33 beaglebone dropbear[357]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21938
+Jul 28 22:21:16 beaglebone dropbear[357]: Exit (root): Exited normally
+Jul 28 22:21:16 beaglebone dropbear[362]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 22:21:16 beaglebone dropbear[362]: Child connection from ::ffff:192.168.1.66:21939
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x52fe)
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x52fe qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x000c)
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x000c rcode 0
+Jul 28 22:21:16 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x52fe)
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x52fe qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x000c)
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x000c rcode 0
+Jul 28 22:21:16 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:21:16 beaglebone dropbear[362]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21939
+Jul 28 22:21:19 beaglebone dropbear[362]: Exit (root): Exited normally
+Jul 28 22:22:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:22:35 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:22:35 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:22:35 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:24:13 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:24:13 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:24:13 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:24:13 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:25:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:25:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:25:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:25:04 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:25:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:25:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:25:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:25:04 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:27:27 beaglebone dropbear[366]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 22:27:27 beaglebone dropbear[366]: Child connection from ::ffff:192.168.1.66:21982
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x1eb3)
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x1eb3 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x000e)
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x000e rcode 0
+Jul 28 22:27:27 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x1eb3)
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x1eb3 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x000e)
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x000e rcode 0
+Jul 28 22:27:27 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:27:27 beaglebone dropbear[366]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21982
+Jul 28 22:28:10 beaglebone dropbear[366]: Exit (root): Exited normally
+Jul 28 22:28:10 beaglebone dropbear[370]: Failed reading '/etc/dropbear/dropbear_dss_host_key', disabling DSS
+Jul 28 22:28:10 beaglebone dropbear[370]: Child connection from ::ffff:192.168.1.66:21983
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x51b7)
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x51b7 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0010)
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0010 rcode 0
+Jul 28 22:28:10 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 43 bytes (id 0x51b7)
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x51b7 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query 66.1.168.192.in-addr.arpa.
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 168 bytes (id 0x0010)
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0010 rcode 0
+Jul 28 22:28:10 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:28:10 beaglebone dropbear[370]: PAM password auth succeeded for 'root' from ::ffff:192.168.1.66:21983
+Jul 28 22:28:13 beaglebone dropbear[370]: Exit (root): Exited normally
+Jul 28 22:29:42 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:29:42 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:29:42 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:29:42 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:30:01 beaglebone /usr/sbin/crond[375]: pam_unix(crond:session): session opened for user root by (uid=0)
+Jul 28 22:30:01 beaglebone /USR/SBIN/CROND[376]: (root) CMD (/usr/bin/ntpdate -b -s -u pool.ntp.org)
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0xa081)
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0xa081 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0xa081)
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0xa081 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0x3fc7)
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x3fc7 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0x3fc7)
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x3fc7 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0012)
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0012 rcode 0
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:30:01 beaglebone connmand[96]: [89B blob data]
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0014)
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0014 rcode 0
+Jul 28 22:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0012)
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0012 rcode 0
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:30:01 beaglebone connmand[96]: [103B blob data]
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0014)
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0014 rcode 0
+Jul 28 22:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 22:30:55 beaglebone ntpdate[376]: step time server 204.9.54.119 offset 45.155175 sec
+Jul 28 22:30:55 beaglebone /USR/SBIN/CROND[375]: pam_unix(crond:session): session closed for user root
+Jul 28 22:32:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:32:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:32:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:32:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:35:09 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:35:09 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:35:09 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:35:09 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:35:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:35:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:35:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:35:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:37:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:37:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:37:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:37:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:39:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:39:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:39:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:39:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:44:41 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:44:41 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:44:41 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:44:41 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:44:42 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:44:42 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:44:42 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:44:42 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:45:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:45:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:45:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:45:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:45:20 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:45:20 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:45:20 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:45:20 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:45:23 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:45:23 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:45:23 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:45:23 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:46:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:46:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:46:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:46:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:46:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:46:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:46:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:46:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:46:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:46:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:46:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:46:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:51:48 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:51:48 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:51:48 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:51:48 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:53:28 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:53:28 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:53:28 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:53:28 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:54:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:54:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:54:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:54:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:54:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:54:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:54:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:54:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:55:23 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:55:23 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:55:23 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:55:23 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:56:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:56:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:56:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:56:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 22:58:55 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:58:55 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 22:58:55 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 22:58:55 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:01:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:01:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:01:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:01:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:05:26 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:05:26 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:05:26 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:05:26 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:05:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:05:34 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:05:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:05:34 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:06:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:06:02 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:06:02 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:06:02 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:06:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:06:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:06:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:06:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:07:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:07:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:07:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:07:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:07:33 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:07:33 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:07:33 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:07:33 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:08:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:08:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:08:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:08:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:08:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:08:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:08:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:08:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:13:09 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:13:09 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:13:09 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:13:09 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:15:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:15:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:15:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:15:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:15:45 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:15:45 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:15:45 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:15:45 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:16:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:16:19 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:16:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:16:19 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:20:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:20:16 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:20:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:20:16 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:22:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:22:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:22:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:22:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:25:56 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:25:56 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:25:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:25:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:26:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:26:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:26:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:26:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:27:23 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:27:23 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:27:23 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:27:23 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWROUTE len 128 type 24 flags 0x0000 seq 0
+Jul 28 23:29:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:29:49 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:29:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:29:49 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:30:01 beaglebone /usr/sbin/crond[377]: pam_unix(crond:session): session opened for user root by (uid=0)
+Jul 28 23:30:01 beaglebone /USR/SBIN/CROND[378]: (root) CMD (/usr/bin/ntpdate -b -s -u pool.ntp.org)
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0x95e1)
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x95e1 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 23:30:01 beaglebone connmand[96]: [90B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: [93B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: [94B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0x95e1)
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x95e1 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 23:30:01 beaglebone connmand[96]: [76B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: [79B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: [80B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0x2a85)
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() id 0x2a85 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0016)
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0016 rcode 0
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 23:30:01 beaglebone connmand[96]: [89B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0018)
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0018 rcode 0
+Jul 28 23:30:01 beaglebone connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:udp_listener_event() Received 30 bytes (id 0x2a85)
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() id 0x2a85 qr 0 opcode 0 qdcount 1 arcount 0
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_request() query pool.ntp.org.
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:resolv() server 192.168.1.254 enabled 1
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0016)
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0016 rcode 0
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 23:30:01 beaglebone connmand[96]: [103B blob data]
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() Received 94 bytes (id 0x0018)
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:forward_dns_reply() id 0x0018 rcode 0
+Jul 28 23:30:01 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:parse_response() qr 1 qdcount 1
+Jul 28 23:30:10 beaglebone ntpdate[378]: step time server 108.59.14.130 offset 0.032785 sec
+Jul 28 23:30:10 beaglebone /USR/SBIN/CROND[377]: pam_unix(crond:session): session closed for user root
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: eth0 {RX} 34456 packets 21767510 bytes
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: eth0 {TX} 16310 packets 1972134 bytes
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/service.c:stats_update() service 0x92190
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: eth0 {update} flags 4099 <UP>
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/service.c:service_lower_down() eth0 lower down
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/service.c:stats_stop() service 0x92190
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/service.c:service_save() service 0x92190
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:54 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 1004
+Jul 28 23:33:54 beaglebone connmand[96]: src/rtnl.c:rtnl_message() NEWLINK len 1004 type 16 flags 0x0000 seq 0
+Jul 28 23:33:54 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_newlink() index 2
+Jul 28 23:33:54 beaglebone connmand[96]: eth0 {RX} 34456 packets 21767510 bytes
+Jul 28 23:33:54 beaglebone connmand[96]: eth0 {TX} 16310 packets 1972134 bytes
+Jul 28 23:33:54 beaglebone connmand[96]: src/service.c:stats_update() service 0x92190
+Jul 28 23:33:54 beaglebone connmand[96]: eth0 {update} flags 4099 <UP>
+Jul 28 23:33:54 beaglebone connmand[96]: src/service.c:service_lower_down() eth0 lower down
+Jul 28 23:33:54 beaglebone connmand[96]: src/service.c:stats_stop() service 0x92190
+Jul 28 23:33:54 beaglebone connmand[96]: src/service.c:service_save() service 0x92190
+Jul 28 23:33:54 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 23:33:54 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:54 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:54 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:56 beaglebone connmand[96]: connmand[96]: src/service.c:service_lower_down() eth0 lower down
+Jul 28 23:33:56 beaglebone connmand[96]: connmand[96]: src/service.c:stats_stop() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: connmand[96]: src/service.c:service_save() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 23:33:56 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:56 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_lower_down() eth0 lower down
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:stats_stop() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_save() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/storage.c:storage_load() Loading /var/lib/connman/ethernet_505663c86c19_cable/settings
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x913d0 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_save() ipconfig 0x908c8 identifier ethernet_505663c86c19_cable
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_lower_down() ipconfig ipv4 0x913d0 ipv6 0x908c8
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_address() index 2 address 192.168.1.73 prefix_len 24
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 2 address 192.168.1.73 peer (null) prefixlen 24 broadcast (null)
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_ipv6_address() index 2 address (null) prefix_len 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 10 address (null) peer (null) prefixlen 0 broadcast (null)
+Jul 28 23:33:56 beaglebone connmand[96]: connman_inet_clear_ipv6_address: Invalid argument
+Jul 28 23:33:56 beaglebone avahi-daemon[97]: Withdrawing address record for 192.168.1.73 on eth0.
+Jul 28 23:33:56 beaglebone connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+Jul 28 23:33:56 beaglebone avahi-daemon[97]: Leaving mDNS multicast group on interface eth0.IPv4 with address 192.168.1.73.
+Jul 28 23:33:56 beaglebone connmand[96]: eth0 {newlink} index 2 operstate 2 <DOWN>
+Jul 28 23:33:56 beaglebone avahi-daemon[97]: Interface eth0.IPv4 no longer relevant for mDNS.
+Jul 28 23:33:56 beaglebone connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 23:33:56 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4099 change 0
+Jul 28 23:33:56 beaglebone connmand[96]: plugins/ethernet.c:ethernet_newlink() carrier off
+Jul 28 23:33:56 beaglebone connmand[96]: src/device.c:connman_device_remove_network() device 0x912d8 network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/device.c:free_network() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:network_remove() network 0x90da8 name Wired
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:connman_network_set_connected() network 0x90da8 connected 1/0 connecting 0 associating 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:set_disconnected() service 0x92190 ipv4 0x913d0 ipv6 0x908c8
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:set_disconnected() method ipv4 4 ipv6 5
+Jul 28 23:33:56 beaglebone connmand[96]: src/dhcpv6.c:__connman_dhcpv6_stop()
+Jul 28 23:33:56 beaglebone connmand[96]: src/dhcp.c:__connman_dhcp_stop()
+Jul 28 23:33:56 beaglebone connmand[96]: src/dhcp.c:remove_network() dhcp 0x90f38
+Jul 28 23:33:56 beaglebone connmand[96]: src/dhcp.c:dhcp_invalidate() dhcp 0x90f38 callback 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/6to4.c:__connman_6to4_remove() tunnel ip address (null)
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:append_proxy()
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_nameserver_remove() service 0x92190 nameserver 192.168.1.254 auto 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/dhcp.c:dhcp_invalidate() last address 192.168.1.73
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_remove()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_remove() method 4
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset() method 4
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_address() index 2 address 192.168.1.73 prefix_len 24
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 2 address 192.168.1.73 peer (null) prefixlen 24 broadcast (null)
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_set_gateway()
+Jul 28 23:33:56 beaglebone connmand[96]: src/dhcp.c:dhcp_release() dhcp 0x90f38
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 3 by src/dhcp.c:505:__connman_dhcp_stop()
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 6 (disconnect) type 1 (IPv4)
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_rp_filter() disconnected ethernet_505663c86c19_cable ipconfig 0x913d0 method 4 count 0 filter 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_indicate_state() service 0x92190 old online - new disconnect/idle => disconnect
+Jul 28 23:33:56 beaglebone connmand[96]: src/session.c:service_state_changed() service 0x92190 state 6
+Jul 28 23:33:56 beaglebone connmand[96]: src/notifier.c:notify_idle_state() idle 1
+Jul 28 23:33:56 beaglebone connmand[96]: src/manager.c:idle_state() idle 1
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service (nil)
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 23:33:56 beaglebone connmand[96]: [76B blob data]
+Jul 28 23:33:56 beaglebone connmand[96]: [79B blob data]
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:dnsproxy_offline_mode() enabled 1
+Jul 28 23:33:56 beaglebone connmand[96]: Disabling DNS server 192.168.1.254
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 23:33:56 beaglebone connmand[96]: src/nat.c:update_default_interface() interface (null)
+Jul 28 23:33:56 beaglebone connmand[96]: src/wispr.c:__connman_wispr_stop() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/wispr.c:free_connman_wispr_portal()
+Jul 28 23:33:56 beaglebone connmand[96]: src/wispr.c:free_connman_wispr_portal_context()
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 3 by src/wispr.c:125:free_connman_wispr_portal_context()
+Jul 28 23:33:56 beaglebone connmand[96]: src/wispr.c:connman_wispr_message_init()
+Jul 28 23:33:56 beaglebone connmand[96]: src/wispr.c:free_connman_wispr_portal_context()
+Jul 28 23:33:56 beaglebone connmand[96]: src/wpad.c:__connman_wpad_stop() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 2 by src/wpad.c:198:__connman_wpad_stop()
+Jul 28 23:33:56 beaglebone connmand[96]: src/resolver.c:connman_resolver_remove_all() interface eth0
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:__connman_dnsproxy_remove() interface eth0 server 192.168.1.254
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:find_server() interface eth0 server 192.168.1.254
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:destroy_server() interface eth0 server 192.168.1.254
+Jul 28 23:33:56 beaglebone connmand[96]: Removing DNS server 192.168.1.254
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:find_server() interface eth0 server 192.168.1.254
+Jul 28 23:33:56 beaglebone connmand[96]: src/dnsproxy.c:__connman_dnsproxy_remove() interface eth0 server (null)
+Jul 28 23:33:56 beaglebone connmand[96]: src/timeserver.c:__connman_timeserver_stop()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ntp.c:__connman_ntp_stop()
+Jul 28 23:33:56 beaglebone connmand[96]: src/notifier.c:__connman_notifier_disconnect() type 2
+Jul 28 23:33:56 beaglebone connmand[96]: src/notifier.c:technology_connected() type 2 connected 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 23:33:56 beaglebone connmand[96]: src/technology.c:__connman_technology_set_connected() technology 0x90bf0 connected 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:__connman_connection_gateway_remove() service 0x92190 type 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:__connman_connection_gateway_remove() ipv4 gateway 192.168.1.254 ipv6 gateway <null> vpn 0/0
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:disable_gateway() type 0 active 1
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_del_network_route() ifname eth0
+Jul 28 23:33:56 beaglebone connmand[96]: Deleting host route failed (No such process)
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_gateway_address()
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_gateway_address() ifname eth0
+Jul 28 23:33:56 beaglebone connmand[96]: Removing default gateway route failed (No such process)
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 1 by src/connection.c:729:__connman_connection_gateway_remove()
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:remove_gateway() gateway ipv4 0x72968 ipv6 (nil)
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset() method 4
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_address() index 2 address (null) prefix_len 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 2 address (null) peer (null) prefixlen 0 broadcast (null)
+Jul 28 23:33:56 beaglebone connmand[96]: connman_inet_clear_address: Invalid argument
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset() method 5
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:connman_inet_clear_ipv6_address() index 2 address (null) prefix_len 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 10 address (null) peer (null) prefixlen 0 broadcast (null)
+Jul 28 23:33:56 beaglebone connmand[96]: connman_inet_clear_ipv6_address: Invalid argument
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:disable_ipv6()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:enable_ipv6()
+Jul 28 23:33:56 beaglebone avahi-daemon[97]: Withdrawing address record for fe80::5256:63ff:fec8:6c19 on eth0.
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 1 (idle) type 1 (IPv4)
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_indicate_state() service 0x92190 old disconnect - new idle/idle => idle
+Jul 28 23:33:56 beaglebone connmand[96]: src/session.c:service_state_changed() service 0x92190 state 1
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_auto_connect()
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:connman_network_set_associating() network 0x90da8 associating 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_remove_from_network() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:__connman_connection_gateway_remove() service 0x92190 type 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 0 by src/service.c:5445:__connman_service_remove_from_network()
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:__connman_service_disconnect() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:__connman_network_disconnect() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_free() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/session.c:service_remove() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:service_schedule_removed() service 0x92190 /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 23:33:56 beaglebone connmand[96]: src/service.c:stats_stop() service 0x92190
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 23:33:56 beaglebone connmand[96]: src/connection.c:update_order()
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:__connman_network_disconnect() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 2 by src/service.c:3464:service_free()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_unref_debug() 0x913d0 ref 1 by src/service.c:3474:service_free()
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_unref_debug() 0x908c8 ref 1 by src/service.c:3481:service_free()
+Jul 28 23:33:56 beaglebone connmand[96]: plugins/ethernet.c:cable_remove() network 0x90da8
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 1 by src/device.c:449:free_network()
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 0 by plugins/ethernet.c:122:remove_network()
+Jul 28 23:33:56 beaglebone connmand[96]: src/network.c:network_destruct() network 0x90da8 name Wired
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELADDR len 60 type 21 flags 0x0000 seq 1
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_deladdr() index 2
+
+
+wgp delete eth0
+
+Jul 28 23:33:56 beaglebone connmand[96]: eth0 {del} address 192.168.1.73/24 label eth0
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_delroute() index 2
+Jul 28 23:33:56 beaglebone connmand[96]: eth0 {del} route 192.168.1.0 gw 0.0.0.0 scope 253 <LINK>
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 108 type 25 flags 0x0000 seq 0
+Jul 28 23:33:56 beaglebone connmand[96]: src/ipconfig.c:__connman_ipconfig_delroute() index 2
+Jul 28 23:33:56 beaglebone connmand[96]: eth0 {del} route fe80:: gw :: scope 0 <UNIVERSE>
+Jul 28 23:33:56 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 108 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 64
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELADDR len 64 type 21 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:33:57 beaglebone connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: src/service.c:append_removed() removed /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_lower_down() ipconfig ipv4 0x913d0 ipv6 0x908c8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_address() index 2 address 192.168.1.73 prefix_len 24
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 2 address 192.168.1.73 peer (null) prefixlen 24 broadcast (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_ipv6_address() index 2 address (null) prefix_len 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 10 address (null) peer (null) prefixlen 0 broadcast (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: connman_inet_clear_ipv6_address: Invalid argument
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 address 50:56:63:C8:6C:19 mtu 1500
+
+wgp eth0 <DOWN>
+
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: eth0 {newlink} index 2 operstate 2 <DOWN>
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/detect.c:detect_newlink() type 1 index 2
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() index 2 flags 4099 change 0
+
+wgp carrier off
+
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:ethernet_newlink() carrier off
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/device.c:connman_device_remove_network() device 0x912d8 network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/device.c:free_network() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:network_remove() network 0x90da8 name Wired
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_connected() network 0x90da8 connected 1/0 connecting 0 associating 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:set_disconnected() service 0x92190 ipv4 0x913d0 ipv6 0x908c8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:set_disconnected() method ipv4 4 ipv6 5
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dhcpv6.c:__connman_dhcpv6_stop()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dhcp.c:__connman_dhcp_stop()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dhcp.c:remove_network() dhcp 0x90f38
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dhcp.c:dhcp_invalidate() dhcp 0x90f38 callback 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/6to4.c:__connman_6to4_remove() tunnel ip address (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:append_proxy()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_nameserver_remove() service 0x92190 nameserver 192.168.1.254 auto 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dhcp.c:dhcp_invalidate() last address 192.168.1.73
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_remove()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_remove() method 4
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset() method 4
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_address() index 2 address 192.168.1.73 prefix_len 24
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 2 address 192.168.1.73 peer (null) prefixlen 24 broadcast (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_set_gateway()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dhcp.c:dhcp_release() dhcp 0x90f38
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 3 by src/dhcp.c:505:__connman_dhcp_stop()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 6 (disconnect) type 1 (IPv4)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:service_rp_filter() disconnected ethernet_505663c86c19_cable ipconfig 0x913d0 method 4 count 0 filter 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:service_indicate_state() service 0x92190 old online - new disconnect/idle => disconnect
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/session.c:service_state_changed() service 0x92190 state 6
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/notifier.c:notify_idle_state() idle 1
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/manager.c:idle_state() idle 1
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:dnsproxy_default_changed() service (nil)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 23:33:57 beaglebone connmand[96]: [90B blob data]
+Jul 28 23:33:57 beaglebone connmand[96]: [93B blob data]
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:dnsproxy_offline_mode() enabled 1
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: Disabling DNS server 192.168.1.254
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:cache_invalidate() Invalidating the DNS cache 0x926c8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/nat.c:update_default_interface() interface (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/wispr.c:__connman_wispr_stop() service 0x92190
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/wispr.c:free_connman_wispr_portal()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/wispr.c:free_connman_wispr_portal_context()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 3 by src/wispr.c:125:free_connman_wispr_portal_context()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/wispr.c:connman_wispr_message_init()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/wispr.c:free_connman_wispr_portal_context()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/wpad.c:__connman_wpad_stop() service 0x92190
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 2 by src/wpad.c:198:__connman_wpad_stop()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/resolver.c:connman_resolver_remove_all() interface eth0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:__connman_dnsproxy_remove() interface eth0 server 192.168.1.254
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:find_server() interface eth0 server 192.168.1.254
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:destroy_server() interface eth0 server 192.168.1.254
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: Removing DNS server 192.168.1.254
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:find_server() interface eth0 server 192.168.1.254
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/dnsproxy.c:__connman_dnsproxy_remove() interface eth0 server (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/timeserver.c:__connman_timeserver_stop()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ntp.c:__connman_ntp_stop()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/notifier.c:__connman_notifier_disconnect() type 2
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/notifier.c:technology_connected() type 2 connected 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/technology.c:technology_find() type 2
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/technology.c:__connman_technology_set_connected() technology 0x90bf0 connected 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:__connman_connection_gateway_remove() service 0x92190 type 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:__connman_connection_gateway_remove() ipv4 gateway 192.168.1.254 ipv6 gateway <null> vpn 0/0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:disable_gateway() type 0 active 1
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_del_network_route() ifname eth0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: Deleting host route failed (No such process)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_gateway_address()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_gateway_address() ifname eth0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: Removing default gateway route failed (No such process)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 1 by src/connection.c:729:__connman_connection_gateway_remove()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:remove_gateway() gateway ipv4 0x72968 ipv6 (nil)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset() method 4
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_address() index 2 address (null) prefix_len 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 2 address (null) peer (null) prefixlen 0 broadcast (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: connman_inet_clear_address: Invalid argument
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_address_unset() method 5
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:connman_inet_clear_ipv6_address() index 2 address (null) prefix_len 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/inet.c:__connman_inet_modify_address() cmd 0x15 flags 0 index 2 family 10 address (null) peer (null) prefixlen 0 broadcast (null)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: connman_inet_clear_ipv6_address: Invalid argument
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:disable_ipv6()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:enable_ipv6()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_ipconfig_indicate_state() service 0x92190 (ethernet_505663c86c19_cable) state 1 (idle) type 1 (IPv4)
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:service_indicate_state() service 0x92190 old disconnect - new idle/idle => idle
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/session.c:service_state_changed() service 0x92190 state 1
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_auto_connect()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_set_associating() network 0x90da8 associating 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_remove_from_network() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_lookup_from_network() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:__connman_connection_gateway_remove() service 0x92190 type 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:connman_service_unref_debug() 0x92190 ref 0 by src/service.c:5445:__connman_service_remove_from_network()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:__connman_service_disconnect() service 0x92190
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:__connman_network_disconnect() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:service_free() service 0x92190
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/session.c:service_remove() service 0x92190
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:service_schedule_removed() service 0x92190 /net/connman/service/ethernet_505663c86c19_cable
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:stats_stop() service 0x92190
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:find_active_gateway()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/connection.c:update_order()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:__connman_network_disconnect() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 2 by src/service.c:3464:service_free()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_unref_debug() 0x913d0 ref 1 by src/service.c:3474:service_free()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_unref_debug() 0x908c8 ref 1 by src/service.c:3481:service_free()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: plugins/ethernet.c:cable_remove() network 0x90da8
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 1 by src/device.c:449:free_network()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:connman_network_unref_debug() 0x90da8 name Wired ref 0 by plugins/ethernet.c:122:remove_network()
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/network.c:network_destruct() network 0x90da8 name Wired
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELADDR len 60 type 21 flags 0x0000 seq 1
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_deladdr() index 2
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: eth0 {del} address 192.168.1.73/24 label eth0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_delroute() index 2
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: eth0 {del} route 192.168.1.0 gw 0.0.0.0 scope 253 <LINK>
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 60
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 60 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 108 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/ipconfig.c:__connman_ipconfig_delroute() index 2
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: eth0 {del} route fe80:: gw :: scope 0 <UNIVERSE>
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 108
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 108 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 64
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELADDR len 64 type 21 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() buf 0xbe89f9b0 len 128
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/rtnl.c:rtnl_message() DELROUTE len 128 type 25 flags 0x0000 seq 0
+Jul 28 23:33:57 beaglebone connmand[96]: connmand[96]: src/service.c:append_removed() removed /net/connman/service/ethernet_505663c86c19_cable

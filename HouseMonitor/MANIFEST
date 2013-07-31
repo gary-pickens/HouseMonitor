@@ -26,6 +26,7 @@ housemonitor/inputs\testinputthead.py
 housemonitor/inputs/computermonitor\__init__.py
 housemonitor/inputs/computermonitor\computermonitor.py
 housemonitor/inputs/zigbeeinput\__init__.py
+housemonitor/inputs/zigbeeinput\beagleboneblackxbeecommunications.py
 housemonitor/inputs/zigbeeinput\beaglebonexbeecommunications.py
 housemonitor/inputs/zigbeeinput\main.py
 housemonitor/inputs/zigbeeinput\windowsxbeecommunications.py
@@ -83,6 +84,7 @@ housemonitor\config\cacerts.txt
 housemonitor\config\configuration.xmlDeviceConfiguration.xml
 housemonitor\config\formatvalue.xml
 housemonitor\config\housemonitor.configuration.formatconfiguration.xml
+housemonitor\config\housemonitor.inputs.zigbeeinput.beagleboneblackxbeecommunications.xml
 housemonitor\config\housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications.xml
 housemonitor\config\housemonitor.inputs.zigbeeinput.windowsxbeecommunications.xml
 housemonitor\config\housemonitor.outputs.cosm.send.xml

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name='BEAGLEBONE'>
+    <!-- Beagle Bone configuration options -->
+    <xbee_beaglebone_port>/dev/ttyO1</xbee_beaglebone_port>
+    <xbee_beaglebone_black_uart>UART1</xbee_beaglebone_black_uart>
+    <xbee_beaglebone_timeout>3</xbee_beaglebone_timeout>
+    <xbee_beaglebone_baudrate>9600</xbee_beaglebone_baudrate>
+</system>

@@ -11,7 +11,7 @@ from xbee import ZigBee
 from housemonitor.lib.common import Common
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.base import Base
-from housemonitor.inputs.zigbeeinput.beaglebonexbeecommunications import BeagleboneXbeeCommunications
+from housemonitor.inputs.zigbeeinput.beagleboneblackxbeecommunications import BeagleboneBlackXbeeCommunications
 from housemonitor.inputs.zigbeeinput.windowsxbeecommunications import WindowsXbeeCommunications
 
 
@@ -39,7 +39,7 @@ class ZigBeeOutput( Base, object ):
                     'DIO-7': b'D7'}
 
     selectHighOrLow = {False: setPinLow, True: setPinHigh}
-    communication_module = {'posix': BeagleboneXbeeCommunications,
+    communication_module = {'posix': BeagleboneBlackXbeeCommunications,
                             'nt': WindowsXbeeCommunications}
 
     def __init__( self ):
