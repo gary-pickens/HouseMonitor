@@ -333,7 +333,7 @@ remove it and install lightthp.
 
    * Remove cloud9 with the following command::
 
-         opkg remove --force-removal-of-dependent-packages cloud9
+         opkg remove - -force-removal-of-dependent-packages cloud9
 
 
    * It gave some warnings that not all had been removed so I tried::
@@ -452,19 +452,31 @@ numerous attempts to get it working.
 Baud rate for Tera Term
 =======================
 
-To talk to the Beagle Bone over the USB serial link set the baud rate to::
-
-      115200
+To talk to the Beagle Bone over the USB serial link set the baud rate to **115200**.
 
 ====================
 Setting up the XBees
 ====================
 
-# Plug xbee into the Xbee Explorer.
-# Connect the Xbee Explorer to the computer via USB cable.
-# Start X-CTU
-# On the modem Configuration tab select **XB24-ZB** in the **Modem XBEE** section
-# select **ZIGBEE Router API** under the **Function Set**
+#. Plug xbee into the Xbee Explorer.
+#. Connect the Xbee Explorer to the computer via USB cable.
+#. The power led (PWR) should come on.
+#. Start X-CTU.
+#. Press the Test/Query button on the X-CTU GUI. You should get a dialog box that comes up simular to this:
+
+   .. image:: ComTestQueryModem.png
+
+#. Select the Modem Configuration Tab. It should look as follows:
+
+   .. image:: X-CTUwithModemConfig.png
+ 
+#. Press the *Read* button in the *Modem Parameters*.
+#. Press the Download new versions.  This will check if there is new version of the software available.
+#. On the modem Configuration tab select **XB24-ZB** in the **Modem XBEE** section
+#. Select **ZIGBEE Router API** under the **Function Set** 
+#. Press the *Write* button in the *Modem Parameters* section.
+#. When X-CTU has finish writing to the XBee close the X-CTU program down.
+#. In Eclipse ant window double click Build Backroom XBee.
 
 
 =========
