@@ -253,6 +253,19 @@
             <arg value="--sunroom"/>
         </exec>
     </target>
+    <target name="Build Backroom XBee" description="build documentation">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="5.0"/>
+            <arg value="--AT"/>         
+            <arg value="--Backroom"/>
+        </exec>
+    </target>
     <target name="Build Coordinator XBee" description="build documentation">
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>

@@ -3,4 +3,5 @@
     <item device="0x13a200409029bf" port="adc-1">{:3.1f}</item>
     <item device="0x13a200408cccc3" port="adc-0">{:3.1f}</item>
     <item device="0x13a200408cccc3" port="adc-1">{:3.1f}</item>
+    <item device="0x13a20040902867" port="adc-0">{:3.1f}</item>
 </formats>

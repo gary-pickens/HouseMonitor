@@ -9,7 +9,7 @@
             <network_address>0xf9f2</network_address>
             <units>boolean</units>
             <steps type="list">
-            	<step>step.GarageDoorMonitor</step>
+                <step>step.GarageDoorMonitor</step>
                 <step>step.CurrentValue</step>
                 <step>step.garage_door_state</step>
                 <step>outputs.COSM</step>
@@ -67,6 +67,24 @@
                 <step>outputs.COSM</step>
             </steps>
             <cosm_channel>3</cosm_channel>
+        </port>
+    </xbee>
+    <xbee source_address="0x13a20040902867">
+        <name>Backroom</name>
+        <network_address>0xf9f2</network_address>
+        <port portname="adc-0">
+            <name>Backroom Temperature</name>
+            <description>The temperature in the back room</description>
+            <units>F</units>
+            <steps type="list">
+                <step>step.ZigbeeAnalogNumberToVolts</step>
+                <step>step.TMP_36_Volts_to_Centigrade</step>
+                <step>step.Centigrade_to_Fahrenheit</step>
+                <step>step.FormatValue</step>
+                <step>step.CurrentValue</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>4</cosm_channel>
         </port>
     </xbee>
     <xbee source_address="0x13a20040902a02">

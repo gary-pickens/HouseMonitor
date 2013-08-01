@@ -161,6 +161,25 @@ class sunroom( object ):
         {base.command:b'WR'},    # write
     ]
 
+class backroom( object ):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'Backroom'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the backroom
+        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},    #
+        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},    # IO Sample rate in milliseconds
+        {base.command:b'JV', base.parameter:b'1'},    # ensure that the router rejoins the coordinator on startup0
+        {base.command:b'WR'},    # write
+    ]
 
 class statusPanel( object ):
 
@@ -302,6 +321,7 @@ if __name__ == '__main__':
     parser.add_option( "--garage", action="store_const", const="Garage door", dest="node", help="Configure the attached XBee as the garage door sensor" )
     parser.add_option( "--weather", action="store_const", const="Weather", dest="node", help="Configure the attached XBee as the weather sensor" )
     parser.add_option( "--sunroom", action="store_const", const="Sunroom", dest="node", help="Configure the attached XBee as the sunroom sensor" )
+    parser.add_option( "--Backroom", action="store_const", const="Backroom", dest="node", help="Configure the attached XBee as the Backroom sensor" )
     parser.add_option( "--status", action="store_const", const="Status", dest="node", help="Configure the attached XBee to display House status" )
 
     parser.add_option( "--ToAPI", action="store_const", const="ToAPI", dest="node", help="Configure the attached XBee as the sunroom sensor" )
@@ -344,6 +364,8 @@ if __name__ == '__main__':
         commands = Coordinator.commands
     elif ( options.node == "Sunroom" ):
         commands = sunroom.commands
+    elif ( options.node == "Backroom" ):
+        commands = backroom.commands
     elif ( options.node == "Status" ):
         commands = statusPanel.commands
     elif ( options.node == "ToAT" ):
