@@ -83,10 +83,11 @@ class MonitorThread( QThread ):
         except Exception:
             self.connected = False
         finally:
-            data = self.convertToArray()
-            self.monitored_data.write_data( data )
-#             self.emit( SIGNAL( 'read_data()' ) )
-            self.read_data.emit()
+            if self.connected:
+                data = self.convertToArray()
+                self.monitored_data.write_data( data )
+#               self.emit( SIGNAL( 'read_data()' ) )
+                self.read_data.emit()
 
     def connect_to_house_monitor( self ):
         '''
@@ -136,17 +137,18 @@ class MonitorThread( QThread ):
         rows = []
         arrival_time = None
         current_value = None
-        for device in sorted( self.values.keys() ):
-            for port in sorted( self.values[device].keys() ):
-                if 'current_value' in self.values[device][port]:
-                    current_value = str( self.values[device][port]['current_value'] )
-                    self.special_handling( current_value, device, port )
-                if 'at' in self.values[device][port]:
-                    # TODO: Sometime this needs to be fixed in the server
-                    if type( self.values[device][port]['at'] ) == dict:
-                        arrival_time = str( self.values[device][port]['at']['dt'] )
-                    else:
-                        arrival_time = str( self.values[device][port]['at'] )
-                column = [device, port, current_value, arrival_time]
-                rows.append( column )
+        if self.values != None:
+            for device in sorted( self.values.keys() ):
+                for port in sorted( self.values[device].keys() ):
+                    if 'current_value' in self.values[device][port]:
+                        current_value = str( self.values[device][port]['current_value'] )
+                        self.special_handling( current_value, device, port )
+                    if 'at' in self.values[device][port]:
+                        # TODO: Sometime this needs to be fixed in the server
+                        if type( self.values[device][port]['at'] ) == dict:
+                            arrival_time = str( self.values[device][port]['at']['dt'] )
+                        else:
+                            arrival_time = str( self.values[device][port]['at'] )
+                    column = [device, port, current_value, arrival_time]
+                    rows.append( column )
         return rows
