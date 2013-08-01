@@ -8,12 +8,11 @@ Created on Oct 20, 2012
 
 @author: Gary
 '''
-from housemonitor.SimpleXMLRPCServer import SimpleXMLRPCServer
 import xmlrpclib
 import time
 import pprint
 import os
-from housemonitor.optparse import OptionParser
+from optparse import OptionParser
 from datetime import datetime
 import curses
 
