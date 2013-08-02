@@ -9,8 +9,8 @@ from datetime import datetime
 from httplib2 import HttpLib2Error
 from housemonitor.lib.common import Common
 from housemonitor.lib.constants import Constants
-from housemonitor.lib.getdatetime import GetDateTime
-from pprint import pprint
+# from housemonitor.lib.getdatetime import GetDateTime
+import pprint
 import httplib2
 import json
 import copy
@@ -28,8 +28,8 @@ class COSMSend( CosmConfiguration ):
     ''' A dictionary of data items to send to COSM. '''
 
     datapoints = { }
-    ''' A dictionary of lists containing data points for each channel on COSM.  
-    It contains the time and value.'''
+    ''' A dictionary of lists containing data points for each channel on COSM.
+    It contains the time and value.  It's key is channel'''
 
     json = None
 
@@ -62,10 +62,10 @@ class COSMSend( CosmConfiguration ):
         """
         Output the results to COSMSend.com
         
-        If the data dictionary contain 'action' and it is set to 'send' this routine will 
+        If the data dictionary contain 'action' and it is set to 'send' this routine will
         send data to COSM.
         
-        if the key is not set to send the this routine will store the data as a data point and 
+        if the key is not set to send the this routine will store the data as a data point and
         transmit with an other packet going to COSM.
 
 
@@ -80,8 +80,7 @@ class COSMSend( CosmConfiguration ):
         try:
             device, port = Common.getDeviceAndPort( data )
             self.createDataStream( device, port, data )
-            if Constants.DataPacket.action in data and \
-                    data[Constants.DataPacket.action] == Constants.DataPacket.send:
+            if Constants.DataPacket.action in data and data[Constants.DataPacket.action] == Constants.DataPacket.send:
                 self.json = self.createJSONReport( device, port, data )
                 self.report_data( self.json, data, http=http )
                 self.empty_datastream_list()
@@ -143,7 +142,6 @@ class COSMSend( CosmConfiguration ):
         :raises: KeyError
         """
 
-
         if device not in self.config:
             msg = 'Device is not in cosm configuration file: {}'.format( device )
             raise KeyError( msg )
@@ -160,15 +158,14 @@ class COSMSend( CosmConfiguration ):
         if Constants.Cosm.datastream.cosm_channel in self.config[device][port]:
             channel = self.config[device][port][Constants.Cosm.datastream.cosm_channel]
 
-        if Constants.DataPacket.action in data and \
-            data[Constants.DataPacket.action] == Constants.DataPacket.accumulate:
+        if Constants.DataPacket.action in data and data[Constants.DataPacket.action] == Constants.DataPacket.accumulate:
 
             if Constants.DataPacket.arrival_time in data:
                 arrival_datetime = data[Constants.DataPacket.arrival_time]
                 at = arrival_datetime.isoformat()
             if Constants.DataPacket.current_value in data:
                 value = data[Constants.DataPacket.current_value]
-            datapoint = {"at":at, "value": value}
+            datapoint = {"at": at, "value": value}
             if channel in self.datapoints:
                 self.datapoints[channel].append( datapoint )
             else:
@@ -196,6 +193,7 @@ class COSMSend( CosmConfiguration ):
             if channel in self.datapoints:
                 item[Constants.Cosm.datastream.datapoints] = copy.copy( self.datapoints[channel] )
                 self.datapoints[channel] = []
+            self.logger.debug( pprint.pformat( self.datastreams ) )
             self.datastreams.append( item )
 
     def createLocation( self, device, port ):

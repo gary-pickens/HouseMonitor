@@ -173,10 +173,11 @@
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="easy_install -Z ~gary/src/${project}-${version}.zip" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
+            command="cp ~gary/src/${project}-${version}/housemonitor/config/cacerts.txt /usr/lib/python2.7/site-packages/httplib2-0.8-py2.7.egg/httplib2" />
+<!--
+        <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
-            command="cp ~gary/src/${project}-${version}/housemonitor/config/cacerts.txt /usr/lib/python2.7/site-packages/httplib2-0.8-py2.7.egg/httplib2" />
-<!--        <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl - -system daemon-reload" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl restart housemonitor.service" />     
