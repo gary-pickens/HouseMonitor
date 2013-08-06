@@ -262,7 +262,7 @@ Notes on installing HouseMonitor.py on a BeagleBone computer
   
 * To check the status execute the following command::
 
-      systemctl start housemonitor.service
+      systemctl status housemonitor.service
   
 * See for the `sysemctl <http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=systemctl>`_. man page.
      
@@ -454,9 +454,9 @@ Baud rate for Tera Term
 
 To talk to the Beagle Bone over the USB serial link set the baud rate to **115200**.
 
-====================
-Setting up the XBees
-====================
+================================
+Setting up the XBees as a router
+================================
 
 #. Plug xbee into the Xbee Explorer.
 #. Connect the Xbee Explorer to the computer via USB cable.
@@ -478,6 +478,29 @@ Setting up the XBees
 #. When X-CTU has finish writing to the XBee close the X-CTU program down.
 #. In Eclipse ant window double click Build Backroom XBee.
 
+===================================
+Setting up the XBees as an endpoint
+===================================
+
+#. Plug xbee into the Xbee Explorer.
+#. Connect the Xbee Explorer to the computer via USB cable.
+#. The power led (PWR) should come on.
+#. Start X-CTU.
+#. Press the Test/Query button on the X-CTU GUI. You should get a dialog box that comes up simular to this:
+
+   .. image:: OutsideModem.phg
+
+#. Select the Modem Configuration Tab. It should look as follows:
+
+   .. image:: ZIGBEE end device at.png
+ 
+#. Press the *Read* button in the *Modem Parameters*.
+#. Press the Download new versions.  This will check if there is new version of the software available.
+#. On the modem Configuration tab select **XB24-ZB** in the **Modem XBEE** section
+#. Select **ZIGBEE End Device AT** under the **Function Set** 
+#. Press the *Write* button in the *Modem Parameters* section.
+#. When X-CTU has finish writing to the XBee close the X-CTU program down.
+#. In Eclipse ant window double click Build Backroom XBee.
 
 =========
 Ant Notes
@@ -1044,6 +1067,18 @@ A Good COSM Report
            "id": "64451"
        }
 
+=========
+PCB notes
+=========
+
+Here are some things to add on the next Power Controler.
+
+#. Two eylets to add power wire.
+#. One of the ADC to monitor battery voltage.
+#. More status leds
+#. Three connector for controling relays.  The third pin will contain power.
+#. Better heat managment.  A larger pad under the voltage regulator and more
+isolation arond the heat sensor.
 
 ====
 Misc
@@ -1067,4 +1102,5 @@ Misc
 #.  `The definitive guide <http://0pointer.de/blog/projects/systemd-docs.html>`_.
 
 #.   `Explorations into Angstrom syslog and systemd <http://www.mattlmassey.com/2012/07/10/explorations-into-angstrom-syslog-and-systemd>`_.
+
 

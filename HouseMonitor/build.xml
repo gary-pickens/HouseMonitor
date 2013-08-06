@@ -178,9 +178,11 @@
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
-            command="systemctl - -system daemon-reload" />
+            command="systemctl - daemon-reload" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl restart housemonitor.service" />     
+        <sshexec host="${host}" username="${user}" password="${password}" trust="true"
+            command="systemctl enable housemonitor.service" />     
 -->            
     </target>
     <target name="copydoctobeaglebone" description="copy the doc files to the beaglebone computer">
@@ -262,9 +264,22 @@
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
-            <arg value="5.0"/>
+            <arg value="2.0"/>
             <arg value="--AT"/>         
             <arg value="--Backroom"/>
+        </exec>
+    </target>
+    <target name="Build Outdoor XBee" description="Build outdoor XBee">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="2.0"/>
+            <arg value="--AT"/>         
+            <arg value="--Outdoor"/>
         </exec>
     </target>
     <target name="Build Coordinator XBee" description="build documentation">

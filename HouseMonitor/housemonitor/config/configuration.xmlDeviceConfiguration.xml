@@ -87,6 +87,24 @@
             <cosm_channel>4</cosm_channel>
         </port>
     </xbee>
+    <xbee source_address="0x13a200408b68b5">
+        <name>Outdoor</name>
+        <network_address>0xf9f2</network_address>
+        <port portname="adc-0">
+            <name>Outdoor Temperature</name>
+            <description>The temperature in our backyard.</description>
+            <units>F</units>
+            <steps type="list">
+                <step>step.ZigbeeAnalogNumberToVolts</step>
+                <step>step.TMP_36_Volts_to_Centigrade</step>
+                <step>step.Centigrade_to_Fahrenheit</step>
+                <step>step.FormatValue</step>
+                <step>step.CurrentValue</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>4</cosm_channel>
+        </port>
+    </xbee>
     <xbee source_address="0x13a20040902a02">
         <name>Status Panel</name>
         <network_address>0xe4e8</network_address>

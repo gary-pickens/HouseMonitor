@@ -114,4 +114,27 @@
         </unit>
         <version>1.0.0</version>
     </item>
+    <item device="0x13a200408b68b5" port="adc-0">
+        <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
+        <id>64451</id>
+        <url>https://api.cosm.com/v2/feeds/{}.json</url>
+        <title>House Monitor</title>
+        <exposure>outdoor</exposure>
+        <domain>physical</domain>
+        <disposition>fixed</disposition>
+        <status>frozen</status>
+        <private>false</private>
+        <tags>Temperature</tags>
+        <cosm_channel>5</cosm_channel>
+        <creator>https://cosm.com/users/{}</creator>
+        <latitude>30.3351807498968</latitude>
+        <longitude>-97.7104604244232</longitude>
+        <email>gary_pickens@yahoo.com</email>
+        <max_value>125</max_value>
+        <min_value>0</min_value>
+        <unit>
+          <label>F</label>
+        </unit>
+        <version>1.0.0</version>
+    </item>
 </cosm>

@@ -10,7 +10,7 @@ from datetime import datetime
 
 SERIAL_PORT_NAME = 'COM4'
 SERIAL_PORT_SPEED = 9600
-TIMEOUT = 5.0
+TIMEOUT = 2.0
 
 sensor = False
 
@@ -24,8 +24,27 @@ class ZigBeeException( Exception ):
 
 decoder_string = {1: ">B", 2: ">H", 4: ">L", 8: ">Q"}
 
+def compute_sleep_time( seconds ):
+    if ( seconds > 28 ):
+        raise( ValueError( "Sleep time can not be greater than 28 seconds" ) )
+    if ( seconds < 0.320 ):
+        raise( ValueError( "Sleep time can not be less than 320 milliseconds" ) )
+
+    milliseconds = seconds * 1000
+    count = milliseconds / 10
+    return bytearray( format( count, '04X' ) )
+
+def compute_time( seconds ):
+    milliseconds = seconds * 1000
+    return bytearray( format( milliseconds, '04X' ) )
+
+def number_to_bytearray( number ):
+    return bytearray( format( number, '04X' ) )
 
 class base():
+
+    MILLI = 1000
+
     # configurable items
     PAN_ID = b'475069636B656E73'
     ENCRYPTION_KEY = b'5971001804841010'
@@ -45,6 +64,16 @@ class base():
 
     LongestSampleRate = b'FFFF'    # the max -- 65567 in milliseconds
     DisableSampleRate = b'0000'
+
+    # parameters for Sleep Mode
+    DisableSleepMode = b'0'
+    PinWakeUp = b'1'
+    CyclicSleepMode = b'4'
+    CyclicSleepWithPinWake = b'5'
+
+    # parameters for Sleep Options
+    AlwaysWakeForSTTime = b'02'
+    SleepEntireSNtimesSPTime = b'04'
 
     NoBitChange = b'00'
     BitChange = {'DIO0': b'01', 'DIO1': b'02', 'DIO2': b'04', 'DIO3': b'08',
@@ -161,26 +190,6 @@ class sunroom( object ):
         {base.command:b'WR'},    # write
     ]
 
-class backroom( object ):
-
-    commands = [
-        {base.command:b'ID', base.parameter:base.PAN_ID},
-        {base.command:b'NI', base.parameter:b'Backroom'},
-        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the backroom
-        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},    #
-        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'PR', base.parameter:base.NoPullups},
-        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
-        {base.command:b'IR', base.parameter:base.LongestSampleRate},    # IO Sample rate in milliseconds
-        {base.command:b'JV', base.parameter:b'1'},    # ensure that the router rejoins the coordinator on startup0
-        {base.command:b'WR'},    # write
-    ]
-
 class statusPanel( object ):
 
     commands = [
@@ -200,6 +209,63 @@ class statusPanel( object ):
         {base.command:b'JV', base.parameter:b'1'},    # ensure that the router rejoins the coordinator on startup0
         {base.command:b'WR'},    # write
     ]
+
+class backroom( object ):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'Backroom'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the backroom
+        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},    #
+        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
+        {base.command:b'IR', base.parameter:compute_time( 4 )},    # IO Sample rate in milliseconds (6 seconds)
+
+        # Configure this XBee to sleep for N seconds
+        {base.command:b'SP', base.parameter:compute_sleep_time( 10 )},    # Set the sleep time in seconds
+        {base.command:b'SN', base.parameter:number_to_bytearray( 64 )},    # set time to SP * SN (10 * 64 = 640 sec)
+                                                                           # 640 / 60 = 10 min
+        {base.command:b'ST', base.parameter:compute_time( 5 )},    # Time before sleep in seconds
+        {base.command:b'SM', base.parameter:base.CyclicSleepMode},
+        {base.command:b'SO', base.parameter:number_to_bytearray( 4 )},    # Sleep Options
+
+        {base.command:b'WR'},    # write
+    ]
+
+class outdoor( object ):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'Outdoors'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp outside
+        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
+        {base.command:b'IR', base.parameter:compute_time( 4 )},    # IO Sample rate in milliseconds (6 seconds)
+
+        # Configure this XBee to sleep for N seconds
+        {base.command:b'SP', base.parameter:compute_sleep_time( 5 )},    # Set the sleep time in seconds
+        {base.command:b'SN', base.parameter:number_to_bytearray( 127 )},    # set time to SP * SN (5 * 127 = 640 sec)
+        {base.command:b'ST', base.parameter:compute_time( 5 )},    # Time before sleep in seconds
+                                                                            # Total time per cycle 635 + 5 / 60 = 10 min
+        {base.command:b'SO', base.parameter:base.SleepEntireSNtimesSPTime},    # Sleep Options
+        {base.command:b'SM', base.parameter:base.CyclicSleepMode},
+
+        {base.command:b'WR'},    # write
+    ]
+
 
 
 class configBase( object ):
@@ -280,6 +346,8 @@ class configATXBee( configBase ):
             char = self.serial.read()
             if ( char == b'\r' ):
                 done = True
+            elif char == '':
+                return ''
             else:
                 line += char
         return repr( line )
@@ -293,13 +361,19 @@ class configATXBee( configBase ):
         self.serial.write( bytearray( cmdLine ) )
         line = self.readLine()
         error = "'ERROR"
-        if ( line.startswith( error ) ):
+        if ( line == '' or line.startswith( error ) ):
             print( 'ERROR on {} with parameter {}'.format( command[base.command], command[base.parameter] ) )
         print( '{:<20} {:>6}'.format( cmdLine.split()[0], line.split()[0] ) )
 
     def main( self, commands ):
-        self.serial.write( b'+++' )
-        self.readLine()
+        done = False
+        while ( not done ):
+            self.serial.write( b'+++' )
+            ok = self.readLine()
+            if ( ok.find( 'OK' ) != -1 ):
+                done = True
+            else:
+                print( "Waiting" )
 
         print( '{:<20} {:>6}'.format( 'Command', 'Status' ) )
         print( '{} {}'.format( '-' * 20, '-' * 6 ) )
@@ -322,6 +396,7 @@ if __name__ == '__main__':
     parser.add_option( "--weather", action="store_const", const="Weather", dest="node", help="Configure the attached XBee as the weather sensor" )
     parser.add_option( "--sunroom", action="store_const", const="Sunroom", dest="node", help="Configure the attached XBee as the sunroom sensor" )
     parser.add_option( "--Backroom", action="store_const", const="Backroom", dest="node", help="Configure the attached XBee as the Backroom sensor" )
+    parser.add_option( "--Outdoor", action="store_const", const="Outdoor", dest="node", help="Configure the attached XBee as the Outdoor sensor" )
     parser.add_option( "--status", action="store_const", const="Status", dest="node", help="Configure the attached XBee to display House status" )
 
     parser.add_option( "--ToAPI", action="store_const", const="ToAPI", dest="node", help="Configure the attached XBee as the sunroom sensor" )
@@ -366,6 +441,8 @@ if __name__ == '__main__':
         commands = sunroom.commands
     elif ( options.node == "Backroom" ):
         commands = backroom.commands
+    elif ( options.node == "Outdoor" ):
+        commands = outdoor.commands
     elif ( options.node == "Status" ):
         commands = statusPanel.commands
     elif ( options.node == "ToAT" ):
