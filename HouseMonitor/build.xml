@@ -178,7 +178,7 @@
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
-            command="systemctl - daemon-reload" />
+            command="systemctl daemon-reload" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl restart housemonitor.service" />     
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
