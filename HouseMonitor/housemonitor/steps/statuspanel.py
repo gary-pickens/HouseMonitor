@@ -464,7 +464,7 @@ class StatusPanel( Base ):
             self.status_panel.long_scheduler_id == str( uuid.uuid4() )
             try:
                 pub.sendMessage( Constants.TopicNames.SchedulerDeleteJob,
-                                 self.status_panel.scheduler_turn_off_initial_alarm )
+                                 name=self.status_panel.scheduler_turn_off_initial_alarm )
             except Exception as ex:
                 self.logger.exception( 'Common.send error {}'.format( ex ) )
 
