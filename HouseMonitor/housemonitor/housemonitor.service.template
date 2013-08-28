@@ -1,12 +1,16 @@
 [Unit]
 Description=House Monitoring and Control System
-After=syslog.target
+After=network-online.target
+ConditionPathIsDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor
+ConditionFileInExecutable=/usr/bin/python
+ConditionPathExists=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor/HouseMonitor.py
 
 [Service]
-WorkingDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-4.0.4-py2.7.egg/housemonitor
-ExecStart=/usr/bin/python /usr/lib/python2.7/site-packages/HouseMonitor-4.0.4-py2.7.egg/housemonitor/HouseMonitor.py
+WorkingDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor
+ExecStart=/usr/bin/python /usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor/HouseMonitor.py
 Type=simple
 Restart=always
+# RestartSec=180
 
 [Install]
 WantedBy=multi-user.target
