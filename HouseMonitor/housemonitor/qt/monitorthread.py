@@ -22,7 +22,7 @@ class MonitorThread( QThread ):
     TODO: Use Constants file for a lot of the hard coded values
     '''
     values = None
-    url = 'http://{}:{}'.format( 'beaglebone', 9002 )
+    url = 'http://{}:{}'.format( 'housemonitor', 9002 )
     proxy = None
 
     connected = False
