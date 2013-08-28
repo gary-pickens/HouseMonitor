@@ -238,7 +238,8 @@ Notes on installing HouseMonitor.py on a BeagleBone computer
 ============================================================
 
 * Create or stall HouseMonitor
-* Create or install and correct the following file called housemonitor.service::
+* Create or install and correct the following file called housemonitor.service in
+/lib/systemd/system::
 
       [Unit]
       Description=House Monitoring and Control System
@@ -272,6 +273,9 @@ Building a new system for HouseMonitor
 
 **See next section about experinces installing new system in May.**
 
+Windows
+-------
+
 #. `Download image <http://downloads.angstrom-distribution.org/demo/beaglebone/>`_.
 #. Description for `installing <http://circuitco.com/support/index.php?title=BeagleBone#Creating_a_SD_Card>`_. new image. Here is a summary of the web page for initializing your card using windows:
 
@@ -285,6 +289,28 @@ Building a new system for HouseMonitor
    * Select the decompressed image file and correct SD card location. **MAKE SURE YOU SELECT THE CORRECT LOCATION OF THE SD CARD.**
    * Click on 'Write'.
    * After the image writing is done, eject the SD card.
+
+Linux
+-----
+   * `This page describles writing the SD memory code with Linux. <http://downloads.angstrom-distribution.org/demo/beaglebone/>`_.
+
+for gz file::
+ 
+  $ sudo -s
+   (type in your password)
+  # zcat Angstrom-Cloud9-IDE-eglibc-ipk-v2011.10-core-beaglebone-r0.img.gz > /dev/sdX
+  # exit
+
+Or for the img.xz::
+
+
+  $ sudo -s
+   (type in your password)
+  # xz -dkc Angstrom-Cloud9-IDE-eglibc-ipk-v2011.10-core-beaglebone-r0.img.xz > /dev/sdX
+  # exit
+
+   the correct /dev/sdX device can be determined by putting the device in the Linux machine 
+   and issuing a df command.  Mine was /dev/sdb. fdisk my help also.
 
 #. Insert the sd rom in the beaglebone computer.
 #. Power up the beagle bone computer.
@@ -320,6 +346,11 @@ Building a new system for HouseMonitor
 
    * ``sudo curl -k -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py``
    * ``sudo python get-pip.py``
+
+#. Use the following command to change the host name::
+   
+   hostnamectl set-hostname HouseMonitor
+
 
 #. Installing HouseMonitor
    * Download HouseMonitor-3.0.2.zip to the BeagleBone.

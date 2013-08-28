@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 4
 
    notes
+   beaglebone-log
    Python_UnitTest_Cookbook
    housemonitor
 
