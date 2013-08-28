@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 Created on Sep 10, 2012
 
@@ -162,6 +163,8 @@ class HouseMonitor():
         self.startInputs()
 
         self.pubAid = PubSubAid()
+
+
 
         # Endless loop will never return
         self.input.input()
