@@ -210,12 +210,12 @@ class statusPanel( object ):
         {base.command:b'WR'},    # write
     ]
 
-class backroom( object ):
+class kitchen( object ):
 
     commands = [
         {base.command:b'ID', base.parameter:base.PAN_ID},
         {base.command:b'NI', base.parameter:b'Backroom'},
-        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the backroom
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the kitchen
         {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},    #
         {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
@@ -229,7 +229,7 @@ class backroom( object ):
 
         # Configure this XBee to sleep for N seconds
         {base.command:b'SP', base.parameter:compute_sleep_time( 10 )},    # Set the sleep time in seconds
-        {base.command:b'SN', base.parameter:number_to_bytearray( 64 )},    # set time to SP * SN (10 * 64 = 640 sec)
+        {base.command:b'SN', base.parameter:number_to_bytearray( 6 )},    # set time to SP * SN (10 * 64 = 640 sec)
                                                                            # 640 / 60 = 10 min
         {base.command:b'ST', base.parameter:compute_time( 5 )},    # Time before sleep in seconds
         {base.command:b'SM', base.parameter:base.CyclicSleepMode},
@@ -395,7 +395,7 @@ if __name__ == '__main__':
     parser.add_option( "--garage", action="store_const", const="Garage door", dest="node", help="Configure the attached XBee as the garage door sensor" )
     parser.add_option( "--weather", action="store_const", const="Weather", dest="node", help="Configure the attached XBee as the weather sensor" )
     parser.add_option( "--sunroom", action="store_const", const="Sunroom", dest="node", help="Configure the attached XBee as the sunroom sensor" )
-    parser.add_option( "--Backroom", action="store_const", const="Backroom", dest="node", help="Configure the attached XBee as the Backroom sensor" )
+    parser.add_option( "--Kitchen", action="store_const", const="Kitchen", dest="node", help="Configure the attached XBee as the Kitchen sensor" )
     parser.add_option( "--Outdoor", action="store_const", const="Outdoor", dest="node", help="Configure the attached XBee as the Outdoor sensor" )
     parser.add_option( "--status", action="store_const", const="Status", dest="node", help="Configure the attached XBee to display House status" )
 
@@ -439,8 +439,8 @@ if __name__ == '__main__':
         commands = Coordinator.commands
     elif ( options.node == "Sunroom" ):
         commands = sunroom.commands
-    elif ( options.node == "Backroom" ):
-        commands = backroom.commands
+    elif ( options.node == "Kitchen" ):
+        commands = kitchen.commands
     elif ( options.node == "Outdoor" ):
         commands = outdoor.commands
     elif ( options.node == "Status" ):
