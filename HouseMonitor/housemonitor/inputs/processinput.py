@@ -20,6 +20,9 @@ from housemonitor.lib.base import Base
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.getdatetime import GetDateTime
 import thread
+from pympler import muppy
+from pympler import tracker
+from pympler import summary
 
 
 class abcProcessInput( Base, object ):
@@ -196,6 +199,9 @@ class ProcessInput( abcInput ):
         package.
 
         '''
+        tr = tracker.SummaryTracker()
 
         while self.forever:
+            self.logger.error( "#### diff #####" )
+            tr.print_diff()
             self.work()
