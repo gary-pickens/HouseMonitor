@@ -19,6 +19,7 @@ from abc_input import abcInput
 from housemonitor.lib.base import Base
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.getdatetime import GetDateTime
+import housemonitor.lib.sddaemon
 import thread
 
 
@@ -198,4 +199,5 @@ class ProcessInput( abcInput ):
         '''
 
         while self.forever:
+            housemonitor.lib.sddaemon.sd_notify( 0, 'WATCHDOG=1' )
             self.work()
