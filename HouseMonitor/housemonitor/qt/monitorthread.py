@@ -22,7 +22,7 @@ class MonitorThread( QThread ):
     TODO: Use Constants file for a lot of the hard coded values
     '''
     values = None
-    url = 'http://{}:{}'.format( 'housemonitor', 9002 )
+    url = 'http://{}:{}'.format( '192.168.7.2', 9002 )
     proxy = None
 
     connected = False
@@ -80,7 +80,7 @@ class MonitorThread( QThread ):
             self.connect_to_house_monitor()
         try:
             self.values = self.proxy.get_current_values()
-        except Exception:
+        except Exception as ex:
             self.connected = False
         finally:
             if self.connected:
