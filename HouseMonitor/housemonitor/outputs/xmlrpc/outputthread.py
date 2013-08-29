@@ -23,7 +23,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
     _select_hostname_based_on_os = {'posix': 'beaglebone',
                                    'nt': 'localhost'}
 #    _host = _select_hostname_based_on_os[os.name]
-    _host = '192.168.7.1'
+    _host = '192.168.7.2'
     _port = 9002
 
     def __init__( self, current_values ):
