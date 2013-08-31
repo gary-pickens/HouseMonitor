@@ -22,6 +22,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
     # TODO put this in a configuration file
     _select_hostname_based_on_os = {'posix': 'beaglebone',
                                    'nt': 'localhost'}
+    # TODO figure out what to do if there are two host names
 #    _host = _select_hostname_based_on_os[os.name]
     _host = '192.168.7.2'
     _port = 9002
@@ -32,8 +33,6 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         super( XmlRpcOutputThread, self ).__init__()
         threading.Thread.__init__( self )
         self.current_values = current_values
-        self.logger.debug( '###################### _host = {}'.format( self._host ) )
-        self.logger.debug( '##################### _port = {}'.format( self._port ) )
 
     ''' Make sure and enter the appropriate entry in the logging configuration
     file
@@ -56,9 +55,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         return cv
 
     def run( self ):
-        self.logger.error( "!!!!!!!!!!!!!!!!!!! Starting XMLRPC server on {} {}".format( self._host, self._port ) )
         server = SimpleXMLRPCServer( ( self._host, self._port ), logRequests=True )
-        self.logger.error( "!!!!!!!!!!!!!!!!!!! Finished starting XMLRPC server on {} {}".format( self._host, self._port ) )
         server.register_introspection_functions()
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )
