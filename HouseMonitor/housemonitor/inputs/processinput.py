@@ -200,4 +200,5 @@ class ProcessInput( abcInput ):
 
         while self.forever:
             housemonitor.lib.sddaemon.sd_notify( 0, 'WATCHDOG=1' )
+            self.logger.debug( "Sent WATCHDOG=1 to systemd" )
             self.work()

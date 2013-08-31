@@ -176,16 +176,16 @@
             command="cp ~gary/src/${project}-${version}/housemonitor/config/cacerts.txt /usr/lib/python2.7/site-packages/httplib2-0.8-py2.7.egg/httplib2" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="chmod 777 /usr/lib/python2.7/site-packages/HouseMonitor-4.0.4-py2.7.egg/housemonitor/HouseMonitor.py" />
-<!--
+    </target>
+    <target name="enable systemd" description="reload daemon, start, and enable HouseMonitor" depends="installbeaglebone">
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
-            command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /etc/systemd/system/housemonitor.service" />
+            command="cp ~gary/src/HouseMonitor-${version}/housemonitor/housemonitor.service /lib/systemd/system/housemonitor.service" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl daemon-reload" />
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl restart housemonitor.service" />     
         <sshexec host="${host}" username="${user}" password="${password}" trust="true"
             command="systemctl enable housemonitor.service" />     
--->            
     </target>
     <target name="copydoctobeaglebone" description="copy the doc files to the beaglebone computer">
         <scp todir="${user}:${password}@${host}:/www/pages" failonerror="true" trust="true">

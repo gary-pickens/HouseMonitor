@@ -43,6 +43,7 @@ housemonitor/lib\hmscheduler.py
 housemonitor/lib\moduleloader.py
 housemonitor/lib\oswalk.py
 housemonitor/lib\pubsubaid.py
+housemonitor/lib\sddaemon.py
 housemonitor/outputs\__init__.py
 housemonitor/outputs\ioutput.py
 housemonitor/outputs\log.py
