@@ -4,7 +4,7 @@
     <item device="0x13a200409029bf" port="adc-1">
 	    <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
 	    <id>64451</id>
-	    <url>https://api.xively.com/v2/feeds/{}.json</url>
+	    <url>http://api.xively.com/v2/feeds/{}.json</url>
 	    <title>House Monitor</title>
 	    <exposure>indoor</exposure>
 	    <domain>physical</domain>
@@ -27,7 +27,7 @@
     <item device="0x13a200409029bf" port="dio-0">
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
-        <url>https://api.xively.com/v2/feeds/{}.json</url>
+        <url>http://api.xively.com/v2/feeds/{}.json</url>
         <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
@@ -48,7 +48,7 @@
     <item device="0x13a200408cccc3" port="adc-0">
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
-        <url>https://api.xively.com/v2/feeds/{}.json</url>
+        <url>http://api.xively.com/v2/feeds/{}.json</url>
         <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
@@ -71,7 +71,7 @@
     <item device="0x13a200408cccc3" port="adc-1">
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
-        <url>https://api.xively.com/v2/feeds/{}.json</url>
+        <url>http://api.xively.com/v2/feeds/{}.json</url>
         <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
@@ -94,7 +94,7 @@
     <item device="0x13a20040902867" port="adc-0">
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
-        <url>https://api.xively.com/v2/feeds/{}.json</url>
+        <url>http://api.xively.com/v2/feeds/{}.json</url>
         <title>House Monitor</title>
         <exposure>indoor</exposure>
         <domain>physical</domain>
@@ -117,7 +117,7 @@
     <item device="0x13a200408b68b5" port="adc-0">
         <apikey>WhOKtmp8qTU_5-C8bl6JCrEQ_EeSAKxJV0lHNkkybzlsaz0g</apikey>
         <id>64451</id>
-        <url>https://api.xively.com/v2/feeds/{}.json</url>
+        <url>http://api.xively.com/v2/feeds/{}.json</url>
         <title>House Monitor</title>
         <exposure>outdoor</exposure>
         <domain>physical</domain>
