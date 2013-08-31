@@ -2,12 +2,11 @@
 Description=House Monitoring and Control System
 After=network-online.target
 ConditionPathIsDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor
-ConditionFileInExecutable=/usr/bin/python
-ConditionPathExists=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor/HouseMonitor.py
+ConditionFileIsExecutable=/usr/bin/HouseMonitor
 
 [Service]
 WorkingDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor
-ExecStart=/usr/bin/python /usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor/HouseMonitor.py
+ExecStart=/usr/bin/HouseMonitor
 Type=simple
 Restart=always
 # the time to wait before restarting the service

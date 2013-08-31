@@ -13,7 +13,7 @@
 	    <private>false</private>
 	    <tags>Temperature</tags>
 	    <cosm_channel>1</cosm_channel>
-	    <creator>https://cosm.com/users/{}</creator>
+	    <creator>https://xively.com/users/{}</creator>
 		<latitude>30.3351807498968</latitude>
 		<longitude>-97.7104604244232</longitude>
 		<email>gary_pickens@yahoo.com</email>
@@ -36,7 +36,7 @@
         <private>false</private>
         <tags>Door</tags>
         <cosm_channel>0</cosm_channel>
-        <creator>https://cosm.com/users/{}</creator>
+        <creator>https://xively.com/users/{}</creator>
         <latitude>30.3351807498968</latitude>
         <longitude>-97.7104604244232</longitude>
         <email>gary_pickens@yahoo.com</email>
@@ -57,7 +57,7 @@
         <private>false</private>
         <tags>Temperature</tags>
         <cosm_channel>2</cosm_channel>
-        <creator>https://cosm.com/users/{}</creator>
+        <creator>https://xively.com/users/{}</creator>
         <latitude>30.3351807498968</latitude>
         <longitude>-97.7104604244232</longitude>
         <email>gary_pickens@yahoo.com</email>
@@ -80,7 +80,7 @@
         <private>false</private>
         <tags>Temperature</tags>
         <cosm_channel>3</cosm_channel>
-        <creator>https://cosm.com/users/{}</creator>
+        <creator>https://xively.com/users/{}</creator>
         <latitude>30.3351807498968</latitude>
         <longitude>-97.7104604244232</longitude>
         <email>gary_pickens@yahoo.com</email>
@@ -103,7 +103,7 @@
         <private>false</private>
         <tags>Temperature</tags>
         <cosm_channel>4</cosm_channel>
-        <creator>https://cosm.com/users/{}</creator>
+        <creator>https://xively.com/users/{}</creator>
         <latitude>30.3351807498968</latitude>
         <longitude>-97.7104604244232</longitude>
         <email>gary_pickens@yahoo.com</email>
@@ -126,7 +126,7 @@
         <private>false</private>
         <tags>Temperature</tags>
         <cosm_channel>5</cosm_channel>
-        <creator>https://cosm.com/users/{}</creator>
+        <creator>https://xively.com/users/{}</creator>
         <latitude>30.3351807498968</latitude>
         <longitude>-97.7104604244232</longitude>
         <email>gary_pickens@yahoo.com</email>

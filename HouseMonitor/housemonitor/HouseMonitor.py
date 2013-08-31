@@ -6,6 +6,13 @@ Created on Sep 10, 2012
 '''
 from datetime import datetime
 import time
+import logging.config
+import sys
+import os
+from pprint import pprint
+from pubsub import pub
+from optparse import OptionParser
+
 from housemonitor.inputs.computermonitor.computermonitor import ComputerMonitor
 from housemonitor.inputs.processinput import ProcessInput, abcProcessInput, ProcessXBeeInput
 from housemonitor.inputs.testinputthead import TestInputThread
@@ -17,15 +24,13 @@ from housemonitor.lib.hmqueue import HMQueue
 from housemonitor.lib.hmscheduler import HMScheduler, HMScheduler
 from housemonitor.lib.moduleloader import ModuleLoader
 from housemonitor.lib.pubsubaid import PubSubAid
-from optparse import OptionParser
 from housemonitor.outputs.cosm.control import COSMControl
 from housemonitor.outputs.xmlrpc.control import XMLRPCControl
 from housemonitor.outputs.zigbee.zigbeecontrol import ZigBeeControl
-from pprint import pprint
-from pubsub import pub
-from housemonitorinfo import *
-import logging.config
-import sys
+import housemonitor
+from housemonitorinfo import ( HouseMonitorAuthor, HouseMonitorBuildDate,
+                              HouseMonitorEmail,
+                              HouseMonitorTitle, HouseMonitorVersion )
 
 
 class HouseMonitor():
@@ -68,12 +73,14 @@ class HouseMonitor():
         self.parse_options()
 
     def print_start_message( self ):
+
         self.logger.info( '{:^30}'.format( HouseMonitorTitle ) )
         self.logger.info( '' )
         self.logger.info( 'author:             ' + HouseMonitorAuthor )
         self.logger.info( 'email:              ' + HouseMonitorEmail )
         self.logger.info( 'version:            ' + HouseMonitorVersion )
         self.logger.info( 'date built:         ' + HouseMonitorBuildDate )
+        self.logger.info( '' )
 
     def parse_options( self ):
         Options = OptionParser()
@@ -106,49 +113,49 @@ class HouseMonitor():
 
     def startInputs( self ):
         ''' Start Home Monitor Input routines '''
-        self.logger.info( 'Start the Input Queue' )
+        self.logger.debug( 'Start the Input Queue' )
         self.input_queue = HMQueue( "Input" )
 
         self.input = ProcessInput( self.input_queue )
 
         # Start thread for inputing data
         if ( not self.options.in_test_mode ):
-            self.logger.info( 'Starting xbee input' )
+            self.logger.debug( 'Starting xbee input' )
             self.xbee_thread = XBeeInputThread( self.input_queue )
             self.xbee_thread.start()
 
         # The following will test various inputs
         if ( self.options.in_test_mode ):
-            self.logger.info( 'Starting test thread' )
+            self.logger.debug( 'Starting test thread' )
             self.test_input = TestInputThread( self.input_queue )
             self.test_input.start()
 
-        self.logger.info( 'Starting scheduler' )
+        self.logger.debug( 'Starting scheduler' )
         self.sched = HMScheduler( self.input_queue )
         self.sched.start()
 
         if ( sys.platform[:5] == 'linux' ):
-            self.logger.info( 'Starting ComputerMonitor' )
+            self.logger.debug( 'Starting ComputerMonitor' )
             self.computer_monitor = ComputerMonitor( self.input_queue )
             self.computer_monitor.start()
 
     def startOutputs( self, global_data ):
 
-        self.logger.info( 'Start output communications to COSM' )
+        self.logger.debug( 'Start output communications to COSM' )
         self.cosm = COSMControl()
         self.cosm.startCOSM( self.options )
 
-        self.logger.info( 'Start the XML RPC server' )
+        self.logger.debug( 'Start the XML RPC server' )
         self.xmlrpc = XMLRPCControl( global_data )
         self.xmlrpc.startXMLRPC( self.options )
 
-        self.logger.info( 'Start output communications with ZigBee' )
+        self.logger.debug( 'Start output communications with ZigBee' )
         self.zigbee = ZigBeeControl()
         self.zigbee.startZigBee( self.options )
 
     def run( self ):
 
-        self.logger.info( 'Setting up global_data for communications between different part of the system' )
+        self.logger.debug( 'Setting up global_data for communications between different part of the system' )
         global_data = {}
         global_data['current values'] = CurrentValues()
         global_data['options'] = self.options
@@ -164,12 +171,10 @@ class HouseMonitor():
 
         self.pubAid = PubSubAid()
 
-
-
         # Endless loop will never return
         self.input.input()
 
-        self.logger.info( "Exiting" )
+        self.logger.debug( "Exiting" )
 
 if __name__ == "__main__":
     HouseMonitor().run()
