@@ -1134,4 +1134,11 @@ Misc
 
 #.   `Explorations into Angstrom syslog and systemd <http://www.mattlmassey.com/2012/07/10/explorations-into-angstrom-syslog-and-systemd>`_.
 
+#.  `Memory monitor software <http://pythonhosted.org/Pympler/>`_.
+
+#.  'Pico -- A light weight web server <https://github.com/fergalwalsh/pico/wiki>`_.
+
+#.  `Super Easy Python JSON Client & Server <http://cpiekarski.com/2011/05/09/super-easy-python-json-client-server>`_.
+
+#.  `Python simple JSON TCP server and client <http://thomasfischer.biz/?p=622>`_.
 
