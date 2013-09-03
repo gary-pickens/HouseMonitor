@@ -34,6 +34,45 @@ class abcProcessInput( Base, object ):
         pass    # pragma: no cover
 
 
+class ProcessCommandInput( abcProcessInput ):
+    '''
+    This class will receive a command from some external source
+    and load it into the system for further processing.
+    '''
+    devices = {}
+
+    @property
+    def logger_name( self ):
+        return Constants.LogKeys.INPUT_COMMANDS
+
+    def __init__( self, devices ):
+        super( ProcessCommandInput, self ).__init__()
+
+    def process( self, env ):
+        '''
+        Process a envelope received from the XBee.  This involves the following:
+        1.  get the addresses from the header
+        2.  get the data out of the packet
+        3.  get information about the source of the data
+        4.  send each packet using the pub/sub system
+
+        Args:
+        :param envelope: a packet received from the XBee radio and decomposed by the ZigBee module
+        :type DataEnvelope:
+        Return: None
+        :Raises: None
+        '''
+        self.logger.info( 'processing command {}'.format( env ) )
+        try:
+            value = env[Constants.EnvelopeContents.VALUE]
+            steps = copy.copy( env[Constants.EnvelopeContents.STEPS] )
+
+            Common.send( value, env, steps )
+        except KeyError as ex:
+            self.logger.exception( 'value or steps missing from env {}'.format( env ) )
+        except ListenerSpecIncomplete as lsi:
+            self.logger.error( 'Invalid topic: {}'.format( lsi ) )
+
 class ProcessXBeeInput( abcProcessInput ):
     '''
     This class will receive an XBee packet, strip the pertinate data out, and send it allong to be processed.
@@ -64,7 +103,7 @@ class ProcessXBeeInput( abcProcessInput ):
         '''
         self.logger.info( 'processing data from zigbee {}'.format( envelope ) )
         try:
-            packet = envelope.packet
+            packet = envelope[Constants.EnvelopeContents.PACKET]
             if packet[Constants.XBee.id] == Constants.XBee.api_responses.rx_io_data_long_addr:
                 source_addr_long = "{:#x}".format( unpack( '!Q', packet[Constants.XBee.source_addr_long] )[0] )
                 source_addr = "{:#x}".format( unpack( '!H', packet[Constants.XBee.source_addr] )[0] )
@@ -105,7 +144,7 @@ class ProcessStatusRequests( abcProcessInput ):
 
     @property
     def logger_name( self ):
-        return Constants.LogKeys.inputs
+        return Constants.LogKeys.INPUT_STATUS
 
     def __init__( self, devices ):
         super( ProcessStatusRequests, self ).__init__()
@@ -124,7 +163,7 @@ class ProcessStatusRequests( abcProcessInput ):
         :Raises: None
         '''
         try:
-            data = envelope.data
+            data = envelope[Constants.EnvelopeContents.DATA]
             if Constants.DataPacket.current_value in data:
                 value = data[Constants.DataPacket.current_value]
             else:
@@ -140,7 +179,7 @@ class ProcessInput( abcInput ):
     the of data and pass the data to the correct routine to futher process the data
     '''
 
-    _input_queue = None
+    __input_queue = None
     ''' The queue will be used to receive data from input threads. '''
 
     commands = {}
@@ -172,8 +211,9 @@ class ProcessInput( abcInput ):
         self._input_queue = input_queue
         self.devices = xmlDeviceConfiguration()
 
-        self.commands = {Constants.EnvelopeTypes.xbee: ProcessXBeeInput( self.devices ),
-                         Constants.EnvelopeTypes.status: ProcessStatusRequests( self.devices )}
+        self.commands = {Constants.EnvelopeTypes.XBEE: ProcessXBeeInput( self.devices ),
+                         Constants.EnvelopeTypes.COMMAND: ProcessCommandInput( self.devices ),
+                         Constants.EnvelopeTypes.STATUS: ProcessStatusRequests( self.devices )}
 
     def work( self ):
         '''

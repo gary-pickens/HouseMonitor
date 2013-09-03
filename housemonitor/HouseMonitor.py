@@ -111,23 +111,22 @@ class HouseMonitor():
                            help="Run in test mode. (Don't start XBee thread, start test thread. Don't send reports to COSM)" )
         ( self.options, self.args ) = Options.parse_args()
 
-    def startInputs( self ):
+    def startInputs( self, global_data ):
         ''' Start Home Monitor Input routines '''
-        self.logger.debug( 'Start the Input Queue' )
-        self.input_queue = HMQueue( "Input" )
 
-        self.input = ProcessInput( self.input_queue )
+        input_queue = global_data[Constants.GlobalData.INPUT_QUEUE]
+        self.input = ProcessInput( input_queue )
 
         # Start thread for inputing data
         if ( not self.options.in_test_mode ):
             self.logger.debug( 'Starting xbee input' )
-            self.xbee_thread = XBeeInputThread( self.input_queue )
+            self.xbee_thread = XBeeInputThread( input_queue )
             self.xbee_thread.start()
 
         # The following will test various inputs
         if ( self.options.in_test_mode ):
             self.logger.debug( 'Starting test thread' )
-            self.test_input = TestInputThread( self.input_queue )
+            self.test_input = TestInputThread( input_queue )
             self.test_input.start()
 
         self.logger.debug( 'Starting scheduler' )
@@ -136,7 +135,7 @@ class HouseMonitor():
 
         if ( sys.platform[:5] == 'linux' ):
             self.logger.debug( 'Starting ComputerMonitor' )
-            self.computer_monitor = ComputerMonitor( self.input_queue )
+            self.computer_monitor = ComputerMonitor( input_queue )
             self.computer_monitor.start()
 
     def startOutputs( self, global_data ):
@@ -146,7 +145,9 @@ class HouseMonitor():
         self.cosm.startCOSM( self.options )
 
         self.logger.debug( 'Start the XML RPC server' )
-        self.xmlrpc = XMLRPCControl( global_data )
+        self.xmlrpc = XMLRPCControl( global_data[Constants.GlobalData.CURRENT_VALUES],
+                                     global_data[Constants.GlobalData.INPUT_QUEUE],
+                                     global_data[Constants.GlobalData.OPTIONS] )
         self.xmlrpc.startXMLRPC( self.options )
 
         self.logger.debug( 'Start output communications with ZigBee' )
@@ -157,10 +158,11 @@ class HouseMonitor():
 
         self.logger.debug( 'Setting up global_data for communications between different part of the system' )
         global_data = {}
-        global_data['current values'] = CurrentValues()
-        global_data['options'] = self.options
-        global_data['args'] = self.args
-        global_data['start time'] = datetime.utcnow()
+        global_data[Constants.GlobalData.CURRENT_VALUES] = CurrentValues()
+        global_data[Constants.GlobalData.OPTIONS] = self.options
+        global_data[Constants.GlobalData.ARGS] = self.args
+        global_data[Constants.GlobalData.START_TIME] = datetime.utcnow()
+        global_data[Constants.GlobalData.INPUT_QUEUE] = HMQueue( "Input" )
 
         self.module_loader = ModuleLoader()
         self.module_loader.load( global_data )

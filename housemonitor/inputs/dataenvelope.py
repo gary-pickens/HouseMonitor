@@ -4,51 +4,38 @@ Created on Oct 10, 2012
 @author: Gary
 '''
 from housemonitor.lib.getdatetime import GetDateTime
+from collections import defaultdict
+from housemonitor.lib.constants import Constants
 
 
-class DataEnvelope( object ):
+class DataEnvelope( dict ):
 
     '''
     This object will be used to pass data through queues between threads.
 
     '''
-    type = 'xbee'
-    ''' THe type of data that is being passed. '''
-    packet = None
-    ''' The data. '''
-    arrival_time = GetDateTime()
-    ''' The arrival time of the data.'''
-    data = None
-    ''' Additional data such as it source. '''
+    type = Constants.EnvelopeTypes.XBEE
+    ''' The type of data that is being passed. '''
+    args = None
 
-    def __init__( self, type='xbee', packet={}, arrival_time=GetDateTime(), data={} ):
+    def __init__( self, type=Constants.EnvelopeTypes.XBEE, **kwargs ):
         ''' Store the data in the envelope.
 
-        :param type: the type of data that this packet contain.
-        :type type: string
-        :param packet: the data
-        :type packet:  dict
-        :param arrival_time: The time that the packet was received by the computer system
-        :type arrival_time: datatime
-        :param data: Additional information about the packet. (device, port, units, etc)
-        :type data: dict
-
         '''
+        super( DataEnvelope, self ).__init__()
+        if ( type not in Constants.EnvelopeTypes.set_of_envelope_types ):
+            raise KeyError( 'Invalid type error: type = {}'.format( type ) )
+        self.args = kwargs
         self.type = type
-        self.packet = packet
-        self.arrival_time = arrival_time
-        self.data = data
 
-#     def str( self ):
-#         return "type = '{}', packet = {}, arrival_time = '{}', data = {})".format(
-#                             self.type,
-#                             self.packet,
-#                             self.arrival_time,
-#                             self.data )
-#
-#     def __repr__( self ):
-#         return "DataEnvelope(type = '{}', packet = {}, arrival_time = '{}', data = {})".format(
-#                             self.type.__repr__(),
-#                             self.packet.__repr__(),
-#                             self.arrival_time.__repr__(),
-#                             self.data.__repr__() )
+    def __getitem__( self, key ):
+        return self.args[key]
+
+    def __setitem__( self, key, value ):
+        self.args[key] = value
+
+    def str( self ):
+        'type = {} args = {}'.format( self.type, self.args )
+
+    def repr( self ):
+        'DataEnvelope({},  {})'.format( self.type, self.args )

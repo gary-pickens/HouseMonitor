@@ -4,6 +4,8 @@ Created on Sep 25, 2012
 @author: Gary
 '''
 
+from sets import Set
+
 
 class Constants( object ):
 
@@ -74,8 +76,27 @@ class Constants( object ):
         '''
         Contains definitions that describe the data that is passed in the input queue
         '''
-        xbee = 'xbee'
-        status = 'status'
+
+        XBEE = 'xbee'
+        STATUS = 'status'
+        COMMAND = 'command'
+
+        set_of_envelope_types = Set( [XBEE,
+                                      STATUS,
+                                      COMMAND] )
+        def __init__( self ):
+            super( Constants.EnvelopeTypes, self ).__init__( 
+                                                  )
+
+    class EnvelopeContents( object ):
+
+        DEVICE = 'device'
+        VALUE = 'value'
+        PORT = 'port'
+        STEPS = 'steps'
+
+        DATA = "data"
+        PACKET = 'packet'
 
     class XBee( object ):
         """
@@ -236,6 +257,9 @@ class Constants( object ):
         ALL_TOPICS = 'ALL_TOPICS'
 
     class LogKeys( object ):
+
+        INPUT_STATUS = 'inputStatus'
+        INPUT_COMMANDS = 'inputCommands'
         Scheduler = 'scheduler'
         inputs = 'inputs'
         inputsZigBee = 'inputsZigBee'
@@ -260,3 +284,13 @@ class Constants( object ):
     class SchedulerName( object ):
         LED_Status_Update = 'LED Status Update'
         Uptime_update = 'uptime'
+
+    class GlobalData( object ):
+        INPUT_QUEUE = "input_queue",
+        START_TIME = "start time",
+        CURRENT_VALUES = 'current values'
+        OPTIONS = 'options'
+        ARGS = 'args'
+
+
+
