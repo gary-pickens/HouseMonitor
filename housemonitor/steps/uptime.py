@@ -27,7 +27,7 @@ class uptime( abcStep ):
         '''
         '''
         super( uptime, self ).__init__()
-        self.start_time = data[Constants.GlobalIndexs.start_time]
+        self.start_time = data[Constants.GlobalIndexs.START_TIME]
 
     @property
     def topic_name( self ):
