@@ -150,9 +150,11 @@ class HouseMonitor():
                                      global_data[Constants.GlobalData.OPTIONS] )
         self.xmlrpc.startXMLRPC( self.options )
 
-        self.logger.debug( 'Start output communications with ZigBee' )
-        self.zigbee = ZigBeeControl()
-        self.zigbee.startZigBee( self.options )
+        # Start thread for inputing data
+        if (not self.options.in_test_mode):    
+            self.logger.debug('Start output communications with ZigBee')
+            self.zigbee = ZigBeeControl()
+            self.zigbee.startZigBee(self.options)
 
     def run( self ):
 
