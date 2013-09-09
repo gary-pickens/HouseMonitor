@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from PySide.QtCore import *
 from PySide.QtGui import *
 from PySide import *

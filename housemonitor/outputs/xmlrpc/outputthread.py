@@ -20,7 +20,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-    __host = 'localhost'
+    __host = '192.168.1.75'
     __port = 9002
     __current_values = None
     __input_queue = None
@@ -60,7 +60,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         return cv
 
     def run( self ):
-        server = SimpleXMLRPCServer( ( self._host, self._port ), logRequests=True )
+        server = SimpleXMLRPCServer((self.__host, self.__port), logRequests=True)
         server.register_introspection_functions()
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )
