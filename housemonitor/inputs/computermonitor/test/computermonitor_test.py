@@ -61,7 +61,7 @@ class Test( unittest.TestCase ):
                 Constants.DataPacket.current_value: value,
                 Constants.DataPacket.listeners: copy.copy( listeners )}
 
-        env = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data, arrival_time=dt )
+        env = DataEnvelope(type=Constants.EnvelopeTypes.STATUS, data=data, arrival_time=dt)
 
         cm = ComputerMonitor( queue )
         cm.send( dt, key, value )
@@ -75,7 +75,7 @@ class Test( unittest.TestCase ):
                 Constants.DataPacket.port: '1188940',
                 Constants.DataPacket.current_value: 1,
                 Constants.DataPacket.arrival_time: GetDateTime( dt )}
-        envelope = DataEnvelope( type='Computer', data=data, arrival_time=dt )
+        envelope = DataEnvelope(type=Constants.EnvelopeTypes.COMPUTER, data=data, arrival_time=dt)
 
         file_contents = {'tx': '1188940', 'rx': '1427150'}
 

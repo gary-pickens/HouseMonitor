@@ -80,10 +80,12 @@ class Constants( object ):
         XBEE = 'xbee'
         STATUS = 'status'
         COMMAND = 'command'
+        COMPUTER = 'computer'
 
         set_of_envelope_types = Set( [XBEE,
                                       STATUS,
-                                      COMMAND] )
+                                      COMMAND,
+                                      COMPUTER])
         def __init__( self ):
             super( Constants.EnvelopeTypes, self ).__init__( 
                                                   )

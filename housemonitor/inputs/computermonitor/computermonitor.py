@@ -18,7 +18,15 @@ import time
 
 class ComputerMonitor( Base, threading.Thread ):
     '''
-    classdocs
+    Computer Monitor will monitor various parameters of the computer system and process and report
+    these to the system.  Currently it reports:
+    
+    * The number of bytes that have been sent over the serial port by the system.
+    * The rate that data is sent to the serial port.
+    * The number of bytes that have been received over the serial port.
+    * The rate data is received from the serial port.  
+    * Future additions will include monitoring of memory usage.
+    
     '''
     input_queue = None
     forever = True
@@ -81,7 +89,7 @@ class ComputerMonitor( Base, threading.Thread ):
                 Constants.DataPacket.current_value: value,
                 Constants.DataPacket.listeners: copy.copy( listeners )}
 
-        env = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data, arrival_time=dt )
+        env = DataEnvelope(type=Constants.EnvelopeTypes.STATUS, data=data, arrival_time=dt)
         self.input_queue.transmit( packet=env, priority=Constants.Queue.low_priority )
 
     def process_data( self, file_contents, dt ):
