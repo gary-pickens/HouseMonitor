@@ -123,7 +123,7 @@
 
 	<target name="clean" description="remove intermediate files">
         <delete>
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+            <fileset dir="${basedir}">
                 <include name="**/*.pyc" />
                 <include name="**/*.pyo" />
                 <include name="**/*.log" />
@@ -189,11 +189,11 @@
     </target>
     <target name="copydoctobeaglebone" description="copy the doc files to the beaglebone computer">
         <scp todir="${user}:${password}@${host}:/www/pages" failonerror="true" trust="true">
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\docs\_build\html">
+            <fileset dir="${basedir}\docs\_build\html">
             </fileset>
         </scp>
         <scp todir="${user}:${password}@${host}:/www/pages/cover" failonerror="true" trust="true">
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\cover">
+            <fileset dir="${basedir}\cover">
             </fileset>
         </scp>
     </target>
@@ -225,7 +225,7 @@
     </target>
     <target name="doc-clean" description="remove intermediate files">
         <delete>
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+            <fileset dir="${basedir}">
                 <include name="docs/HouseMonitor*.rst" />
                 <include name="docs/housemonitor*.rst" />
                 <include name="docs\_build" />
