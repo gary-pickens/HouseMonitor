@@ -1134,4 +1134,8 @@ Misc
 
 #.   `Explorations into Angstrom syslog and systemd <http://www.mattlmassey.com/2012/07/10/explorations-into-angstrom-syslog-and-systemd>`_.
 
+#.  There was a good article in DrDobb's Journal about 
+    `Quantities and Units <http://www.drdobbs.com/jvm/quantities-and-units-in-python/240161101>`_.
 
+#. A good article about using `enums <http://tech.zarmory.com/2013/08/python-enum-on-steroids.html>`_ in python.
+ 
