@@ -1,4 +1,3 @@
-
 ############
 Gary's Notes
 ############
@@ -1139,3 +1138,4 @@ Misc
 
 #. A good article about using `enums <http://tech.zarmory.com/2013/08/python-enum-on-steroids.html>`_ in python.
  
+#. https://structlog.readthedocs.org/en/latest/
