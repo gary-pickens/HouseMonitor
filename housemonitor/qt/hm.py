@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 from PySide.QtCore import *
 from PySide.QtGui import *
 from PySide import *

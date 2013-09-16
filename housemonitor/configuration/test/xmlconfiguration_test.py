@@ -74,8 +74,8 @@ class Test( unittest.TestCase ):
         x.configutation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name()
-        exists.assert_called_once_with( 'c:\\abc\\config\\unittest.xml' )
-        self.assertEqual( fn, 'c:\\abc\\config\\unittest.xml' )
+        exists.assert_called_once_with('c:\\abc\\config/unittest.xml')
+        self.assertEqual(fn, 'c:\\abc\\config/unittest.xml')
 
     @patch.object( XmlConfiguration, 'configure' )
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
@@ -84,8 +84,8 @@ class Test( unittest.TestCase ):
         x.configutation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name( 'abc.xml' )
-        exists.assert_called_once_with( 'c:\\abc\\config\\abc.xml' )
-        self.assertEqual( fn, 'c:\\abc\\config\\abc.xml' )
+        exists.assert_called_once_with('c:\\abc\\config/abc.xml')
+        self.assertEqual(fn, 'c:\\abc\\config/abc.xml')
 
     @patch.object( XmlConfiguration, 'configure' )
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
@@ -94,8 +94,8 @@ class Test( unittest.TestCase ):
         x.configutation_directory = 'c:\\abc\\config'
         exists.return_value = True
         fn = x.file_name( 'abc' )
-        exists.assert_called_once_with( 'c:\\abc\\config\\abc.xml' )
-        self.assertEqual( fn, 'c:\\abc\\config\\abc.xml' )
+        exists.assert_called_once_with('c:\\abc\\config/abc.xml')
+        self.assertEqual(fn, 'c:\\abc\\config/abc.xml')
 
     @patch.object( XmlConfiguration, 'configure' )
     @patch( 'housemonitor.configuration.xmlconfiguration.os.path.exists' )
@@ -104,7 +104,7 @@ class Test( unittest.TestCase ):
         x.configutation_directory = 'c:\\abc\\config'
         exists.return_value = False
         with self.assertRaisesRegexp( ConfigurationFileNotFoundError,
-                                     'Configuration file does not exist: c:.*abc.*config.*abc.xml' ):
+                                     'Configuration file does not exist: .*abc.*config.*abc.xml'):
             fn = x.file_name( 'abc' )
 
     @patch.object( myConfiguration, 'parse_xml_file' )

@@ -36,7 +36,7 @@ class PubSubAid( Base ):
             pub.setTopicUnspecifiedFatal( True )
             self.logger.debug( "PubSubAid ending" )
         except Exception as ex:
-            self.logger.exception( 'exception in BupSupAid {}'.format( ex ) )
+            self.logger.exception( 'exception in PubSupAid {}'.format( ex ) )
 
     def step( self ):
         ''' 

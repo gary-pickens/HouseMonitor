@@ -9,11 +9,12 @@ from sets import Set
 
 class Constants( object ):
 
-    class GlobalIndexs( object ):
-        current_values = 'current_values'
-        options = 'options'
-        args = 'args'
-        start_time = 'start time'
+    class GlobalData(object):
+        INPUT_QUEUE = "input_queue",
+        START_TIME = "start time",
+        CURRENT_VALUES = 'current values'
+        OPTIONS = 'options'
+        ARGS = 'args'
 
     class XbeeConfiguration( object ):
         """
@@ -286,13 +287,6 @@ class Constants( object ):
     class SchedulerName( object ):
         LED_Status_Update = 'LED Status Update'
         Uptime_update = 'uptime'
-
-    class GlobalData( object ):
-        INPUT_QUEUE = "input_queue",
-        START_TIME = "start time",
-        CURRENT_VALUES = 'current values'
-        OPTIONS = 'options'
-        ARGS = 'args'
 
 
 

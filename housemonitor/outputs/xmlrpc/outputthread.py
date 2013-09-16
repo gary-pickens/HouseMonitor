@@ -20,7 +20,8 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-    __host = '192.168.1.75'
+# for housemonitor    __host = '192.168.1.75'
+    __host = '192.168.1.66'
     __port = 9002
     __current_values = None
     __input_queue = None
@@ -60,7 +61,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         return cv
 
     def run( self ):
-        server = SimpleXMLRPCServer((self.__host, self.__port), logRequests=True)
+        server = SimpleXMLRPCServer( ( self.__host, self.__port ), logRequests=True )
         server.register_introspection_functions()
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )

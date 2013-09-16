@@ -291,7 +291,7 @@ class HMScheduler( Base ):
         data[Constants.DataPacket.arrival_time] = GetDateTime()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = name
-        de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
+        de = DataEnvelope(type=Constants.EnvelopeTypes.STATUS, data=data)
         self.logger.debug( 'name = {} listeners = {} scheduler_id =  {}'.format( name, listeners,
                                                         data[Constants.DataPacket.scheduler_id] ) )
         self._input_queue.transmit( de, Constants.Queue.low_priority )

@@ -302,7 +302,7 @@ class Test( unittest.TestCase ):
         data[Constants.DataPacket.arrival_time] = GetDateTime()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = name
-        de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
+        de = DataEnvelope(type=Constants.EnvelopeTypes.STATUS, data=data)
 
 #         queue.transmit.assert_called_once_with( DataEnvelope( type='status', packet={},
 #              arrival_time='a', data={'name': 'scheduled status check',
