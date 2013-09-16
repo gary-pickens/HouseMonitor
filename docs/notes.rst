@@ -1142,3 +1142,14 @@ Misc
 
 #.  `Python simple JSON TCP server and client <http://thomasfischer.biz/?p=622>`_.
 
+#.  There was a good article in DrDobb's Journal about 
+    `Quantities and Units <http://www.drdobbs.com/jvm/quantities-and-units-in-python/240161101>`_.
+
+#. A good article about using `enums <http://tech.zarmory.com/2013/08/python-enum-on-steroids.html>`_ in python.
+ 
+#. An article on using `structure logs <https://structlog.readthedocs.org/en/latest/>`_.
+
+#. Rules on `building python packages <http://axialcorps.com/2013/08/29/5-simple-rules-for-building-great-python-packages/?goback=.gde_101591_member_270039332#!>`_.
+
+
+
