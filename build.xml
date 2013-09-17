@@ -125,7 +125,7 @@
 
 	<target name="clean" description="remove intermediate files">
         <delete>
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+            <fileset dir="${basedir}">
                 <include name="**/*.pyc" />
                 <include name="**/*.pyo" />
                 <include name="**/*.log" />
