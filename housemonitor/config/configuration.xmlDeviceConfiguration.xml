@@ -176,7 +176,7 @@
     <xbee source_address="0x13a200408baf45">
         <name>Power Controller</name>
         <network_address>0xe4e8</network_address>
-        <port portname="adc-1">
+        <port portname="adc-0">
             <name>Plug Temperature</name>
             <description>Temperature inside the plug box</description>
             <units>F</units>
