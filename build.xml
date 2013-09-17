@@ -271,6 +271,19 @@
             <arg value="--Kitchen"/>
         </exec>
     </target>
+    <target name="Build XBeee as a Power Controller" description="Build an XBee for controlling power">
+        <exec executable="python"> 
+            <arg value="${XbeeConfig}"/>
+            <arg value="--port"/>
+            <arg value="COM4"/>
+            <arg value="--speed"/>
+            <arg value="9600"/>
+            <arg value="--timeout"/>
+            <arg value="2.0"/>
+            <arg value="--AT"/>         
+            <arg value="--PowerController"/>
+        </exec>
+    </target>
     <target name="Build Outdoor XBee" description="Build outdoor XBee">
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
