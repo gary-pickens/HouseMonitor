@@ -63,17 +63,17 @@ class base():
 
     D5_Commands_Associated_Indication_LED = b'01'
 
-    P0_Commands_Disabled = 0
-    P0_Commands_RSSI_PWM = 1
-    P0_Commands_Digital_Input = 3
-    P0_Commands_Digital_Output_Low = 4
-    P0_Commands_Digital_Output_High = 5
+    P0_Commands_Disabled = b'00'
+    P0_Commands_RSSI_PWM = b'01'
+    P0_Commands_Digital_Input = b'03'
+    P0_Commands_Digital_Output_Low = b'04'
+    P0_Commands_Digital_Output_High = b'05'
 
-    P1_Commands_Disabled = 0
-    P1_Commands_PWM = 2
-    P1_Commands_Digital_Input = 3
-    P1_Commands_Digital_Output_Low = 4
-    P1_Commands_Digital_Output_High = 5
+    P1_Commands_Disabled = b'00'
+    P1_Commands_PWM = b'02'
+    P1_Commands_Digital_Input = b'03'
+    P1_Commands_Digital_Output_Low = b'04'
+    P1_Commands_Digital_Output_High = b'05'
 
     LongestSampleRate = b'FFFF'  # the max -- 65567 in milliseconds
     DisableSampleRate = b'0000'
@@ -293,11 +293,11 @@ class PowerController( object ):
 
         {base.command:b'P0', base.parameter:base.P0_Commands_RSSI_PWM},  # Pin 6
         {base.command:b'RP', base.parameter:number_to_bytearray( 4 * 10 )},  # set the RSSI led to light for 4 seconds
-        {base.command:b'P1', base.parameter:base.P1_Commands_PWM},  # Pin 7
+#       {base.command:b'P1', base.parameter:base.P1_Commands_PWM},  # Pin 7
 
         {base.command:b'PR', base.parameter:base.NoPullups},
         {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
-        {base.command:b'IR', base.parameter:compute_time( 5 * 60 )},  # IO Sample rate in milliseconds (5 minutes)
+        {base.command:b'IR', base.parameter:number_to_bytearray( 5 * 60 * 10 )},  # IO Sample rate in milliseconds (5 minutes)
 
         {base.command:b'WR'},  # write
     ]
@@ -504,3 +504,4 @@ if __name__ == '__main__':
 
     if ( bee != None ):
         bee.main( commands )
+

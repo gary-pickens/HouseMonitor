@@ -8,6 +8,8 @@
     <property name="email" value="gary_pickens@yahoo.com" />
 	<property name="title" value="House Monitor and Control"/>
 	<property name="current.dir" value="${basedir}" />
+	<property name="serial_port" value="/dev/ttyUSB0" /> <!-- For Linux -->
+<!--	<property name="serial_port" value="COM3" /> For Windows-->
 	<tstamp>
       <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
     </tstamp>
@@ -249,7 +251,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -262,7 +264,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -275,7 +277,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -288,7 +290,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -301,7 +303,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -314,7 +316,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -327,7 +329,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -340,7 +342,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -353,7 +355,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -366,7 +368,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -379,7 +381,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="COM4"/>
+            <arg value="${serial_port}"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
