@@ -23,7 +23,7 @@ class MonitorThread( QThread ):
     '''
     values = None
 #    url = 'http://{}:{}'.format( '192.168.7.2', 9002 )
-    url = 'http://{}:{}'.format('192.168.1.75', 9002)
+    url = 'http://{}:{}'.format( '192.168.1.75', 9002 )
     proxy = None
 
     connected = False

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Home Monitor Program" default="clean">
-    <property name="version" value="4.0.4" />
+    <property name="version" value="4.0.5" />
     <property name="project" value="HouseMonitor" />
     <property name="remote_directory" value="${project}.${version}" />
-    <property name="host" value="housemonitor" />
+<!--    <property name="host" value="housemonitor" /> -->
+    <property name="host" value="192.168.1.75" />
 	<property name="author" value="Gary Pickens" />
     <property name="email" value="gary_pickens@yahoo.com" />
 	<property name="title" value="House Monitor and Control"/>
 	<property name="current.dir" value="${basedir}" />
+	<property name="serial_port" value="/dev/ttyUSB0" /> <!-- For Linux -->
+<!--	<property name="serial_port" value="COM3" /> For Windows-->
 	<tstamp>
       <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
     </tstamp>

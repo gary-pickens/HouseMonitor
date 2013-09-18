@@ -173,5 +173,49 @@
             </steps>
         </port>
     </xbee>
+    <xbee source_address="0x13a200408baf45">
+        <name>Power Controller</name>
+        <network_address>0xe4e8</network_address>
+        <port portname="adc-0">
+            <name>Plug Temperature</name>
+            <description>Temperature inside the plug box</description>
+            <units>F</units>
+            <steps type="list">
+                <step>step.ZigbeeAnalogNumberToVolts</step>
+                <step>step.TMP_36_Volts_to_Centigrade</step>
+                <step>step.Centigrade_to_Fahrenheit</step>
+                <step>step.Average</step>
+                <step>step.FormatValue</step>
+                <step>step.CurrentValue</step>
+                <step>step.oneInN</step>
+                <step>outputs.COSM</step>
+            </steps>
+            <cosm_channel>6</cosm_channel>
+        </port>
+       <port portname="dio-1">
+            <name>Outlet 1</name>
+            <description>Outlet 1</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-2">
+            <name>Outlet 2</name>
+            <description>Outlet 2</description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+        <port portname="dio-3">
+            <name>Output 3</name>
+            <description></description>
+            <units></units>
+            <steps type="list">
+                <step>step.CurrentValue</step>
+            </steps>
+        </port>
+    </xbee>
 </xbeeInputs>
 

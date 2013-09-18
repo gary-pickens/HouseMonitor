@@ -6,4 +6,5 @@
     <item device="0x13a200408cccc3" port="adc-0">{:2.1f}</item>
     <item device="0x13a200408cccc3" port="adc-1">{:2.1f}</item>
     <item device="0x13a200408cccc3" port="adc-2">{:2.1f}</item>
+    <item device="0x13a200408baf45" port="adc-0">{:2.1f}</item>
 </formats>

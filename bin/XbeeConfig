@@ -58,11 +58,24 @@ class base():
     ADxDI0x_DigitalInput = b'3'
     ADxDI0x_DigitalOutputLow = b'4'
     ADxDI0x_DigitalOutputHigh = b'5'
-
     NoPullups = b'00'
     NoBitChange = b'00'
 
-    LongestSampleRate = b'FFFF'    # the max -- 65567 in milliseconds
+    D5_Commands_Associated_Indication_LED = b'01'
+
+    P0_Commands_Disabled = b'00'
+    P0_Commands_RSSI_PWM = b'01'
+    P0_Commands_Digital_Input = b'03'
+    P0_Commands_Digital_Output_Low = b'04'
+    P0_Commands_Digital_Output_High = b'05'
+
+    P1_Commands_Disabled = b'00'
+    P1_Commands_PWM = b'02'
+    P1_Commands_Digital_Input = b'03'
+    P1_Commands_Digital_Output_Low = b'04'
+    P1_Commands_Digital_Output_High = b'05'
+
+    LongestSampleRate = b'FFFF'  # the max -- 65567 in milliseconds
     DisableSampleRate = b'0000'
 
     # parameters for Sleep Mode
@@ -113,8 +126,8 @@ class Coordinator( base ):
         {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D7', base.parameter:base.ADxDI0x_DigitalOutputLow},
         {base.command:b'PR', base.parameter:base.NoPullups},
-        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
-        {base.command:b'IR', base.parameter:base.DisableSampleRate},    # IO Sample rate in milliseconds
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.DisableSampleRate},  # IO Sample rate in milliseconds
         {base.command:b'WR'},
     ]
 
@@ -132,9 +145,9 @@ class GarageDoor( object ):
         {base.command:b'D5', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
-        {base.command:b'PR', base.parameter:base.EnablePullUp['DIO0']},    # enable pull up resistor on D0
-        {base.command:b'IC', base.parameter:base.BitChange['DIO0']},    # IO Change Detection
-        {base.command:b'IR', base.parameter:base.LongestSampleRate},    # IO Sample rate in milliseconds
+        {base.command:b'PR', base.parameter:base.EnablePullUp['DIO0']},  # enable pull up resistor on D0
+        {base.command:b'IC', base.parameter:base.BitChange['DIO0']},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},  # IO Sample rate in milliseconds
         {base.command:b'WR'},
     ]
 
@@ -156,16 +169,16 @@ class ToAT( object ):
 
 class EnableEncrption( object ):
     commands = [
-        {base.command:b'EE', base.parameter:'1'},    # Encryption Enable
-        {base.command:b'KY', base.parameter:base.ENCRYPTION_KEY},    # Key
+        {base.command:b'EE', base.parameter:'1'},  # Encryption Enable
+        {base.command:b'KY', base.parameter:base.ENCRYPTION_KEY},  # Key
         {base.command:b'WR'},
     ]
 
 
 class DisableEncrption( object ):
     commands = [
-        {base.command:b'EE', base.parameter:b'0'},    # Encryption Enable
-        {base.command:b'KY', base.parameter:base.ZERO_ENCRYPTION_KEY},    # Key
+        {base.command:b'EE', base.parameter:b'0'},  # Encryption Enable
+        {base.command:b'KY', base.parameter:base.ZERO_ENCRYPTION_KEY},  # Key
         {base.command:b'WR'},
     ]
 
@@ -175,8 +188,8 @@ class sunroom( object ):
     commands = [
         {base.command:b'ID', base.parameter:base.PAN_ID},
         {base.command:b'NI', base.parameter:b'SUNROOM'},
-        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the sunroom
-        {base.command:b'D1', base.parameter:base.ADxDI0x_AnalogInput},    # outdoor temp
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},  # the temp of the sunroom
+        {base.command:b'D1', base.parameter:base.ADxDI0x_AnalogInput},  # outdoor temp
         {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
@@ -184,10 +197,10 @@ class sunroom( object ):
         {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'PR', base.parameter:base.NoPullups},
-        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
-        {base.command:b'IR', base.parameter:base.LongestSampleRate},    # IO Sample rate in milliseconds
-        {base.command:b'JV', base.parameter:b'1'},    # ensure that the router rejoins the coordinator on startup0
-        {base.command:b'WR'},    # write
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},  # IO Sample rate in milliseconds
+        {base.command:b'JV', base.parameter:b'1'},  # ensure that the router rejoins the coordinator on startup0
+        {base.command:b'WR'},  # write
     ]
 
 class statusPanel( object ):
@@ -195,19 +208,19 @@ class statusPanel( object ):
     commands = [
         {base.command:b'ID', base.parameter:base.PAN_ID},
         {base.command:b'NI', base.parameter:b'STATUS'},
-        {base.command:b'D0', base.parameter:base.ADxDI0x_DigitalOutputHigh},    # HouseMonitor status
-        {base.command:b'D1', base.parameter:base.ADxDI0x_DigitalOutputLow},    # Garage Door status
-        {base.command:b'D2', base.parameter:base.ADxDI0x_DigitalOutputLow},    # Spare
-        {base.command:b'D3', base.parameter:base.ADxDI0x_DigitalOutputLow},    # Alarm
-        {base.command:b'D4', base.parameter:base.ADxDI0x_DigitalInput},    # Disable Button
+        {base.command:b'D0', base.parameter:base.ADxDI0x_DigitalOutputHigh},  # HouseMonitor status
+        {base.command:b'D1', base.parameter:base.ADxDI0x_DigitalOutputLow},  # Garage Door status
+        {base.command:b'D2', base.parameter:base.ADxDI0x_DigitalOutputLow},  # Spare
+        {base.command:b'D3', base.parameter:base.ADxDI0x_DigitalOutputLow},  # Alarm
+        {base.command:b'D4', base.parameter:base.ADxDI0x_DigitalInput},  # Disable Button
 #        {base.command:b'D5', base.parameter:base.ADxDI0x_DigitalOutputLow},
         {base.command:b'D6', base.parameter:base.ADxDI0x_DigitalOutputLow},
         {base.command:b'D7', base.parameter:base.ADxDI0x_DigitalOutputLow},
         {base.command:b'PR', base.parameter:base.EnablePullUp['DIO4']},
-        {base.command:b'IC', base.parameter:base.BitChange['DIO4']},    # IO Change Detection
-        {base.command:b'IR', base.parameter:base.LongestSampleRate},    # IO Sample rate in milliseconds
-        {base.command:b'JV', base.parameter:b'1'},    # ensure that the router rejoins the coordinator on startup0
-        {base.command:b'WR'},    # write
+        {base.command:b'IC', base.parameter:base.BitChange['DIO4']},  # IO Change Detection
+        {base.command:b'IR', base.parameter:base.LongestSampleRate},  # IO Sample rate in milliseconds
+        {base.command:b'JV', base.parameter:b'1'},  # ensure that the router rejoins the coordinator on startup0
+        {base.command:b'WR'},  # write
     ]
 
 class kitchen( object ):
@@ -215,8 +228,8 @@ class kitchen( object ):
     commands = [
         {base.command:b'ID', base.parameter:base.PAN_ID},
         {base.command:b'NI', base.parameter:b'Backroom'},
-        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp of the kitchen
-        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},    #
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},  # the temp of the kitchen
+        {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},  #
         {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
@@ -224,18 +237,18 @@ class kitchen( object ):
         {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'PR', base.parameter:base.NoPullups},
-        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
-        {base.command:b'IR', base.parameter:compute_time( 4 )},    # IO Sample rate in milliseconds (6 seconds)
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:compute_time( 4 )},  # IO Sample rate in milliseconds (6 seconds)
 
         # Configure this XBee to sleep for N seconds
-        {base.command:b'SP', base.parameter:compute_sleep_time( 10 )},    # Set the sleep time in seconds
-        {base.command:b'SN', base.parameter:number_to_bytearray( 6 )},    # set time to SP * SN (10 * 64 = 640 sec)
+        {base.command:b'SP', base.parameter:compute_sleep_time( 10 )},  # Set the sleep time in seconds
+        {base.command:b'SN', base.parameter:number_to_bytearray( 6 )},  # set time to SP * SN (10 * 64 = 640 sec)
                                                                            # 640 / 60 = 10 min
-        {base.command:b'ST', base.parameter:compute_time( 5 )},    # Time before sleep in seconds
+        {base.command:b'ST', base.parameter:compute_time( 5 )},  # Time before sleep in seconds
         {base.command:b'SM', base.parameter:base.CyclicSleepMode},
-        {base.command:b'SO', base.parameter:number_to_bytearray( 4 )},    # Sleep Options
+        {base.command:b'SO', base.parameter:number_to_bytearray( 4 )},  # Sleep Options
 
-        {base.command:b'WR'},    # write
+        {base.command:b'WR'},  # write
     ]
 
 class outdoor( object ):
@@ -243,7 +256,7 @@ class outdoor( object ):
     commands = [
         {base.command:b'ID', base.parameter:base.PAN_ID},
         {base.command:b'NI', base.parameter:b'Outdoors'},
-        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},    # the temp outside
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},  # the temp outside
         {base.command:b'D1', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D2', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D3', base.parameter:base.ADxDI0x_Disabled},
@@ -252,20 +265,42 @@ class outdoor( object ):
         {base.command:b'D6', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'D7', base.parameter:base.ADxDI0x_Disabled},
         {base.command:b'PR', base.parameter:base.NoPullups},
-        {base.command:b'IC', base.parameter:base.NoBitChange},    # IO Change Detection
-        {base.command:b'IR', base.parameter:compute_time( 4 )},    # IO Sample rate in milliseconds (6 seconds)
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:compute_time( 4 )},  # IO Sample rate in milliseconds (6 seconds)
 
         # Configure this XBee to sleep for N seconds
-        {base.command:b'SP', base.parameter:compute_sleep_time( 5 )},    # Set the sleep time in seconds
-        {base.command:b'SN', base.parameter:number_to_bytearray( 127 )},    # set time to SP * SN (5 * 127 = 640 sec)
-        {base.command:b'ST', base.parameter:compute_time( 5 )},    # Time before sleep in seconds
+        {base.command:b'SP', base.parameter:compute_sleep_time( 5 )},  # Set the sleep time in seconds
+        {base.command:b'SN', base.parameter:number_to_bytearray( 127 )},  # set time to SP * SN (5 * 127 = 640 sec)
+        {base.command:b'ST', base.parameter:compute_time( 5 )},  # Time before sleep in seconds
                                                                             # Total time per cycle 635 + 5 / 60 = 10 min
-        {base.command:b'SO', base.parameter:base.SleepEntireSNtimesSPTime},    # Sleep Options
+        {base.command:b'SO', base.parameter:base.SleepEntireSNtimesSPTime},  # Sleep Options
         {base.command:b'SM', base.parameter:base.CyclicSleepMode},
 
-        {base.command:b'WR'},    # write
+        {base.command:b'WR'},  # write
     ]
 
+class PowerController( object ):
+
+    commands = [
+        {base.command:b'ID', base.parameter:base.PAN_ID},
+        {base.command:b'NI', base.parameter:b'Power Controller'},
+        {base.command:b'D0', base.parameter:base.ADxDI0x_AnalogInput},  # the temp outside
+        {base.command:b'D1', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D2', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D3', base.parameter:base.ADxDI0x_DigitalOutputLow},
+        {base.command:b'D4', base.parameter:base.ADxDI0x_Disabled},
+        {base.command:b'D5', base.parameter:base.D5_Commands_Associated_Indication_LED },
+
+        {base.command:b'P0', base.parameter:base.P0_Commands_RSSI_PWM},  # Pin 6
+        {base.command:b'RP', base.parameter:number_to_bytearray( 4 * 10 )},  # set the RSSI led to light for 4 seconds
+#       {base.command:b'P1', base.parameter:base.P1_Commands_PWM},  # Pin 7
+
+        {base.command:b'PR', base.parameter:base.NoPullups},
+        {base.command:b'IC', base.parameter:base.NoBitChange},  # IO Change Detection
+        {base.command:b'IR', base.parameter:number_to_bytearray( 5 * 60 * 10 )},  # IO Sample rate in milliseconds (5 minutes)
+
+        {base.command:b'WR'},  # write
+    ]
 
 
 class configBase( object ):
@@ -396,6 +431,7 @@ if __name__ == '__main__':
     parser.add_option( "--weather", action="store_const", const="Weather", dest="node", help="Configure the attached XBee as the weather sensor" )
     parser.add_option( "--sunroom", action="store_const", const="Sunroom", dest="node", help="Configure the attached XBee as the sunroom sensor" )
     parser.add_option( "--Kitchen", action="store_const", const="Kitchen", dest="node", help="Configure the attached XBee as the Kitchen sensor" )
+    parser.add_option( "--PowerController", action="store_const", const="PowerController", dest="node", help="Configure the attached XBee as the PowerController" )
     parser.add_option( "--Outdoor", action="store_const", const="Outdoor", dest="node", help="Configure the attached XBee as the Outdoor sensor" )
     parser.add_option( "--status", action="store_const", const="Status", dest="node", help="Configure the attached XBee to display House status" )
 
@@ -443,6 +479,8 @@ if __name__ == '__main__':
         commands = kitchen.commands
     elif ( options.node == "Outdoor" ):
         commands = outdoor.commands
+    elif ( options.node == "PowerController" ):
+        commands = PowerController.commands
     elif ( options.node == "Status" ):
         commands = statusPanel.commands
     elif ( options.node == "ToAT" ):
@@ -466,3 +504,4 @@ if __name__ == '__main__':
 
     if ( bee != None ):
         bee.main( commands )
+
