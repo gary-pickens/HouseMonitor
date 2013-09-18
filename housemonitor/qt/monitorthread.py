@@ -5,7 +5,7 @@ Created on May 13, 2013
 '''
 from PySide.QtCore import QThread, Signal
 import xmlrpclib
-import winsound
+#import winsound
 import time
 
 
@@ -22,7 +22,7 @@ class MonitorThread( QThread ):
     TODO: Use Constants file for a lot of the hard coded values
     '''
     values = None
-    url = 'http://{}:{}'.format( '192.168.7.2', 9002 )
+    url = 'http://{}:{}'.format( '192.168.1.75', 9002 )
     proxy = None
 
     connected = False
@@ -61,7 +61,7 @@ class MonitorThread( QThread ):
         '''
         Sound the alarm when the garage door is opened.
         '''
-        winsound.Beep( self.alarm_tone, self.alarm_duration )
+        #winsound.Beep( self.alarm_tone, self.alarm_duration )
         self.alarm_sounded = True
         print 'beep'
 
