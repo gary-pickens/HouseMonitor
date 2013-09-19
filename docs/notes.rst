@@ -1151,5 +1151,7 @@ Misc
 
 #. Rules on `building python packages <http://axialcorps.com/2013/08/29/5-simple-rules-for-building-great-python-packages/?goback=.gde_101591_member_270039332#!>`_.
 
+#. A datetime replacement `arrow <http://crsmithdev.com/arrow/>`_.
+
 
 
