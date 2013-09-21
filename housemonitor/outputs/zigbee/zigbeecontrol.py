@@ -51,5 +51,6 @@ class ZigBeeControl( Base ):
         self.queue = HMQueue( 'ZigBeeInput' )
         self.zig = ZigBeeOutputStep( self.queue )
 
-        self.ZigBeeOutputThread = ZigBeeOutputThread( self.queue )
-        self.ZigBeeOutputThread.start()
+        if ( not options.in_test_mode ):
+            self.ZigBeeOutputThread = ZigBeeOutputThread( self.queue )
+            self.ZigBeeOutputThread.start()

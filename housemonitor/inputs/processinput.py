@@ -31,7 +31,7 @@ class abcProcessInput( Base, object ):
 
     @abc.abstractproperty
     def process( self, envelope ):
-        pass    # pragma: no cover
+        pass  # pragma: no cover
 
 
 class ProcessCommandInput( abcProcessInput ):

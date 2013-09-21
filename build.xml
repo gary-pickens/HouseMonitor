@@ -212,9 +212,10 @@
     </target>
 	<!-- Documentation Section -->
     <target name="doc" description="build documentation" depends="doc-create">
-        <exec executable="cmd.exe" dir="docs" failonerror="true">
+<!--        <exec executable="cmd.exe" dir="docs" failonerror="true">
             <arg line="/c make.bat html" />
         </exec>
+-->
     </target>
     <target name="doc-create" description="build documentation" depends="doc-clean">
         <exec executable="sphinx-apidoc"> 
