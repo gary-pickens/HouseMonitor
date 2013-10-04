@@ -88,12 +88,12 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.Common.send' )
     @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_invalid_device_error( self, config, send ):
-        env = DataEnvelope()
-        env[Constants.EnvelopeContents.PACKET] = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
+        data = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
                        'source_addr': '\xf9\xf2',
                         'id': 'rx_io_data_long_addr',
                          'samples': [{'adc-1': 622}],
                        'options': '\x01'}
+        env = DataEnvelope( Constants.EnvelopeTypes.XBEE, **data )
 
         xd = xmlDeviceConfiguration()
         xd.devices = {'0x13a200408cccc3': {'adc-0': {'cosm_channel': '3',
@@ -128,12 +128,13 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.Common.send' )
     @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_invalid_port_error( self, config, send ):
-        env = DataEnvelope()
-        env[Constants.EnvelopeContents.PACKET] = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
+
+        data = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
                        'source_addr': '\xf9\xf2',
                         'id': 'rx_io_data_long_addr',
                          'samples': [{'adc-3': 622}],
                        'options': '\x01'}
+        env = DataEnvelope( Constants.EnvelopeTypes.XBEE, **data )
 
         xd = xmlDeviceConfiguration()
         xd.devices = {'0x13a200409029bf': {'adc-0': {'cosm_channel': '3',
@@ -168,12 +169,13 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.Common.send' )
     @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_invalid_configuration_options_error( self, config, send ):
-        env = DataEnvelope()
-        env[Constants.EnvelopeContents.PACKET] = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
+
+        data = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
                        'source_addr': '\xf9\xf2',
                         'id': 'rx_io_data_long_addr',
                          'samples': [{'adc-0': 622}],
                        'options': '\x01'}
+        env = DataEnvelope( Constants.EnvelopeTypes.XBEE, **data )
 
         xd = xmlDeviceConfiguration()
         xd.devices = {'0x13a200409029bf': {'adc-0': {'cosm_channel': '3',
@@ -208,13 +210,13 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.Common.send' )
     @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     def test_XBeeInput_process_with_valid_data( self, config, send, dt ):
-        env = DataEnvelope()
         test_time = datetime.datetime( 2012, 1, 2, 3, 4, 5 )
-        env[Constants.EnvelopeContents.PACKET] = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
+        data = {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf',
                        'source_addr': '\xf9\xf2',
                         'id': 'rx_io_data_long_addr',
                          'samples': [{'adc-1': 622}],
                        'options': '\x01'}
+        env = DataEnvelope( Constants.EnvelopeTypes.XBEE, **data )
 
         xd = xmlDeviceConfiguration()
         xd.devices = self.valid_devices_configuration
@@ -233,7 +235,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.Common.send' )
     def test_ProcessCommandInputs_process( self, send ):
         devices = {'device': {'port': {}}}
-        env = DataEnvelope( type=Constants.EnvelopeTypes.STATUS, steps=['a', 'b', 'c'], value=555 )
+        env = DataEnvelope( Constants.EnvelopeTypes.STATUS, steps=['a', 'b', 'c'], value=555 )
         psr = ProcessCommandInput( devices )
         psr.process( env )
         send.assert_called_once_with( 555, env, ['a', 'b', 'c'] )
@@ -248,11 +250,11 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.Common.send' )
     def test_ProcessStatusRequests_process( self, send ):
         devices = {'device': {'port': {}}}
-        data = {Constants.DataPacket.listeners: ['a', 'b', 'c'], Constants.DataPacket.current_value: 555}
-        env = DataEnvelope( type=Constants.EnvelopeTypes.STATUS, data=data )
+        data = {Constants.EnvelopeContents.STEPS: ['a', 'b', 'c'], Constants.EnvelopeContents.VALUE: 555}
+        env = DataEnvelope( Constants.EnvelopeTypes.STATUS, **data )
         psr = ProcessStatusRequests( devices )
         psr.process( env )
-        send.assert_called_once_with( 555, env['data'], env['data'][Constants.DataPacket.listeners] )
+        send.assert_called_once_with( 555, env.args, env[Constants.EnvelopeContents.STEPS] )
 
 # ProcessInput
 
@@ -278,7 +280,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     @patch.object( HMQueue, 'receive' )
     def test_ProcessInput_work_xbee_input( self, process, config, receive ):
-        envelope = DataEnvelope( type='xbee' )
+        envelope = DataEnvelope( Constants.EnvelopeTypes.XBEE )
         que = HMQueue()
         pi = ProcessInput( que )
         que.receive.return_value = envelope
@@ -290,7 +292,7 @@ class Test( unittest.TestCase ):
     @patch( 'housemonitor.inputs.processinput.xmlDeviceConfiguration.configure' )
     @patch.object( HMQueue, 'receive' )
     def test_ProcessInput_work_status_request( self, process, config, receive ):
-        envelope = DataEnvelope( type=Constants.EnvelopeTypes.STATUS )
+        envelope = DataEnvelope( Constants.EnvelopeTypes.STATUS )
         que = HMQueue()
         pi = ProcessInput( que )
         que.receive.return_value = envelope
@@ -313,4 +315,4 @@ class Test( unittest.TestCase ):
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()    # pragma: no cover
+    unittest.main()  # pragma: no cover

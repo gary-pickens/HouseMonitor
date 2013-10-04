@@ -61,7 +61,7 @@ class SendGarageDoorData():
         send fake xbee messages that are modeled after the garage door XBee
         '''
         for packet in self.msgs:
-            envelope = DataEnvelope( packet=packet )
+            envelope = DataEnvelope( Constants.EnvelopeTypes.XBEE, **packet )
             self.__input_queue.transmit( envelope )
             time.sleep( 20 )
 

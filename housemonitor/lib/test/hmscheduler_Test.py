@@ -37,7 +37,6 @@ class Test( unittest.TestCase ):
     @patch.object( HMQueue, 'transmit' )
     def test_init( self, que, sub ):
         self.sched = HMScheduler( que )
-        self.assertIs( self.sched._input_queue, que )
         sub.assert_any_call( self.sched.add_interval, Constants.TopicNames.SchedulerAddIntervalStep )
         sub.assert_any_call( self.sched.add_cron, Constants.TopicNames.SchedulerAddCronStep )
         sub.assert_any_call( self.sched.add_date, Constants.TopicNames.SchedulerAddDateStep )
@@ -302,7 +301,7 @@ class Test( unittest.TestCase ):
         data[Constants.DataPacket.arrival_time] = GetDateTime()
         data[Constants.DataPacket.listeners] = copy.copy( listeners )
         data[Constants.DataPacket.name] = name
-        de = DataEnvelope(type=Constants.EnvelopeTypes.STATUS, data=data)
+        de = DataEnvelope( type=Constants.EnvelopeTypes.STATUS, data=data )
 
 #         queue.transmit.assert_called_once_with( DataEnvelope( type='status', packet={},
 #              arrival_time='a', data={'name': 'scheduled status check',

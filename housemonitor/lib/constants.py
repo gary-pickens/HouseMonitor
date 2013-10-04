@@ -9,7 +9,7 @@ from sets import Set
 
 class Constants( object ):
 
-    class GlobalData(object):
+    class GlobalData( object ):
         INPUT_QUEUE = "input_queue",
         START_TIME = "start time",
         CURRENT_VALUES = 'current values'
@@ -56,6 +56,7 @@ class Constants( object ):
         Contains the keys that are included in the data packet
         that accompanies the data through the system.
         """
+        value = 'value'
         arrival_time = 'at'
         device = 'device'
         port = 'port'
@@ -86,7 +87,7 @@ class Constants( object ):
         set_of_envelope_types = Set( [XBEE,
                                       STATUS,
                                       COMMAND,
-                                      COMPUTER])
+                                      COMPUTER] )
         def __init__( self ):
             super( Constants.EnvelopeTypes, self ).__init__( 
                                                   )
@@ -97,6 +98,9 @@ class Constants( object ):
         VALUE = 'value'
         PORT = 'port'
         STEPS = 'steps'
+        SCHEDULER_ID = "scheduler_id"
+        ARRIVAL_TIME = 'arrival_time'
+        NAME = 'name'
 
         DATA = "data"
         PACKET = 'packet'
@@ -263,6 +267,7 @@ class Constants( object ):
 
         INPUT_STATUS = 'inputStatus'
         INPUT_COMMANDS = 'inputCommands'
+        DATA_ENVELOPE = 'data_envelope'
         Scheduler = 'scheduler'
         inputs = 'inputs'
         inputsZigBee = 'inputsZigBee'
@@ -277,12 +282,6 @@ class Constants( object ):
         StatusPanel = 'StatusPanel'
         ComputerMonitor = 'ComputerMonitor'
         UnitTest = 'UnitTest'
-
-    class Queue( object ):
-        high_priority = 1
-        mid_priority = 5
-        default_priority = mid_priority
-        low_priority = 10
 
     class SchedulerName( object ):
         LED_Status_Update = 'LED Status Update'

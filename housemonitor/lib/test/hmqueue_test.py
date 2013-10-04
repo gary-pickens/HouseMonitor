@@ -35,7 +35,7 @@ class Test( unittest.TestCase ):
         packet = {'a': 'b'}
         value = 11
         que = HMQueue()
-        priority = que.mid_priority
+        priority = que.MID_PRIORITY
         que._queue.get = Mock( return_value=( priority, value ) )
         ret = que.receive()
         que._queue.get.assert_called_once_with()
@@ -53,7 +53,7 @@ class Test( unittest.TestCase ):
         que = HMQueue()
         que._queue.put = Mock()
         que.transmit( packet )
-        que._queue.put.assert_called_once_with( ( que.mid_priority, packet ) )
+        que._queue.put.assert_called_once_with( ( que.MID_PRIORITY, packet ) )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

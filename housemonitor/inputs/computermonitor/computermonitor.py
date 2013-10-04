@@ -89,8 +89,8 @@ class ComputerMonitor( Base, threading.Thread ):
                 Constants.DataPacket.current_value: value,
                 Constants.DataPacket.listeners: copy.copy( listeners )}
 
-        env = DataEnvelope(type=Constants.EnvelopeTypes.STATUS, data=data, arrival_time=dt)
-        self.input_queue.transmit( packet=env, priority=Constants.Queue.low_priority )
+#        env = DataEnvelope( Constants.EnvelopeTypes.COMPUTER, **data )
+#        self.input_queue.transmit( packet=env, priority=Constants.Queue.low_priority )
 
     def process_data( self, file_contents, dt ):
         for key, value in file_contents.iteritems():

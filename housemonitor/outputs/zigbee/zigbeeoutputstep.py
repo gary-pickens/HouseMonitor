@@ -7,6 +7,7 @@ Created on 2012-11-06
 from housemonitor.steps.abc_step import abcStep
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.hmqueue import HMQueue
+import random
 
 
 class ZigBeeOutputStep( abcStep ):
@@ -55,7 +56,7 @@ class ZigBeeOutputStep( abcStep ):
         :raises: ValueError, KeyError
         
         """
-        packet = {'data': data, 'value': value}
-        self.queue.transmit( packet, self.queue.three_quarters_priority )
-        self.logger.debug( "ZigBee Step data transmitted to ZigBee thread" )
+        packet = {'data': data, 'value': value, 'id': int( random.random() * 255.0 )}
+        self.queue.transmit( packet, self.queue.THREE_QUARTERS_PRIORITY )
+        self.logger.error( "ZigBee Step data transmitted to ZigBee thread: value = {} data = {}".format( value, data ) )
         return value, data, listeners

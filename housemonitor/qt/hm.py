@@ -65,6 +65,8 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         self.mt.garage_temperature.connect( self.garage_temperature.setText )
         self.mt.sunroom_temperature.connect( self.sunroom_temperature.setText )
         self.mt.door_state.connect( self.door_state.setText )
+        self.mt.outdoor_temperature.connect( self.outdoor_temperature.setText )
+        self.mt.power_controller_1_temperature.connect( self.power_controller_1_temperature.setText )
 
         self.status_proxy_model = QSortFilterProxyModel()
         self.computer_proxy_model = QSortFilterProxyModel()

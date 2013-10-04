@@ -41,6 +41,8 @@ class MonitorThread( QThread ):
     showMessage = Signal( str )
     garage_temperature = Signal( str )
     sunroom_temperature = Signal( str )
+    outdoor_temperature = Signal( str )
+    power_controller_1_temperature = Signal( str )
     door_state = Signal( str )
     finish_thread = Signal()
 
@@ -69,7 +71,7 @@ class MonitorThread( QThread ):
     def run( self ):
         self.exec_()
 
-    def timerEvent( self, event ):    # @UnusedVariable
+    def timerEvent( self, event ):  # @UnusedVariable
         '''
         This time event is started in the constructor at read_data_interval.  It's main
         task is to read the data from HouseMonitor program and send it to the main thread.
@@ -129,6 +131,11 @@ class MonitorThread( QThread ):
                     self.sound_alarm()
         if ( device == '0x13a200408cccc3' and port == 'adc-0' ):
             self.sunroom_temperature.emit( current_value )
+
+        if ( device == '0x13a200408b68b5' and port == 'adc-0' ):
+            self.outdoor_temperature.emit( current_value )
+        if ( device == '0x13a200408baf45' and port == 'adc-0' ):
+            self.power_controller_1_temperature.emit( current_value )
 
     def convertToArray( self ):
         '''

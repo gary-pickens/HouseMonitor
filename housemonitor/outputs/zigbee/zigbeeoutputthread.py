@@ -25,7 +25,7 @@ class ZigBeeOutputThread( Base, threading.Thread ):
     connected = False
     talking = True
 
-    def __init__( self, queue ):
+    def __init__( self, queue, in_test_mode ):
         '''
         Constructor
         args:
@@ -35,6 +35,7 @@ class ZigBeeOutputThread( Base, threading.Thread ):
         super( ZigBeeOutputThread, self ).__init__()
         threading.Thread.__init__( self )
         self.output_queue = queue
+        self.in_test_mode = in_test_mode
 
     @property
     def logger_name( self ):
@@ -42,7 +43,7 @@ class ZigBeeOutputThread( Base, threading.Thread ):
 
     def zigbeeConnect( self ):
         try:
-            self.zigbee_output = ZigBeeOutput()
+            self.zigbee_output = ZigBeeOutput( self.in_test_mode )
             self.zigbee_output.startCorrectZigbee()
             self.connected = self.talking = True
             self.logger.debug( 'Connect to ZibBee' )
@@ -54,13 +55,14 @@ class ZigBeeOutputThread( Base, threading.Thread ):
 
     def processCommandToZigBee( self ):
         packet = self.output_queue.receive()
-        self.logger.debug( "Tread Received packet" )
+        self.logger.debug( "Thread Output ZigBee Received packet for sending to XBee" )
         try:
             data = packet['data']
             value = packet['value']
-            self.zigbee_output.sendCommand( value, data )
+            id = packet['id']
+            self.zigbee_output.sendCommand( value, data, id )
             self.talking = self.connected = True
-            self.logger.debug( 'command sent to zigbee' )
+            self.logger.debug( 'command sent to zigbee: value = {} data = {} id = {}'.format( value, data, id ) )
         except IOError as er:
             self.logger.exception( er )
             self.connected = self.talking = False

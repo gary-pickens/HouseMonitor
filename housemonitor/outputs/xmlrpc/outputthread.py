@@ -20,7 +20,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-# for housemonitor    __host = '192.168.1.75'
+    # for housemonitor    __host = '192.168.1.75'
     __host = '192.168.1.66'
     __port = 9002
     __current_values = None
@@ -42,16 +42,29 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         ''' Set the logger level. '''
         return Constants.LogKeys.outputsXMLRPC
 
+    def change_dio( self, value, device, port, steps ):
+        env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
+                            device=device, port=port, steps=steps )
+        self.input_queue.transmit( env, self.input_queue.MID_PRIORITY )
+        self.logger.debug( 
+                "send command: value = {} device = {} port = {} steps = {}".
+                format( value, device, port, steps ) )
+        return value
+
     def send_command( self, value, device, port, steps ):
         env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
                             device=device, port=port, steps=steps )
-        self.input_queue.transmit( env, Constants.Queue.mid_priority )
-        self.logger.debug( "send command: value = {} device = {} port = {} steps = {}".format( value, device, port, steps ) )
+        self.input_queue.transmit( env, self.input_queue.MID_PRIORITY )
+        self.logger.debug( 
+                "send command: value = {} device = {} port = {} steps = {}".
+                format( value, device, port, steps ) )
         return value
 
     def get_current_value( self, device, port ):
         value = self.__current_values.get( device, port )
-        self.logger.debug( "get current value: device = {} port = {} value = {}".format( device, port, value ) )
+        self.logger.debug( 
+                "get current value: device = {} port = {} value = {}".
+                format( device, port, value ) )
         return value
 
     def get_current_values( self ):
@@ -65,4 +78,5 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         server.register_introspection_functions()
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )
+        server.register_function( self.send_command )
         server.serve_forever()

@@ -28,8 +28,8 @@ setup(
     url='http://pypi.python.org/pypi/HouseMonitor/',
     license='license.txt',
     description='Tools for monitoring a house with XBee\'s.',
-    long_description=open( 'README.txt' ).read(),
-    platforms=['NT', 'linux', 'beaglebone'],
+    long_description=open( 'README' ).read(),
+    platforms=['linux', 'beaglebone'],
     install_requires=[
         "XBee >= 2.0.0",
         "apscheduler>=2.0.3",

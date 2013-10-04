@@ -4,10 +4,13 @@ Created on Sep 10, 2012
 
 @author: gary
 '''
+
+import sys
+import os
 from datetime import datetime
 import time
 import logging.config
-import sys
+
 import os
 from pprint import pprint
 from pubsub import pub
@@ -32,7 +35,6 @@ from housemonitorinfo import ( HouseMonitorAuthor, HouseMonitorBuildDate,
                               HouseMonitorEmail,
                               HouseMonitorTitle, HouseMonitorVersion )
 
-
 class HouseMonitor():
     '''
     House Monitor is the main program responsible for starting the housemonitor system.
@@ -47,6 +49,7 @@ class HouseMonitor():
     7. Starts XMLRPC.
     8. Starts
     '''
+    TEST_MODE = False
 
     logger = None
     options = None
@@ -83,6 +86,7 @@ class HouseMonitor():
         self.logger.info( '' )
 
     def parse_options( self ):
+        global TEST_MODE
         Options = OptionParser()
         Options.add_option( "-d",
                            action="store_false",
@@ -110,6 +114,7 @@ class HouseMonitor():
                            dest="in_test_mode",
                            help="Run in test mode." )
         ( self.options, self.args ) = Options.parse_args()
+        in_test_mode = self.options.in_test_mode
 
     def startInputs( self, global_data ):
         ''' Start Home Monitor Input routines '''
@@ -130,7 +135,7 @@ class HouseMonitor():
             self.test_input.start()
 
         self.logger.debug( 'Starting scheduler' )
-        self.sched = HMScheduler( self.input_queue )
+        self.sched = HMScheduler( input_queue )
         self.sched.start()
 
         if ( sys.platform[:5] == 'linux' and
@@ -155,7 +160,7 @@ class HouseMonitor():
         # Start thread for outputing data
         self.logger.debug( 'Start output communications with ZigBee' )
         self.zigbee = ZigBeeControl()
-        self.zigbee.startZigBee( self.options )
+        self.zigbee.startZigBee( self.options.in_test_mode )
 
     def run( self ):
 
@@ -182,4 +187,5 @@ class HouseMonitor():
         self.logger.debug( "Exiting" )
 
 if __name__ == "__main__":
-    HouseMonitor().run()
+    hm = HouseMonitor()
+    hm.run()
