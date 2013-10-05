@@ -56,7 +56,7 @@ class ZigBeeOutputStep( abcStep ):
         :raises: ValueError, KeyError
         
         """
-        packet = {'data': data, 'value': value, 'id': int( random.random() * 255.0 )}
-        self.queue.transmit( packet, self.queue.THREE_QUARTERS_PRIORITY )
+        data[Constants.DataPacket.ID] = int( random.random() * 255.0 )
+        self.queue.transmit( data, self.queue.THREE_QUARTERS_PRIORITY )
         self.logger.error( "ZigBee Step data transmitted to ZigBee thread: value = {} data = {}".format( value, data ) )
         return value, data, listeners

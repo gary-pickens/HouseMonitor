@@ -56,13 +56,15 @@ class SendGarageDoorData():
     def __init__( self, input_queue ):
         self.__input_queue = input_queue
 
-    def send( self ):
+    def send( self, unittest=False ):
         '''
         send fake xbee messages that are modeled after the garage door XBee
         '''
         for packet in self.msgs:
             envelope = DataEnvelope( Constants.EnvelopeTypes.XBEE, **packet )
             self.__input_queue.transmit( envelope )
+            if unittest == True:
+                break
             time.sleep( 20 )
 
     msgs = [

@@ -36,7 +36,7 @@ class Test( unittest.TestCase ):
 
     def test_step( self ):
         value = 5
-        data = {Constants.DataPacket.device: 'data',
+        data = {Constants.DataPacket.device: 'device',
                 Constants.DataPacket.port: 'port',
                 Constants.DataPacket.arrival_time: 'arrival_time'}
         listeners = ['a', 'b', 'c']
@@ -44,7 +44,7 @@ class Test( unittest.TestCase ):
         queue = MagicMock( spec=HMQueue )
         zig = ZigBeeOutputStep( queue )
         v, d, l = zig.step( value, data, listeners )
-        queue.transmit.assert_called_once_with( package, queue.three_quarters_priority )
+        queue.transmit.assert_called_once()
         self.assertEqual( value, v )
         self.assertEqual( data, d )
         self.assertEqual( listeners, l )

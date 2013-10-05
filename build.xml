@@ -115,13 +115,6 @@
         	<env key="PYTHONPATH" value="${pythonpath}"/>
             <arg value="-v"/>
             <arg value="-v"/>
-        	<arg value="--ignore-files=testinputthread_test"/>
-        	<arg value="--ignore-files=zigbeeoutput_test"/>
-        	<arg value="--ignore-files=zigbeeoutputthread_test"/>
-        	<arg value="--ignore-files=zigbeeoutputstep_test"/>
-        	<arg value="--ignore-files=moduleloader_Test"/>
-        	<arg value="--ignore-file=abc_step_test"/>
-        	<arg value="--ignore-files=zigbeecontrol_test"/>
         </exec>
     </target>
 
