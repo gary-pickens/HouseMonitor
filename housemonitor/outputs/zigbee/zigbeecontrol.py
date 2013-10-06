@@ -49,7 +49,7 @@ class ZigBeeControl( Base ):
         main thread and sends them to the ZigBee thread.
 
         '''
-        self.queue = HMQueue( 'ZigBeeInput' )
+        self.queue = HMQueue( 'ZigBeeInput', HMQueue.MID_PRIORITY )
         self.in_test_mode = in_test_mode
         self.zig = ZigBeeOutputStep( self.queue )
 

@@ -41,8 +41,8 @@ class Test( unittest.TestCase ):
         cont.startZigBee( options )
 
         # test
-        queue.assert_called_with( 'ZigBeeInput' )
-        thread.assert_called_with( 1 )
+        queue.assert_called_with( 'ZigBeeInput', queue.MID_PRIORITY )
+        thread.assert_called_with( 1, 1 )
         step.assert_called_with( 1 )
 
 if __name__ == "__main__":
