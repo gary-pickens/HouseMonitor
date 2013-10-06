@@ -43,7 +43,7 @@ class ZigBeeOutput( Base, object ):
     communication_module = {'posix': BeagleboneBlackXbeeCommunications,
                             'nt': WindowsXbeeCommunications}
 
-    def __init__( self, in_test_mode ):
+    def __init__( self, in_test_mode=False ):
         '''
         '''
         super( ZigBeeOutput, self ).__init__()

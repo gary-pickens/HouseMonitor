@@ -50,7 +50,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D0',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -63,7 +63,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D1',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -76,7 +76,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D2',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -89,7 +89,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D3',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -102,7 +102,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D4',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -115,7 +115,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D5',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -128,7 +128,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D6',
                                                     parameter='\x04',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -141,7 +141,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( False, data )
+        ot.sendCommand( False, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( dest_addr_long='\x00\x13\xa2\x00@\x90*\x02',
                                                     parameter='\x04',
                                                     command='D7',
@@ -155,7 +155,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D0',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -168,7 +168,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D1',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -181,7 +181,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D2',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -194,7 +194,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D3',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -207,7 +207,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D4',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -220,7 +220,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D5',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -233,7 +233,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D6',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02', frame_id='\xaa' )
@@ -246,7 +246,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( True, data )
+        ot.sendCommand( True, data, id=0xaa )
         ot.zigbee.remote_at.assert_called_once_with( command='D7',
                                                     parameter='\x05',
                                                     dest_addr_long='\x00\x13\xa2\x00@\x90*\x02',
@@ -260,7 +260,7 @@ class Test( unittest.TestCase ):
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
         with self.assertRaisesRegexp( KeyError, 'The device is missing from the data block:.*' ):
-            ot.sendCommand( True, data )
+            ot.sendCommand( True, data, id=0xaa )
 
     @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_no_port( self, win ):
@@ -270,7 +270,7 @@ class Test( unittest.TestCase ):
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
         with self.assertRaisesRegexp( KeyError, "The port is missing from the data block: .*" ):
-            ot.sendCommand( True, data )
+            ot.sendCommand( True, data, id=0xaa )
 
     @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
     def test_invalid_device( self, win ):
@@ -281,7 +281,7 @@ class Test( unittest.TestCase ):
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
         with self.assertRaisesRegexp( ValueError, "invalid literal for int.. with base 16:.*" ):
-            ot.sendCommand( True, data )
+            ot.sendCommand( True, data, id=0xaa )
 
     #  TODO work more on this
     @patch( 'housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications )
@@ -293,7 +293,7 @@ class Test( unittest.TestCase ):
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
         with self.assertRaisesRegexp( KeyError, "DIO-9" ):
-            ot.sendCommand( True, data )
+            ot.sendCommand( True, data, id=0xaa )
 
     #  TODO work more on this
 #    @patch('housemonitor.outputs.zigbee.zigbeeoutput.WindowsXbeeCommunications', spec=WindowsXbeeCommunications)
@@ -317,7 +317,7 @@ class Test( unittest.TestCase ):
         ot = ZigBeeOutput()
         ot.zigbee = MagicMock()
         ot.zigbee.remote_at = MagicMock()
-        ot.sendCommand( value, data )
+        ot.sendCommand( value, data, id=0xaa )
 
 
 if __name__ == "__main__":
