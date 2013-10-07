@@ -115,6 +115,8 @@
         	<env key="PYTHONPATH" value="${pythonpath}"/>
             <arg value="-v"/>
             <arg value="-v"/>
+            <arg value="--ignore-file=abc_step_test"/>
+            <arg value="--ignore-files=moduleloader_Test"/>
         </exec>
     </target>
 
