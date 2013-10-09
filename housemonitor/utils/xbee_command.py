@@ -49,7 +49,7 @@ class XBeeCommand( object ):
         while not self.connected:
             self.connect_to_house_monitor()
         try:
-            self.values = self.proxy.send_command( value, device, port, steps )
+            self.values = self.proxy.change_dio( value, device, port, steps )
             print( "sent command {} to device {} to steps {}".format( value, device, steps ) )
         except xmlrpclib.Error as er:
             self.connected = False

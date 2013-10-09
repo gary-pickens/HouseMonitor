@@ -67,7 +67,7 @@ class Test( unittest.TestCase ):
         thread.talking = True
         thread.done = False
         thread.processCommandToZigBee()
-        thread.zigbee_output.sendCommand.assert_called_once_with( value, data, packet['id'] )
+        thread.zigbee_output.sendCommand.assert_called_once_with( **packet )
         self.assertTrue( thread.connected )
         self.assertTrue( thread.talking )
         thread.done = False

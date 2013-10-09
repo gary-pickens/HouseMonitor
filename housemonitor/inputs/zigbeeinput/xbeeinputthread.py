@@ -57,6 +57,6 @@ class XBeeInputThread( Base, threading.Thread ):
         while True:
             packet = self.zigbee.read()
             env = DataEnvelope( Constants.EnvelopeTypes.XBEE, **packet )
-            self.input_queue.transmit( env, Constants.Queue.MID_PRIORITY )
+            self.input_queue.transmit( env, self.input_queue.MID_PRIORITY )
             if ( self.exit_flag ):
                 break

@@ -238,7 +238,7 @@ class Test( unittest.TestCase ):
         env = DataEnvelope( Constants.EnvelopeTypes.STATUS, steps=['a', 'b', 'c'], value=555 )
         psr = ProcessCommandInput( devices )
         psr.process( env )
-        send.assert_called_once_with( 555, env, ['a', 'b', 'c'] )
+        send.assert_called_once_with( 555, env.args, ['a', 'b', 'c'] )
 
 # ProcessStatusRequests
 

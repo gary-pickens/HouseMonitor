@@ -62,12 +62,13 @@ class ProcessCommandInput( abcProcessInput ):
         Return: None
         :Raises: None
         '''
-        self.logger.info( 'processing command {}'.format( env ) )
+        self.logger.debug( 'processing command {}'.format( env ) )
         try:
             value = env[Constants.EnvelopeContents.VALUE]
             steps = copy.copy( env[Constants.EnvelopeContents.STEPS] )
 
-            Common.send( value, env, steps )
+            Common.send( value, env.args, steps )
+            self.logger.debug( "Successfully sent command to XBee" )
         except KeyError as ex:
             self.logger.exception( 'value or steps missing from env {}'.
                                    format( env ) )
@@ -103,7 +104,7 @@ class ProcessXBeeInput( abcProcessInput ):
         Return: None
         :Raises: None
         '''
-        self.logger.info( 'processing data from zigbee {}'.format( packet ) )
+        self.logger.debug( 'processing data from zigbee {}'.format( packet ) )
         try:
             if packet[Constants.XBee.id] == Constants.XBee.api_responses.rx_io_data_long_addr:
                 source_addr_long = "{:#x}".format( unpack( '!Q', packet[Constants.XBee.source_addr_long] )[0] )

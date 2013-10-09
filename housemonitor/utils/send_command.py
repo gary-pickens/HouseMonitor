@@ -76,7 +76,7 @@ USAGE
 
         # Setup argument parser
         parser = ArgumentParser()
-        parser.add_argument( "-n", "--host", dest="host", action="store", default='localhost', help="computer that is running HouseMonitor" )
+        parser.add_argument( "-n", "--host", dest="host", action="store", default='housemonitor', help="computer that is running HouseMonitor" )
         parser.add_argument( "-d", "--device", dest="device", action="store", default='0x13a200408baf45', help="The xbee device number" )
         parser.add_argument( "-z", "--sleep", dest="sleep", type=int, default=1, action="store", help="Time to sleep between commands" )
         parser.add_argument( "-c", "--count", dest="count", type=int, default=10, action="store", help="number of times to send the command" )
@@ -102,9 +102,13 @@ USAGE
         while count:
             while ( not cmd.connected ):
                 cmd.connect_to_house_monitor()
-            cmd.change_dio( True, device, port, ["step.ZigBeeOutput"] )
+            cmd.change_dio( True, device, "DIO-1", ["step.ZigBeeOutput"] )
+            cmd.change_dio( True, device, "DIO-2", ["step.ZigBeeOutput"] )
+            cmd.change_dio( True, device, "DIO-3", ["step.ZigBeeOutput"] )
             time.sleep( sleep )
-            cmd.change_dio( False, device, port, ["step.ZigBeeOutput"] )
+            cmd.change_dio( False, device, "DIO-1", ["step.ZigBeeOutput"] )
+            cmd.change_dio( False, device, "DIO-2", ["step.ZigBeeOutput"] )
+            cmd.change_dio( False, device, "DIO-3", ["step.ZigBeeOutput"] )
             time.sleep( sleep )
             count = count - 1
         return 0

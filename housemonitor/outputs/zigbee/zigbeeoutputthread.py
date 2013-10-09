@@ -57,12 +57,8 @@ class ZigBeeOutputThread( Base, threading.Thread ):
         packet = self.output_queue.receive()
         self.logger.debug( "Thread Output ZigBee Received packet for sending to XBee" )
         try:
-            data = packet['data']
-            value = packet['value']
-            id = packet['id']
-            self.zigbee_output.sendCommand( value, data, id )
+            self.zigbee_output.sendCommand( **packet )
             self.talking = self.connected = True
-            self.logger.debug( 'command sent to zigbee: value = {} data = {} id = {}'.format( value, data, id ) )
         except IOError as er:
             self.logger.exception( er )
             self.connected = self.talking = False

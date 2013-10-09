@@ -64,28 +64,30 @@ class ZigBeeOutput( Base, object ):
         return Constants.LogKeys.outputsZigBee
 
 
-    def sendCommand( self, value, data, id ):
+    def sendCommand( self, **packet ):
 
         try:
-            device, port = Common.getDeviceAndPort( data )
+            device = packet[Constants.DataPacket.device]
+            port = packet[Constants.DataPacket.port]
+            value = packet[Constants.DataPacket.value]
+            id = packet[Constants.DataPacket.ID]
             dest_addr_long = struct.pack( '!Q', int( device, 16 ) )
             command = self.deviceToCommand[port.upper()]
             frame_id = struct.pack( '!B', id )
             parameter = self.selectHighOrLow[value]
             current_datetime = datetime.utcnow()
             delta = current_datetime - self.previous_datetime
-            self.logger.error( '{} dest_addr = {:x} command = {} parameter {:x} frame_id {}'.
-                              format( str( delta ).split( '.' )[0],
-                                      struct.unpack( '!Q', dest_addr_long )[0], command,
-                                      struct.unpack( 'B', parameter )[0],
-                                      struct.unpack( 'B', frame_id )[0] ) )
             if not self.in_test_mode:
-                # TODO use frame_id
                 self.zigbee.remote_at( dest_addr_long=dest_addr_long,
                                        frame_id=frame_id,
                                        command=command,
                                        parameter=parameter )
+                self.logger.debug( '{} dest_addr = {:x} command = {} parameter {:x} frame_id {}'.
+                              format( str( delta ).split( '.' )[0],
+                                      struct.unpack( '!Q', dest_addr_long )[0], command,
+                                      struct.unpack( 'B', parameter )[0],
+                                      struct.unpack( 'B', frame_id )[0] ) )
             self.previous_datetime = current_datetime
         except KeyError:
-            self.logger.exception( 'KeyError exception: value = {} data = {}'.format( value, data ) )
+            self.logger.exception( 'KeyError exception: packet = {}'.format( packet ) )
             raise

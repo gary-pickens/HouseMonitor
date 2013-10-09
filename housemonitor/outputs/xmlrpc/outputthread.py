@@ -20,8 +20,8 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-    # for housemonitor    __host = '192.168.1.75'
-    __host = '192.168.1.66'
+    __host = '192.168.1.75'
+#    __host = '192.168.1.66'
     __port = 9002
     __current_values = None
     __input_queue = None
@@ -43,9 +43,10 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         return Constants.LogKeys.outputsXMLRPC
 
     def change_dio( self, value, device, port, steps ):
+        # TODO: add a new EnvelopeType for changing output.
         env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
                             device=device, port=port, steps=steps )
-        self.input_queue.transmit( env, self.input_queue.MID_PRIORITY )
+        self.input_queue.transmit( env, self.input_queue.HIGH_PRIORITY )
         self.logger.debug( 
                 "send command: value = {} device = {} port = {} steps = {}".
                 format( value, device, port, steps ) )

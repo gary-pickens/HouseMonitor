@@ -57,6 +57,8 @@ class ZigBeeOutputStep( abcStep ):
         
         """
         data[Constants.DataPacket.ID] = int( random.random() * 255.0 )
+        data[Constants.DataPacket.value] = value
+        data[Constants.DataPacket.listeners] = listeners
         self.queue.transmit( data, self.queue.THREE_QUARTERS_PRIORITY )
-        self.logger.error( "ZigBee Step data transmitted to ZigBee thread: value = {} data = {}".format( value, data ) )
+        self.logger.debug( "ZigBee Step data transmitted to ZigBee thread: value = {} data = {}".format( value, data ) )
         return value, data, listeners
