@@ -12,7 +12,13 @@
 	<property name="title" value="House Monitor and Control"/>
 	<property name="current.dir" value="${basedir}" />
 	<property name="pythonpath" value="/usr/lib/eclipse/plugins/org.python.pydev_2.8.1.2013072611/pysrc/pydev_sitecustomize:/home/gary/git/HouseMonitor/housemonitor:/usr/lib/eclipse/plugins/org.python.pydev_2.8.1.2013072611/pysrc:/usr/local/lib/python2.7/dist-packages/XBee-2.0.0-py2.7.egg:/usr/local/lib/python2.7/dist-packages/mock-1.0.1-py2.7.egg:/usr/local/lib/python2.7/dist-packages/PySide-1.1.3dev-py2.7.egg:/usr/local/lib/python2.7/dist-packages/PyPubSub-3.1.2-py2.7.egg:/usr/local/lib/python2.7/dist-packages/APScheduler-2.1.0-py2.7.egg:/usr/local/lib/python2.7/dist-packages/virtualenv-1.9.1-py2.7.egg:/usr/lib/python2.7:/usr/lib/python2.7/plat-x86_64-linux-gnu:/usr/lib/python2.7/lib-tk:/usr/lib/python2.7/lib-old:/usr/lib/python2.7/lib-dynload:/usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages/PILcompat:/usr/lib/python2.7/dist-packages/gtk-2.0:/usr/lib/python2.7/dist-packages/ubuntu-sso-client:/usr/lib/python2.7/dist-packages/ubuntuone-client:/usr/lib/python2.7/dist-packages/ubuntuone-control-panel:/usr/lib/python2.7/dist-packages/ubuntuone-storage-protocol:/home/gary/git/HouseMonitor" />
-	
+
+	<condition property="isUnix">
+		<os family="unix"/>
+	</condition>
+	<condition property="isWindows">
+		<os family="windows"/>
+	</condition>
 	<property name="serial_port" value="/dev/ttyUSB0" /> <!-- For Linux -->
 <!--	<property name="serial_port" value="COM3" /> For Windows-->
 	<tstamp>
@@ -239,12 +245,22 @@
         </scp>
     </target>
 	<!-- Documentation Section -->
-    <target name="doc" description="build documentation" depends="doc-create">
-<!--        <exec executable="cmd.exe" dir="docs" failonerror="true">
-            <arg line="/c make.bat html" />
-        </exec>
--->
-    </target>
+    <target name="doc-windows" 
+    	description="build documentation" 
+    	if="${isWindows}" 
+    	depends="doc-create">
+	 	<exec executable="cmd.exe" dir="docs" failonerror="true">
+	 	    <arg line="/c make.bat html" />
+	 	</exec>
+	</target>
+	<target name="doc-linux" 
+		description="build documentation" 
+		if="${isUnix}" 
+		depends="doc-create">
+    	<exec executable="make" dir="docs" failonerror="true">
+    		<arg line="html" />
+ 		</exec>
+    	</target>
     <target name="doc-create" description="build documentation" depends="doc-clean">
         <exec executable="sphinx-apidoc"> 
 			<arg value="-H ${project}"/>
@@ -414,7 +430,7 @@
         </exec>
     </target>
     <target name="qt" description="Build qt monitor">
-        <exec dir="housemonitor/qt" executable="pyside-uic.exe">
+        <exec dir="housemonitor/qt" executable="pyside-uic">
             <arg value="HouseMonitor3.ui"/>
             <arg value="-o"/>
             <arg value="monitor.py"/>

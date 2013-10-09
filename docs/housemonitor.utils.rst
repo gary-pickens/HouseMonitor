@@ -28,6 +28,22 @@ housemonitor.utils.rawmonitorcurrentvalues module
     :undoc-members:
     :show-inheritance:
 
+housemonitor.utils.send_command module
+--------------------------------------
+
+.. automodule:: housemonitor.utils.send_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+housemonitor.utils.xbee_command module
+--------------------------------------
+
+.. automodule:: housemonitor.utils.xbee_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
