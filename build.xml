@@ -19,14 +19,13 @@
 	<condition property="isWindows">
 		<os family="windows"/>
 	</condition>
-	<property name="serial_port" value="/dev/ttyUSB0" /> <!-- For Linux -->
-<!--	<property name="serial_port" value="COM3" /> For Windows-->
+	<property name="serial_port" value="/dev/ttyUSB0" />
 	<tstamp>
       <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
     </tstamp>
 
-
 	<import file="${user.home}/imported.xml" />
+
 <!-- The following two entries need to be added to import.xml with the correct user and password
 	<property name="user" value="" />
     <property name="password" value="" />
@@ -57,7 +56,6 @@
     </target>
 
 	<target name="UpdateConfig" description="Update Configuration Files">
-
 		<exec executable="git"> 
 			<arg value="tag"/>
         	<arg value="-a"/>
@@ -127,6 +125,7 @@
     </target>
 
 	<target name="coverage" depends="clean, UpdateConfig" description="Run all UnitTests with Coverage">
+        <delete dir='conver'/>
 
 		<exec executable="coverage" failonerror="true" >
         	<env key="PYTHONPATH" value="${pythonpath}"/>
@@ -135,7 +134,13 @@
 
 		<exec executable="nosetests" failonerror="true" >
         	<env key="PYTHONPATH" value="${pythonpath}"/>
+            <arg value="--verbosity=1"/>
             <arg value="--ignore-files=abc_step_test.py"/>
+			<arg value="--ignore-files=moduleloader_Test.py"/>
+			<arg value="--ignore-files=display.py"/>
+			<arg value="--ignore-files=hmon.py"/>
+			<arg value="--ignore-files=inputthead.py"/>
+        	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
         	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
             <arg value="--with-coverage"/>
             <arg value="--cover-package='housemonitor'"/>
@@ -147,17 +152,17 @@
 
 		<exec executable="coverage" failonerror="true" >
         	<env key="PYTHONPATH" value="${pythonpath}"/>
-            <arg value="html"/>
-        	<arg value="-d cover"/>
-        </exec>
-
-		<exec executable="coverage" failonerror="true" >
-        	<env key="PYTHONPATH" value="${pythonpath}"/>
-            <arg value="xml"/>
+            <arg value="html" />		
         </exec>
 
 	</target>
-
+	
+	<target name="ls" description="remove intermediate files">
+		<exec executable="ls" failonerror="true" >
+	        <arg line="/usr/local" />
+	    </exec>
+	</target>
+	
 	<target name="clean" description="remove intermediate files">
         <delete>
             <fileset dir="${basedir}">
@@ -244,6 +249,7 @@
             </fileset>
         </scp>
     </target>
+
 	<!-- Documentation Section -->
     <target name="doc-windows" 
     	description="build documentation" 
@@ -260,8 +266,11 @@
     	<exec executable="make" dir="docs" failonerror="true">
     		<arg line="html" />
  		</exec>
-    	</target>
-    <target name="doc-create" description="build documentation" depends="doc-clean">
+    </target>
+	<target name="Doc" description="Build HouseMonitor Documentation"
+		depends="doc-linux, doc-windows" />
+    <target name="doc-create" description="build documentation" 
+    	depends="doc-clean">
         <exec executable="sphinx-apidoc"> 
 			<arg value="-H ${project}"/>
         	<arg value="-A ${author}"/>
