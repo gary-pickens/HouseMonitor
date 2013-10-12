@@ -4,3 +4,8 @@
 omit =
 	/usr/local/lib/python2.7/dist-packages/*
 	/usr/share/pyshared/*
+	*_test.py
+	*_Test.py
+	*/utils/*
+	*/qt/*
+	

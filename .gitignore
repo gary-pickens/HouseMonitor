@@ -24,3 +24,5 @@ HouseMonitor.db
 /UnitTest.log
 /setup.py
 /README
+/.coverage
+/output.html

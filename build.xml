@@ -156,13 +156,7 @@
         </exec>
 
 	</target>
-	
-	<target name="ls" description="remove intermediate files">
-		<exec executable="ls" failonerror="true" >
-	        <arg line="/usr/local" />
-	    </exec>
-	</target>
-	
+		
 	<target name="clean" description="remove intermediate files">
         <delete>
             <fileset dir="${basedir}">
@@ -433,13 +427,15 @@
         </exec>
     </target>
     <target name="clone digger" description="Look for clones">
-        <exec executable="/Python27/Scripts/clonedigger.exe">
+        <exec executable="clonedigger">
         	<arg value="--ignore-dir=test"/>
+        	<arg value="--ignore-dir=qt"/>
+        	<arg value="--ignore-dir=utils"/>
             <arg value="housemonitor"/>
         </exec>
     </target>
     <target name="qt" description="Build qt monitor">
-        <exec dir="housemonitor/qt" executable="pyside-uic">
+        <exec dir="housemonitor/qt" executable="/usr/bin/pyside-uic">
             <arg value="HouseMonitor3.ui"/>
             <arg value="-o"/>
             <arg value="monitor.py"/>

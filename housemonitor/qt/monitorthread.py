@@ -42,6 +42,7 @@ class MonitorThread( QThread ):
     garage_temperature = Signal( str )
     sunroom_temperature = Signal( str )
     outdoor_temperature = Signal( str )
+    kitchen_temperature = Signal( str )
     power_controller_1_temperature = Signal( str )
     door_state = Signal( str )
     finish_thread = Signal()
@@ -136,6 +137,9 @@ class MonitorThread( QThread ):
             self.outdoor_temperature.emit( current_value )
         if ( device == '0x13a200408baf45' and port == 'adc-0' ):
             self.power_controller_1_temperature.emit( current_value )
+        if ( device == '0x13a20040902867' and port == 'adc-0' ):
+            self.kitchen_temperature.emit( current_value )
+
 
     def convertToArray( self ):
         '''

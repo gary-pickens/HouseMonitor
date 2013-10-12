@@ -24,7 +24,7 @@ import time
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
-from utils.xbee_command import XBeeCommand
+from xbee_command import XBeeCommand
 
 __all__ = []
 __version__ = 0.1
@@ -105,10 +105,12 @@ USAGE
             cmd.change_dio( True, device, "DIO-1", ["step.ZigBeeOutput"] )
             cmd.change_dio( True, device, "DIO-2", ["step.ZigBeeOutput"] )
             cmd.change_dio( True, device, "DIO-3", ["step.ZigBeeOutput"] )
+            print "lights on"
             time.sleep( sleep )
             cmd.change_dio( False, device, "DIO-1", ["step.ZigBeeOutput"] )
             cmd.change_dio( False, device, "DIO-2", ["step.ZigBeeOutput"] )
             cmd.change_dio( False, device, "DIO-3", ["step.ZigBeeOutput"] )
+            print "lights off"
             time.sleep( sleep )
             count = count - 1
         return 0

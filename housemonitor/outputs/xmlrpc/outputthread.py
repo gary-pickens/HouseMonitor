@@ -20,8 +20,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-    __host = '192.168.1.75'
-#    __host = '192.168.1.66'
+    __host = 'housemonitor'
     __port = 9002
     __current_values = None
     __input_queue = None
@@ -31,8 +30,8 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         '''
         super( XmlRpcOutputThread, self ).__init__()
         threading.Thread.__init__( self )
-        self.current_values = current_values
-        self.input_queue = input_queue
+        self.__current_values = current_values
+        self.__input_queue = input_queue
 
     ''' Make sure and enter the appropriate entry in the logging configuration
     file
@@ -46,7 +45,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         # TODO: add a new EnvelopeType for changing output.
         env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
                             device=device, port=port, steps=steps )
-        self.input_queue.transmit( env, self.input_queue.HIGH_PRIORITY )
+        self.input_queue.transmit( env, self.__input_queue.HIGH_PRIORITY )
         self.logger.debug( 
                 "send command: value = {} device = {} port = {} steps = {}".
                 format( value, device, port, steps ) )
@@ -55,7 +54,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
     def send_command( self, value, device, port, steps ):
         env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
                             device=device, port=port, steps=steps )
-        self.input_queue.transmit( env, self.input_queue.MID_PRIORITY )
+        self.input_queue.transmit( env, self.__input_queue.MID_PRIORITY )
         self.logger.debug( 
                 "send command: value = {} device = {} port = {} steps = {}".
                 format( value, device, port, steps ) )
@@ -80,4 +79,5 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )
         server.register_function( self.send_command )
+        server.register_function( self.change_dio )
         server.serve_forever()
