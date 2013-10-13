@@ -43,21 +43,27 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     def change_dio( self, value, device, port, steps ):
         # TODO: add a new EnvelopeType for changing output.
-        env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
-                            device=device, port=port, steps=steps )
-        self.input_queue.transmit( env, self.__input_queue.HIGH_PRIORITY )
-        self.logger.debug( 
-                "send command: value = {} device = {} port = {} steps = {}".
-                format( value, device, port, steps ) )
+        try:
+            env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
+                                device=device, port=port, steps=steps )
+            self.__input_queue.transmit( env, self.__input_queue.HIGH_PRIORITY )
+            self.logger.debug( 
+                    "send command: value = {} device = {} port = {} steps = {}".
+                    format( value, device, port, steps ) )
+        except Exception as ex:
+            self.logger.exception( "Exception in {}".format( __name__ ) )
         return value
 
     def send_command( self, value, device, port, steps ):
-        env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
-                            device=device, port=port, steps=steps )
-        self.input_queue.transmit( env, self.__input_queue.MID_PRIORITY )
-        self.logger.debug( 
-                "send command: value = {} device = {} port = {} steps = {}".
-                format( value, device, port, steps ) )
+        try:
+            env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
+                                device=device, port=port, steps=steps )
+            self.__input_queue.transmit( env, self.__input_queue.MID_PRIORITY )
+            self.logger.debug( 
+                    "send command: value = {} device = {} port = {} steps = {}".
+                    format( value, device, port, steps ) )
+        except Exception as ex:
+            self.logger.exception( "Exception in {}".format( __name__ ) )
         return value
 
     def get_current_value( self, device, port ):

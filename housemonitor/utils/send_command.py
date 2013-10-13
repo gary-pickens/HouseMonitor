@@ -100,8 +100,6 @@ USAGE
         cmd = XBeeCommand( host )
 
         while count:
-            while ( not cmd.connected ):
-                cmd.connect_to_house_monitor()
             cmd.change_dio( True, device, "DIO-1", ["step.ZigBeeOutput"] )
             cmd.change_dio( True, device, "DIO-2", ["step.ZigBeeOutput"] )
             cmd.change_dio( True, device, "DIO-3", ["step.ZigBeeOutput"] )

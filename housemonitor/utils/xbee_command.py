@@ -21,6 +21,7 @@ class XBeeCommand( object ):
         super( XBeeCommand, self ).__init__()
         self.url = 'http://{}:{}'.format( host, 9002 )
         self.connect_to_house_monitor()
+        print( "Successfully instantuated XBeeCommand" )
 
     def connect_to_house_monitor( self ):
         '''
@@ -30,14 +31,14 @@ class XBeeCommand( object ):
         try:
             self.proxy = xmlrpclib.ServerProxy( self.url )
             self.connected = True
+            print( "Successfully connected to {}".format( self.url ) )
         except xmlrpclib.Error:
             time.sleep( 120 )
             self.connected = False
+            print( "Error connecting to {}".format( self.url ) )
 
     def send_command( self, command, device, port, steps ):
 
-        while not self.connected:
-            self.connect_to_house_monitor()
         try:
             self.values = self.proxy.send_command( command, device, port, steps )
             print( "sent command {} to device {} to steps {}".format( command, device, steps ) )
@@ -46,10 +47,9 @@ class XBeeCommand( object ):
 
     def change_dio( self, value, device, port, steps ):
 
-        while not self.connected:
-            self.connect_to_house_monitor()
         try:
             self.values = self.proxy.change_dio( value, device, port, steps )
             print( "sent command {} to device {} to steps {}".format( value, device, steps ) )
         except xmlrpclib.Error as er:
             self.connected = False
+            print( "Exception in change_dio {}".format( er ) )
