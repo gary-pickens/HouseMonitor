@@ -154,7 +154,9 @@ class MonitorThread( QThread ):
         try:
             self.proxy = xmlrpclib.ServerProxy( self.url )
             self.connected = True
-        except Exception:
+        except Exception as ex:
+            print( "Can not connect to {}".format( self.url ) )
+            print( "Exception is {}".format( ex ) )
             time.sleep( 120 )
             self.connected = False
 
