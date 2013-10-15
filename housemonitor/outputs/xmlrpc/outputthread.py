@@ -79,7 +79,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         return cv
 
     def run( self ):
-        server = SimpleXMLRPCServer( ( self.__host, self.__port ), logRequests=True )
+        server = SimpleXMLRPCServer( ( self.__host, self.__port ), logRequests=False )
         server.register_introspection_functions()
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )
