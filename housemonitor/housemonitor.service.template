@@ -1,6 +1,7 @@
 [Unit]
 Description=House Monitoring and Control System
-After=network-online.target
+After=multi-user.target
+Requires=multi-user.target
 ConditionPathIsDirectory=/usr/lib/python2.7/site-packages/HouseMonitor-@VERSION@-py2.7.egg/housemonitor
 ConditionFileIsExecutable=/usr/bin/HouseMonitor
 
