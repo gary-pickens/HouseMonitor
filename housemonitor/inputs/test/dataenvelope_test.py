@@ -4,54 +4,37 @@ Created on Dec 14, 2012
 @author: Gary
 '''
 import unittest
-import datetime
 from housemonitor.inputs.dataenvelope import DataEnvelope
-from mock import Mock, MagicMock, patch
+from housemonitor.lib.constants import Constants
 
 
 class Test( unittest.TestCase ):
 
-    def test_storing_data( self ):
-        test = DataEnvelope()
-        test.arrival_time.toString = MagicMock()
-        test.arrival_time.toString.return_value = '2012/10/03 01:02:03'
+    def test_with_at( self ):
+        test = DataEnvelope( type=Constants.EnvelopeTypes.XBEE, at='2012/10/03 01:02:03' )
         self.assertEqual( test.type, 'xbee' )
-        self.assertEqual( test.packet, {} )
-        self.assertEqual( test.arrival_time.toString(), '2012/10/03 01:02:03' )
-        self.assertEqual( test.data, {} )
+        self.assertEqual( test[Constants.DataPacket.arrival_time], '2012/10/03 01:02:03' )
 
-    @patch( 'housemonitor.inputs.dataenvelope.GetDateTime.toString' )
-    def test_storing_data_using_patch( self, str ):
-        test = DataEnvelope()
-        str.return_value = '2012/10/03 01:02:03'
-        self.assertEqual( test.type, 'xbee' )
-        self.assertEqual( test.packet, {} )
-        self.assertEqual( test.arrival_time.toString(), '2012/10/03 01:02:03' )
-        self.assertEqual( test.data, {} )
+    def test_with_computer_type( self ):
+        test = DataEnvelope( Constants.EnvelopeTypes.COMPUTER )
+        self.assertEqual( test.type, 'computer' )
 
-    @patch( 'housemonitor.inputs.dataenvelope.GetDateTime.__str__' )
-    def test_storing_data_using_patch_and___str__( self, s ):
-        test = DataEnvelope()
-        s.return_value = '2012/10/03 01:02:03'
-        self.assertEqual( test.type, 'xbee' )
-        self.assertEqual( test.packet, {} )
-        self.assertEqual( test.arrival_time.__str__(), '2012/10/03 01:02:03' )
-        self.assertEqual( test.data, {} )
+    def test_repr( self ):
+        test = DataEnvelope( Constants.EnvelopeTypes.XBEE, at='2012/10/03 01:02:03' )
+        self.assertEqual( test.__repr__(), "DataEnvelope(xbee,  {'at': '2012/10/03 01:02:03'})" )
 
-    @patch( 'housemonitor.inputs.dataenvelope.GetDateTime.__str__' )
-    def test_storing_data_using_patch_and___str__1( self, s ):
-        test = DataEnvelope()
-        s.return_value = '2012/10/03 01:02:03'
-        self.assertEqual( test.type, 'xbee' )
-        self.assertEqual( test.packet, {} )
-        self.assertEqual( str( test.arrival_time ), '2012/10/03 01:02:03' )
-        self.assertEqual( test.data, {} )
+    def test_with_invalid_type( self ):
+        with self.assertRaisesRegexp( KeyError, 'Invalid type error: type = ABC' ):
+            test = DataEnvelope( 'ABC' )
+            self.assertEqual( test.type, 'ABC' )
 
-#    def test_store_data(self):
-#
-#        self.assertEqual(test.arrival_time, datetime(2012, 10, 3, 01, 02, 03))
-#        self.assertEqual(test.data, {'device': 'abc', 'port': 'adc-1'})
+    def test_with_dict( self ):
+        data = {'a': 'b', 'c': 'd'}
+        test = DataEnvelope( Constants.EnvelopeTypes.COMPUTER, **data )
+        self.assertEqual( test.type, 'computer' )
+        self.assertEqual( test['a'], 'b' )
+        self.assertEqual( test['c'], 'd' )
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.test_storing_data']
-    unittest.main()    # pragma: no cover
+    unittest.main()  # pragma: no cover

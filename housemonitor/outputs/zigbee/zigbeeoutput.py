@@ -28,6 +28,7 @@ class ZigBeeOutput( Base, object ):
     serial = None
     zigbee = None
     previous_datetime = datetime.utcnow()
+    in_test_mode = False
 
     deviceToCommand = {'DIO-0': b'D0',
                     'DIO-1': b'D1',
@@ -42,18 +43,20 @@ class ZigBeeOutput( Base, object ):
     communication_module = {'posix': BeagleboneBlackXbeeCommunications,
                             'nt': WindowsXbeeCommunications}
 
-    def __init__( self ):
+    def __init__( self, in_test_mode=False ):
         '''
         '''
         super( ZigBeeOutput, self ).__init__()
+        self.in_test_mode = in_test_mode
 
     def startCorrectZigbee( self, os_name=os.name ):
-        if ( os_name in self.communication_module ):
-            self.comm = self.communication_module[os_name]()
-            self.serial = self.comm.setup()
-            self.zigbee = ZigBee( self.serial )
-        else:
-            raise UnsupportedSystemError( "System {} not supported".format( os_name ) )
+        if not self.in_test_mode:
+            if ( os_name in self.communication_module ):
+                self.comm = self.communication_module[os_name]()
+                self.serial = self.comm.setup()
+                self.zigbee = ZigBee( self.serial )
+            else:
+                raise UnsupportedSystemError( "System {} not supported".format( os_name ) )
 
     @property
     def logger_name( self ):
@@ -61,23 +64,30 @@ class ZigBeeOutput( Base, object ):
         return Constants.LogKeys.outputsZigBee
 
 
-    def sendCommand( self, value, data ):
+    def sendCommand( self, **packet ):
 
         try:
-            device, port = Common.getDeviceAndPort( data )
+            device = packet[Constants.DataPacket.device]
+            port = packet[Constants.DataPacket.port]
+            value = packet[Constants.DataPacket.value]
+            id = packet[Constants.DataPacket.ID]
             dest_addr_long = struct.pack( '!Q', int( device, 16 ) )
             command = self.deviceToCommand[port.upper()]
+            frame_id = struct.pack( '!B', id )
             parameter = self.selectHighOrLow[value]
             current_datetime = datetime.utcnow()
             delta = current_datetime - self.previous_datetime
-            self.logger.debug( '{} dest_addr = {:x} command = {} parameter {:x}'.
+            if not self.in_test_mode:
+                self.zigbee.remote_at( dest_addr_long=dest_addr_long,
+                                       frame_id=frame_id,
+                                       command=command,
+                                       parameter=parameter )
+                self.logger.debug( '{} dest_addr = {:x} command = {} parameter {:x} frame_id {}'.
                               format( str( delta ).split( '.' )[0],
                                       struct.unpack( '!Q', dest_addr_long )[0], command,
-                                      struct.unpack( 'B', parameter )[0] ) )
-            self.zigbee.remote_at( dest_addr_long=dest_addr_long, frame_id=b'\xaa',
-                                   command=command,
-                                   parameter=parameter )
+                                      struct.unpack( 'B', parameter )[0],
+                                      struct.unpack( 'B', frame_id )[0] ) )
             self.previous_datetime = current_datetime
         except KeyError:
-            self.logger.exception( 'KeyError exception: value = {} data = {}'.format( value, data ) )
+            self.logger.exception( 'KeyError exception: packet = {}'.format( packet ) )
             raise

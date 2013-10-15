@@ -13,7 +13,7 @@ class InputThread( threading.Thread ):
     '''
     Send fake messages though the system and see how it performs.
     '''
-    host = 'beaglebone'
+    host = '192.168.7.2'
     port = 9002
     proxy = None
     _sleep_time = 10

@@ -16,11 +16,11 @@ class HMQueue( Base ):
     ''' The size of the Queue. '''
 
     ''' Priority levels for the priority queue '''
-    high_priority = 0
-    three_quarters_priority = 2
-    mid_priority = 4
-    one_quarter_priority = 3
-    low_priority = 8
+    HIGH_PRIORITY = 0
+    THREE_QUARTERS_PRIORITY = 2
+    MID_PRIORITY = 4
+    ONE_QUARTER_PRIORITY = 3
+    LOW_PRIORITY = 8
 
     _queue = None
     ''' A Tread safe queue used to communicate data between threads. '''
@@ -39,7 +39,7 @@ class HMQueue( Base ):
         """ Set the logger level. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.lib
 
-    def transmit( self, packet, priority=mid_priority ):
+    def transmit( self, packet, priority=MID_PRIORITY ):
         '''
         Add packet to input queue.
 
@@ -107,4 +107,4 @@ class HMQueue( Base ):
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod()    # pragma: no cover
+    doctest.testmod()  # pragma: no cover

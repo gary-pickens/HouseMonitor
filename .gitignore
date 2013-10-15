@@ -21,5 +21,8 @@ HouseMonitor*.log
 *.BAK
 .pydevproject
 HouseMonitor.db
-/setup.py
 /UnitTest.log
+/setup.py
+/README
+/.coverage
+/output.html

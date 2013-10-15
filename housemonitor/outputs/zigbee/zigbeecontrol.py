@@ -21,6 +21,7 @@ class ZigBeeControl( Base ):
     queue = None
     ZigBeeOutputThread = None
     cosm = None
+    in_test_mode = False
 
     def __init__( self ):
         '''
@@ -33,7 +34,7 @@ class ZigBeeControl( Base ):
         """ Set the logger level. This needs to be added to house_monitoring_logging.conf"""
         return Constants.LogKeys.outputsZigBee
 
-    def startZigBee( self, options ):
+    def startZigBee( self, in_test_mode ):
         '''
         Start the ZigBee processing.
 
@@ -49,7 +50,8 @@ class ZigBeeControl( Base ):
 
         '''
         self.queue = HMQueue( 'ZigBeeInput' )
+        self.in_test_mode = in_test_mode
         self.zig = ZigBeeOutputStep( self.queue )
 
-        self.ZigBeeOutputThread = ZigBeeOutputThread( self.queue )
+        self.ZigBeeOutputThread = ZigBeeOutputThread( self.queue, self.in_test_mode )
         self.ZigBeeOutputThread.start()

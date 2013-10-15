@@ -4,14 +4,17 @@ Created on Sep 25, 2012
 @author: Gary
 '''
 
+from sets import Set
+
 
 class Constants( object ):
 
-    class GlobalIndexs( object ):
-        current_values = 'current_values'
-        options = 'options'
-        args = 'args'
-        start_time = 'start time'
+    class GlobalData( object ):
+        INPUT_QUEUE = "input_queue",
+        START_TIME = "start time",
+        CURRENT_VALUES = 'current values'
+        OPTIONS = 'options'
+        ARGS = 'args'
 
     class XbeeConfiguration( object ):
         """
@@ -53,6 +56,7 @@ class Constants( object ):
         Contains the keys that are included in the data packet
         that accompanies the data through the system.
         """
+        value = 'value'
         arrival_time = 'at'
         device = 'device'
         port = 'port'
@@ -65,7 +69,7 @@ class Constants( object ):
         min_value = 'min_value'
         listeners = 'listeners'
         scheduler_id = 'scheduler_id'
-
+        ID = 'id'
         action = 'action'
         send = 'send'
         accumulate = 'accumulate'
@@ -74,8 +78,32 @@ class Constants( object ):
         '''
         Contains definitions that describe the data that is passed in the input queue
         '''
-        xbee = 'xbee'
-        status = 'status'
+
+        XBEE = 'xbee'
+        STATUS = 'status'
+        COMMAND = 'command'
+        COMPUTER = 'computer'
+
+        set_of_envelope_types = Set( [XBEE,
+                                      STATUS,
+                                      COMMAND,
+                                      COMPUTER] )
+        def __init__( self ):
+            super( Constants.EnvelopeTypes, self ).__init__( 
+                                                  )
+
+    class EnvelopeContents( object ):
+
+        DEVICE = 'device'
+        VALUE = 'value'
+        PORT = 'port'
+        STEPS = 'steps'
+        SCHEDULER_ID = "scheduler_id"
+        ARRIVAL_TIME = 'arrival_time'
+        NAME = 'name'
+
+        DATA = "data"
+        PACKET = 'packet'
 
     class XBee( object ):
         """
@@ -236,6 +264,10 @@ class Constants( object ):
         ALL_TOPICS = 'ALL_TOPICS'
 
     class LogKeys( object ):
+
+        INPUT_STATUS = 'inputStatus'
+        INPUT_COMMANDS = 'inputCommands'
+        DATA_ENVELOPE = 'data_envelope'
         Scheduler = 'scheduler'
         inputs = 'inputs'
         inputsZigBee = 'inputsZigBee'
@@ -251,12 +283,9 @@ class Constants( object ):
         ComputerMonitor = 'ComputerMonitor'
         UnitTest = 'UnitTest'
 
-    class Queue( object ):
-        high_priority = 1
-        mid_priority = 5
-        default_priority = mid_priority
-        low_priority = 10
-
     class SchedulerName( object ):
         LED_Status_Update = 'LED Status Update'
         Uptime_update = 'uptime'
+
+
+

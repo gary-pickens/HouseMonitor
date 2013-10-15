@@ -29,11 +29,14 @@
          <rect>
           <x>40</x>
           <y>50</y>
-          <width>261</width>
-          <height>77</height>
+          <width>311</width>
+          <height>158</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+         </property>
          <item row="0" column="0">
           <widget class="QLabel" name="garage_door_label">
            <property name="font">
@@ -73,6 +76,21 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="garage_temperature">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="0">
           <widget class="QLabel" name="sunroom_temerature_label">
            <property name="font">
@@ -100,8 +118,44 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="garage_temperature">
+         <item row="3" column="0">
+          <widget class="QLabel" name="KitchenTemperature">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Kitchen Temperature</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="outdoor_temperature_2">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Outdoor Temperature</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="power_controller_1_temperature_2">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Power Controller 1 Temperature</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="kitchen_temperature">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -112,6 +166,90 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="outdoor_temperature">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="power_controller_1_temperature">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>260</y>
+          <width>311</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="0">
+          <widget class="QLabel" name="GarysLightLabel">
+           <property name="text">
+            <string>Gary's Bed Light</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="GarysBedLightOn">
+           <property name="text">
+            <string>On</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="GarysBedLightOff">
+           <property name="text">
+            <string>Off</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="MarilynsLightLabel">
+           <property name="text">
+            <string>Marilyn's Bed Light</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="MarilynsBedLightOn">
+           <property name="text">
+            <string>On</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="MarilynsBedLightOff">
+           <property name="text">
+            <string>Off</string>
            </property>
           </widget>
          </item>
@@ -278,7 +416,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

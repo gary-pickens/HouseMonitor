@@ -12,6 +12,7 @@ import pprint
 import threading
 import time
 import os
+from housemonitor.inputs.dataenvelope import DataEnvelope
 
 
 class XmlRpcOutputThread( Base, threading.Thread ):
@@ -19,20 +20,18 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-    # TODO put this in a configuration file
-    _select_hostname_based_on_os = {'posix': 'beaglebone',
-                                   'nt': 'localhost'}
-    # TODO figure out what to do if there are two host names
-#    _host = _select_hostname_based_on_os[os.name]
-    _host = '192.168.7.2'
-    _port = 9002
+    __host = 'housemonitor'
+    __port = 9002
+    __current_values = None
+    __input_queue = None
 
-    def __init__( self, current_values ):
+    def __init__( self, current_values, input_queue ):
         '''
         '''
         super( XmlRpcOutputThread, self ).__init__()
         threading.Thread.__init__( self )
-        self.current_values = current_values
+        self.__current_values = current_values
+        self.__input_queue = input_queue
 
     ''' Make sure and enter the appropriate entry in the logging configuration
     file
@@ -42,21 +41,48 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         ''' Set the logger level. '''
         return Constants.LogKeys.outputsXMLRPC
 
+    def change_dio( self, value, device, port, steps ):
+        try:
+            env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
+                                device=device, port=port, steps=steps )
+            self.__input_queue.transmit( env, self.__input_queue.HIGH_PRIORITY )
+            self.logger.debug( 
+                    "send command: value = {} device = {} port = {} steps = {}".
+                    format( value, device, port, steps ) )
+        except Exception as ex:
+            self.logger.exception( "Exception in {}".format( __name__ ) )
+        return value
+
+    def send_command( self, value, device, port, steps ):
+        try:
+            env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
+                                device=device, port=port, steps=steps )
+            self.__input_queue.transmit( env, self.__input_queue.MID_PRIORITY )
+            self.logger.debug( 
+                    "send command: value = {} device = {} port = {} steps = {}".
+                    format( value, device, port, steps ) )
+        except Exception as ex:
+            self.logger.exception( "Exception in {}".format( __name__ ) )
+        return value
+
     def get_current_value( self, device, port ):
-        self.logger.debug( 'get_current_value called' )
-        value = self.current_values.get( device, port )
-        self.logger.debug( "{} {} = {}".format( device, port, value ) )
+        value = self.__current_values.get( device, port )
+        self.logger.debug( 
+                "get current value: device = {} port = {} value = {}".
+                format( device, port, value ) )
         return value
 
     def get_current_values( self ):
         self.logger.debug( 'get_current_values called' )
-        cv = self.current_values.get()
-#        self.logger.debug('current_value = {}'.format(pprint.pformat(cv)))
+        cv = self.__current_values.get()
+        self.logger.debug( 'current_values = ', pprint.pformat( cv ) )
         return cv
 
     def run( self ):
-        server = SimpleXMLRPCServer( ( self._host, self._port ), logRequests=True )
+        server = SimpleXMLRPCServer( ( self.__host, self.__port ), logRequests=True )
         server.register_introspection_functions()
         server.register_function( self.get_current_value )
         server.register_function( self.get_current_values )
+        server.register_function( self.send_command )
+        server.register_function( self.change_dio )
         server.serve_forever()

@@ -52,10 +52,16 @@ class ModuleLoader( Base ):
                 for filename in files:
                     # Get just the file name - no extension
                     name, ext = os.path.splitext( filename )
-                    # and to names which will prevent doubles
-                    names.add( name )
+                    if ( ext.lower() == ".py" and
+                        not name.lower().endswith( "_test" ) ):
+                        # and to names which will prevent doubles
+                        names.add( name )
+                        self.logger.error( "name = {} ext = {}".format( name, ext ) )
                 for name in names:
-                    f = filename = description = package = None
+                    f = None
+                    filename = None
+                    description = None
+                    package = None
                     continue_processing = True
                     try:
                         f, filename, description = imp.find_module( name, \
@@ -97,10 +103,10 @@ class ModuleLoader( Base ):
                         "The function \"instantiate_me\" was not found in {}: {}"\
                         .format( name, err ) )
 
-    def close_file( self, f ):    # pragma: no cover
+    def close_file( self, f ):  # pragma: no cover
         # Module added for unit test
-        f.close()    # pragma: no cover
+        f.close()  # pragma: no cover
 
-    def get_class_name( self, package ):    # pragma: no cover
+    def get_class_name( self, package ):  # pragma: no cover
         # Module added for unit test
-        return package.instantiate_me()    # pragma: no cover
+        return package.instantiate_me()  # pragma: no cover

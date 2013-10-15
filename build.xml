@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Home Monitor Program" default="clean">
-    <property name="version" value="4.0.5" />
+	<buildnumber/>
+    <property name="version" value="4.1.${build.number}" />
+	<property name="subversion" value="1" />
     <property name="project" value="HouseMonitor" />
     <property name="remote_directory" value="${project}.${version}" />
+<!--    <property name="host" value="housemonitor" /> -->
     <property name="host" value="192.168.1.75" />
 	<property name="author" value="Gary Pickens" />
     <property name="email" value="gary_pickens@yahoo.com" />
 	<property name="title" value="House Monitor and Control"/>
 	<property name="current.dir" value="${basedir}" />
-	<property name="serial_port" value="/dev/ttyUSB0" /> <!-- For Linux -->
-<!--	<property name="serial_port" value="COM3" /> For Windows-->
+	<property name="pythonpath" value="/usr/lib/eclipse/plugins/org.python.pydev_2.8.1.2013072611/pysrc/pydev_sitecustomize:/home/gary/git/HouseMonitor/housemonitor:/usr/lib/eclipse/plugins/org.python.pydev_2.8.1.2013072611/pysrc:/usr/local/lib/python2.7/dist-packages/XBee-2.0.0-py2.7.egg:/usr/local/lib/python2.7/dist-packages/mock-1.0.1-py2.7.egg:/usr/local/lib/python2.7/dist-packages/PySide-1.1.3dev-py2.7.egg:/usr/local/lib/python2.7/dist-packages/PyPubSub-3.1.2-py2.7.egg:/usr/local/lib/python2.7/dist-packages/APScheduler-2.1.0-py2.7.egg:/usr/local/lib/python2.7/dist-packages/virtualenv-1.9.1-py2.7.egg:/usr/lib/python2.7:/usr/lib/python2.7/plat-x86_64-linux-gnu:/usr/lib/python2.7/lib-tk:/usr/lib/python2.7/lib-old:/usr/lib/python2.7/lib-dynload:/usr/local/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages:/usr/lib/python2.7/dist-packages/PILcompat:/usr/lib/python2.7/dist-packages/gtk-2.0:/usr/lib/python2.7/dist-packages/ubuntu-sso-client:/usr/lib/python2.7/dist-packages/ubuntuone-client:/usr/lib/python2.7/dist-packages/ubuntuone-control-panel:/usr/lib/python2.7/dist-packages/ubuntuone-storage-protocol:/home/gary/git/HouseMonitor" />
+
+	<condition property="isUnix">
+		<os family="unix"/>
+	</condition>
+	<condition property="isWindows">
+		<os family="windows"/>
+	</condition>
+	<property name="serial_port" value="/dev/ttyUSB0" />
 	<tstamp>
       <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
     </tstamp>
 
-
 	<import file="${user.home}/imported.xml" />
+
 <!-- The following two entries need to be added to import.xml with the correct user and password
 	<property name="user" value="" />
     <property name="password" value="" />
@@ -26,6 +36,7 @@
 	
     <target name="egg" description="Create egg" depends='UnitTest, fix'>
         <exec executable="python" failonerror="true">
+        	<env key="PYTHONPATH" value="${pythonpath}"/>
             <arg line="setup.py sdist" />
         </exec> 
     </target>
@@ -45,6 +56,13 @@
     </target>
 
 	<target name="UpdateConfig" description="Update Configuration Files">
+		<exec executable="git"> 
+			<arg value="tag"/>
+        	<arg value="-a"/>
+        	<arg value="${version}"/>
+        	<arg value="-m"/>
+            <arg value="Version ${version} ${now} ${author}"/> 
+        </exec>
 
         <loadfile property="housemonitorinfo.py" srcfile="housemonitor/housemonitorinfo.py.template">
              <filterchain>
@@ -87,22 +105,42 @@
     		   </filterchain>
     	</loadfile>
         <echo file="setup.py">${setup.py.template}</echo>
-    </target>
+		
+		<copy file="Readme.rst" tofile="README"/>
+		<replace file="README">
+		  <replacetoken>####################</replacetoken>
+		  <replacevalue></replacevalue>
+		</replace>
+		
+	</target>
 
 	<target name="UnitTest" depends="clean, UpdateConfig" description="Run all UnitTests">
         <exec executable="nosetests" failonerror="true" >
-            <arg value="--ignore-files=abc_step_test.py"/>
+        	<env key="PYTHONPATH" value="${pythonpath}"/>
+            <arg value="-v"/>
+            <arg value="-v"/>
+            <arg value="--ignore-file=abc_step_test"/>
+            <arg value="--ignore-files=moduleloader_Test"/>
         </exec>
     </target>
 
 	<target name="coverage" depends="clean, UpdateConfig" description="Run all UnitTests with Coverage">
+        <delete dir='conver'/>
 
 		<exec executable="coverage" failonerror="true" >
+        	<env key="PYTHONPATH" value="${pythonpath}"/>
             <arg value="erase"/>
         </exec>
 
 		<exec executable="nosetests" failonerror="true" >
+        	<env key="PYTHONPATH" value="${pythonpath}"/>
+            <arg value="--verbosity=1"/>
             <arg value="--ignore-files=abc_step_test.py"/>
+			<arg value="--ignore-files=moduleloader_Test.py"/>
+			<arg value="--ignore-files=display.py"/>
+			<arg value="--ignore-files=hmon.py"/>
+			<arg value="--ignore-files=inputthead.py"/>
+        	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
         	<arg value="--ignore-files=cursesmonitorcurrentvalues.py"/>
             <arg value="--with-coverage"/>
             <arg value="--cover-package='housemonitor'"/>
@@ -113,16 +151,12 @@
         </exec>
 
 		<exec executable="coverage" failonerror="true" >
-            <arg value="html"/>
-        	<arg value="-d cover"/>
-        </exec>
-
-		<exec executable="coverage" failonerror="true" >
-            <arg value="xml"/>
+        	<env key="PYTHONPATH" value="${pythonpath}"/>
+            <arg value="html" />		
         </exec>
 
 	</target>
-
+		
 	<target name="clean" description="remove intermediate files">
         <delete>
             <fileset dir="${basedir}">
@@ -191,11 +225,11 @@
     </target>
     <target name="copydoctobeaglebone" description="copy the doc files to the beaglebone computer">
         <scp todir="${user}:${password}@${host}:/www/pages" failonerror="true" trust="true">
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\docs\_build\html">
+            <fileset dir="${basedir}\docs\_build\html">
             </fileset>
         </scp>
         <scp todir="${user}:${password}@${host}:/www/pages/cover" failonerror="true" trust="true">
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor\cover">
+            <fileset dir="${basedir}\cover">
             </fileset>
         </scp>
     </target>
@@ -209,13 +243,28 @@
             </fileset>
         </scp>
     </target>
+
 	<!-- Documentation Section -->
-    <target name="doc" description="build documentation" depends="doc-create">
-        <exec executable="cmd.exe" dir="docs" failonerror="true">
-            <arg line="/c make.bat html" />
-        </exec>
+    <target name="doc-windows" 
+    	description="build documentation" 
+    	if="${isWindows}" 
+    	depends="doc-create">
+	 	<exec executable="cmd.exe" dir="docs" failonerror="true">
+	 	    <arg line="/c make.bat html" />
+	 	</exec>
+	</target>
+	<target name="doc-linux" 
+		description="build documentation" 
+		if="${isUnix}" 
+		depends="doc-create">
+    	<exec executable="make" dir="docs" failonerror="true">
+    		<arg line="html" />
+ 		</exec>
     </target>
-    <target name="doc-create" description="build documentation" depends="doc-clean">
+	<target name="Doc" description="Build HouseMonitor Documentation"
+		depends="doc-linux, doc-windows" />
+    <target name="doc-create" description="build documentation" 
+    	depends="doc-clean">
         <exec executable="sphinx-apidoc"> 
 			<arg value="-H ${project}"/>
         	<arg value="-A ${author}"/>
@@ -227,7 +276,7 @@
     </target>
     <target name="doc-clean" description="remove intermediate files">
         <delete>
-            <fileset dir="C:\Users\Gary\git\HouseMonitor\HouseMonitor">
+            <fileset dir="${basedir}">
                 <include name="docs/HouseMonitor*.rst" />
                 <include name="docs/housemonitor*.rst" />
                 <include name="docs\_build" />
@@ -251,7 +300,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -264,7 +313,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -273,24 +322,11 @@
             <arg value="--Kitchen"/>
         </exec>
     </target>
-    <target name="Build XBeee as a Power Controller" description="Build an XBee for controlling power">
-        <exec executable="python"> 
-            <arg value="${XbeeConfig}"/>
-            <arg value="--port"/>
-            <arg value="${serial_port}"/>
-            <arg value="--speed"/>
-            <arg value="9600"/>
-            <arg value="--timeout"/>
-            <arg value="2.0"/>
-            <arg value="--AT"/>         
-            <arg value="--PowerController"/>
-        </exec>
-    </target>
     <target name="Build Outdoor XBee" description="Build outdoor XBee">
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -303,7 +339,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -316,7 +352,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -329,7 +365,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -342,7 +378,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -355,7 +391,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -368,7 +404,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -381,7 +417,7 @@
         <exec executable="python"> 
             <arg value="${XbeeConfig}"/>
             <arg value="--port"/>
-            <arg value="${serial_port}"/>
+            <arg value="COM4"/>
             <arg value="--speed"/>
             <arg value="9600"/>
             <arg value="--timeout"/>
@@ -391,13 +427,15 @@
         </exec>
     </target>
     <target name="clone digger" description="Look for clones">
-        <exec executable="/Python27/Scripts/clonedigger.exe">
+        <exec executable="clonedigger">
         	<arg value="--ignore-dir=test"/>
+        	<arg value="--ignore-dir=qt"/>
+        	<arg value="--ignore-dir=utils"/>
             <arg value="housemonitor"/>
         </exec>
     </target>
     <target name="qt" description="Build qt monitor">
-        <exec dir="housemonitor/qt" executable="pyside-uic.exe">
+        <exec dir="housemonitor/qt" executable="/usr/bin/pyside-uic">
             <arg value="HouseMonitor3.ui"/>
             <arg value="-o"/>
             <arg value="monitor.py"/>

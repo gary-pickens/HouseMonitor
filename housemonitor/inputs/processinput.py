@@ -31,24 +31,24 @@ class abcProcessInput( Base, object ):
 
     @abc.abstractproperty
     def process( self, envelope ):
-        pass    # pragma: no cover
+        pass  # pragma: no cover
 
 
-class ProcessXBeeInput( abcProcessInput ):
+class ProcessCommandInput( abcProcessInput ):
     '''
-    This class will receive an XBee packet, strip the pertinate data out, and send it allong to be processed.
+    This class will receive a command from some external source
+    and load it into the system for further processing.
     '''
     devices = {}
 
     @property
     def logger_name( self ):
-        return Constants.LogKeys.inputsZigBee
+        return Constants.LogKeys.INPUT_COMMANDS
 
     def __init__( self, devices ):
-        super( ProcessXBeeInput, self ).__init__()
-        self.devices = devices
+        super( ProcessCommandInput, self ).__init__()
 
-    def process( self, envelope ):
+    def process( self, env ):
         '''
         Process a envelope received from the XBee.  This involves the following:
         1.  get the addresses from the header
@@ -62,9 +62,50 @@ class ProcessXBeeInput( abcProcessInput ):
         Return: None
         :Raises: None
         '''
-        self.logger.info( 'processing data from zigbee {}'.format( envelope ) )
+        self.logger.debug( 'processing command {}'.format( env ) )
         try:
-            packet = envelope.packet
+            value = env[Constants.EnvelopeContents.VALUE]
+            steps = copy.copy( env[Constants.EnvelopeContents.STEPS] )
+
+            Common.send( value, env.args, steps )
+            self.logger.debug( "Successfully sent command to XBee" )
+        except KeyError as ex:
+            self.logger.exception( 'value or steps missing from env {}'.
+                                   format( env ) )
+        except ListenerSpecIncomplete as lsi:
+            self.logger.error( 'Invalid topic: {}'.format( lsi ) )
+
+class ProcessXBeeInput( abcProcessInput ):
+    '''
+    This class will receive an XBee packet, strip the pertinate data out, and 
+    send it allong to be processed.
+    '''
+    devices = {}
+
+    @property
+    def logger_name( self ):
+        return Constants.LogKeys.inputsZigBee
+
+    def __init__( self, devices ):
+        super( ProcessXBeeInput, self ).__init__()
+        self.devices = devices
+
+    def process( self, packet ):
+        '''
+        Process a envelope received from the XBee.  This involves the following:
+        1.  get the addresses from the header
+        2.  get the data out of the packet
+        3.  get information about the source of the data
+        4.  send each packet using the pub/sub system
+
+        Args:
+        :param envelope: a packet received from the XBee radio and decomposed by the ZigBee module
+        :type DataEnvelope:
+        Return: None
+        :Raises: None
+        '''
+        self.logger.debug( 'processing data from zigbee {}'.format( packet ) )
+        try:
             if packet[Constants.XBee.id] == Constants.XBee.api_responses.rx_io_data_long_addr:
                 source_addr_long = "{:#x}".format( unpack( '!Q', packet[Constants.XBee.source_addr_long] )[0] )
                 source_addr = "{:#x}".format( unpack( '!H', packet[Constants.XBee.source_addr] )[0] )
@@ -94,7 +135,7 @@ class ProcessXBeeInput( abcProcessInput ):
             else:
                 self.logger.info( 'None processed ZigBee response {}'.format( pprint.pformat( packet ) ) )
         except KeyError:
-            self.logger.exception( "error extracting data from {}".format( pprint.pformat( envelope ) ) )
+            self.logger.exception( "error extracting data from {}".format( pprint.pformat( packet ) ) )
         except ListenerSpecIncomplete as lsi:
             self.logger.error( 'Invalid topic: {}'.format( lsi ) )
 
@@ -105,7 +146,7 @@ class ProcessStatusRequests( abcProcessInput ):
 
     @property
     def logger_name( self ):
-        return Constants.LogKeys.inputs
+        return Constants.LogKeys.INPUT_STATUS
 
     def __init__( self, devices ):
         super( ProcessStatusRequests, self ).__init__()
@@ -124,13 +165,9 @@ class ProcessStatusRequests( abcProcessInput ):
         :Raises: None
         '''
         try:
-            data = envelope.data
-            if Constants.DataPacket.current_value in data:
-                value = data[Constants.DataPacket.current_value]
-            else:
-                value = 1
-            listeners = data[Constants.DataPacket.listeners]
-            Common.send( value, data, listeners )
+            value = envelope[Constants.EnvelopeContents.VALUE] if Constants.EnvelopeContents.VALUE in envelope else 1
+            listeners = envelope[Constants.EnvelopeContents.STEPS]
+            Common.send( value, envelope.args, listeners )
         except Exception as ex:
             self.logger.exception( 'Common.send error {}'.format( ex ) )
 
@@ -140,7 +177,7 @@ class ProcessInput( abcInput ):
     the of data and pass the data to the correct routine to futher process the data
     '''
 
-    _input_queue = None
+    __input_queue = None
     ''' The queue will be used to receive data from input threads. '''
 
     commands = {}
@@ -169,11 +206,12 @@ class ProcessInput( abcInput ):
         Constructor
         '''
         super( ProcessInput, self ).__init__()
-        self._input_queue = input_queue
+        self.__input_queue = input_queue
         self.devices = xmlDeviceConfiguration()
 
-        self.commands = {Constants.EnvelopeTypes.xbee: ProcessXBeeInput( self.devices ),
-                         Constants.EnvelopeTypes.status: ProcessStatusRequests( self.devices )}
+        self.commands = {Constants.EnvelopeTypes.XBEE: ProcessXBeeInput( self.devices ),
+                         Constants.EnvelopeTypes.COMMAND: ProcessCommandInput( self.devices ),
+                         Constants.EnvelopeTypes.STATUS: ProcessStatusRequests( self.devices )}
 
     def work( self ):
         '''
@@ -184,8 +222,8 @@ class ProcessInput( abcInput ):
 
         '''
         try:
-            envelope = self._input_queue.receive()
-            self.logger.debug( 'recieved type {} Envelope'.format( envelope.type ) )
+            envelope = self.__input_queue.receive()
+            self.logger.debug( 'recieved type {} Envelope'.format( envelope ) )
             self.commands[envelope.type].process( envelope )
         except KeyError:
             self.logger.debug( 'Invalid envelope.type = {}'.format( envelope.type ) )

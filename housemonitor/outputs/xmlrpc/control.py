@@ -13,14 +13,19 @@ class XMLRPCControl( Base ):
     classdocs
     '''
     OutputThread = None
-    _current_values = None
+    __current_values = None
+    __input_queue = None
+    __options = None
 
-    def __init__( self, global_data ):
+
+    def __init__( self, current_values, input_queue, options ):
         '''
         Constructor
         '''
         super( XMLRPCControl, self ).__init__()
-        self._current_values = global_data['current values']
+        self.__current_values = current_values
+        self.__input_queue = input_queue
+        self.__options = options
 
     @property
     def logger_name( self ):
@@ -28,5 +33,5 @@ class XMLRPCControl( Base ):
         return Constants.LogKeys.outputsXMLRPC
 
     def startXMLRPC( self, options ):
-        self.OutputThread = XmlRpcOutputThread( self._current_values )
+        self.OutputThread = XmlRpcOutputThread( self.__current_values, self.__input_queue )
         self.OutputThread.start()

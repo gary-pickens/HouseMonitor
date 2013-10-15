@@ -31,7 +31,7 @@ class HMScheduler( Base ):
     '''
 
     ''' The queue that is used to send messages to the rest of the system. '''
-    _input_queue = None
+    __input_queue = None
 
     ''' The scheduler object '''
     scheduler = None
@@ -45,7 +45,7 @@ class HMScheduler( Base ):
         '''
         Initialize the MHScheduler.
 
-        # Store the queue into _input_queue
+        # Store the queue into __input_queue
         # Associate **add_interval** with Constants.TopicNames.SchedulerAddIntervalStep
         # Associate **add_cron** with Constants.TopicNames.SchedulerAddCronStep
         # Associate **add_date** with Constants.TopicNames.SchedulerAddDateStep
@@ -53,7 +53,7 @@ class HMScheduler( Base ):
         # Associate **delete_job** with Constants.TopicNames.SchedulerDeleteJob
         '''
         super( HMScheduler, self ).__init__()
-        self._input_queue = queue
+        self.__input_queue = queue
         pub.subscribe( self.add_interval, Constants.TopicNames.SchedulerAddIntervalStep )
         pub.subscribe( self.add_cron, Constants.TopicNames.SchedulerAddCronStep )
         pub.subscribe( self.add_date, Constants.TopicNames.SchedulerAddDateStep )
@@ -284,14 +284,21 @@ class HMScheduler( Base ):
         :type listeners: list of strings that contains the topic name of the listeners.  Most can be found in Constants.TopicNames
 
         """
-        data = {}
-        data[Constants.DataPacket.device] = device
-        data[Constants.DataPacket.port] = port
-        data[Constants.DataPacket.scheduler_id] = scheduler_id
-        data[Constants.DataPacket.arrival_time] = GetDateTime()
-        data[Constants.DataPacket.listeners] = copy.copy( listeners )
-        data[Constants.DataPacket.name] = name
-        de = DataEnvelope( type=Constants.EnvelopeTypes.status, data=data )
-        self.logger.debug( 'name = {} listeners = {} scheduler_id =  {}'.format( name, listeners,
-                                                        data[Constants.DataPacket.scheduler_id] ) )
-        self._input_queue.transmit( de, Constants.Queue.low_priority )
+        try:
+            data = {
+                Constants.EnvelopeContents.VALUE: 1,
+                Constants.EnvelopeContents.DEVICE: device,
+                Constants.EnvelopeContents.PORT: port,
+
+                Constants.EnvelopeContents.SCHEDULER_ID: scheduler_id,
+                Constants.EnvelopeContents.ARRIVAL_TIME: datetime.utcnow(),
+                Constants.EnvelopeContents.STEPS: copy.copy( listeners ),
+                Constants.EnvelopeContents.NAME: name,
+            }
+            de = DataEnvelope( Constants.EnvelopeTypes.STATUS, **data )
+            self.logger.debug( 'name: {} listeners: {} scheduler_id:  {}'.
+                               format( name, listeners,
+                                       data[Constants.EnvelopeContents.STEPS] ) )
+            self.__input_queue.transmit( de, self.__input_queue.LOW_PRIORITY )
+        except Exception as ex:
+            self.logger.exception( "Exception in SendCommand: {}".format( ex ) )

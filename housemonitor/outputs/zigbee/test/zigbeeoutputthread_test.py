@@ -25,14 +25,14 @@ class Test( unittest.TestCase ):
 
     def test_logger_name( self ):
         queue = HMQueue()
-        thread = ZigBeeOutputThread( queue )
+        thread = ZigBeeOutputThread( queue, 1 )
         self.assertEqual( thread.logger_name, Constants.LogKeys.outputsZigBee )
 
     @patch( 'housemonitor.outputs.zigbee.zigbeeoutputthread.time.sleep' )
     @patch( 'housemonitor.outputs.zigbee.zigbeeoutputthread.ZigBeeOutput' )
     def test_ZigBeeOutput_throws_exception( self, zo, t ):
         queue = HMQueue()
-        thread = ZigBeeOutputThread( queue )
+        thread = ZigBeeOutputThread( queue , 1 )
         zo.side_effect = KeyError( 'boom' )
         thread.zigbeeConnect()
         self.assertFalse( thread.connected )
@@ -58,7 +58,8 @@ class Test( unittest.TestCase ):
         data = {}
         packet['value'] = value
         packet['data'] = data
-        thread = ZigBeeOutputThread( queue )
+        packet['id'] = 0xab
+        thread = ZigBeeOutputThread( queue, 1 )
         qr.return_value = packet
         thread.zigbee_output = MagicMock()
         thread.zigbee_output.sendCommand = MagicMock()
@@ -66,7 +67,7 @@ class Test( unittest.TestCase ):
         thread.talking = True
         thread.done = False
         thread.processCommandToZigBee()
-        thread.zigbee_output.sendCommand.assert_called_once_with( value, data )
+        thread.zigbee_output.sendCommand.assert_called_once_with( **packet )
         self.assertTrue( thread.connected )
         self.assertTrue( thread.talking )
         thread.done = False
@@ -74,7 +75,7 @@ class Test( unittest.TestCase ):
     def test_processCommandToZigBee_with_IOError_in_SendCommand( self ):
         queue = HMQueue()
         packet = 555
-        thread = ZigBeeOutputThread( queue )
+        thread = ZigBeeOutputThread( queue, 1 )
         thread.output_queue = MagicMock()
         thread.output_queue.receive = MagicMock()
         thread.connected = True
@@ -90,7 +91,7 @@ class Test( unittest.TestCase ):
     def test_processCconnectAndProcessZigBeeCommands( self ):
         queue = HMQueue()
         packet = 555
-        thread = ZigBeeOutputThread( queue )
+        thread = ZigBeeOutputThread( queue, 1 )
         thread.connected = False
         thread.talking = True
         thread.done = False
@@ -106,7 +107,7 @@ class Test( unittest.TestCase ):
     def test_run( self ):
         queue = HMQueue()
         packet = 555
-        thread = ZigBeeOutputThread( queue )
+        thread = ZigBeeOutputThread( queue, 1 )
         thread.connectAndProcessZigBeeCommands = MagicMock()
         thread.run()
         thread.connectAndProcessZigBeeCommands.assert_called_once_with()

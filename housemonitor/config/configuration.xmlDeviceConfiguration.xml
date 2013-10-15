@@ -70,11 +70,11 @@
         </port>
     </xbee>
     <xbee source_address="0x13a20040902867">
-        <name>Backroom</name>
+        <name>Kitchen</name>
         <network_address>0xf9f2</network_address>
         <port portname="adc-0">
-            <name>Backroom Temperature</name>
-            <description>The temperature in the back room</description>
+            <name>Kitchen Temperature</name>
+            <description>The temperature in the Kitchen</description>
             <units>F</units>
             <steps type="list">
                 <step>step.ZigbeeAnalogNumberToVolts</step>

@@ -3,9 +3,11 @@ Created on May 13, 2013
 
 @author: Gary
 '''
-from PySide.QtCore import QThread, Signal
+from PySide.QtCore import *
+from PySide.QtGui import *
+from PySide import *
 import xmlrpclib
-#import winsound
+# import winsound
 import time
 
 
@@ -22,7 +24,8 @@ class MonitorThread( QThread ):
     TODO: Use Constants file for a lot of the hard coded values
     '''
     values = None
-    url = 'http://{}:{}'.format( '192.168.1.75', 9002 )
+    host = 'housemonitor'
+    url = 'http://{}:{}'.format( host, 9002 )
     proxy = None
 
     connected = False
@@ -40,6 +43,9 @@ class MonitorThread( QThread ):
     showMessage = Signal( str )
     garage_temperature = Signal( str )
     sunroom_temperature = Signal( str )
+    outdoor_temperature = Signal( str )
+    kitchen_temperature = Signal( str )
+    power_controller_1_temperature = Signal( str )
     door_state = Signal( str )
     finish_thread = Signal()
 
@@ -61,14 +67,14 @@ class MonitorThread( QThread ):
         '''
         Sound the alarm when the garage door is opened.
         '''
-        #winsound.Beep( self.alarm_tone, self.alarm_duration )
+#        winsound.Beep( self.alarm_tone, self.alarm_duration )
         self.alarm_sounded = True
         print 'beep'
 
     def run( self ):
         self.exec_()
 
-    def timerEvent( self, event ):    # @UnusedVariable
+    def timerEvent( self, event ):  # @UnusedVariable
         '''
         This time event is started in the constructor at read_data_interval.  It's main
         task is to read the data from HouseMonitor program and send it to the main thread.
@@ -88,6 +94,57 @@ class MonitorThread( QThread ):
                 self.monitored_data.write_data( data )
 #               self.emit( SIGNAL( 'read_data()' ) )
                 self.read_data.emit()
+
+    turn_garys_lights_on = Signal()
+    turn_garys_ligths_off = Signal()
+
+    @QtCore.Slot()
+    def turnGarysLightOn( self ):
+        try:
+            print( 'Turn Gary\'s light On Bang Bang!!' )
+            device = "0x13a200408baf45"
+            port = "DIO-1"
+            steps = ["step.ZigBeeOutput"]
+            self.values = self.proxy.change_dio( True, device, port, steps )
+        except Exception as ex:
+            self.connected = False
+
+    @QtCore.Slot()
+    def turnGarysLightOff( self ):
+        try:
+            print( 'Turn Gary\'s light Off Bang Bang!!' )
+            device = "0x13a200408baf45"
+            port = "DIO-1"
+            steps = ["step.ZigBeeOutput"]
+            self.values = self.proxy.change_dio( False, device, port, steps )
+        except Exception as ex:
+            self.connected = False
+
+    turn_marilyns_lights_on = Signal()
+    turn_marilyns_ligths_off = Signal()
+
+    @QtCore.Slot()
+    def turnMarilynsLightOn( self ):
+        try:
+            print( 'Turn Marilyn\'s light On Bang Bang!!' )
+            device = "0x13a200408baf45"
+            port = "DIO-2"
+            steps = ["step.ZigBeeOutput"]
+            self.values = self.proxy.change_dio( True, device, port, steps )
+        except Exception as ex:
+            self.connected = False
+
+    @QtCore.Slot()
+    def turnMarilynsLightOff( self ):
+        try:
+            print( 'Turn Marilyn\'s light Off Bang Bang!!' )
+            device = "0x13a200408baf45"
+            port = "DIO-2"
+            steps = ["step.ZigBeeOutput"]
+            self.values = self.proxy.change_dio( False, device, port, steps )
+        except Exception as ex:
+            self.connected = False
+
 
     def connect_to_house_monitor( self ):
         '''
@@ -128,6 +185,14 @@ class MonitorThread( QThread ):
                     self.sound_alarm()
         if ( device == '0x13a200408cccc3' and port == 'adc-0' ):
             self.sunroom_temperature.emit( current_value )
+
+        if ( device == '0x13a200408b68b5' and port == 'adc-0' ):
+            self.outdoor_temperature.emit( current_value )
+        if ( device == '0x13a200408baf45' and port == 'adc-0' ):
+            self.power_controller_1_temperature.emit( current_value )
+        if ( device == '0x13a20040902867' and port == 'adc-0' ):
+            self.kitchen_temperature.emit( current_value )
+
 
     def convertToArray( self ):
         '''

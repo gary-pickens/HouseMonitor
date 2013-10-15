@@ -1,3 +1,4 @@
+
 ############
 Gary's Notes
 ############
@@ -531,6 +532,107 @@ Setting up the XBees as an endpoint
 #. Press the *Write* button in the *Modem Parameters* section.
 #. When X-CTU has finish writing to the XBee close the X-CTU program down.
 #. In Eclipse ant window double click Build Backroom XBee.
+
+=============================
+Several minutes of XBee input
+=============================
+
+Here's several minutes of XBee input::
+
+	2013-09-21 02:14:44,212:   {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf', 'source_addr': '\xf9\xf2', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-1': 669, 'dio-0': True}], 'options': '\x01'}
+	2013-09-21 02:14:44,454:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:14:44,602:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D1', 'id': 'remote_at_response'}
+	2013-09-21 02:14:44,651:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D2', 'id': 'remote_at_response'}
+	2013-09-21 02:14:47,236:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:14:49,290:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:14:50,189:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:14:53,139:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:14:54,318:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:14:56,089:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:14:56,633:   {'source_addr_long': '\x00\x13\xa2\x00@\x8c\xcc\xc3', 'source_addr': '\x11\xba', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-0': 659, 'adc-1': 541}], 'options': '\x01'}
+	2013-09-21 02:14:59,042:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:14:59,301:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:01,998:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:04,314:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:04,958:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:07,927:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:09,289:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:10,847:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:13,370:   {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf', 'source_addr': '\xf9\xf2', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-1': 668, 'dio-0': True}], 'options': '\x01'}
+	2013-09-21 02:15:13,515:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D2', 'id': 'remote_at_response'}
+	2013-09-21 02:15:13,557:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D1', 'id': 'remote_at_response'}
+	2013-09-21 02:15:13,806:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:14,304:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:16,750:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:19,304:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:19,995:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:22,666:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:24,307:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:24,833:   {'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'source_addr': '\xe4\xe8', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-0': True, 'dio-1': False, 'dio-6': False, 'dio-4': True, 'dio-5': False}], 'options': '\x01'}
+	2013-09-21 02:15:25,604:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:28,554:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 671}], 'options': '\x01'}
+	2013-09-21 02:15:29,296:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:31,511:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:34,335:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:34,461:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:37,415:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:39,341:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:39,638:   {'source_addr_long': '\x00\x13\xa2\x00@\x90(g', 'source_addr': '6\x01', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-0': 662}], 'options': 'A'}
+	2013-09-21 02:15:40,361:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:42,779:   {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf', 'source_addr': '\xf9\xf2', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-1': 666, 'dio-0': True}], 'options': '\x01'}
+	2013-09-21 02:15:42,892:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D2', 'id': 'remote_at_response'}
+	2013-09-21 02:15:42,940:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D1', 'id': 'remote_at_response'}
+	2013-09-21 02:15:43,312:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:43,559:   {'source_addr_long': '\x00\x13\xa2\x00@\x90(g', 'source_addr': '6\x01', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-0': 662}], 'options': 'A'}
+	2013-09-21 02:15:44,305:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:46,263:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:49,290:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:49,362:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:52,210:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:54,350:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:15:55,124:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:58,079:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:15:59,302:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:00,474:   {'source_addr_long': '\x00\x13\xa2\x00@\x8c\xcc\xc3', 'source_addr': '\x11\xba', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-0': 658, 'adc-1': 534}], 'options': '\x01'}
+	2013-09-21 02:16:01,022:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:03,979:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:04,290:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:06,932:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:09,297:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:09,882:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:12,186:   {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf', 'source_addr': '\xf9\xf2', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-1': 666, 'dio-0': True}], 'options': '\x01'}
+	2013-09-21 02:16:12,306:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D2', 'id': 'remote_at_response'}
+	2013-09-21 02:16:12,349:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D1', 'id': 'remote_at_response'}
+	2013-09-21 02:16:12,832:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:14,294:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:15,779:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:18,745:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:19,354:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:21,679:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:24,331:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:24,629:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:27,602:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:28,723:   {'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'source_addr': '\xe4\xe8', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-0': True, 'dio-1': False, 'dio-6': False, 'dio-4': True, 'dio-5': False}], 'options': '\x01'}
+	2013-09-21 02:16:29,298:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:30,549:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:33,483:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:34,291:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:36,442:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:39,288:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:39,388:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:41,599:   {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf', 'source_addr': '\xf9\xf2', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-1': 667, 'dio-0': True}], 'options': '\x01'}
+	2013-09-21 02:16:41,713:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D2', 'id': 'remote_at_response'}
+	2013-09-21 02:16:41,753:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D1', 'id': 'remote_at_response'}
+	2013-09-21 02:16:42,344:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:44,305:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:45,312:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:48,243:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:49,296:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+	2013-09-21 02:16:51,194:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:54,167:   {'source_addr_long': '\x00\x13\xa2\x00@\x8b\xafE', 'source_addr': '\x07\x0f', 'id': 'rx_io_data_long_addr', 'samples': [{'dio-2': False, 'dio-3': False, 'dio-1': False, 'adc-0': 672}], 'options': '\x01'}
+	2013-09-21 02:16:54,336:   {'status': '\x00', 'source_addr': '\xe4\xe8', 'source_addr_long': '\x00\x13\xa2\x00@\x90*\x02', 'frame_id': '\xaa', 'command': 'D0', 'id': 'remote_at_response'}
+
+
 
 =========
 Ant Notes
@@ -1133,13 +1235,24 @@ Misc
 
 #.   `Explorations into Angstrom syslog and systemd <http://www.mattlmassey.com/2012/07/10/explorations-into-angstrom-syslog-and-systemd>`_.
 
+#.  `Memory monitor software <http://pythonhosted.org/Pympler/>`_.
+
+#.  'Pico -- A light weight web server <https://github.com/fergalwalsh/pico/wiki>`_.
+
+#.  `Super Easy Python JSON Client & Server <http://cpiekarski.com/2011/05/09/super-easy-python-json-client-server>`_.
+
+#.  `Python simple JSON TCP server and client <http://thomasfischer.biz/?p=622>`_.
+
 #.  There was a good article in DrDobb's Journal about 
     `Quantities and Units <http://www.drdobbs.com/jvm/quantities-and-units-in-python/240161101>`_.
 
 #. A good article about using `enums <http://tech.zarmory.com/2013/08/python-enum-on-steroids.html>`_ in python.
  
-#. https://structlog.readthedocs.org/en/latest/
+#. An article on using `structure logs <https://structlog.readthedocs.org/en/latest/>`_.
 
-#. http://axialcorps.com/2013/08/29/5-simple-rules-for-building-great-python-packages/?goback=.gde_101591_member_270039332#!
+#. Rules on `building python packages <http://axialcorps.com/2013/08/29/5-simple-rules-for-building-great-python-packages/?goback=.gde_101591_member_270039332#!>`_.
+
+#. A datetime replacement `arrow <http://crsmithdev.com/arrow/>`_.
+
 
 

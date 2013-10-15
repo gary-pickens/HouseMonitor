@@ -1,3 +1,4 @@
+#!/usr/bin/python2.7
 from PySide.QtCore import *
 from PySide.QtGui import *
 from PySide import *
@@ -40,6 +41,10 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
     mt = None
     thread_exit_signal = Signal()
 
+    @QtCore.Slot()
+    def button_clicked( self ):
+        print "Bang!"
+
     def stop_program( self ):
         self.mt.finish_thread.emit()
         self.mt.wait( 1000 )
@@ -64,6 +69,9 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         self.mt.garage_temperature.connect( self.garage_temperature.setText )
         self.mt.sunroom_temperature.connect( self.sunroom_temperature.setText )
         self.mt.door_state.connect( self.door_state.setText )
+        self.mt.kitchen_temperature.connect( self.kitchen_temperature.setText )
+        self.mt.outdoor_temperature.connect( self.outdoor_temperature.setText )
+        self.mt.power_controller_1_temperature.connect( self.power_controller_1_temperature.setText )
 
         self.status_proxy_model = QSortFilterProxyModel()
         self.computer_proxy_model = QSortFilterProxyModel()
@@ -103,6 +111,13 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         self.model.setHorizontalHeaderItem( 1, QStandardItem( 'Port' ) )
         self.model.setHorizontalHeaderItem( 2, QStandardItem( 'Value' ) )
         self.model.setHorizontalHeaderItem( 3, QStandardItem( 'Time' ) )
+
+        # Turn on and off devices
+        self.GarysBedLightOn.clicked.connect( self.mt.turnGarysLightOn )
+        self.GarysBedLightOff.clicked.connect( self.mt.turnGarysLightOff )
+
+        self.MarilynsBedLightOn.clicked.connect( self.mt.turnMarilynsLightOn )
+        self.MarilynsBedLightOff.clicked.connect( self.mt.turnMarilynsLightOff )
 
         self.actionExit.triggered.connect( self.stop_program )
         self.mt.finish_thread.connect( self.mt.finish_up )
