@@ -42,7 +42,6 @@ class XmlRpcOutputThread( Base, threading.Thread ):
         return Constants.LogKeys.outputsXMLRPC
 
     def change_dio( self, value, device, port, steps ):
-        # TODO: add a new EnvelopeType for changing output.
         try:
             env = DataEnvelope( type=Constants.EnvelopeTypes.COMMAND, value=value,
                                 device=device, port=port, steps=steps )

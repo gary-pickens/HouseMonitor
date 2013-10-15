@@ -41,6 +41,10 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
     mt = None
     thread_exit_signal = Signal()
 
+    @QtCore.Slot()
+    def button_clicked( self ):
+        print "Bang!"
+
     def stop_program( self ):
         self.mt.finish_thread.emit()
         self.mt.wait( 1000 )
@@ -107,6 +111,13 @@ class MainWindow( QMainWindow, monitor.Ui_MainWindow ):
         self.model.setHorizontalHeaderItem( 1, QStandardItem( 'Port' ) )
         self.model.setHorizontalHeaderItem( 2, QStandardItem( 'Value' ) )
         self.model.setHorizontalHeaderItem( 3, QStandardItem( 'Time' ) )
+
+        # Turn on and off devices
+        self.GarysBedLightOn.clicked.connect( self.mt.turnGarysLightOn )
+        self.GarysBedLightOff.clicked.connect( self.mt.turnGarysLightOff )
+
+        self.MarilynsBedLightOn.clicked.connect( self.mt.turnMarilynsLightOn )
+        self.MarilynsBedLightOff.clicked.connect( self.mt.turnMarilynsLightOff )
 
         self.actionExit.triggered.connect( self.stop_program )
         self.mt.finish_thread.connect( self.mt.finish_up )
