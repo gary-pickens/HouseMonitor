@@ -9,6 +9,7 @@
             <network_address>0xf9f2</network_address>
             <units>boolean</units>
             <steps type="list">
+                <step>outputs.SqlAlchemy</step>
                 <step>step.GarageDoorMonitor</step>
                 <step>step.CurrentValue</step>
                 <step>step.garage_door_state</step>
@@ -24,6 +25,7 @@
                 <step>step.ZigbeeAnalogNumberToVolts</step>
                 <step>step.TMP_36_Volts_to_Centigrade</step>
                 <step>step.Centigrade_to_Fahrenheit</step>
+                <step>outputs.SqlAlchemy</step>
                 <step>step.Average</step>
                 <step>step.FormatValue</step>
                 <step>step.CurrentValue</step>
@@ -44,6 +46,7 @@
                 <step>step.ZigbeeAnalogNumberToVolts</step>
                 <step>step.TMP_36_Volts_to_Centigrade</step>
                 <step>step.Centigrade_to_Fahrenheit</step>
+                <step>outputs.SqlAlchemy</step>
                 <step>step.Average</step>
                 <step>step.FormatValue</step>
                 <step>step.CurrentValue</step>
@@ -60,6 +63,7 @@
                 <step>step.ZigbeeAnalogNumberToVolts</step>
                 <step>step.TMP_36_Volts_to_Centigrade</step>
                 <step>step.Centigrade_to_Fahrenheit</step>
+                <step>outputs.SqlAlchemy</step>
                 <step>step.Average</step>
                 <step>step.FormatValue</step>
                 <step>step.CurrentValue</step>
@@ -80,6 +84,7 @@
                 <step>step.ZigbeeAnalogNumberToVolts</step>
                 <step>step.TMP_36_Volts_to_Centigrade</step>
                 <step>step.Centigrade_to_Fahrenheit</step>
+                <step>outputs.SqlAlchemy</step>
                 <step>step.FormatValue</step>
                 <step>step.CurrentValue</step>
                 <step>outputs.COSM</step>
@@ -98,6 +103,7 @@
                 <step>step.ZigbeeAnalogNumberToVolts</step>
                 <step>step.TMP_36_Volts_to_Centigrade</step>
                 <step>step.Centigrade_to_Fahrenheit</step>
+                <step>outputs.SqlAlchemy</step>
                 <step>step.FormatValue</step>
                 <step>step.CurrentValue</step>
                 <step>outputs.COSM</step>
@@ -184,6 +190,7 @@
                 <step>step.ZigbeeAnalogNumberToVolts</step>
                 <step>step.TMP_36_Volts_to_Centigrade</step>
                 <step>step.Centigrade_to_Fahrenheit</step>
+                <step>outputs.SqlAlchemy</step>
                 <step>step.Average</step>
                 <step>step.FormatValue</step>
                 <step>step.CurrentValue</step>
@@ -197,6 +204,7 @@
             <description>Outlet 1</description>
             <units></units>
             <steps type="list">
+                <step>outputs.SqlAlchemy</step>
                 <step>step.CurrentValue</step>
             </steps>
         </port>
@@ -205,6 +213,7 @@
             <description>Outlet 2</description>
             <units></units>
             <steps type="list">
+                <step>outputs.SqlAlchemy</step>
                 <step>step.CurrentValue</step>
             </steps>
         </port>
@@ -213,6 +222,7 @@
             <description></description>
             <units></units>
             <steps type="list">
+                <step>outputs.SqlAlchemy</step>
                 <step>step.CurrentValue</step>
             </steps>
         </port>

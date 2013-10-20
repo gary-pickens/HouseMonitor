@@ -257,6 +257,7 @@ class Constants( object ):
         #  Outputs
         Outputs = 'outputs'
         COSM = 'outputs.COSM'
+        SQL_ALCHEMY = "outputs.SqlAlchemy"
         #  Inputs
         ProcessInputs = 'inputs.ProcessInputs'
         #  Misc
@@ -281,6 +282,7 @@ class Constants( object ):
         PubSubAid = 'PubSubAid'
         StatusPanel = 'StatusPanel'
         ComputerMonitor = 'ComputerMonitor'
+        SQL_ALCHEMY_LOG = "sql_alchemy_log"
         UnitTest = 'UnitTest'
 
     class SchedulerName( object ):

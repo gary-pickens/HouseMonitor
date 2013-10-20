@@ -65,7 +65,7 @@ class SendGarageDoorData():
             self.__input_queue.transmit( envelope )
             if unittest == True:
                 break
-            time.sleep( 20 )
+            time.sleep( 0.5 )
 
     msgs = [
         {'source_addr_long': '\x00\x13\xa2\x00@\x90)\xbf', 'source_addr': '\xf9\xf2', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-1': 669, 'dio-0': True}], 'options': '\x01'},

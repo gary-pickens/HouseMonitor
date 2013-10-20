@@ -31,6 +31,8 @@ from housemonitor.outputs.cosm.control import COSMControl
 from housemonitor.outputs.xmlrpc.control import XMLRPCControl
 from housemonitor.outputs.zigbee.zigbeecontrol import ZigBeeControl
 import housemonitor
+from housemonitor.outputs.sqlalchemy.sqlalchemyoutputcontrol import SqlAlchemyOutputControl
+
 from housemonitorinfo import ( HouseMonitorAuthor, HouseMonitorBuildDate,
                               HouseMonitorEmail,
                               HouseMonitorTitle, HouseMonitorVersion )
@@ -66,6 +68,7 @@ class HouseMonitor():
     xmlrpc = None
     zigbee = None
     pubAid = None
+    sqlalchemy = None
 
     def __init__( self ):
 
@@ -145,6 +148,10 @@ class HouseMonitor():
             self.computer_monitor.start()
 
     def startOutputs( self, global_data ):
+
+        self.logger.debug( 'Start output sqlAlchemy' )
+        self.sqlalchemy = SqlAlchemyOutputControl()
+        self.sqlalchemy.startSQLAlchemy( self.options.in_test_mode )
 
         self.logger.debug( 'Start output communications to COSM' )
         self.cosm = COSMControl()

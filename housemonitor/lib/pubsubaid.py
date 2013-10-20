@@ -31,8 +31,8 @@ class PubSubAid( Base ):
             pub.subscribe( self.step, Constants.TopicNames.Step )
             pub.subscribe( self.outputs, Constants.TopicNames.Outputs )
             pub.subscribe( self.all_topics, Constants.TopicNames.ALL_TOPICS )
-#           printTreeDocs( extra='LaDA' )
-#           print()
+#             printTreeDocs( extra='LaDA' )
+#             print()
             pub.setTopicUnspecifiedFatal( True )
             self.logger.debug( "PubSubAid ending" )
         except Exception as ex:
