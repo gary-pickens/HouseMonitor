@@ -27,8 +27,7 @@ class Device( Base ):
 
     id = Column( Integer, primary_key=True )
     long_address = Column( String( 16 ) )
-    descriptive_name = Column( String )
-
+    descriptive_name = Column( String( 35 ) )
 
     def __init__( self, long_address, descriptive_name, ports=[] ):
         '''
@@ -40,12 +39,11 @@ class Device( Base ):
         super( Device, self ).__init__()
         self.descriptive_name = descriptive_name
         self.long_address = long_address
-        self.ports_list = ports
 
     def __repr__( self ):
         return "<Devices({}, {}, {}, {})>".format( 
                                         self.id, self.descriptive_name,
-                                        self.long_address, self.ports_list )
+                                        self.long_address)
 
 class Port( Base ):
     '''
@@ -55,9 +53,9 @@ class Port( Base ):
     __tablename__ = "ports"
 
     id = Column( Integer, primary_key=True )
-    port_name = Column( String )
+    port_name = Column( String(10) )
     devices_id = Column( Integer, ForeignKey( 'devices.id' ) )
-    units = Column( String )
+    units = Column( String(5) )
     devices = relationship( "Device", backref=backref( 'ports', order_by=id ) )
 
     def __init__( self, port_name, units ):
@@ -71,7 +69,9 @@ class Port( Base ):
 
 if __name__ == '__main__':
 
-    engine = create_engine( 'sqlite:///:memory:', echo=True )
+#    engine = create_engine( 'sqlite:///:memory:', echo=True )
+    engine = create_engine( 'mysql+mysqldb://root:Helena&Patrick@localhost:3306/housemonitor', echo=True )
+
     Session = sessionmaker( bind=engine )
     session = Session()
     Base.metadata.create_all( engine )
@@ -85,10 +85,10 @@ if __name__ == '__main__':
     session.add_all( devices1.ports_list )
     session.commit()
 
-    devices2 = Device( 'device 2', "Garage Door",
-                       [Port( 'port 3', 'C' ), Port( 'port 4', 'C' )] )
+    port_list = [Port( 'port 3', 'C' ), Port( 'port 4', 'C' )]
+    devices2 = Device( 'device 2', "Garage Door")
     session.add( devices2 )
-    session.add_all( devices2.ports_list )
+    session.add_all( port_list )
     session.commit()
 
     devices = session.query( Device ).all()

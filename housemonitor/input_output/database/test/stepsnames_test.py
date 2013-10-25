@@ -19,7 +19,8 @@ class Test( unittest.TestCase ):
 
     def test_inspect_sql( self ):
 
-        engine = create_engine( 'sqlite:///:memory:', echo=True )
+#        engine = create_engine( 'sqlite:///:memory:', echo=True )
+        engine = create_engine( 'mysql+mysqldb://root:Helena&Patrick@localhost:3306/housemonitor', echo=True )
         Session = sessionmaker( bind=engine )
         session = Session()
 
