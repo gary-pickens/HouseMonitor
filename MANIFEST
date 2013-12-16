@@ -59,6 +59,7 @@ housemonitor/lib/oswalk.py
 housemonitor/lib/pubsubaid.py
 housemonitor/lib/sddaemon.py
 housemonitor/lib/singleton.py
+housemonitor/lib/waitforsystemtime.py
 housemonitor/outputs/__init__.py
 housemonitor/outputs/ioutput.py
 housemonitor/outputs/log.py

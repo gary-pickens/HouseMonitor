@@ -5,8 +5,10 @@ Created on Nov 23, 2012
 @author: Gary Pickens
 '''
 from housemonitor.HouseMonitor import HouseMonitor
+from housemonitor.lib.waitforsystemtime import WaitForSystemTime
 
 
 if __name__ == '__main__':
+    WaitForSystemTime().wait()
     hm = HouseMonitor()
     hm.run()

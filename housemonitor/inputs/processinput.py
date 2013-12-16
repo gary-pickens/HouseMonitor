@@ -8,7 +8,7 @@ from struct import *
 import copy
 import pprint
 from datetime import datetime
-from pubsub.core.topicmgr import ListenerSpecIncomplete
+# from pubsub.core.topicmgr import ListenerSpecIncomplete
 
 from housemonitor.configuration.xmlDeviceConfiguration import InvalidDeviceError
 from housemonitor.configuration.xmlDeviceConfiguration import InvalidPortError
@@ -77,7 +77,7 @@ class ProcessCommandInput( abcProcessInput ):
 
 class ProcessXBeeInput( abcProcessInput ):
     '''
-    This class will receive an XBee packet, strip the pertinate data out, and 
+    This class will receive an XBee packet, strip the pertinate data out, and
     send it allong to be processed.
     '''
     devices = {}
