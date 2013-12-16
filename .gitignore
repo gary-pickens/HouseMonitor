@@ -27,3 +27,4 @@ HouseMonitor.db
 /.coverage
 /output.html
 /htmlcov
+/log
