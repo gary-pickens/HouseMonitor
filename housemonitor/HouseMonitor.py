@@ -6,39 +6,35 @@ Created on Sep 10, 2012
 '''
 
 import sys
-import os
 from datetime import datetime
 import time
 import logging.config
-
-import os
-from pprint import pprint
-from pubsub import pub
 from optparse import OptionParser
-
 from housemonitor.inputs.computermonitor.computermonitor import ComputerMonitor
-from housemonitor.inputs.processinput import ProcessInput, abcProcessInput, ProcessXBeeInput
+from housemonitor.inputs.processinput import ProcessInput
 from housemonitor.inputs.testinputthead import TestInputThread
 from housemonitor.inputs.zigbeeinput.xbeeinputthread import XBeeInputThread
-from housemonitor.lib.base import Base
 from housemonitor.lib.constants import Constants
 from housemonitor.lib.currentvalues import CurrentValues
 from housemonitor.lib.hmqueue import HMQueue
-from housemonitor.lib.hmscheduler import HMScheduler, HMScheduler
+from housemonitor.lib.hmscheduler import HMScheduler
 from housemonitor.lib.moduleloader import ModuleLoader
 from housemonitor.lib.pubsubaid import PubSubAid
+from housemonitor.lib.waitforsystemtime import WaitForSystemTime
 from housemonitor.outputs.cosm.control import COSMControl
 from housemonitor.outputs.xmlrpc.control import XMLRPCControl
 from housemonitor.outputs.zigbee.zigbeecontrol import ZigBeeControl
-import housemonitor
-from housemonitorinfo import ( HouseMonitorAuthor, HouseMonitorBuildDate,
-                              HouseMonitorEmail,
-                              HouseMonitorTitle, HouseMonitorVersion )
+from housemonitorinfo import ( HOUSEMONITORAUTHOR,
+                               HOUSEMONITORBUILDDATE,
+                               HOUSEMONITOREMAIL,
+                               HOUSEMONITORTITLE,
+                               HOUSEMONITORVERSION )
+
 
 class HouseMonitor():
     '''
-    House Monitor is the main program responsible for starting the housemonitor system.
-    It preforms the the following functions:
+    House Monitor is the main program responsible for starting the housemonitor
+    system.  It performs the the following functions:
 
     1. Set up logging
     2. Print out start message
@@ -67,6 +63,18 @@ class HouseMonitor():
     zigbee = None
     pubAid = None
 
+    TITLE_FORMAT = '''
+
+
+{:^30}
+
+author:       {}
+email:        {}
+version:      {}
+date built:   {}
+
+'''
+
     def __init__( self ):
 
         logging.config.fileConfig( "house_monitor_logging.conf" )
@@ -76,14 +84,17 @@ class HouseMonitor():
         self.parse_options()
 
     def print_start_message( self ):
+        '''
+        Format and display the title.
+        '''
 
-        self.logger.info( '{:^30}'.format( HouseMonitorTitle ) )
-        self.logger.info( '' )
-        self.logger.info( 'author:             ' + HouseMonitorAuthor )
-        self.logger.info( 'email:              ' + HouseMonitorEmail )
-        self.logger.info( 'version:            ' + HouseMonitorVersion )
-        self.logger.info( 'date built:         ' + HouseMonitorBuildDate )
-        self.logger.info( '' )
+        title = self.TITLE_FORMAT.format( HOUSEMONITORTITLE,
+                                          HOUSEMONITORAUTHOR,
+                                          HOUSEMONITOREMAIL,
+                                          HOUSEMONITORVERSION,
+                                          HOUSEMONITORBUILDDATE )
+
+        self.logger.info( title )
 
     def parse_options( self ):
         global TEST_MODE
@@ -114,7 +125,6 @@ class HouseMonitor():
                            dest="in_test_mode",
                            help="Run in test mode." )
         ( self.options, self.args ) = Options.parse_args()
-        in_test_mode = self.options.in_test_mode
 
     def startInputs( self, global_data ):
         ''' Start Home Monitor Input routines '''
@@ -186,6 +196,8 @@ class HouseMonitor():
 
         self.logger.debug( "Exiting" )
 
+
+
 if __name__ == "__main__":
-    hm = HouseMonitor()
-    hm.run()
+    WaitForSystemTime().wait()
+    HouseMonitor().run()
