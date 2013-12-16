@@ -20,7 +20,7 @@ class XmlRpcOutputThread( Base, threading.Thread ):
 
     '''
 
-    __host = 'housemonitor'
+    __host = '0.0.0.0'
     __port = 9002
     __current_values = None
     __input_queue = None
