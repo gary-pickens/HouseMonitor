@@ -14,7 +14,7 @@ Related web pages
 
 #. `Coverage Results <http://beaglebone/cover>`_.
 
-#. `COSM <https://cosm.com/users/gary_pickens>`_.
+#. `Site for realtime data storage <https://xively.com/users/gary_pickens>`_.
 
 #. `HouseMonitor <http://beaglebone/HouseMonitor/index.html>`_.
 
@@ -1086,7 +1086,7 @@ add **-v** for more output.  For example:::
 
 
 ==================
-A Good COSM Report
+A Good  Report
 ==================
 
 ::
@@ -1186,7 +1186,7 @@ A Good COSM Report
                }
            ],
            "updated": "2013-05-10T13:43:10.496188",
-           "creator": "https://cosm.com/users/64451",
+           "creator": "https://.com/users/64451",
            "title": "House Monitor",
            "email": "gary_pickens@yahoo.com",
            "version": "1.0.0",
@@ -1254,5 +1254,6 @@ Misc
 
 #. A datetime replacement `arrow <http://crsmithdev.com/arrow/>`_.
 
+#. Notes on profiling python: `RunSnakeRun <http://www.vrplumber.com/programming/runsnakerun/>`_ and `Python performance optimization  <http://www.leaseweblabs.com/2013/02/python-performance-optimization/>`_ and a good write up on how to read `meliae results <http://jam-bazaar.blogspot.com//>`_.
 
 
