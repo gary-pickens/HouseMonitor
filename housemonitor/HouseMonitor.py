@@ -63,17 +63,6 @@ class HouseMonitor():
     zigbee = None
     pubAid = None
 
-    TITLE_FORMAT = '''
-
-
-{:^30}
-
-author:       {}
-email:        {}
-version:      {}
-date built:   {}
-
-'''
 
     def __init__( self ):
 
@@ -88,6 +77,17 @@ date built:   {}
         Format and display the title.
         '''
 
+        TITLE_FORMAT = '''
+
+
+{:^30}
+
+author:       {}
+email:        {}
+version:      {}
+date built:   {}
+
+'''
         title = self.TITLE_FORMAT.format( HOUSEMONITORTITLE,
                                           HOUSEMONITORAUTHOR,
                                           HOUSEMONITOREMAIL,
